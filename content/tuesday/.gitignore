@@ -1,0 +1,7 @@
+.DS_Store
+model_ZAMS
+png/
+*.o
+*.mod
+*.smod
+M10_Z0p20_fov0p015_logD3_O20/
