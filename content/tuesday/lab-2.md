@@ -1,4 +1,4 @@
-# Tuesday Lab-2 | calculating the Eddington-Sweet circulation velocity in `run_star_extras.f90`
+# Tuesday Lab-2 | Modifying `run_star_extras.f90` to calculate the Eddington-Sweet circulation velocity
 
 Led by: Philip Mocz
 
