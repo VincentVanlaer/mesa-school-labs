@@ -1,0 +1,58 @@
+&binary_job
+
+   inlist_names(1) = 'inlist1' 
+   inlist_names(2) = 'inlist2'
+   
+/ ! end of binary_job namelist
+
+&binary_controls
+
+   ! Read initial binary parameters from inlist_extra
+   read_extra_binary_controls_inlist(1) = .true.
+   extra_binary_controls_inlist_name(1) = 'inlist_extra'
+
+   ! Output controls
+   terminal_interval = 10
+   write_header_frequency = 100
+   history_name = 'binary_history.data'
+
+   ! Orbital angular momentum controls
+   do_jdot_mb = .false.     ! Magnetic braking around accretor
+   do_jdot_gr = .false.     ! Gravitational radiation taken into account
+   do_jdot_ml = .true.      ! Mass loss, see mechanisms applied in mass_transfer_*
+   ! we do not model rotation anyway, hence:
+   do_j_accretion = .false. ! accretion of angular momentum 
+   do_tidal_sync = .false.  ! tides
+
+
+   ! Mass transfer efficiency controls
+   mass_transfer_alpha = 0d0      ! fraction of mass lost from the vicinity of donor as fast wind
+   mass_transfer_beta = 0d0       ! fraction of mass lost from the vicinity of accretor as fast wind
+   mass_transfer_delta = 0d0      ! fraction of mass lost from circumbinary coplanar toroid
+   mass_transfer_gamma = 0d0    ! radius of the circumbinary coplanar toroid is ``gamma**2 * orbital_separation``
+
+   !transfer efficiency controls
+   limit_retention_by_mdot_edd = .false.
+
+   ! Mass transfer scheme
+   mdot_scheme = "Kolb" 
+
+   fr = 0.2 !0.05        ! change of relative Roche lobe gap (default 0.01)
+   fr_dt_limit = 5d2     ! Mimumum timestep limit allowed for fr in years
+   fj = 0.05             ! change of orbital angular momentum
+   fm = 0.05   ! default 0.01, envelope mass
+   fdm = 0.05  ! default 0.005, fractional mass change of either star
+   fa = 0.05   ! default 0.01, binary separation
+
+   fdm_hard = 0.1
+
+   min_mdot_for_implicit = 1d-7
+   implicit_scheme_tolerance = 1d-1
+   max_tries_to_achieve = 50
+   report_rlo_solver_progress = .false.
+
+   accretor_overflow_terminate = 1d99 ! something to play with to avoid contact in models with higher accretion efficiency
+   max_implicit_abs_mdot = 0.01
+
+/ ! end of binary_controls namelist
+
