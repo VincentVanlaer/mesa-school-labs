@@ -50,7 +50,7 @@ It is important to check the units of the parameters in MESA as compared to the 
 </details>
 
 ## Task 2
-In Task 1 we have determined that working with just the effective temperature will not lead to a match between the simulation and the observations, as the luminosity is too low compared to the . In this next task, we will combine the luminosity and the effective temperature of the primary star to match the observations.
+In Task 1 we have determined that working with just the effective temperature will not lead to a match between the simulation and the observations, as the luminosity is too low compared to the observations. In this next task, we will combine the luminosity and the effective temperature of the primary star to match the observations.
 Use the following additional parameter in the `extras_binary_finish_step` hook in `run_binary_extras.f90`: 
 
 `b% s1% l_surf` ! The luminosity of the primary star of the binary system in solar luminosities
