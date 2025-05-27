@@ -1,7 +1,7 @@
 ## Wednesday Mini-lab 3: Upsilon Sagittarii 
-Upsilon Sagittarii is a hydrogren deficient binary that has been suggested to be in its second stage of mass transfer, after the primary has expanded to become a helium supergiant following core helium exhaustion. [Gilkis & Tomer 2022](https://ui.adsabs.harvard.edu/abs/2023MNRAS.518.3541G/abstract) have identified the progentitor of this system to be a 5 M$_{\odot}$ star with a 3.125 M$_{\odot}$ companion and an initial orbital period of 8.4 days.
+Upsilon Sagittarii is a hydrogren deficient binary that has been suggested to be in its second stage of mass transfer, after the primary has expanded to become a helium supergiant following core helium exhaustion. [Gilkis & Tomer 2022](https://ui.adsabs.harvard.edu/abs/2023MNRAS.518.3541G/abstract) have identified the progentitor of this system to be a $5 M_{\odot}$ star with a $3.125 M_{\odot}$ companion and an initial orbital period of 8.4 days.
 
-We will modify `src/run_binary_extras.f90` to capture the simulation at the values as determined from the observations of the binary system. Because the track is rather complicated, as can be seen in the figure below, we will slowly build up to finding the right combination of stopping criteria to match the models with the system.
+You will modify `src/run_binary_extras.f90` to capture the simulation at the values as determined from the observations of the binary system. Because the track is rather complicated, as can be seen in the figure below, we will slowly build up to finding the right combination of stopping criteria to match the models with the system.
 
 ![image](HRDUpsSag.png)
 
@@ -20,9 +20,9 @@ The stellar parameters can be found in this table, which has been adapted from T
 
 
 ## Task 1
-To start, we will attempt to capture the simulation with only one stopping criterion, the effective temperature.
-Use the following parameter in the `extras_binary_finish_step` hook in `run_binary_extras.f90`:  
-`b% s1% center_h1` ! Hydrogen mass fraction at the center of the primary
+To start, you will try to capture the simulation with only one stopping criterion, the effective temperature.
+Use the following parameter in the `extras_binary_finish_step` hook in `run_binary_extras.f90`:
+`b% s1% teff` ! Effective temperature of the primary star of the binary system
 
 The first goal is to capture when mass transfer happens, based on the mass transfer rate exceeding $10^{-10}$ Msun/yr.
 ## Task 2
