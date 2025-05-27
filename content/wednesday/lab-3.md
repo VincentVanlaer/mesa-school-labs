@@ -53,6 +53,7 @@ It is important to check the units of the parameters in MESA as compared to the 
          end if  
 ```
 </details>
+
 ## Task 2
 In Task 1 we have determined that working with just the effective temperature will not lead to a match between the simulation and the observations. In this next task, we will combine different observables from the table for the primary star to match the observations.
 ## Task 3
