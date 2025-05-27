@@ -50,7 +50,19 @@ It is important to check the units of the parameters in MESA as compared to the 
 </details>
 
 ## Task 2
-In Task 1 we have determined that working with just the effective temperature will not lead to a match between the simulation and the observations, as the luminosity is too low compared to the . In this next task, we will combine different observables from the table for the primary star to match the observations.
+In Task 1 we have determined that working with just the effective temperature will not lead to a match between the simulation and the observations, as the luminosity is too low compared to the . In this next task, we will combine the luminosity and the effective temperature of the primary star to match the observations.
+Use the following additional parameter in the `extras_binary_finish_step` hook in `run_binary_extras.f90`: 
+
+`b% s1% l_surf` ! Effective temperature of the primary star of the binary system
+
+
+<details>
+  <summary>Hint 1</summary>
+
+As can be seen in the figure, the stellar evolution track does not go through the center of the 
+
+</details>
+
 ## Task 3
 Because we are working with a binary system, it is not only important to match the primary star, but also the secondary. In the previous task, you have matched the simulations and the observations for the primary star. Now we will also add the values for the secondary.
 
