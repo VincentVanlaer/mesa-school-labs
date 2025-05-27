@@ -18,7 +18,7 @@ The stellar parameters can be found in this table, which has been adapted from T
 ## Task 1
 To start, you will try to capture the simulation with only one stopping criterion, the effective temperature. Use the following parameter in the `extras_binary_finish_step` hook in `run_binary_extras.f90`: 
 
-`b% s1% teff` ! Effective temperature of the primary star of the binary system
+`b% s1% teff` ! Effective temperature of the primary star of the binary system in Kelvin
 
 Then, to compare with the observational data, add a write statement to your stopping criterion to print the effective temperature and the luminosity of the stopping point.
 
@@ -53,14 +53,26 @@ It is important to check the units of the parameters in MESA as compared to the 
 In Task 1 we have determined that working with just the effective temperature will not lead to a match between the simulation and the observations, as the luminosity is too low compared to the . In this next task, we will combine the luminosity and the effective temperature of the primary star to match the observations.
 Use the following additional parameter in the `extras_binary_finish_step` hook in `run_binary_extras.f90`: 
 
-`b% s1% l_surf` ! Effective temperature of the primary star of the binary system
+`b% s1% l_surf` ! The luminosity of the primary star of the binary system in solar luminosities
 
 
 <details>
   <summary>Hint 1</summary>
 
-As can be seen in the figure, the stellar evolution track does not go through the center of the 
+As can be seen in the figure, the stellar evolution track does not go through center of the data points. You will need to experiment with the error-margins to match the stellar track with the observations.
 
+</details>
+
+<details>
+  <summary>Solution 1</summary>
+  
+  ```fortran
+         if (((b% s1% teff) .lt. 9000) .and. (log10(b% s1% l_surf) .gt. 3.57))   then
+               extras_binary_finish_step = terminate
+               write(*,*) "terminating at requested effective temperature and luminosity:", b% s1% teff, log10(b% s1% l_surf)
+               return
+         end if  
+```
 </details>
 
 ## Task 3
