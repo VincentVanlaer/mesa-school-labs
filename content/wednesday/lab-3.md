@@ -14,10 +14,6 @@ The stellar parameters can be found in this table, which has been adapted from T
 | $T_{eff,2}[kK]$      | $23\pm2$        |
 | $logL_{1}[L_{\odot}]$    | $3.67\pm0.15$       |
 | $logL_{2}[L_{\odot}]$    | $3.1\pm0.2$        |
-| $R_{1}[R_{\odot}]$       | $28\pm8$       |
-| $R_{2}[R_{\odot}]$       | $2.2\pm0.3$        |
-| $logg_{1}[cm/s^{2}]$   | $1.0$            |
-
 
 ## Task 1
 To start, you will try to capture the simulation with only one stopping criterion, the effective temperature. Use the following parameter in the `extras_binary_finish_step` hook in `run_binary_extras.f90`: 
@@ -45,17 +41,16 @@ It is important to check the units of the parameters in MESA as compared to the 
   <summary>Solution 1</summary>
   
   ```fortran
-         if (log10(b% s1% teff) .gt. 4.3) then
+         if ((b% s1% teff) .gt. 9000) then
                extras_binary_finish_step = terminate
-               write(*,*) "terminating at effective temperature"
-               write(*,*) "the effective temperature and luminosity are:" b% s1% teff, b% s1% logL
+               write(*,*) "terminating at requested effective temperature and luminosity:", b% s1% teff, log10(b% s1% l_surf)
                return
-         end if  
+         end if
 ```
 </details>
 
 ## Task 2
-In Task 1 we have determined that working with just the effective temperature will not lead to a match between the simulation and the observations. In this next task, we will combine different observables from the table for the primary star to match the observations.
+In Task 1 we have determined that working with just the effective temperature will not lead to a match between the simulation and the observations, as the luminosity is too low compared to the . In this next task, we will combine different observables from the table for the primary star to match the observations.
 ## Task 3
 Because we are working with a binary system, it is not only important to match the primary star, but also the secondary. In the previous task, you have matched the simulations and the observations for the primary star. Now we will also add the values for the secondary.
 
