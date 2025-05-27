@@ -76,7 +76,7 @@ As can be seen in the figure, the stellar evolution track does not go through ce
 </details>
 
 ## Task 3
-Because we are working with a binary system, it is not only important to match the primary star, but also the secondary. In the previous task, you have matched the simulations and the observations for the primary star. In this task, you will add a stopping criterion for the secondary star and try to match both stars with the models. Before you start your new run, enable the evolution of the secondary by setting the 'evolve_both_stars' in 'inlist_project' command to '.true.'
+Because we are working with a binary system, it is not only important to match the primary star, but also the secondary. In the previous task, you have matched the simulations and the observations for the primary star. In this task, you will add a stopping criterion for the secondary star and try to match both stars with the models. Before you start your new run, enable the evolution of the secondary by setting the `evolve_both_stars` in `inlist_project` command to `.true.`
 Use the following additional parameter in the `extras_binary_finish_step` hook in `run_binary_extras.f90`: 
 
 `b% s2% teff` ! Effective temperature of the primary star of the binary system in Kelvin
