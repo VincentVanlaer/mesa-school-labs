@@ -1,21 +1,21 @@
 ## Wednesday Mini-lab 3: Upsilon Sagittarii 
-Upsilon Sagittarii is a hydrogren deficient binary that has been suggested to be in its second stage of mass transfer, after the primary has expanded to become a helium supergiant following core helium exhaustion. [Gilkis & Tomer 2022](https://ui.adsabs.harvard.edu/abs/2023MNRAS.518.3541G/abstract) have identified the progentitor of this system to be a 5 solar mass star with a 3.125 solar mass companion and an initial orbital period of 8.4 days.
+Upsilon Sagittarii is a hydrogren deficient binary that has been suggested to be in its second stage of mass transfer, after the primary has expanded to become a helium supergiant following core helium exhaustion. [Gilkis & Tomer 2022](https://ui.adsabs.harvard.edu/abs/2023MNRAS.518.3541G/abstract) have identified the progentitor of this system to be a 5 M$_{\odot}$ star with a 3.125 M$_{\odot}$ companion and an initial orbital period of 8.4 days.
 
 We will modify `src/run_binary_extras.f90` to capture the simulation at the values as determined from the observations of the binary system. Because the track is rather complicated, as can be seen in the figure below, we will slowly build up to finding the right combination of stopping criteria to match the models with the system.
 
+![image](HRDUpsSag.png)
 
-![image](UpsSag.png)
-*this might work as a caption*
+*The HRD of the best fitting model from the paper along with the data points from the observations.*
 
 The stellar parameters can be found in this table, which has been adapted from Table 1 of [Gilkis & Tomer 2022](https://ui.adsabs.harvard.edu/abs/2023MNRAS.518.3541G/abstract).
 | Parameter       | Value       |
 | -----------     | ----------- |
 | $T_{eff,1}[kK]$      | $10\pm1$       |
 | $T_{eff,2}[kK]$      | $23\pm2$        |
-| $logL_{1}[Lsun]$    | $3.67\pm0.15$       |
-| $logL_{2}[Lsun]$    | $3.1\pm0.2$        |
-| $R_{1}[Rsun]$       | $28\pm8$       |
-| $R_{2}[Rsun]$       | $2.2\pm0.3$        |
+| $logL_{1}[L_{\odot}]$    | $3.67\pm0.15$       |
+| $logL_{2}[L_{\odot}]$    | $3.1\pm0.2$        |
+| $R_{1}[R_{\odot}]$       | $28\pm8$       |
+| $R_{2}[R_{\odot}]$       | $2.2\pm0.3$        |
 | $logg_{1}[cm/s^{2}]$   | $1.0$            |
 
 
