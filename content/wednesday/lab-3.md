@@ -77,6 +77,10 @@ As can be seen in the figure, the stellar evolution track does not go through ce
 
 ## Task 3
 Because we are working with a binary system, it is not only important to match the primary star, but also the secondary. In the previous task, you have matched the simulations and the observations for the primary star. Now we will also add the values for the secondary.
+Use the following additional parameter in the `extras_binary_finish_step` hook in `run_binary_extras.f90`: 
+
+`b% s2% teff` ! Effective temperature of the primary star of the binary system in Kelvin
+`b% s2% l_surf` ! The luminosity of the primary star of the binary system in solar luminosities
 
 
 <br><br><br><br>
