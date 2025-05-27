@@ -13,6 +13,9 @@ The stellar parameters can be found in this table, which has been adapted from T
 | $R_{2}[Rsun]$       | $2.2\pm0.3$        |
 | $logg_{1}[cm/s^{2}]$   | $1.0$            |
 
+![landscape]()
+
+
 ## Task 1
 To start, we will attempt to capture the simulation with only one stopping criterion, the effective temperature.
 Use the following parameter in the `extras_binary_finish_step` hook in `run_binary_extras.f90`:  
