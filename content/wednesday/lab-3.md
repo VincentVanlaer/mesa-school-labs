@@ -20,11 +20,39 @@ The stellar parameters can be found in this table, which has been adapted from T
 
 
 ## Task 1
-To start, you will try to capture the simulation with only one stopping criterion, the effective temperature.
-Use the following parameter in the `extras_binary_finish_step` hook in `run_binary_extras.f90`:
+To start, you will try to capture the simulation with only one stopping criterion, the effective temperature. Use the following parameter in the `extras_binary_finish_step` hook in `run_binary_extras.f90`: 
+
 `b% s1% teff` ! Effective temperature of the primary star of the binary system
 
-The first goal is to capture when mass transfer happens, based on the mass transfer rate exceeding $10^{-10}$ Msun/yr.
+Then, to compare with the observational data, add a write statement to your stopping criterion to print the effective temperature and the luminosity of the stopping point.
+
+<details>
+  <summary>Hint 1</summary>
+
+It is important to check the units of the parameters in MESA as compared to the units given in the literature. The effective temperature is given in kK in the table, while MESA uses Kelvin in the output.
+
+</details>
+<details>
+  <summary>Hint 2</summary>
+  
+  `write(*,*) "(your text)", (values) `
+  
+ is used to print text to the terminal by calling the appropriate values.
+</details>
+
+
+<details>
+  <summary>Solution 1</summary>
+  
+  ```fortran
+         if (log10(b% s1% teff) .gt. 4.3) then
+               extras_binary_finish_step = terminate
+               write(*,*) "terminating at effective temperature"
+               write(*,*) "the effective temperature and luminosity are:" b% s1% teff, b% s1% logL
+               return
+         end if  
+```
+</details>
 ## Task 2
 In Task 1 we have determined that working with just the effective temperature will not lead to a match between the simulation and the observations. In this next task, we will combine different observables from the table for the primary star to match the observations.
 ## Task 3
