@@ -26,8 +26,9 @@ Use the following parameter in the `extras_binary_finish_step` hook in `run_bina
 
 The first goal is to capture when mass transfer happens, based on the mass transfer rate exceeding $10^{-10}$ Msun/yr.
 ## Task 2
-
+In Task 1 we have determined that working with just the effective temperature will not lead to a match between the simulation and the observations. In this next task, we will combine different observables from the table for the primary star to match the observations.
 ## Task 3
+Because we are working with a binary system, it is not only important to match the primary star, but also the secondary. In the previous task, you have matched the simulations and the observations for the primary star. Now we will also add the values for the secondary.
 
 
 <br><br><br><br>
