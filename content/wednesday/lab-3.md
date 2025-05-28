@@ -3,7 +3,7 @@ Upsilon Sagittarii is a hydrogren deficient binary that has been suggested to be
 
 You will modify `src/run_binary_extras.f90` to capture the simulation at the values as determined from the observations of the binary system. Because the track is rather complicated, as can be seen in the figure below, we will slowly build up to finding the right combination of stopping criteria to match the models with the system.
 
-![image](HRDUpsSag.png)
+![image](UpsSagHRD1.png)
 
 *The HRD of the best fitting model from the paper along with the data points from the observations.*
 
@@ -16,7 +16,7 @@ The stellar parameters can be found in this table, which has been adapted from T
 | $logL_{2}[L_{\odot}]$    | $3.1\pm0.2$        |
 
 ## Task 1
-In this task, you will try to capture the point where the simulation agrees with the observational data with only one stopping criterion, the effective temperature. Because the Roche-lobe overflow phase is computationally heavy for this particular system, the run will start shortly after. The saved model files are in 'Load', and you will need to adjust the path to the files in `inlist1` and `inlist2`. Besides this change, you won't have to change anything else in the various inlist-files, we will work with the `run_binary_wxtras.f90` exclusively.
+In this task, you will try to capture the point where the simulation agrees with the observational data with only one stopping criterion, the effective temperature. Because the Roche-lobe overflow phase is computationally heavy for this particular system, the run will start shortly after, at the red dot in the HRD presented above. The saved model files are in 'Load', and you will need to adjust the path to the files in `inlist1` and `inlist2`. Besides this change, you won't have to change anything else in the various inlist-files, we will work with the `run_binary_wxtras.f90` exclusively.
 
 To find the stopping point, use the following parameter in the `extras_binary_finish_step` hook in `run_binary_extras.f90`: 
 
@@ -78,12 +78,26 @@ As can be seen in the figure, the stellar evolution track does not go through ce
 </details>
 
 ## Task 3
-Because we are working with a binary system, it is not only important to match the primary star, but also the secondary. In the previous task, you have matched the simulations and the observations for the primary star. In this task, you will add a stopping criterion for the secondary star and try to match both stars with the models. Before you start your new run, enable the evolution of the secondary by setting the `evolve_both_stars` in `inlist_project` command to `.true.`
+Because we are working with a binary system, it is not only important to match the primary star, but also the secondary. However, matching two stars simultaneously is not a trivial task, and rather than fitting by eye like we are doing here, it is done with statistical methods. The best fit model presented in [Gilkis & Tomer 2022](https://ui.adsabs.harvard.edu/abs/2023MNRAS.518.3541G/abstract) thus does not match the exact observational values. So, instead of working with the observational values for the secondary, the model values will be used with the error-bars as presented in the literature, which is represented by the cyan cross in the HRD. The new values for the effective temperature and the luminosity are in the table below and were taken from Table 3 of the previously mentioned paper.
+
+![image](UpsSagHRD2.png)
+
+*The HRD of the best fitting model from the paper along with the data points from the observations and the location of the best fits.*
+
+| Parameter       | Value       |
+| -----------     | ----------- |
+| $T_{eff,1}[kK]$      | $10\pm1$       |
+| $T_{eff,2}[kK]$      | $21.2\pm2$        |
+| $logL_{1}[L_{\odot}]$    | $3.67\pm0.15$       |
+| $logL_{2}[L_{\odot}]$    | $3.5\pm0.2$        |
+
+In the previous task, you have matched the simulations and the observations for the primary star. In this task, you will add a stopping criterion for the secondary star and try to match both stars with the models. Before you start your new run, enable the evolution of the secondary by setting the `evolve_both_stars` in `inlist_project` command to `.true.`
 Use the following additional parameter in the `extras_binary_finish_step` hook in `run_binary_extras.f90`: 
 
 `b% s2% teff` ! Effective temperature of the primary star of the binary system in Kelvin
 
 `b% s2% l_surf` ! The luminosity of the primary star of the binary system in solar luminosities
+
 
 
 <br><br><br><br>
