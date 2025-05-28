@@ -606,14 +606,14 @@ Make sure that the rest of the mixing schemes are all commented out besides the 
 {{< details title="Hint 2" closed="true" >}}
 - You can find the nuclear reaction net options under &star_job variables.
 - You can find the nuclear reaction net file in you local MESA directory. Be carful not to change anything in this file, since MESA reads it every time it runs with this net (you can copy it to prevent issues).
-- To find the name of the reaction rate files that are related to He burning processes - look the two closest to the $3\alpha$ and $\,^{12}\mathrm{C}(\alpha, \gamma)^{16}\mathrm{O}$.
+- To find the name of the reaction rate files that are related to He burning processes - look the two closest to the $3\alpha$ and ${}^{12}\mathrm{C}(\alpha, \gamma){}^{16}\mathrm{O}$.
 {{< /details >}}
 
 The names of the reaction rate files you found are leading to files describing the reaction rate of each process as a function of temperature. In the bonus exercise we will direct you where to find these files. If you want to use another file, computed, for example, by a recent study that MESA does not include yet, you can add this files and direct MESA to read them.
 
 {{< details title="Task 3" closed="false" >}}
 - Find the variables that need to be changed in order to change the reaction rates for the two He burning processes (also use the names of the files you found in Task 2)
-- The reaction rates values we need to to change and compute are the default rates times 0.25, 0.5, 1, 2, 5 for the $3\alpha$ process where the reaction rate of $\,^{12}\mathrm{C}(\alpha, \gamma)^{16}\mathrm{O}$ is set on 1 and the opposite. Each table will get a different value to compute.
+- The reaction rates values we need to to change and compute are the default rates times 0.25, 0.5, 1, 2, 5 for the $3\alpha$ process where the reaction rate of ${}^{12}\mathrm{C}(\alpha, \gamma){}^{16}\mathrm{O}$ is set on 1 and the opposite. Each table will get a different value to compute.
 {{< /details >}}
 
 {{< details title="Hint 3" closed="true" >}}
@@ -629,7 +629,7 @@ reaction_for_special_factor(2) = 'r_c12_ag_o16'
 special_rate_factor(1) = 1  ! 0.25, 0.5, 1.00, 2.00, 5.00
 special_rate_factor(2) = 5   ! 0.25, 0.5, 1.00, 2.00, 5.00
 ```
-In this example the $3\alpha$ reaction rate (r_he4_he4_he4_to_c12) is set to 1 and the $\,^{12}\mathrm{C}(\alpha, \gamma)^{16}\mathrm{O}$  reaction rate is changed to times 5 (r_c12_ag_o16)
+In this example the $3\alpha$ reaction rate (r_he4_he4_he4_to_c12) is set to 1 and the ${}^{12}\mathrm{C}(\alpha, \gamma){}^{16}\mathrm{O}$  reaction rate is changed to times 5 (r_c12_ag_o16)
 {{< /details >}}
 
 Before we turn to run our models, lets make sure what we have in our pgstar plot.
@@ -655,4 +655,3 @@ cd 1M_Z002_maximal_overshooting
 
 This is how your pgplot suppose to look like:
 ![pgplot](/thursday/pgplot.png)
-
