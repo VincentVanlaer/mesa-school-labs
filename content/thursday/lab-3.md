@@ -539,17 +539,17 @@ In the end, the aim is to compare the period spacing evolution for each model us
 
 During the core helium-burning (CHeB) phase, the energy production of the star is primarily driven by two nuclear reactions:
 
-- The **triple-alpha process** ($3\alpha$): three helium nuclei ($^4\mathrm{He}$) fuse to form carbon ($^{12}\mathrm{C}$). It occurs in two steps: $^4\mathrm{He} + {}^4\mathrm{He} \rightarrow {}^8\mathrm{Be}$ and ${}^8\mathrm{Be} + {}^4\mathrm{He} \rightarrow {}^{12}\mathrm{C} + \gamma$.
-- The **$^{12}\mathrm{C}(\alpha, \gamma)^{16}\mathrm{O}$** reaction: a carbon nucleus captures an alpha particle to form oxygen (${}^{12}\mathrm{C} + {}^4\mathrm{He} \rightarrow {}^{16}\mathrm{O} + \gamma$).
+- The **triple-alpha process** ($3\alpha$): three helium nuclei (${}^4\mathrm{He}$) fuse to form carbon (${}^{12}\mathrm{C}$). It occurs in two steps: ${}^4\mathrm{He} + {}^4\mathrm{He} \rightarrow {}^8\mathrm{Be}$ and ${}^8\mathrm{Be} + {}^4\mathrm{He} \rightarrow {}^{12}\mathrm{C} + \gamma$.
+- The ${}^{12}\mathrm{C}(\alpha, \gamma)^{16}\mathrm{O}$ reaction: a carbon nucleus captures an alpha particle to form oxygen (${}^{12}\mathrm{C} + {}^4\mathrm{He} \rightarrow {}^{16}\mathrm{O} + \gamma$).
 
 As was mentioned in the introduction to the Maxilab, nuclear reaction rates and their
 dependence on temperature are uncertainty in RC evolution, leading to different
 stellar interior and different period spacing to compare with observations.
 Helium burning in RC stars is driven primarily by two nuclear reactions.
 The $3\alpha$ process dominates during the early stages of the core
-helium-burning phase, while the $^{12}\mathrm{C}(\alpha, \gamma)^{16}\mathrm{O}$ reaction becomes more important later on.
+helium-burning phase, while the ${}^{12}\mathrm{C}(\alpha, \gamma){}^{16}\mathrm{O}$ reaction becomes more important later on.
 
-These reactions are highly temperature-sensitive and uncertain, especially the $^{12}\mathrm{C}(\alpha, \gamma)^{16}\mathrm{O}$ rate, which occurs at low energies in stellar interiors and cannot be measured directly under such conditions. Instead, it must be extrapolated from higher-energy laboratory data, which are expected to different from the low-energy conditions where the reaction occurs in, in RC stars.
+These reactions are highly temperature-sensitive and uncertain, especially the ${}^{12}\mathrm{C}(\alpha, \gamma){}^{16}\mathrm{O}$ rate, which occurs at low energies in stellar interiors and cannot be measured directly under such conditions. Instead, it must be extrapolated from higher-energy laboratory data, which are expected to different from the low-energy conditions where the reaction occurs in, in RC stars.
 
 Changes in these rates affect the core composition, the duration of the core He burning
 (CHeB) phase, and indirectly the size and structure of the convective core.
@@ -560,5 +560,5 @@ In this Maxilab2, we will learn to change the reaction rates in MESA and we will
 Figure 5 from [Noll et al. 2024](https://www.aanda.org/articles/aa/abs/2024/03/aa48276-23/aa48276-23.html). Showing the evolution of $\Delta \Pi$ during the CHeB phase for different $3\alpha$ reaction rates as a function of the CHeB age (top panel) and central helium abundance (lower panel).
 ![Figure 5 from Noll et al. 2024](/thursday/aa48276-23-fig5.jpg)
 
-Same as Figure 5 for different $\,^{12}\mathrm{C}(\alpha, \gamma)^{16}\mathrm{O}$ reaction rates:
+Same as Figure 5 for different ${}^{12}\mathrm{C}(\alpha, \gamma){}^{16}\mathrm{O}$ reaction rates:
 ![Figure 6 from Noll et al. 2024](/thursday/aa48276-23-fig6.jpg)
