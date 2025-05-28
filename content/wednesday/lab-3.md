@@ -116,8 +116,6 @@ As in the previous tasks, write out the final luminosity and surface temperature
 </details>
 
 
-
-
 ***
 **Bonus exercise:**  
 If you have managed to get the double stopping criterion to work, you can experiment with other observables as can be found in Table 1 and 3 of the paper, and see which combinations work. For this you can use the following commands:
