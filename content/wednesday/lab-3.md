@@ -24,6 +24,8 @@ To find the stopping point, use the following parameter in the `extras_binary_fi
 
 Then, to compare with the observational data, add a write statement to your stopping criterion to print the effective temperature and the luminosity of the stopping point.
 
+[a link]()
+
 <details>
   <summary>Hint 1</summary>
 
