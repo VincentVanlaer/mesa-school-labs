@@ -1,0 +1,41 @@
+&binary_job
+
+   inlist_names(1) = 'inlist1' 
+   inlist_names(2) = 'inlist2'
+
+   evolve_both_stars = .false.
+   change_initial_ignore_rlof_flag = .true.
+   new_ignore_rlof_flag = .true.
+
+/ ! end of binary_job namelist
+
+&binary_controls
+   m1 = 5
+   m2 = 3.125
+   initial_period_in_days = 1.1514426253100469E+002
+
+   extra_binary_terminal_output_file = 'log'
+   
+   ! be 100% sure MB is always off
+   do_jdot_mb = .false.
+
+   terminate_if_initial_overflow = .false.
+   
+   photo_interval = 5000
+   history_interval = 1
+
+   ! timestep controls
+   fm = 1d0
+
+   mass_transfer_beta = 1.0d0
+   mdot_scheme = 'Kolb'
+   max_explicit_abs_mdot = 1d-3
+   
+   sync_type_1 = "Hut_rad"
+   sync_type_2 = "Hut_rad"
+      
+   ! terminate evolution if (r-rl)/rl is bigger than this for accretor
+   accretor_overflow_terminate = 1d99
+   
+/ ! end of binary_controls namelist
+
