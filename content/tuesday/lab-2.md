@@ -116,6 +116,18 @@ To calculate the Eddington-Sweet velocity, we will need to know the variable nam
 | $\nabla_\mu$                  | s% am_gradmu_factor       |
 | $\varphi$                     | s% smoothed_brunt_B(i)    |
 
+You can find what they do exaclty by searching around in the code with the `grep` command-line tool.
+All the variables available can be found in the
+`star_data/public/*.inc` include files, and their default values in found in `star/defaults/controls.defaults`.
+To see where they appear in the source code, you'll need to search the Fortran `*.f90` source code files.
+E.g., in the main MESA directory, try out the following:
+```console
+grep am_gradmu_factor star/defaults/controls.defaults
+grep am_gradmu_factor star_data/private/*.inc
+grep am_gradmu_factor star/private/*.f90
+```
+to see all appearances and uses of `am_gradmu_factor` in the code.
+
 
 ### Bonus
 
