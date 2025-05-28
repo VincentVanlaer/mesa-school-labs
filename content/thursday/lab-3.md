@@ -540,7 +540,7 @@ In the end, the aim is to compare the period spacing evolution for each model us
 During the core helium-burning (CHeB) phase, the energy production of the star is primarily driven by two nuclear reactions:
 
 - The **triple-alpha process** ($3\alpha$): three helium nuclei (${}^4\mathrm{He}$) fuse to form carbon (${}^{12}\mathrm{C}$). It occurs in two steps: ${}^4\mathrm{He} + {}^4\mathrm{He} \rightarrow {}^8\mathrm{Be}$ and ${}^8\mathrm{Be} + {}^4\mathrm{He} \rightarrow {}^{12}\mathrm{C} + \gamma$.
-- The ${}^{12}\mathrm{C}(\alpha, \gamma)^{16}\mathrm{O}$ reaction: a carbon nucleus captures an alpha particle to form oxygen (${}^{12}\mathrm{C} + {}^4\mathrm{He} \rightarrow {}^{16}\mathrm{O} + \gamma$).
+- The **${}^{12}\mathrm{C}(\alpha, \gamma)^{16}\mathrm{O}$** reaction: a carbon nucleus captures an alpha particle to form oxygen (${}^{12}\mathrm{C} + {}^4\mathrm{He} \rightarrow {}^{16}\mathrm{O} + \gamma$).
 
 As was mentioned in the introduction to the Maxilab, nuclear reaction rates and their
 dependence on temperature are uncertainty in RC evolution, leading to different
