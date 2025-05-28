@@ -22,7 +22,7 @@ lifts this degeneracy and establishes a stable helium-burning core, surrounded
 by a hydrogen-burning shell.
 
 In the following Figure you see an Hertzsprung–Russell (HR) diagram of the GALAH DR2 sample. The highlighted rectangle marks the red clump stars region, which aligns with the highest stellar number-density contours after RGB bump just below. The color scale is linear, where darker shades indicates higher stellar densities. The Figure is taken from [Kumar et al. 2020](https://www.nature.com/articles/s41550-020-1139-7).
-![HR diagram RC](/thursday/RC_HR_daiagram.png)
+![HR diagram RC](/static/thursday/RC_HR_daiagram.png)
 
 Several physical processes in red clump stars remain uncertain. A key uncertainty is **core boundary mixing (CBM)** — whether semiconvection or overshooting dominates
 near the convective core edge and which mixing schemes can support the stars we later observe. Another major uncertainty involves the nuclear reaction rates during helium burning.
@@ -560,10 +560,10 @@ This, in turn, influences the period spacing $\(\Delta \Pi\)$, making reaction r
 In this Maxilab2, we will learn to change the reaction rates in MESA and we will reproduce together as a class Figure 5 and Figure 6 from [Noll et al. 2024](https://www.aanda.org/articles/aa/abs/2024/03/aa48276-23/aa48276-23.html), where each table will explore different initial stellar mass and reaction rate.
 
 Figure 5 from [Noll et al. 2024](https://www.aanda.org/articles/aa/abs/2024/03/aa48276-23/aa48276-23.html). Showing the evolution of $\(\Delta \Pi\)$ during the CHeB phase for different $\(3\alpha\)$ reaction rates as a function of the CHeB age (top panel) and central helium abundance (lower panel).
-![Figure 5 from Noll et al. 2024](/thursday/aa48276-23-fig5.jpg)
+![Figure 5 from Noll et al. 2024](/static/thursday/aa48276-23-fig5.jpg)
 
 Same as Figure 5 for different $\(\,^{12}\mathrm{C}(\alpha, \gamma)^{16}\mathrm{O}\)$ reaction rates:
-![Figure 6 from Noll et al. 2024](/thursday/aa48276-23-fig6.jpg)
+![Figure 6 from Noll et al. 2024](/static/thursday/aa48276-23-fig6.jpg)
 
 ### Aims
 **MESA aims**: In this Maxilab you will learn how find and change the nuclear reaction net, how to read the nuclear reaction net files and where to find it in the $MESA_DIR. You will learn how to change reaction rates for specifi profiles and how to incorporate all of that in your MESA inlist.
@@ -656,4 +656,4 @@ cd 1M_Z002_maximal_overshooting
 ```
 
 This is how your pgplot suppose to look like:
-![pgplot](/thursday/pgplot.png)
+![pgplot](/static/thursday/pgplot.png)
