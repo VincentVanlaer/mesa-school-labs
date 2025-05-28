@@ -71,7 +71,7 @@ represent commands you can type into your terminal and execute, while purple mon
 
 If you're new to Fortran, here is a short document with [some examples](https://jschwab.github.io/mesa-2016/fortran.html). Don't let yourself get hung up by the Fortran; quickly ask your classmates and the TAs for help!
 
-Every task comes with a hint. However, if you have prior experience with MESA, do attempt to complete the task on your own. The complete solution is available <span style="color:red">here</span>.
+Every task comes with a hint. However, if you have prior experience with MESA, do attempt to complete the task on your own. The complete solution is available [here](https://github.com/arthurlesaux/mesasummerschool2025-day4-maxilab1/tree/eb99f57cbbc218aab5646e5c4cec46e6be7398a4/maxilab1_solution).
 
 ## Section 2: Getting Started
 Start by downloading the online repository ([here](https://github.com/arthurlesaux/mesasummerschool2025-day4-maxilab1/blob/eb99f57cbbc218aab5646e5c4cec46e6be7398a4/maxilab1.zip)) and uncompress it.
