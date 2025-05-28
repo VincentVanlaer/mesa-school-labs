@@ -119,13 +119,18 @@ As in the previous tasks, write out the final luminosity and surface temperature
 
 ***
 **Bonus exercise:**  
-If you have managed to get the double stopping criterion to work, you can experiment with other observables as can be found in Table 3 of the paper, and see which combinations work. For this you can use the following commands:
+If you have managed to get the double stopping criterion to work, you can experiment with other observables as can be found in Table 1 and 3 of the paper, and see which combinations work. For this you can use the following commands:
 
-`b% s1% teff` ! Effective temperature of the primary star of the binary system in Kelvin
+`b% s1% surface_()` ! The surface abundance of the following isotopes: h1, he4, c12, n14, o16.
+
+`b% s1% photosphere_r` ! The radius of the star in solar radii
+
+`b% s1% photosphere_logg` !The surface gravity 
+
+As in the previous parts, there are multiple combinations possible to reach the observed values for the stellar parameters or the modelled parameters. Not all combinations might work.
 
 ***
-
-<br><br><br><br>
+<br><br><br>
 ### Acknowledgement
 The MESA input files were built upon the following resource:  
 [Gilkis & Tomer 2022](https://ui.adsabs.harvard.edu/abs/2023MNRAS.518.3541G/abstract)
