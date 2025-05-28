@@ -98,7 +98,26 @@ Use the following additional parameter in the `extras_binary_finish_step` hook i
 
 `b% s2% l_surf` ! The luminosity of the primary star of the binary system in solar luminosities
 
+  <summary>Solution 1</summary>
+  
+  ```fortran
+       if (((b% s1% teff) .lt. 9000) .and. (log10(b% s1% l_surf) .gt. 3.57) .and. ((b% s2% teff) .lt. 21200))   then
+             extras_binary_finish_step = terminate
+             write(*,*) "terminating at requested effective temperature and luminosity:", b% s1% teff, log10(b% s1% l_surf)
+             write(*,*) "terminating at requested effective temperature and luminosity:", b% s2% teff, log10(b% s2% l_surf)
+             return
+       end if  
+```
+</details>
 
+
+***
+**Bonus exercise:**  
+If you have managed to get the double stopping criterion to work, you can experiment with other observables as can be found in Table 3 of the paper, and see which combinations work. For this you can use the following commands:
+
+`b% s1% teff` ! Effective temperature of the primary star of the binary system in Kelvin
+
+***
 
 <br><br><br><br>
 ### Acknowledgement
