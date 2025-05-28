@@ -41,8 +41,7 @@ It is important to check the units of the parameters in MESA as compared to the 
 
 <details>
   <summary>Solution 1</summary>
-  There are multiple possible solutions. This is one example so you can continue to the next task.
-  
+  There are multiple possible solutions. This is one example so you can continue to the next task.  
   ```fortran
          if ((b% s1% teff) .gt. 9000) then
                extras_binary_finish_step = terminate
