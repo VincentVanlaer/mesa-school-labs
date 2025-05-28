@@ -92,11 +92,13 @@ Because we are working with a binary system, it is not only important to match t
 | $logL_{2}[L_{\odot}]$    | $3.5\pm0.2$        |
 
 In the previous task, you have matched the simulations and the observations for the primary star. In this task, you will add a stopping criterion for the secondary star and try to match both stars with the models. Before you start your new run, enable the evolution of the secondary by setting the `evolve_both_stars` in `inlist_project` command to `.true.`
-Use the following additional parameter in the `extras_binary_finish_step` hook in `run_binary_extras.f90`: 
+Use the following additional parameter in the `extras_binary_finish_step` hook in `run_binary_extras.f90`:
 
 `b% s2% teff` ! Effective temperature of the primary star of the binary system in Kelvin
 
 `b% s2% l_surf` ! The luminosity of the primary star of the binary system in solar luminosities
+
+As in the previous tasks, write out the final luminosity and surface temperature of the simulation to the terminal.
 
 <details>
   <summary>Solution 1</summary>
