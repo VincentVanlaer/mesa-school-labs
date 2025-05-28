@@ -51,9 +51,9 @@ In this session, we will examine how overshooting of a convective core
 affects a star's evolution together. We will also examine
 how the numerical simplifications impact the evolution of the model.
 In doing so, we will learn how to find reasonable values for
-model parameters, namely the initial mass of the star $M_\rm{ini}$,
+model parameters, namely the initial mass of the star $M_\mathrm{ini}$,
 its initial metal mass fraction $Z$, the overshooting scheme, overshoot
-parameter $f_\rm{ov}$ which describes how far from the core the overshoot
+parameter $f_\mathrm{ov}$ which describes how far from the core the overshoot
 can reach and $f_0$ which describes how deep in the convection zones the
 model switches from mixing by convection to overshoot.
 
