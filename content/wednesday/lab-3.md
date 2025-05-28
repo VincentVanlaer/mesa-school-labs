@@ -98,7 +98,7 @@ Use the following additional parameter in the `extras_binary_finish_step` hook i
 
 `b% s2% l_surf` ! The luminosity of the primary star of the binary system in solar luminosities
 
-</details>
+<details>
   <summary>Solution 1</summary>
   
   ```fortran
@@ -110,6 +110,8 @@ Use the following additional parameter in the `extras_binary_finish_step` hook i
        end if  
 ```
 </details>
+
+
 
 
 ***
