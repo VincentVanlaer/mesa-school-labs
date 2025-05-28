@@ -1,0 +1,24 @@
+
+&other_winds
+
+         OB_wind_scheme = 'VS21'
+         CSG_wind_scheme = 'de Jager'
+         OB_scaling_factor = 1.0d0
+         Grafener_scaling_factor = 1.0d0
+         hot_wind_min_T = 10000
+         cool_wind_max_T = 11000
+         WNL_wind_min_dg = 0.08
+         OB_wind_max_dg = 0.12
+         h_wind_min_h = 0.4
+         he_wind_max_h = 0.7
+         he_wind_max_Mdot = 0.01
+         he_wind_max_Gamm = 0.9         
+         he_wind_qion_option = 2
+         CSG_wind_min_L = 0
+         AGB_wind_max_L = 55000
+         Reimers_scaling_factor = 0.0
+         Blocker_scaling_factor = 0.0
+         AGB_wind_scaling_factor = 1.0d0          
+         CSG_wind_scaling_factor = 1.0d0
+                  
+/ ! end of other_winds

@@ -1,0 +1,136 @@
+! inlist to evolve a massive star
+
+! For the sake of future readers of this file (yourself included),
+! ONLY include the controls you are actually using.  DO NOT include
+! all of the other controls that simply have their default values.
+
+&star_job
+  ! see star/defaults/star_job.defaults
+    load_saved_model = .true.
+      
+  ! save a model at the end of the run
+    save_model_when_terminate = .true.
+    write_profile_when_terminate = .true.
+
+  ! modifications to model
+    initial_zfracs = 6
+
+  ! change whether MESA evolves a (radial) velocity variable, v,
+  ! defined at cell boundaries
+  !  change_v_flag = .true.
+  !  new_v_flag = .true.
+                  
+  ! nuclear reactions
+    change_initial_net = .true.  
+    new_net_name = 'basic.net'
+    dump_missing_metals_into_heaviest = .false.
+  
+  ! display on-screen plots
+    pgstar_flag = .false.
+    disable_pgstar_during_relax_flag = .true.      
+      
+/ ! end of star_job namelist
+
+&controls
+  ! see star/defaults/controls.defaults
+
+  ! extra controls
+  
+    use_other_D_mix = .true.
+    x_ctrl(1) = 0.98 ! mass coordinate for enhanced outer mixing
+    x_ctrl(2) = 1d20 ! diffusion coefficient for enhanced outer mixing
+    
+  ! when to stop
+    max_model_number = 1130
+      
+  ! wind
+    cool_wind_full_on_T = 0
+    hot_wind_full_on_T = 1
+    hot_wind_scheme = 'Dutch'        
+    Dutch_scaling_factor = 1.0
+    use_other_wind = .true.
+    
+  ! atmosphere
+    Pextra_factor = 2
+
+  ! mlt
+    mixing_length_alpha = 2.0d0
+    MLT_option = 'Henyey'
+    
+  ! mixing
+    use_Ledoux_criterion = .true.
+    alpha_semiconvection = 100
+    thermohaline_coeff = 1
+    overshoot_scheme(1) = 'exponential'
+    overshoot_zone_type(1) = 'burn_H'
+    overshoot_zone_loc(1) = 'core'
+    overshoot_bdy_loc(1) = 'top'
+    overshoot_f(1) = 0.016
+    overshoot_f0(1) = 0.008    
+    remove_small_D_limit = 1d-10
+    mixing_D_limit_for_log = 1d-10
+                           
+  ! timesteps
+      
+      time_delta_coeff = 1d0 ! only scale this for convergence tests
+      delta_lgL_He_limit = 0.1  
+      dX_nuc_drop_limit = 5d-2  
+      max_timestep_factor = 1.05d0
+      timestep_factor_for_retries = 0.75
+      delta_XH_cntr_limit = 0.01d0
+      delta_XHe_cntr_limit = 0.1d0
+      delta_XO_cntr_limit = 0.05d0 
+      delta_XC_cntr_limit = 0.05d0 
+      ! these stall the run artificially when not using dedt form
+      limit_for_rel_error_in_energy_conservation = -1d0
+      hard_limit_for_rel_error_in_energy_conservation = -1d0
+      warn_when_large_rel_run_E_err = 1d99
+      max_abs_rel_run_E_err = 1d99
+      delta_lgTeff_limit = 0.05d0
+      delta_lgTeff_hard_limit = -1
+      delta_lg_XHe_cntr_limit = 0.5d0
+      dX_div_X_limit_min_X(2) = 1d99
+      dX_div_X_limit(2) = 1d99
+    
+  ! mesh 
+      mesh_delta_coeff = 2.0
+      min_dq_for_xa = 1d-4    ! avoid over-resolving composition changes
+      max_logT_for_k_below_const_q = 100
+      max_q_for_k_below_const_q = 0.99
+      min_q_for_k_below_const_q = 0.99
+      max_logT_for_k_const_mass = 100
+      max_q_for_k_const_mass = 0.98
+      min_q_for_k_const_mass = 0.98
+                  
+  ! solver
+     convergence_ignore_equL_residuals = .true. 
+     ignore_too_large_correction = .true.
+     make_gradr_sticky_in_solver_iters = .true.
+     op_split_burn = .true.
+     op_split_burn_min_T = 1d9
+     burn_steps_limit = 150
+     burn_steps_hard_limit = 250
+     velocity_logT_lower_bound = 8 
+     max_dt_yrs_for_velocity_logT_lower_bound = 0.1
+     solver_itermin_until_reduce_min_corr_coeff = 25
+     solver_max_tries_before_reject = 40
+     max_tries_for_retry = 40
+     tiny_corr_coeff_limit = 1000
+     corr_coeff_limit = 0.2d0
+     ignore_min_corr_coeff_for_scale_max_correction = .true.
+     gold_solver_iters_timestep_limit = 30
+     gold_tol_max_residual3 = 1d-3
+     tol_max_correction = 1d-2
+     tol_correction_norm = 1d-3
+     max_corr_jump_limit = 1d99
+     max_resid_jump_limit = 1d99
+     redo_limit = -1
+                   
+  ! output
+
+      photo_interval = 50000
+      profile_interval = 50000
+      history_interval = 1
+      
+/ ! end of controls namelist
+
