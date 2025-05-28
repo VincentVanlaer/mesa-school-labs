@@ -16,13 +16,13 @@ The stellar parameters can be found in this table, which has been adapted from T
 | $logL_{2}[L_{\odot}]$    | $3.1\pm0.2$        |
 
 ## Task 1
-To start, you will try to capture the simulation with only one stopping criterion, the effective temperature. Use the following parameter in the `extras_binary_finish_step` hook in `run_binary_extras.f90`: 
+In this task, you will try to capture the point where the simulation agrees with the observational data with only one stopping criterion, the effective temperature. Because the Roche-lobe overflow phase is computationally heavy for this particular system, the run will start shortly after. The saved model files are in 'Load', and you will need to adjust the path to the files in `inlist1` and `inlist2`. Besides this change, you won't have to change anything else in the various inlist-files, we will work with the `run_binary_wxtras.f90` exclusively.
+
+To find the stopping point, use the following parameter in the `extras_binary_finish_step` hook in `run_binary_extras.f90`: 
 
 `b% s1% teff` ! Effective temperature of the primary star of the binary system in Kelvin
 
 Then, to compare with the observational data, add a write statement to your stopping criterion to print the effective temperature and the luminosity of the stopping point.
-
-Because the Roche-lobe overflow phase is computationally heavy for this particular system, the run will start shortly after. The saved model files are in 'Load', and you will need to adjust the path to the files in `inlist1` and `inlist2`.
 
 <details>
   <summary>Hint 1</summary>
