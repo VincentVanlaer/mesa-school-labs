@@ -22,6 +22,8 @@ To start, you will try to capture the simulation with only one stopping criterio
 
 Then, to compare with the observational data, add a write statement to your stopping criterion to print the effective temperature and the luminosity of the stopping point.
 
+Because the Roche-lobe overflow phase is computationally heavy for this particular system, the run will start shortly after. The saved model files are in 'Load', and you will need to adjust the path to the files in `inlist1` and `inlist2`.
+
 <details>
   <summary>Hint 1</summary>
 
@@ -80,6 +82,7 @@ Because we are working with a binary system, it is not only important to match t
 Use the following additional parameter in the `extras_binary_finish_step` hook in `run_binary_extras.f90`: 
 
 `b% s2% teff` ! Effective temperature of the primary star of the binary system in Kelvin
+
 `b% s2% l_surf` ! The luminosity of the primary star of the binary system in solar luminosities
 
 
