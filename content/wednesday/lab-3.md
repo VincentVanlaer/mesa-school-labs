@@ -97,6 +97,7 @@ Use the following additional parameter in the `extras_binary_finish_step` hook i
 `b% s2% teff` ! Effective temperature of the primary star of the binary system in Kelvin
 
 `b% s2% l_surf` ! The luminosity of the primary star of the binary system in solar luminosities
+
 </details>
   <summary>Solution 1</summary>
   
