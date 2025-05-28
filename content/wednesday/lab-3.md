@@ -41,6 +41,7 @@ It is important to check the units of the parameters in MESA as compared to the 
 
 <details>
   <summary>Solution 1</summary>
+  There are multiple possible solutions. This is one example so you can continue to the next task.
   
   ```fortran
          if ((b% s1% teff) .gt. 9000) then
@@ -67,7 +68,7 @@ As can be seen in the figure, the stellar evolution track does not go through ce
 
 <details>
   <summary>Solution 1</summary>
-  
+  There are multiple possible solutions, depending on how you combine the two parameters. This is one example so you can continue to the next task.
   ```fortran
          if (((b% s1% teff) .lt. 9000) .and. (log10(b% s1% l_surf) .gt. 3.57))   then
                extras_binary_finish_step = terminate
