@@ -42,4 +42,4 @@ enable = true
 
 [markup.goldmark.extensions.passthrough.delimiters]
 block = [['\[', '\]'], ['$$', '$$']]
-inline = [['$', '$']]
+inline = [['$', '$'], ['\(', '\)']]
