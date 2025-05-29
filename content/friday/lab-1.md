@@ -92,7 +92,7 @@ In `&star_job` is where we will initialize rotation. There are many options in M
 
 For today's set of labs, you will be assigned a rotation rate based on your table number. These are all available in [our google sheet](https://docs.google.com/spreadsheets/d/1pAcvlfqOga0JNZo3cjJeZaErVd4youLYHyAmAu3NmSE/edit?usp=sharing) for this lab. You will upload information from these labs to this sheet throughout the day. At each table, there will be four different `nu_max` values to choose from. We will use this value of `nu_max` as a proxy for the age of your rotating RGB star. For now, decide in your group who will choose each value of `nu_max` and claim your model directly in the google sheet.
 
-|:clipboard: TASK |
+|📋 TASK |
 |:--|
 | 1. Pick a rotation rate and nu_max value from [the google sheet](https://docs.google.com/spreadsheets/d/1pAcvlfqOga0JNZo3cjJeZaErVd4youLYHyAmAu3NmSE/edit?usp=sharing) |
 | 2. Add the following lines to the `star_job` portion of `inlist_1M_star` |
@@ -110,7 +110,7 @@ For today's set of labs, you will be assigned a rotation rate based on your tabl
 
 The only thing we'll need to update in `&controls` is to ensure that MESA outputs the type of files needed for GYRE. These are usually referred to as `pulse_data` in the MESA docs.
 
-|:clipboard: TASK |
+|📋 TASK |
 |:--|
 | 1. Add the following lines to the `&controls` portion of `inlist_1M_star` |
 
@@ -138,7 +138,7 @@ Where $\Omega(r)$ indicates the rotation rate (`s% omega`), $N$ indicates the Br
 
 We can easily add these estimators to the MESA output as a history file.
 
-|:clipboard: TASK |
+|📋 TASK |
 |:--|
 | 1. Edit your `src/run_star_extras.f90` file to add the above JWKB estimators for $\Omega_g$ and $\Omega_p$ as history columns. |
 
@@ -250,7 +250,7 @@ You will generate another representation of this mode propagation diagram in Lab
 
 After your run is completed, open up your history file and find the model closest to the `nu_max` value that you chose from [the google sheet](https://docs.google.com/spreadsheets/d/1pAcvlfqOga0JNZo3cjJeZaErVd4youLYHyAmAu3NmSE/edit?usp=sharing). Fill out the first three columns for your model (surface rotation rate, delta_nu, and delta_omega_g) at the value of `nu_max` that you chose. Remember we're using `nu_max` here as a proxy for the age of the RGB, as `nu_max` will decrease as the RGB star expands over time.
 
-|:clipboard: TASK |
+|📋 TASK |
 |:--|
 | Fill out the first three columns of [the google sheet](https://docs.google.com/spreadsheets/d/1pAcvlfqOga0JNZo3cjJeZaErVd4youLYHyAmAu3NmSE/edit?usp=sharing) for your chosen model. |
 
@@ -262,7 +262,7 @@ After your run is completed, open up your history file and find the model closes
 
 For Lab 2, you will be asked to calculate rotation frequencies at specific $\nu_{\rm max}$ (`nu_max`) values. To make this easier, you may choose to do a bonus exercise where you configure the `run_star_extras.f90` file to output both profile and GYRE files when the model is at a specific $\nu_{\rm max}$.
 
-|:clipboard: OPTIONAL BONUS TASK |
+|📋 OPTIONAL BONUS TASK |
 |:--|
 | 1. Edit your `src/run_star_extras.f90` file to only output profiles (and GYRE files) whenever $\nu_{\rm max}$ is at a specific, user input value. |
 
