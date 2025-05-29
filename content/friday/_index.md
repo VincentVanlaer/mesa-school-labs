@@ -10,7 +10,7 @@ toc: false
 
 # Asteroseismology in MESA
 
-In this series of labs, we will familiarise ourselves with `GYRE` --- a tool for computing the normal-mode frequencies of spherical stars.
+In this series of labs, we will familiarise ourselves with `GYRE` --- a tool for computing the normal-mode frequencies of spherical stars. We have also prepared a brief primer on asteroseismology [here](img/index.pdf).
 
 {{< cards >}}
  {{< card link="lab-1" title="Lab 1: Installing and using GYRE" >}}
