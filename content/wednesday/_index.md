@@ -5,7 +5,7 @@ toc: false
 ---
 
 {{< cards >}}
- {{< card link="morning-session" title="Introducing the `binary` module" >}}
+ {{< card link="morning-session" title="Introducing the binary module" >}}
 {{< /cards >}}
 
 # Day 3 topic

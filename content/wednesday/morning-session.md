@@ -83,7 +83,7 @@ Now that we havemore properties to keep track of, and potentially two stars to e
 The main file that achieves this is `binary/private/run_binary_support.f90`.
 Instead of just reading all the code, we can explore the control flow by using some write statements at specific places in `run_star_extras` and `run_binary_extras`.
 
-1. First, make a copy of the standard binary work directory `binary/work`.
+1. First, make a copy of the standard binary work directory `binary/work` to a location of your choice (I called it `first_binary`).
 2. Then, copy the contents of `star/job/standard_run_star_extras.inc` into `run_star_extras` as a replacement of the `include` statement.
 3. write a `write` statement in `binary_start_step`, `binary_check_model`, `binary_finish_step`, and for stars in `start_step`, `check_model` and `finish_step`
 
@@ -211,6 +211,21 @@ Some examples:
 
 Finally, if it is decided that the step is accepted, we do some clean up to finish the step, and in `extras_binary_finish_step`, this is usually where you can implement custom stopping conditions that depend on the new state of the system.
 
+This we can explore as an exercise:
+1. First, turn `evolve_both_stars` back to `.false.`
+2. Set the initial period lower to 0.5 days, and set `do_jdot_mb = .false.` to disable magnetic braking
+3. Then, in `run_binary_extras`, implement a stopping condition in `extras_binary_finish_step` to stop the run as the star reaches 95% of the Roche Lobe.
+4. Test it with `./mk; ./rn`!
+
+{{< details title="Solution" closed="true" >}}
+At the end of `extras_binary_finish_step`:
+```fortran
+if (b% r(1) >= 0.95 * b% rl(1)) then
+   write(*, *) "star is approaching the Roche Lobe! Mass transfer will ensue, I'm stopping the run here..."
+   extras_binary_finish_step = terminate
+end if
+```
+{{< /details >}}
 
 ## the `binary` folder
 The `$MESA_DIR/binary` folder contains all the code responsible for binary evolution. 
@@ -308,11 +323,29 @@ We will use a test suite case to introduce `pgbinary`, which is the binary equiv
 Previously, two `pgstar` windows were needed if a user wanted to simultaneously plot info of both stars during a `binary` run.
 Now we have `pgbinary` to do all of this in just one.
 
-1. Start by copying the `evolve_both_stars` into a location of your choice and navigate to it.
+`pgbinary` works just like `pgstar`, by allowing users to plot windows and save plots to files.
+The biggest advantage is that `pgbinary` has a plot types called `Star1` and `Star2`, which essentially hands over plotting duties to `pgstar`.
+Typical usage is to setup a `Grid` at the binary level, and have both `Star1` and `Star2` as panels in that grid, along with any other binary information you'd want to plot (eg. the `Orbit`, some `history_panels`, etc.).
+Once a `Star` is plotted, it uses the current `&pgstar` options that are specified in the corresponding inlist at `inlist_names(1)` for `Star1` and `inlist_names(2)` for `Star2`.
+The [Reference tab](https://docs.mesastar.org/en/24.08.1/reference.html) also contains a list of `pgbinary` controls.
+
+We can discover `pgbinary` using one of the test cases:
+
+1. Navigate to the `binary/test_suite` folder
+2. Copy the `evolve_both_stars` case into a location of your choice and navigate to it.
 2. uncomment the `use_pgbinary_flag = .true.` line.
 3. run the model with `./mk; ./rn`
 
 A `pgbinary` window should spawn that looks somewhat like this:
 
-![pgbinary](wednesday/pgbinary.png)
+![pgbinary](/wednesday/pgbinary.png)
 
+Depending on your screen size, you might want to change the window sizes in `Grid1_win_width` and `Grid1_win_aspect_ratio`, and also the text scalings to see things better (`Grid1_txt_scale_factor(1)` and others for different panels).
+
+As this run progresses, you should see the system evolving from detached to semi-detached, as the star 1 will start transfering mass to star 2. 
+
+## Recap
+This was a small introduction into `mesa/binary`.
+It contained an overview of how to operate within the `work` folder, how to access the binary structure `b` in `run_binary_extras` and how the binary inlists work.
+Next we explored the control flow and saw what order the stars are evolved in.
+Finally, `binary` has a test suite which can we used as starting points for science projects, and you can use `pgbinary` to get a handy-dandy live overview of a binary run.
