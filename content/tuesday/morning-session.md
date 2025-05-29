@@ -767,3 +767,519 @@ You've now made some edits to the `run_star_extras.f90` file, compiled it, and r
 If you assume the Earth is a perfect blackbody, its equilibrium temperature is given by
 
 $$T_\oplus = T_\odot \left(\frac{R_\odot}{2\,\mathrm{AU}}\right)^{1/2}$$
+
+Suppose the model we're been playing with is meant to model the sun, and we want to stop the evolution when the temperature at Earth rises above some critical value. The first step would be to search through `$MESA_DIR/star/controls.defaults` (or the equivalent page on the [online MESA documentation](docs.mesastar.org)) to see if such a stopping condition already exists. I can tell you right now, though, that it does not. We're going to have to add this condition ourselves.
+
+Before we do that, though, we need to talk a bit about how the **star info structure** works.
+
+### The Star Info Structure
+
+Internally, all the information about your stellar model is stored in a single giant structure called the **star info structure**. This object has all the data about the star like it's mass, luminosity, temperature profile, etc. It also contains all of the parameters you set in the inlists (whether you explicitly set them or not). Finally, it has pointers to functions it might use, like the very `extras_check_model` function we just edited (see how they are set in `extras_controls`).
+
+Within most functions in `run_star_extras.f90`, you will see a line like this:
+
+```fortran
+type (star_info), pointer :: s
+```
+This declares a pointer to the star info structure, which we will use to access the data about the star. Simply declaring this variable doesn't set it up, though. We need to call the `star_ptr` function to set it up. This is done in the boilerplate code at the beginning of each function, like so:
+
+```fortran
+ierr = 0
+call star_ptr(id, s, ierr)
+if (ierr /= 0) return
+```
+The `star_ptr` function takes the `id` of the star model (which is passed to the function) and sets the pointer `s` to point to the star info structure for that model. If there is an error, it sets `ierr` to a non-zero value, which we check for immediately after calling `star_ptr`. If there is an error, we return from the function early.
+This is a common pattern in MESA code, and you'll see it in many of the functions in `run_star_extras.f90`. The star info structure is a powerful tool that allows you to access all the data about your star model, and it's essential to understand how to use it.
+
+So what are all the "members" of the star info structure? Unfortunately, they're not as well documented as they could be, but here are a few guidlines for learning about different types of memebers.
+
+- **Stellar Structure:** For quantities of interest for stellar structure, check `$MESA_DIR/star_data/public/star_data_step_work.inc` and `$MESA_DIR/star_data/public/star_data_step_input.inc`, though other files in the same folder may also contain useful members. **Unless otherwise specified in the comments, all members are in cgs units.** This is not usually the case for *inlist* values, which often use solar values.
+
+- **Inlist Values:** All inlist controls are also members of the star info structure, so you can access (and change!) them in your `run_star_extras.f90` file. Whether the changes you make will take affect on the current timestep or the next one depends on the specific control and what function/subroutine you change it in within `run_star_extras.f90`.
+
+One very useful family of inlist value members are the extra user-accessible inlist values, called `x_ctrl`, `x_integer_ctrl`, and `x_logical_ctrl`. These are all arrays that can be set in the inlist (e.g. `x_ctrl(1) = 3.14d0`) and are then made available in the star_info structure (e.g. `s% x_ctrl(1)`). This is a much better way to communicate data with your `run_star_extras.f90` file than modifying the code directly, necessitating frequent recompilation.
+
+#### Aside: Solar vs. cgs Units
+
+Internally, MESA is all in cgs units, but many inlist values (and some members of the star info structure) are in solar units out of convenience. Additionally, many user-specified values will be in solar units. So being able to convert between solar and cgs units is very useful. For calculations like these, use the `const` module. The file `$MESA_DIR/star_data/public/const_def.inc` defines many useful constants. So long as `const_def` module is included in your `run_star_extras.f90` file, you can access them from anywhere. **They are not part of the star info structure**, so you don't need to use the `s%` prefix to access them. For example, to get the solar luminosity in erg/s, you would use `Lsun`, which is defined in `const_def.inc`.
+
+#### Accessing Members of the Star Info Structure
+
+To access a member of the star info structure, you use the `%` operator. For example, to access an array of the star's mass at each zone, you'd use `s% m` (assuming `s` is the pointer to the star info structure). To access a single value, like the star's luminosity, you'd use `s% photosphere_L`. If you've used other programming languages, this is similar to accessing a property of an object in Python or JavaScript, or a field of a struct in C; we just use the `%` operator instead of a dot (`.`) or arrow (`->`) operator.
+
+### Assembling the Pieces
+
+Now that we know how to access the star info structure, we can add a custom stopping condition based on the temperature at Earth. The first question you should ask is: where should this condition go in `run_star_extras.f90`? Given what we saw in `extras_check_model`, it seems like a reasonable place to put it. Indeed, this is how many stopping conditions are implemented. However, if you look at the flowchart above, you'll see that there is another function that gets the final say after a timestep is completed: `extras_finish_step`. This is actually a more appropriate place to put this condition, as it is called after a timestep is completed *and* the model is considered good enough to continue evolving (rather than being retried).
+
+Once you know *where* you'll put the code, you need to know *how* to calculate the temperature at Earth. The equilibrium temperature of the Earth is given by:
+
+$$T_\oplus = T_\odot \left(\frac{R_\odot}{2\,\mathrm{AU}}\right)^{1/2},$$
+
+where $T_\odot$ is the effective temperature of the star and $R_\odot$ is the photospheric radius of the star. We need to figure out how to access these values in the star info structure.
+
+**Task 3.1:** Look in `$MESA_DIR/star_data/public/star_data_step_work.inc` and `$MESA_DIR/star_data/public/star_data_step_input.inc` and find the members of the star info structure that correspond to the effective temperature and photospheric radius of the star. You might find a couple of promising candidates, so look at comments, and then check your answer below.
+
+<details class="hx-border hx-border-green-200 dark:hx-border-green-200 hx-rounded-md hx-my-2">
+<summary class="hx-bg-green-100 dark:hx-bg-neutral-800 hx-text-green-900 dark:hx-text-green-200 hx-py-2 hx-px-4 hx-m-0 hx-cursor-pointer">
+<em>Answer</em>
+</summary>
+<div class="hx-p-4">
+
+They are `Teff` (in `star_data_step_input`) and `photosphere_R` (in `star_data_step_work`). Notably, **`photosphere_R` is in solar units**, so we will need to convert it to centimeters before using it in our calculation. The effective temperature is already in cgs units, so we can use it directly.
+
+I'll give an honorable mention for `photosphere_T` (in `star_data_step_work`), but then we might get into a tough conversation about the precise definition of the effective temperature. Since it's the *power* coming from the sun that matters, the thing called effective temperature is what we want to use.
+
+There are a couple of other radii to look at (for instance, `s% r(1)` is the radius at the first zone, but this may not be the photosphere depending on how the outer boundary condition is set up). My guess is that it wouldn't matter too much if you used something similar, but these are exactly the sorts of questions you should ask when you're writing your own extensions to MESA!
+
+If you're uncertain about the precise meaning of a member, your best bet now is to go spelunking through the MESA source code (`$MESA_DIR/star/private`) and look where the value is set or used. Usually using `grep` with `s% *MEMBER_NAME*` is a good place to start in finding these values in the wild. If you still can't find it, but you can at least find part of the trail, showing this work in a message to the MESA Discussion forum will make it much more likely that others will help you pick up the trail!
+</div>
+</details>
+
+Now that we have the star info structure members rounded up, there's another wrinkle: the radius will be in solar units while the temperature will be in cgs units, so we'll also need to convert AU and $R_\odot$ to cm. We could look these up and hardcode them, but MESA has a `const` module that contains *many* useful constants, and it's included and ready to use.
+
+**Task 3.2:** Look in `$MESA_DIR/star_data/public/const_def.inc` and find the constants that corresponds to the number of centimeters in an astronomical unit (AU) and a solar radius $R_\odot$.
+
+<details class="hx-border hx-border-green-200 dark:hx-border-green-200 hx-rounded-md hx-my-2">
+<summary class="hx-bg-green-100 dark:hx-bg-neutral-800 hx-text-green-900 dark:hx-text-green-200 hx-py-2 hx-px-4 hx-m-0 hx-cursor-pointer">
+<em>Answer</em>
+</summary>
+<div class="hx-p-4">
+
+Unsurprisingly, the AU is just called `au` (or `AU`; Fortran is case-insensitive). You can find it on line 94 of `$MESA_DIR/star_data/public/const_def.inc`.
+
+```fortran
+real(dp), parameter :: au = 1.49597870700D13 ! (cm) - exact value defined by IAU 2009, 2012
+```
+
+And the solar radius is called `Rsun`. You can find it on line 129 of the same file.
+
+</div>
+</details>
+
+### Putting It All Together
+Now that we have all the pieces, we can put them together to create a custom stopping condition. We'll add this code to the `extras_finish_step` function, which is called after each timestep is completed.
+
+**Task 3.3:** Edit `extras_finish_step` in your `run_star_extras.f90` file to compute the temperature at Earth, stop the evolution if it exceeds a value set by the user in `x_ctrl(1)`, and print out a message explaining why it is stopping. You'll need to use the members we found earlier as well as the constant for an AU. You'll need to use an `if` block, so review the Fortran syntax from the Fortran primer if you need a refresher. Finally, to actually tell MESA to stop the evolution, you'll need to set `extras_finish_step = terminate` in the `if` block.
+
+<details class="hx-border hx-border-blue-200 dark:hx-border-blue-200 hx-rounded-md hx-my-2">
+<summary class="hx-bg-blue-100 dark:hx-bg-neutral-800 hx-text-blue-900 dark:hx-text-blue-200 hx-px-4 hx-py-2 hx-m-0 hx-cursor-pointer">
+<em>Hint: Computing Earth's Equilibrium Temperature</em>
+</summary>
+<div class="hx-p-4">
+
+While you could hardcode a number into the `if` block, it's probably cleaner to define a variable for the equilibrium temperature of the Earth. You can do this by adding another variable declaration at the top of the `extras_finish_step` function, like so:
+
+```fortran
+real(dp) :: T_earth_eq
+```
+
+Then you can compute the equilibrium temperature of the Earth using the formula we discussed earlier:
+
+```fortran
+T_earth_eq = s% Teff * sqrt(s% photosphere_R * Rsun / (2d0 * au))
+```
+
+Consider writing this out to the terminal as well so you can see what it's doing. You can always comment out the `write` statement later if it's too noisy:
+
+```fortran
+write(*,*) 'Earth equilibrium temperature:', T_earth_eq
+```
+</div>
+</details>
+
+<details class="hx-border hx-border-blue-200 dark:hx-border-blue-200 hx-rounded-md hx-my-2">
+<summary class="hx-bg-blue-100 dark:hx-bg-neutral-800 hx-text-blue-900 dark:hx-text-blue-200 hx-px-4 hx-py-2 hx-m-0 hx-cursor-pointer">
+<em>Hint: Conditionally Terminating the Run</em>
+</summary>
+<div class="hx-p-4">
+
+Assuming you've defined a variable for the equilibrium temperature of the Earth (let's call it `T_earth_eq`), you can check if it exceeds the value set in `s% x_ctrl(1)` like so:
+
+```fortran
+if (T_eq_earth > s% x_ctrl(1)) then
+    write(*,*) 'extras_finish_step: T_eq_earth =', T_eq_earth, '>', s% x_ctrl(1), 'K'
+    write(*,*) 'extras_finish_step: terminating run'
+    extras_finish_step = terminate
+end if
+```
+
+Note that we can print multiple things in the same `write` statement by separating them with commas. This will print the message and the value of `T_earth_eq` on the same line.
+
+</div>
+</details>
+
+<details class="hx-border hx-border-green-200 dark:hx-border-green-200 hx-rounded-md hx-my-2">
+<summary class="hx-bg-green-100 dark:hx-bg-neutral-800 hx-text-green-900 dark:hx-text-green-200 hx-py-2 hx-px-4 hx-m-0 hx-cursor-pointer">
+<em>Answer</em>
+</summary>
+<div class="hx-p-4">
+
+The completed `extras_finish_step` function should look like this:
+
+```fortran
+integer function extras_finish_step(id)
+    integer, intent(in) :: id
+    integer :: ierr
+    type (star_info), pointer :: s
+    real(dp) :: T_eq_earth
+    ierr = 0
+    call star_ptr(id, s, ierr)
+    if (ierr /= 0) return
+    extras_finish_step = keep_going
+
+    T_eq_earth = s% Teff * (s% photosphere_R * Rsun / (2d0 * AU))**0.5
+    if (T_eq_earth > s% x_ctrl(1)) then
+        write(*,*) 'extras_finish_step: T_eq_earth =', T_eq_earth, '>', s% x_ctrl(1), 'K'
+        write(*,*) 'extras_finish_step: terminating run'
+        extras_finish_step = terminate
+    end if
+    if (extras_finish_step == terminate) s% termination_code = t_extras_finish_step
+end function extras_finish_step
+
+```
+
+</div>
+</details>
+
+Now let's test our new stopping condition. We'll need to set the value of `x_ctrl(1)` in the inlist. We'll set it to a pretty high value of 310 K, but this is too high to reach in the current model since it stops at core hydrogen depletion.
+
+**Task 3.4:** Edit your `inlist` to set `x_ctrl(1)` to 310 K (these go in the `controls` namelist), and prevent the old stopping condition from functioning. Then compile and run the project again. It should run for about 126 timesteps before stopping if everything is working correctly.
+
+<details class="hx-border hx-border-green-200 dark:hx-border-green-200 hx-rounded-md hx-my-2">
+<summary class="hx-bg-green-100 dark:hx-bg-neutral-800 hx-text-green-900 dark:hx-text-green-200 hx-py-2 hx-px-4 hx-m-0 hx-cursor-pointer">
+<em>Answer</em>
+</summary>
+<div class="hx-p-4">
+
+Assuming your `run_star_extras.f90` file is set up correctly (see previous answer), your `inlist_project` should now have this section in it:
+
+```fortran
+! EARLIER PARTS OMITTED FOR BREVITY
+&controls
+    ! OTHER CONTROLS SETTINGS OMITTED FOR BREVITY
+
+    ! when to stop
+    ! stop when the center mass fraction of h1 drops below this limit
+    ! xa_central_lower_limit_species(1) = 'h1'
+    ! xa_central_lower_limit(1) = 1d-2
+
+    ! stop when earth equilibrium temperature exceeds this limit
+    x_ctrl(1) = 310
+```
+
+Note that the old stopping condition is commented out. You could also just delete it. Note also that we don't need to specify units for `x_ctrl(1)` (nor could we).
+</div>
+</details>
+
+When the run terminates, you should see the message you included in the `extras_finish_step` function printed to the terminal, indicating that the temperature at Earth exceeded the value set in `x_ctrl(1)`. If so, congratulations! You've successfully added a custom stopping condition to MESA.
+
+## Part 4: Adding Extra Physics
+
+The stopping condition we just added is a simple one, and it doesn't actually affect how the star evolves. It just tells MESA when to stop. However, we can also make dynamic changes to our model at various points in the evolution. A simple way is by changing inlist controls on the fly. For instance, we could decrease the resolution once total burning from carbon fusion exceeds some value.
+
+### Steps for Implementing a Hook
+
+More interesting is adding new physics to the model. This is a bit more involved, but for the most part, this can be done in `run_star_extras.f90`, rather than hacking at MESA itself. We do this through so-called "hooks," which are functions that MESA callas at specific points within the monolithic "take step" stage on the flowchart above. There are many of these hooks, so they are not included in the standard `run_star_extras.f90` boilerplate. 
+
+Instead, we follow a multi-step process to implement a new hook:
+
+1. Copy and paste the boilerplate code for your hook from the appropriate file in `$MESA_DIR/star/other`.
+2. Rename the subroutine/function to something more meaningful.
+3. In `extras_controls`, add a line to set the pointer to your new hook subroutine/function.
+4. Turn on the hook in your inlist by setting the appropriate control to `.true.`.
+5. Actually implement the hook inside the currently empty subroutine/function, compile, debug, and run.
+
+That sounds like a lot, but most of the work is just in step 5 where you actually implement the physics. The rest is just boilerplate or reading simple instructions in the template files.
+
+As a toy model, we'll use the `other_energy` hook to add some mysterious new energy source to our solar model, following all the steps in this process.
+
+### Step 1: Copy the Boilerplate Code
+
+**Task 4.1:** In your terminal, navigate to `$MESA_DIR/star/other`. Execute `ls` and peruse the various hooks available to you, then open `other_energy.f90` and copy *just* the subroutine `default_other_energy` into your `run_star_extras.f90` file.
+
+<details class="hx-border hx-border-blue-200 dark:hx-border-blue-200 hx-rounded-md hx-my-2">
+<summary class="hx-bg-blue-100 dark:hx-bg-neutral-800 hx-text-blue-900 dark:hx-text-blue-200 hx-px-4 hx-py-2 hx-m-0 hx-cursor-pointer">
+<em>Hint: What all am I copying?</em>
+</summary>
+<div class="hx-p-4">
+
+Within `$MESA_DIR/star/other/other_energy.f90`, copy all of this:
+
+```fortran
+subroutine default_other_energy(id, ierr)
+    use star_def
+    use auto_diff
+    use const_def, only: Rsun
+    integer, intent(in) :: id
+    integer, intent(out) :: ierr
+    type (star_info), pointer :: s
+    integer :: k
+    ierr = 0
+    call star_ptr(id, s, ierr)
+    if (ierr /= 0) return
+    !s% extra_heat(:) = s% extra_power_source
+    ! note that extra_heat is type(auto_diff_real_star_order1) so includes partials.
+end subroutine default_other_energy
+```
+
+</div>
+</details>
+
+
+<details class="hx-border hx-border-blue-200 dark:hx-border-blue-200 hx-rounded-md hx-my-2">
+<summary class="hx-bg-blue-100 dark:hx-bg-neutral-800 hx-text-blue-900 dark:hx-text-blue-200 hx-px-4 hx-py-2 hx-m-0 hx-cursor-pointer">
+<em>Hint: Where should I paste this?</em>
+</summary>
+<div class="hx-p-4">
+
+So long as the pasted subroutine is not inside another subroutine or function, it can go basically anywhere in `run_star_extras.f90` below the `contains` keyword. I recommend putting it either just after the last function/subroutine (but before the `end module run_star_extras` line) or just after the `extras_controls` subroutine. This way, it will be easy to find later.
+</div>
+</details>
+
+At this point, it's a good idea to try to recompile (`./mk`) to make sure you haven't introduced any syntax errors in `run_star_extras.f90`. If you have, fix them before proceeding.
+
+### Step 2: Rename the Subroutine
+Now that we have the boilerplate code, we need to rename the subroutine to something more meaningful. We'll call it `day2_other_energy`. Before we make changes, let's take a closer look at the boilerplate code we just copied:
+
+```fortran
+subroutine default_other_energy(id, ierr)
+    use star_def
+    use auto_diff
+    use const_def, only: Rsun
+    integer, intent(in) :: id
+    integer, intent(out) :: ierr
+    type (star_info), pointer :: s
+    integer :: k
+    ierr = 0
+    call star_ptr(id, s, ierr)
+    if (ierr /= 0) return
+    !s% extra_heat(:) = s% extra_power_source
+    ! note that extra_heat is type(auto_diff_real_star_order1) so includes partials.
+end subroutine default_other_energy
+```
+
+We see that it brings in a few other modules and defines some variables. There's also an interesting commented out bit of code that is leftover from older versions of MESA. It does show a nifty Fortran trick, though; you can use the `(:)` syntax to refer to all elements of an array, so `s% extra_heat(:)` refers to all elements of the `extra_heat` array in the star info structure.
+
+We won't be doing that here, though, as we'll want to set the value of `extra_heat` to a different value at every zone in the model, so we can safely delete that line as well as the comment afterward.
+
+**Task 4.2:** Rename the subroutine to `day2_other_energy` and delete the two comments at the end of the subroutine. Compile again to make sure you haven't introduced any syntax errors. If you have, fix them before proceeding.
+
+<details class="hx-border hx-border-green-200 dark:hx-border-green-200 hx-rounded-md hx-my-2">
+<summary class="hx-bg-green-100 dark:hx-bg-neutral-800 hx-text-green-900 dark:hx-text-green-200 hx-py-2 hx-px-4 hx-m-0 hx-cursor-pointer">
+<em>Answer</em>
+</summary>
+<div class="hx-p-4">
+
+The renamed subroutine should look like this:
+
+```fortran
+subroutine day2_other_energy(id, ierr)
+    use star_def
+    use auto_diff
+    use const_def, only: Rsun
+    integer, intent(in) :: id
+    integer, intent(out) :: ierr
+    type (star_info), pointer :: s
+    integer :: k
+    ierr = 0
+    call star_ptr(id, s, ierr)
+    if (ierr /= 0) return
+end subroutine day2_other_energy
+```
+
+</div>
+</details>
+
+### Step 3: Set the Pointer in `extras_controls`
+
+We have another step to complete before MESA will even call our new subroutine. Rather than spell it out for you, I'm going to lead you to some bread crumbs, but see the hints if you get stuck.
+
+**Task 4.3:** Back in the template file, `$MESA_DIR/star/other/other_energy.f90`, you'll notice some comments below the copyright and license information but above the subroutine itself. Use these and any resources within to figure out how to set the pointer to your new subroutine in `extras_controls`.
+
+<details class="hx-border hx-border-blue-200 dark:hx-border-blue-200 hx-rounded-md hx-my-2">
+<summary class="hx-bg-blue-100 dark:hx-bg-neutral-800 hx-text-blue-900 dark:hx-text-blue-200 hx-px-4 hx-py-2 hx-m-0 hx-cursor-pointer">
+<em>Hint: What Comments?</em>
+</summary>
+<div class="hx-p-4">
+
+The comments I'm talking about are these:
+
+```fortran
+! consult star/other/README for general usage instructions
+! control name: use_other_energy = .true.
+! procedure pointer: s% other_energy => my_routine
+```
+
+If you then read the `README` file in `$MESA_DIR/star/other`, you'll see that there are some instructions similar to these. Right now, we're dealing with step 2 in that file, which happens to use `other_energy` as an example!
+
+</div>
+</details>
+
+<details class="hx-border hx-border-green-200 dark:hx-border-green-200 hx-rounded-md hx-my-2">
+<summary class="hx-bg-green-100 dark:hx-bg-neutral-800 hx-text-green-900 dark:hx-text-green-200 hx-py-2 hx-px-4 hx-m-0 hx-cursor-pointer">
+<em>Answer</em>
+</summary>
+<div class="hx-p-4">
+
+You need to edit `extras_controls` by adding the following line somewhere in the giant block of pointer statements:
+
+```fortran
+s% other_energy => day2_other_energy
+```
+
+This sets the pointer `s% other_energy` to point to our new subroutine `day2_other_energy`. This is how MESA knows to call our subroutine when it reaches the `other_energy` hook in the flowchart.
+
+</div>
+</details>
+
+### Step 4: Turn the Hook On in the Inlist
+
+You're probably getting the hang of this by now, so I'll let you try this one on your own again.
+
+**Task 4.4:** Return to the README and comments of the previous task and add a line to `inlist_project` that will turn on the `other_energy` hook. To test to see if it's working, put a statement like `write(*,*) 'other_energy hook called'` in your `day2_other_energy` subroutine. Compile and run the project again, and you should see this message printed to the terminal at every timestep.
+
+<details class="hx-border hx-border-green-200 dark:hx-border-green-200 hx-rounded-md hx-my-2">
+<summary class="hx-bg-green-100 dark:hx-bg-neutral-800 hx-text-green-900 dark:hx-text-green-200 hx-py-2 hx-px-4 hx-m-0 hx-cursor-pointer">
+<em>Answer</em>
+</summary>
+<div class="hx-p-4">
+
+The line you need to add to your `inlist_project` file is:
+
+```fortran
+use_other_energy = .true.
+```
+This should go in the `controls` namelist, and it will turn on the `other_energy` hook.
+
+Your `day2_other_energy` subroutine should now look like this:
+```fortran
+subroutine day2_other_energy(id, ierr)
+    ! BEGINNING OF SUBROUTINE OMITTED FOR BREVITY
+    if (ierr /= 0) return
+    write(*,*) 'other_energy hook called'
+end subroutine day2_other_energy
+```
+
+When you compile and run the project, you should see the message `other_energy hook called` printed to the terminal at every timestep, indicating that your hook is being called correctly.
+
+</div>
+</details>
+
+### Step 5: Implement the Hook
+
+So far, we have a hook that is called, but does nothing. Now let's actually add the new energy source to the model. The way `other_energy` works is by changing the `extra_heat` array in the star info structure. This array is set to values of specific energy generation in erg/g/s at each zone in the model. The `extra_heat` array is of type `auto_diff_real_star_order1`, which means it can be used in the auto-differentiation framework that MESA uses to compute derivatives of the energy generation rate with respect to various parameters. We're not going to delve into why that's important, but that's why the `auto_diff` module is used in the boilerplate code we copied earlier, and it's also why this will differ a bit from similar subroutines from older releases of MESA.
+
+First off, let's do nothing again, but in a fancier way.
+
+**Task 4.5:** In your `day2_other_energy` subroutine, delete the `write(*,*)` statement we included earlier, and set the `extra_heat` array to a constant value of 0 by looping over all zones in the model. Fortran is 1-indexed, so your loop should start at 1 and go to `s% nz` (the number of zones in the model). You *could* use the nifty `(:)` syntax, but the point of this is to get a loop working that we can do more interesting things with later, so use a `do` loop instead. Compile and run the project again, and you should see no change in the model evolution, but you should see no errors either.
+
+<details class="hx-border hx-border-green-200 dark:hx-border-green-200 hx-rounded-md hx-my-2">
+<summary class="hx-bg-green-100 dark:hx-bg-neutral-800 hx-text-green-900 dark:hx-text-green-200 hx-py-2 hx-px-4 hx-m-0 hx-cursor-pointer">
+<em>Answer</em>
+</summary>
+<div class="hx-p-4">
+
+The `day2_other_energy` subroutine should now look like this:
+
+```fortran
+subroutine day2_other_energy(id, ierr)
+    use star_def
+    use auto_diff
+    use const_def, only: Rsun
+    integer, intent(in) :: id
+    integer, intent(out) :: ierr
+    type (star_info), pointer :: s
+    integer :: k
+    ierr = 0
+    call star_ptr(id, s, ierr)
+    if (ierr /= 0) return
+
+    ! Set extra_heat to 0 at all zones
+    do k = 1, s% nz
+        s% extra_heat(k) = 0d0
+    end do
+
+end subroutine day2_other_energy
+```
+
+When you compile and run the project again, you should see no change in the model evolution, but you should also see no errors. The model should evolve as it did before, but now we have a hook that is doing something (even if it's just setting the `extra_heat` array to zero).
+
+</div>
+</details>
+
+Now let's finally implement something that's actually interesting! We'll assume this magic new energy is destributed exponentially from the center as a function of the mass coordinate. That is, it's strongest at the center and decreases exponentially outward. We'll use this function:
+
+$$\epsilon_{\mathrm{extra}}(M_r) = L_{\mathrm{extra}}\frac{1}{\Delta M}\exp\left(-\frac{M_r}{\Delta M}\right),$$
+
+where $L_{\mathrm{extra}}$ is the total luminosity from this new energy source, $M_r$ is the mass coordinate of the zone, and $\Delta M$ is a characteristic mass scale that determines how quickly the energy source decreases with radius. Well-behaved values for $\Delta M$ and $L_{\mathrm{extra}}$ are $0.5~M_\odot$ and $0.1~L_\odot$, respectively, but you're encouraged to make these values user-accessible in the inlist so you can experiment with them later.
+
+**Task 4.6:** Implement the above energy source in your `day2_other_energy` subroutine. You should already have a loop ready to go, but now instead of setting each zone's `extra_heat` to zero, you should compute the value locally for each zone. Compile, run, and check the plot that shows `extra_energy` to confirm that it is behaving appropriately. As always, beware unit trickery!
+
+While it may take more timesteps than before, the actual evolutionary time of the model should be lower, since the added energy source will cause Earth to heat up more quickly.
+
+<details class="hx-border hx-border-blue-200 dark:hx-border-blue-200 hx-rounded-md hx-my-2">
+<summary class="hx-bg-blue-100 dark:hx-bg-neutral-800 hx-text-blue-900 dark:hx-text-blue-200 hx-px-4 hx-py-2 hx-m-0 hx-cursor-pointer">
+<em>Hint: Unit Trickery?</em>
+</summary>
+<div class="hx-p-4">
+
+Okay, it's not "trickery" per se, but `s% extra_heat` is in erg/g/s, and we tend to think of masses and luminosities in solar units. My recommendation is to not fight your instincts and just convert everything to cgs within the subroutine. So if you read in $\Delta M$ and $L_{\mathrm{extra}}$ in solar units, convert them to cgs units using `Lsun` and `Msun` (from the `const` module) before using them in the calculation. You can use the `const` module to get the solar mass and luminosity in cgs units, so you don't have to hardcode them.
+
+</div>
+</details>
+
+<details class="hx-border hx-border-blue-200 dark:hx-border-blue-200 hx-rounded-md hx-my-2">
+<summary class="hx-bg-blue-100 dark:hx-bg-neutral-800 hx-text-blue-900 dark:hx-text-blue-200 hx-px-4 hx-py-2 hx-m-0 hx-cursor-pointer">
+<em>Hint: The Mass Coordinate</em>
+</summary>
+<div class="hx-p-4">
+
+The "mass coordinate" is the mass of the star enclosed within a zone. So at the center, its zero, and and at the surface, it's the total mass of the star. In MESA, you can access this using `s% m(k)`, where `k` is the zone index (1-indexed; probably your looping variable). Thankfully, this quantity is already in cgs units.
+
+</div>
+</details>
+
+<details class="hx-border hx-border-green-200 dark:hx-border-green-200 hx-rounded-md hx-my-2">
+<summary class="hx-bg-green-100 dark:hx-bg-neutral-800 hx-text-green-900 dark:hx-text-green-200 hx-py-2 hx-px-4 hx-m-0 hx-cursor-pointer">
+<em>Answer</em>
+</summary>
+<div class="hx-p-4">
+
+The final routine should look something like this
+
+```fortran
+subroutine day2_other_energy(id, ierr)
+    use star_def
+    use auto_diff
+    use const_def, only: Rsun
+    integer, intent(in) :: id
+    integer, intent(out) :: ierr
+    type (star_info), pointer :: s
+    integer :: k
+    real(dp) :: delta_M, L_extra
+    ierr = 0
+    call star_ptr(id, s, ierr)
+    if (ierr /= 0) return
+    ! Set extra_heat to 0 at all zones
+    delta_M = s% x_ctrl(2) * Msun
+    L_extra = s% x_ctrl(3) * Lsun
+
+    do k = 1, s% nz
+        s% extra_heat(k) = L_extra / delta_M * exp(-s% m(k) / delta_M)
+    end do
+end subroutine day2_other_energy
+```
+
+And your `inlist_project` should have the following lines somewhere in the `controls` namelist:
+
+```fortran
+  x_ctrl(2) = 0.05d0
+  x_ctrl(3) = 0.1d0
+  use_other_energy = .true.
+```
+
+</div>
+</details>
+
+When all is done with $\Delta M = 0.05~M_\odot$, $L_{\mathrm{extra}} = 0.1~L_\odot$, and the cutoff equilibrium temperature set to 310 K, the last frame of your pgstar evolution should look like this:
+![Final Frame of pgstar Evolution](../grid1000138.png)
