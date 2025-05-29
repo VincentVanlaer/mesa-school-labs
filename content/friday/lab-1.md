@@ -37,7 +37,7 @@ Once that's complete, it's good practice to run the test suite to ensure nothing
 
 ``$ make -C $GYRE_DIR test``
 
-|:information_source: INFO |
+|ℹ️ INFO |
 |:--|
 | If all the tests read "...succeeded" then you are good to move on to the next step. If that's not the case, ask your TA or a developer for help. |
 
@@ -142,11 +142,11 @@ We can easily add these estimators to the MESA output as a history file.
 |:--|
 | 1. Edit your `src/run_star_extras.f90` file to add the above JWKB estimators for $\Omega_g$ and $\Omega_p$ as history columns. |
 
-|:information_source: HINT |
+|ℹ️ HINT |
 |:--|
 | In the template version of `src/run_star_extras.f90`, we have included a fortran function that will help you. This function is called `integrate_r_`. It will help you to integrate a value over the radius of the star. |
 
-|:information_source: SOLUTION BELOW |
+|ℹ️ SOLUTION BELOW |
 |:--|
 
 First, remember to edit the function `how_many_extra_history_columns` to tell it we are going to add two new columns.
@@ -266,15 +266,15 @@ For Lab 2, you will be asked to calculate rotation frequencies at specific $\nu_
 |:--|
 | 1. Edit your `src/run_star_extras.f90` file to only output profiles (and GYRE files) whenever $\nu_{\rm max}$ is at a specific, user input value. |
 
-|:information_source: HINT 1 |
+|ℹ️ HINT 1 |
 |:--|
 | You will need to edit both the `&controls` section of `inlist_1M_star` and `extras_finish_step` in  `src/run_star_extras.f90`. |
 
-|:information_source: HINT 2 |
+|ℹ️ HINT 2 |
 |:--|
 | Some controls parameters that might be helpful to you are `write_profiles_flag` (and its corresponding value in `star_info`), as well as `s% need_to_save_profiles_now`. |
 
-|:information_source: SOLUTION BELOW |
+|ℹ️ SOLUTION BELOW |
 |:--|
 
 In the `&controls` section of `inlist_1M_star`:

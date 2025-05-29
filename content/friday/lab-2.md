@@ -79,7 +79,7 @@ This namegroup defines which modes you want to calculate. You can state the angu
 |:--|
 | Add the instructions to calculate the `l=0`, `l=1` and `l=2` into your `gyre.in` file.|
 
-|:information_source: HINT |
+|ℹ️ HINT |
 |:--|
 | Here is an example for the `l=0` modes. |
 
