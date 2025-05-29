@@ -254,7 +254,7 @@ After your run is completed, open up your history file and find the model closes
 |:--|
 | Fill out the first three columns of [the google sheet](https://docs.google.com/spreadsheets/d/1pAcvlfqOga0JNZo3cjJeZaErVd4youLYHyAmAu3NmSE/edit?usp=sharing) for your chosen model. |
 
-|:question: QUESTION |
+|❓ QUESTION |
 |:--|
 | As everyone finishes running their models and inputting their values, what do you notice about the values you've input into the google sheet? Compare both to the different `nu_max` values but also to the different initial rotation rates. |
 
