@@ -101,13 +101,13 @@ In this namegroup we can set various options on how to calculate the oscillation
 
 |📋 Solution |
 |:--|
-|
 ```fortran
 &osc
     outer_bound = 'JCD'
     variables_set = 'JCD'
 /
 ```
+
 #### Numerical Parameters
 Here goes everything to do with numerical parameters. Again we leave nearly everything at default (see [here](https://gyre.readthedocs.io/en/v7.2.1/ref-guide/input-files/num-params.html)) and only increase the difference scheme from a second-order to a fourth-order Gauss-Legendre collocation.
 ```fortran
@@ -183,12 +183,12 @@ The detail file on the other hand gives you a detailed description of one mode. 
 
 ```fortran
 ...
-  detail_template = 'detail.l%l.n%n.h5'        	      
+  detail_template = 'detail.l%l.n%n.h5'               
   detail_item_list = 'l,n_pg,omega,x,xi_r,xi_h,c_1,As,
                       V_2,Gamma_1,rho,P,R_star,M_star' 
   !detail_file_format = 'TXT'  
 
-  freq_units = 'UHZ'               	      
+  freq_units = 'UHZ'                      
 /
 
 &nad_output
@@ -197,8 +197,19 @@ The detail file on the other hand gives you a detailed description of one mode. 
 
 We put everything in the namegroup `&ad_output`. It tells gyre that we will assume adiabatic conditions. If we want to instead calculate it non-adiabatically we would put it in `&nad_output` instead. 
 
-For now we will ignore rotation and leave `&rot` empty. We will come back to it in Lab3
+## Rotation 
+For now we will ignore rotation and leave `&rot` empty. We will come back to it in Lab3.
 
+But if we calculate rotation we need to assume some approximations. In Lab 3 we will set up GYRE to calculate the effects of the Coriolis force based on the traditional approximation of rotation (TAR). This assumption allows us to neglect the radial component of the Coriolis effects. But this also means we need to be able to separate them into a horizontal and radial component. This is not quite possible if we consider gravitational potential perturbations. We need to use the Cowling Approximation, which sets the gravitational potential perturbation to zero. 
+
+|📋 TASK |
+|:--|
+|In the namelist group `&osc` we add: | 
+
+```fortran
+alpha_grv = 0 
+reduce_order = .false.
+```
 
 ## Running GYRE
 
@@ -229,6 +240,10 @@ In the new figure we chose two modes close to $ν_{\rm max}$ to look at them in 
 |📋 TASK |
 |:--|
 | Open the [google colab file](https://colab.research.google.com/drive/1zFC6y4FgZdMdoMUHLFN3mfF1xO2heOwa?usp=sharing) and upload the right `detail.l1.n##.h5` files. Plot the propagation diagram and the radial and horizontal displacement eigenfunctions of 2 modes. One is p-mode dominated and one g-mode dominated, which is which? |
+
+|ℹ️ SOLUTION |
+|:--|
+| The p-dominated mode has a higher amplitude ($ξ_r$) at the surface of the star. The plot under the propagation diagram shows the p-dominant mode and the bottom plot shows the g-dominated mode.|
 
 We generated a small movie to show how the oscillations change over the evolution of the star. 
 
