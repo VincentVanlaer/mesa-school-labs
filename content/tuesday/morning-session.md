@@ -31,9 +31,9 @@ HINT:
 </details>
 -->
 
-# Beyond Inlists: Extending MESA with `run_star_extras.f90`
+# Extending MESA with `run_star_extras.f90`
 
-Inlists, models and photos are the core of MESA, and you can do a lot of great science without even knowing how to write a line of Fortran code. But fairly soon in your MESA journey, you will run into limits of what you can do with inlists alone. This is where `run_star_extras.f90` comes in. It allows you to extend MESA's capabilities by writing your own Fortran code that can interact with the star model. A few examples of things you can do with `run_star_extras.f90` include:
+Inlists, models, and photos are the core of MESA, and you can do a lot of great science without even knowing how to write a line of Fortran code. But fairly soon in your MESA journey, you will run into limits of what you can do with inlists alone. This is where `run_star_extras.f90` comes in. It allows you to extend MESA's capabilities by writing your own Fortran code that can interact with the star model. A few examples of things you can do with `run_star_extras.f90` include:
 
 - creating a custom stopping condition
 - changing control parametrs during a run without restarting
@@ -42,13 +42,38 @@ Inlists, models and photos are the core of MESA, and you can do a lot of great s
 
 The goal of these exercises is to get you up and running with `run_star_extras.f90` and provide a resource you can return to when you next need to extend MESA.
 
-## Acknowledgements
+## About This Exercise
 
-This material is strongly influenced by similar material from past MESA schools by Josiah Schwab, a former MESA developer. Specifically, this material is drawn from his introductory materials for the 2021 MESA summer school, which can be found [here](https://jschwab.github.io/mesa-2021/).
+### Prerequisites
+
+This exercise assumes you
+
+- have a working installation of MESA r24.08.1
+- can do basic command line operations
+- can open, edit, and save files in a text editor
+- know basic MESA operations like editing inlists, looking up documentation, compiling, and running MESA projects
+
+### Learning Objectives
+
+In this exercise you'll learn how to…
+
+- set up a MESA project to use `run_star_extras.f90`
+- understand the structure of `run_star_extras.f90` and how it fits into MESA's execution flow
+- implement a custom stopping condition that couldn't be done with inlists alone
+- implement new physics in MESA by writing some basic Fortran code
+- [BONUS] add new columns to the profile and history files
+
+### About the Author
+
+Hi, I'm [Bill Wolf](https://billwolf.space). I'm an associate professor of physics and astronomy at [the University of Wisconsin–Eau Claire](https://uwec.edu), where I study the physics of accreting white dwarf stars with a team of undergraduate researchers. I've been using MESA since 2012 and have been a TA, organizer, or lecturer in 11 MESA schools since. I've been on the MESA Developer team since 2019, where my primary responsibiltiy is our [distributed testing infrastructure](https://testhub.mesastar.org). I also wrote a few tools to work with MESA, including [MESA Explorer](https://billwolf.space/mesa-explorer), [MESA Reader](https://billwolf.space/py_mesa_reader), and [MesaScript](https://billwolf.space/MesaScript/).
+
+### Acknowledgements
+
+This material is strongly influenced by similar material from past MESA schools by [Josiah Schwab](http://yoshiyahu.org), a former MESA developer. Specifically, this material is a light updating and reformating of the later material in his [introductory materials for the 2021 MESA summer school](https://jschwab.github.io/mesa-2021/).
 
 ## Part 0: Fortran Basics
 
-Fortran is a powerful language for scientific computing offering modern features with strong performance. However, one rarely writes in Fortran for their everyday tasks. With MESA, you'll rarely need to write much Fortran from scratch, but you will need to edit functions (which cannot change their inputs and must have a return value) subroutines (which *can* change their inputs and have no return value) This section provides some basic Fortran syntax to get you started. If you are already familiar with Fortran, feel free to skip this section. If you are new, skim it and come back to it as needed.
+Fortran is a powerful language for scientific computing offering modern features with strong performance. However, one rarely writes in Fortran for their everyday tasks. With MESA, you'll rarely need to write much Fortran from scratch, but you will need to edit **functions** (which cannot change their inputs and must have a return value) and **subroutines** (which *can* change their inputs and have no return value). This section provides some basic Fortran syntax to get you started. If you are already familiar with Fortran, feel free to skip this section. If you are new, skim it and come back to it as needed.
 
 ### Variables
 
@@ -110,7 +135,7 @@ There are two (equivalent) forms of comparison operators in Fortran
 
 #### Logical Operators
 
-There are three logical operators: .and., .or., and .not..
+There are three logical operators: `.and.`, `.or.`, and `.not.`.
 
 ```fortran
 ! true when 0 < i < 10
@@ -161,12 +186,9 @@ cp -r $MESA_DIR/star/test_suite/wd_nova_burst my_new_project
 cd my_new_project
 ```
 
-For this exercise, we are providing a work directory that is already set up for you. It's pretty simple; it evolves a 1.0 solar mass from near the zero-age main sequence to core hydrogen exhaustion, and then pauses before exiting.
+For this exercise, we are providing a work directory that is already set up for you. It's pretty simple; it evolves a 1.0 solar mass star from near the zero-age main sequence to core hydrogen exhaustion, and then pauses before exiting.
 
-**Task 1.1:** Download the work directory, move it somewhere sensible, unzip it, and change into the directory.
-
-[Download the work directory](#)
-
+**Task 1.1:** [Download the work directory](../day2-dev_mesa.zip), move it somewhere sensible, unzip it, and change into the directory.
 
 <details class="hx-border hx-border-green-200 dark:hx-border-green-200 hx-rounded-md hx-my-2">
 <summary class="hx-bg-green-100 dark:hx-bg-neutral-800 hx-text-green-900 dark:hx-text-green-200 hx-p-2 hx-m-0 hx-cursor-pointer">
@@ -180,24 +202,24 @@ After downloading the work directory, you can do everything else from the comman
 Move the directory to your desktop (or wherever you want to work on it):
 
 ```bash
-mv ~/Downloads/mesa-day2-dev.zip ~/Desktop/
+mv ~/Downloads/day2-dev_mesa.zip ~/Desktop/
 ```
 Unzip the directory:
 
 ```bash
-unzip ~/Desktop/mesa-day2-dev.zip
+unzip ~/Desktop/day2-dev_mesa.zip
 ```
 Change into the directory:
 
 ```bash
-cd ~/Desktop/mesa-day2-dev
+cd ~/Desktop/day2-dev
 ```
 
 If you're computer is too smart, it may have automatically unzipped the directory for you. In that case, you can just move the directory and change into it:
 
 ```bash
-mv ~/Downloads/mesa-day2-dev ~/Desktop/
-cd ~/Desktop/mesa-day2-dev
+mv ~/Downloads/day2-dev ~/Desktop/
+cd ~/Desktop/day2-dev
 ```
 </div>
 </details>
@@ -590,7 +612,7 @@ Below is the complete contents of what your edited `run_star_extras.f90` file sh
 </div>
 </details>
 
-**NEVER** edit the `standard_run_star_extras.inc` file directly, as it is part of the MESA source code and is read by any MESA project that uses the stock `run_star_extras.f90`. Instead, you should always copy the contents of this file into your own `run_star_extras.f90` and edit that file.
+**NEVER** edit the `$MESA_DIR/include/standard_run_star_extras.inc` file directly, as it is part of the MESA source code and is read by any MESA project that uses the stock `run_star_extras.f90`. Instead, you should always copy the contents of this file into your own `run_star_extras.f90` and edit that file.
 
 Whenever you change the `run_star_extras.f90` file, you will need to recompile your project for the changes to take effect. You do *not* need to recompile your project if you only change the inlists or other files that are not part of the `src` directory. Usually a simple `./mk` will suffice, but if things are wonky, you can try `./clean && ./mk` to clean the project and recompile from scratch. 
 
@@ -637,7 +659,7 @@ write(*,*) 'Hello, MESA!'
 
 
 <details class="hx-border hx-border-blue-200 dark:hx-border-blue-200 hx-rounded-md hx-my-2">
-<summary class="hx-bg-blue-100 dark:hx-bg-neutral-800 hx-text-blue-900 dark:hx-text-blue-200 hx-p-2 hx-m-0 hx-cursor-pointer">
+<summary class="hx-bg-blue-100 dark:hx-bg-neutral-800 hx-text-blue-900 dark:hx-text-blue-200 hx-px-4 hx-py-2 hx-m-0 hx-cursor-pointer">
 <em>Hint: Wait, this thing isn't empty!</em>
 </summary>
 <div class="hx-p-4">
@@ -674,7 +696,7 @@ integer function extras_check_model(id)
 end function extras_check_model
 ```
 
-That's quite a mouthful! Everything down to and including `extras_check_model = keep_going` is boilerplate code that you should not change. It defines the type of the single input (an integer associated with the stellar model in question, called `id`), an error-tracking integer `ierr`, and the star info structure `s`, which is an enormous structure that contains all data about the stellar model.
+That's quite a mouthful! Everything down to and including `extras_check_model = keep_going` is boilerplate code that you should not change. It defines the type of the single input (an integer associated with the stellar model in question, called `id`), an error-tracking integer `ierr`, and the star info structure `s`, which is an enormous structure that contains all data about the stellar model (more on this later).
 
 Below that, and up until the `if (extras_check_model == terminate)` line is an example stopping condition and explanation comments that you may delete if you wish. I'll explain what's going on there, though, as custom stopping conditions are a common use of `extras_check_model`.
 
@@ -716,7 +738,7 @@ You should see a bunch of messages printed to the terminal, including `Hello, ME
 </div>
 </details>
 
-Now that you've got some working code, let's break it! We're goint to intentionally introduce a syntax error and see what happens.
+Now that you've got some working code, let's break it! We're going to intentionally introduce a syntax error and see what happens.
 
 **Task 2.5:** Change the `write(*,*) 'Hello, MESA!'` line to `write(*,*) 'Hello, MESA!`. Notice the missing closing quote at the end of the string. Compile the project again and read the error message carefully. Could you figure out what went wrong without the benefit of knowing what the error was going to be?
 
@@ -768,13 +790,13 @@ If you assume the Earth is a perfect blackbody, its equilibrium temperature is g
 
 $$T_\oplus = T_\odot \left(\frac{R_\odot}{2\,\mathrm{AU}}\right)^{1/2}$$
 
-Suppose the model we're been playing with is meant to model the sun, and we want to stop the evolution when the temperature at Earth rises above some critical value. The first step would be to search through `$MESA_DIR/star/controls.defaults` (or the equivalent page on the [online MESA documentation](docs.mesastar.org)) to see if such a stopping condition already exists. I can tell you right now, though, that it does not. We're going to have to add this condition ourselves.
+Suppose the model we're been playing with is meant to model the sun, and we want to stop the evolution when the temperature at Earth rises above some critical value. The first step would be to search through `$MESA_DIR/star/controls.defaults` (or the equivalent page on the [online MESA documentation](https://docs.mesastar.org)) to see if such a stopping condition already exists. I can tell you right now, though, that it does not. We're going to have to add this condition ourselves.
 
 Before we do that, though, we need to talk a bit about how the **star info structure** works.
 
 ### The Star Info Structure
 
-Internally, all the information about your stellar model is stored in a single giant structure called the **star info structure**. This object has all the data about the star like it's mass, luminosity, temperature profile, etc. It also contains all of the parameters you set in the inlists (whether you explicitly set them or not). Finally, it has pointers to functions it might use, like the very `extras_check_model` function we just edited (see how they are set in `extras_controls`).
+Internally, all the information about your stellar model is stored in a single giant structure called the **star info structure**. This object has all the data about the star like its mass, luminosity, temperature profile, etc. It also contains all of the parameters you set in the inlists (whether you explicitly set them or not). Finally, it has pointers to functions it might use, like the very `extras_check_model` function we just edited (see how they are set in `extras_controls`).
 
 Within most functions in `run_star_extras.f90`, you will see a line like this:
 
@@ -795,17 +817,17 @@ So what are all the "members" of the star info structure? Unfortunately, they're
 
 - **Stellar Structure:** For quantities of interest for stellar structure, check `$MESA_DIR/star_data/public/star_data_step_work.inc` and `$MESA_DIR/star_data/public/star_data_step_input.inc`, though other files in the same folder may also contain useful members. **Unless otherwise specified in the comments, all members are in cgs units.** This is not usually the case for *inlist* values, which often use solar values.
 
-- **Inlist Values:** All inlist controls are also members of the star info structure, so you can access (and change!) them in your `run_star_extras.f90` file. Whether the changes you make will take affect on the current timestep or the next one depends on the specific control and what function/subroutine you change it in within `run_star_extras.f90`.
+- **Inlist Values:** All inlist controls are also members of the star info structure, so you can access (and change!) them in your `run_star_extras.f90` file. Whether the changes you make will take effect on the current timestep or the next one depends on the specific control and what function/subroutine you change it in within `run_star_extras.f90`.
 
 One very useful family of inlist value members are the extra user-accessible inlist values, called `x_ctrl`, `x_integer_ctrl`, and `x_logical_ctrl`. These are all arrays that can be set in the inlist (e.g. `x_ctrl(1) = 3.14d0`) and are then made available in the star_info structure (e.g. `s% x_ctrl(1)`). This is a much better way to communicate data with your `run_star_extras.f90` file than modifying the code directly, necessitating frequent recompilation.
-
-#### Aside: Solar vs. cgs Units
-
-Internally, MESA is all in cgs units, but many inlist values (and some members of the star info structure) are in solar units out of convenience. Additionally, many user-specified values will be in solar units. So being able to convert between solar and cgs units is very useful. For calculations like these, use the `const` module. The file `$MESA_DIR/star_data/public/const_def.inc` defines many useful constants. So long as `const_def` module is included in your `run_star_extras.f90` file, you can access them from anywhere. **They are not part of the star info structure**, so you don't need to use the `s%` prefix to access them. For example, to get the solar luminosity in erg/s, you would use `Lsun`, which is defined in `const_def.inc`.
 
 #### Accessing Members of the Star Info Structure
 
 To access a member of the star info structure, you use the `%` operator. For example, to access an array of the star's mass at each zone, you'd use `s% m` (assuming `s` is the pointer to the star info structure). To access a single value, like the star's luminosity, you'd use `s% photosphere_L`. If you've used other programming languages, this is similar to accessing a property of an object in Python or JavaScript, or a field of a struct in C; we just use the `%` operator instead of a dot (`.`) or arrow (`->`) operator.
+
+#### Aside: Solar vs. cgs Units
+
+Internally, MESA is all in cgs units, but many inlist values (and some members of the star info structure) are in solar units out of convenience. Additionally, many user-specified values will be in solar units. So being able to convert between solar and cgs units is very useful. For calculations like these, use the `const` module. The file `$MESA_DIR/star_data/public/const_def.inc` defines many useful constants. So long as `const_def` module is included in your `run_star_extras.f90` file, you can access them from anywhere. **They are not part of the star info structure**, so you don't need to use the `s%` prefix to access them. For example, to get the solar luminosity in erg/s, you would use `Lsun`, which is defined in `const_def.inc`.
 
 ### Assembling the Pieces
 
@@ -825,19 +847,19 @@ where $T_\odot$ is the effective temperature of the star and $R_\odot$ is the ph
 </summary>
 <div class="hx-p-4">
 
-They are `Teff` (in `star_data_step_input`) and `photosphere_R` (in `star_data_step_work`). Notably, **`photosphere_R` is in solar units**, so we will need to convert it to centimeters before using it in our calculation. The effective temperature is already in cgs units, so we can use it directly.
+They are `Teff` (in `star_data_step_input`) or `photosphere_black_body_T` (in `star_data_step_work`) and `photosphere_R` (in `star_data_step_work`). Notably, **`photosphere_R` is in solar units**, so we will need to convert it to centimeters before using it in our calculation. The effective temperature is already in cgs units, so we can use it directly.
 
-I'll give an honorable mention for `photosphere_T` (in `star_data_step_work`), but then we might get into a tough conversation about the precise definition of the effective temperature. Since it's the *power* coming from the sun that matters, the thing called effective temperature is what we want to use.
+I'll give an honorable mentions for `photosphere_T` (in `star_data_step_work`), but then we might get into a tough conversation about the precise definition of the effective temperature. Since it's the *power* coming from the sun that matters, the thing called effective temperature is what we want to use.
 
 There are a couple of other radii to look at (for instance, `s% r(1)` is the radius at the first zone, but this may not be the photosphere depending on how the outer boundary condition is set up). My guess is that it wouldn't matter too much if you used something similar, but these are exactly the sorts of questions you should ask when you're writing your own extensions to MESA!
 
-If you're uncertain about the precise meaning of a member, your best bet now is to go spelunking through the MESA source code (`$MESA_DIR/star/private`) and look where the value is set or used. Usually using `grep` with `s% *MEMBER_NAME*` is a good place to start in finding these values in the wild. If you still can't find it, but you can at least find part of the trail, showing this work in a message to the MESA Discussion forum will make it much more likely that others will help you pick up the trail!
+If you're uncertain about the precise meaning of a member, your best bet now is to go spelunking through the MESA source code (`$MESA_DIR/star/private`) and look where the value is set or used. Usually using `grep` with `s% *MEMBER_NAME*` is a good place to start in finding these values in the wild. If you still can't find it, but you can at least trace some of your steps, showing this work in a message to the MESA Discussion forum will make it much more likely that others will help you pick up the trail!
 </div>
 </details>
 
 Now that we have the star info structure members rounded up, there's another wrinkle: the radius will be in solar units while the temperature will be in cgs units, so we'll also need to convert AU and $R_\odot$ to cm. We could look these up and hardcode them, but MESA has a `const` module that contains *many* useful constants, and it's included and ready to use.
 
-**Task 3.2:** Look in `$MESA_DIR/star_data/public/const_def.inc` and find the constants that corresponds to the number of centimeters in an astronomical unit (AU) and a solar radius $R_\odot$.
+**Task 3.2:** Look in `$MESA_DIR/const/public/const_def.f90` and find the constants that corresponds to the number of centimeters in an astronomical unit (AU) and a solar radius $R_\odot$.
 
 <details class="hx-border hx-border-green-200 dark:hx-border-green-200 hx-rounded-md hx-my-2">
 <summary class="hx-bg-green-100 dark:hx-bg-neutral-800 hx-text-green-900 dark:hx-text-green-200 hx-py-2 hx-px-4 hx-m-0 hx-cursor-pointer">
@@ -845,7 +867,7 @@ Now that we have the star info structure members rounded up, there's another wri
 </summary>
 <div class="hx-p-4">
 
-Unsurprisingly, the AU is just called `au` (or `AU`; Fortran is case-insensitive). You can find it on line 94 of `$MESA_DIR/star_data/public/const_def.inc`.
+Unsurprisingly, the AU is just called `au` (or `AU`; Fortran is case-insensitive). You can find it on line 94 of `$MESA_DIR/const/public/const_def.f90`.
 
 ```fortran
 real(dp), parameter :: au = 1.49597870700D13 ! (cm) - exact value defined by IAU 2009, 2012
@@ -859,7 +881,7 @@ And the solar radius is called `Rsun`. You can find it on line 129 of the same f
 ### Putting It All Together
 Now that we have all the pieces, we can put them together to create a custom stopping condition. We'll add this code to the `extras_finish_step` function, which is called after each timestep is completed.
 
-**Task 3.3:** Edit `extras_finish_step` in your `run_star_extras.f90` file to compute the temperature at Earth, stop the evolution if it exceeds a value set by the user in `x_ctrl(1)`, and print out a message explaining why it is stopping. You'll need to use the members we found earlier as well as the constant for an AU. You'll need to use an `if` block, so review the Fortran syntax from the Fortran primer if you need a refresher. Finally, to actually tell MESA to stop the evolution, you'll need to set `extras_finish_step = terminate` in the `if` block.
+**Task 3.3:** Edit `extras_finish_step` in your `run_star_extras.f90` file to compute the temperature at Earth, stop the evolution if it exceeds a value set by the user in `x_ctrl(1)`, and print out a message explaining why it is stopping. You'll need to use the members we found earlier as well as the constants for an AU and $R_\odot$. You'll need to use an `if` block, so review the Fortran syntax from the Fortran primer if you need a refresher. Finally, to actually tell MESA to stop the evolution, you'll need to set `extras_finish_step = terminate` in the `if` block.
 
 <details class="hx-border hx-border-blue-200 dark:hx-border-blue-200 hx-rounded-md hx-my-2">
 <summary class="hx-bg-blue-100 dark:hx-bg-neutral-800 hx-text-blue-900 dark:hx-text-blue-200 hx-px-4 hx-py-2 hx-m-0 hx-cursor-pointer">
@@ -993,7 +1015,7 @@ That sounds like a lot, but most of the work is just in step 5 where you actuall
 
 As a toy model, we'll use the `other_energy` hook to add some mysterious new energy source to our solar model, following all the steps in this process.
 
-### Step 1: Copy the Boilerplate Code
+### Step 1: Copy the Boilerplate
 
 **Task 4.1:** In your terminal, navigate to `$MESA_DIR/star/other`. Execute `ls` and peruse the various hooks available to you, then open `other_energy.f90` and copy *just* the subroutine `default_other_energy` into your `run_star_extras.f90` file.
 
@@ -1036,9 +1058,10 @@ So long as the pasted subroutine is not inside another subroutine or function, i
 </div>
 </details>
 
-At this point, it's a good idea to try to recompile (`./mk`) to make sure you haven't introduced any syntax errors in `run_star_extras.f90`. If you have, fix them before proceeding.
+At this point, it's a good idea change back into your work directory and try to recompile (`./mk`) to make sure you haven't introduced any syntax errors in `run_star_extras.f90`. If you have, fix them before proceeding.
 
 ### Step 2: Rename the Subroutine
+
 Now that we have the boilerplate code, we need to rename the subroutine to something more meaningful. We'll call it `day2_other_energy`. Before we make changes, let's take a closer look at the boilerplate code we just copied:
 
 ```fortran
@@ -1090,7 +1113,7 @@ end subroutine day2_other_energy
 </div>
 </details>
 
-### Step 3: Set the Pointer in `extras_controls`
+### Step 3: Set the Pointer
 
 We have another step to complete before MESA will even call our new subroutine. Rather than spell it out for you, I'm going to lead you to some bread crumbs, but see the hints if you get stuck.
 
@@ -1108,6 +1131,7 @@ The comments I'm talking about are these:
 ! consult star/other/README for general usage instructions
 ! control name: use_other_energy = .true.
 ! procedure pointer: s% other_energy => my_routine
+!
 ```
 
 If you then read the `README` file in `$MESA_DIR/star/other`, you'll see that there are some instructions similar to these. Right now, we're dealing with step 2 in that file, which happens to use `other_energy` as an example!
@@ -1127,12 +1151,48 @@ You need to edit `extras_controls` by adding the following line somewhere in the
 s% other_energy => day2_other_energy
 ```
 
-This sets the pointer `s% other_energy` to point to our new subroutine `day2_other_energy`. This is how MESA knows to call our subroutine when it reaches the `other_energy` hook in the flowchart.
+This sets the pointer `s% other_energy` to point to our new subroutine `day2_other_energy`. This is how MESA knows to call our subroutine when it reaches the `other_energy` hook in the flowchart. For me the entirety of the `extras_controls` subroutine now looks like this:
+
+```fortran
+subroutine extras_controls(id, ierr)
+   integer, intent(in) :: id
+   integer, intent(out) :: ierr
+   type (star_info), pointer :: s
+   ierr = 0
+   call star_ptr(id, s, ierr)
+   if (ierr /= 0) return
+   
+   ! this is the place to set any procedure pointers you want to change
+   ! e.g., other_wind, other_mixing, other_energy  (see star_data.inc)
+
+
+   ! the extras functions in this file will not be called
+   ! unless you set their function pointers as done below.
+   ! otherwise we use a null_ version which does nothing (except warn).
+
+   s% extras_startup => extras_startup
+   s% extras_start_step => extras_start_step
+   s% extras_check_model => extras_check_model
+   s% extras_finish_step => extras_finish_step
+   s% extras_after_evolve => extras_after_evolve
+   s% how_many_extra_history_columns => how_many_extra_history_columns
+   s% data_for_extra_history_columns => data_for_extra_history_columns
+   s% how_many_extra_profile_columns => how_many_extra_profile_columns
+   s% data_for_extra_profile_columns => data_for_extra_profile_columns  
+
+   s% how_many_extra_history_header_items => how_many_extra_history_header_items
+   s% data_for_extra_history_header_items => data_for_extra_history_header_items
+   s% how_many_extra_profile_header_items => how_many_extra_profile_header_items
+   s% data_for_extra_profile_header_items => data_for_extra_profile_header_items
+
+   s% other_energy => day2_other_energy
+end subroutine extras_controls
+```
 
 </div>
 </details>
 
-### Step 4: Turn the Hook On in the Inlist
+### Step 4: Turn the Hook On
 
 You're probably getting the hang of this by now, so I'll let you try this one on your own again.
 
@@ -1211,7 +1271,7 @@ Now let's finally implement something that's actually interesting! We'll assume 
 
 $$\epsilon_{\mathrm{extra}}(M_r) = L_{\mathrm{extra}}\frac{1}{\Delta M}\exp\left(-\frac{M_r}{\Delta M}\right),$$
 
-where $L_{\mathrm{extra}}$ is the total luminosity from this new energy source, $M_r$ is the mass coordinate of the zone, and $\Delta M$ is a characteristic mass scale that determines how quickly the energy source decreases with radius. Well-behaved values for $\Delta M$ and $L_{\mathrm{extra}}$ are $0.5~M_\odot$ and $0.1~L_\odot$, respectively, but you're encouraged to make these values user-accessible in the inlist so you can experiment with them later.
+where $L_{\mathrm{extra}}$ is the total luminosity from this new energy source, $M_r$ is the mass coordinate of the zone, and $\Delta M$ is a characteristic mass scale that determines how quickly the energy source decreases with increasing mass coordinate. Well-behaved values for $\Delta M$ and $L_{\mathrm{extra}}$ are $0.5~M_\odot$ and $0.1~L_\odot$, respectively, but I encourage you to make these values user-accessible in the inlist so you can experiment with them later.
 
 **Task 4.6:** Implement the above energy source in your `day2_other_energy` subroutine. You should already have a loop ready to go, but now instead of setting each zone's `extra_heat` to zero, you should compute the value locally for each zone. Compile, run, and check the plot that shows `extra_energy` to confirm that it is behaving appropriately. As always, beware unit trickery!
 
@@ -1223,7 +1283,7 @@ While it may take more timesteps than before, the actual evolutionary time of th
 </summary>
 <div class="hx-p-4">
 
-Okay, it's not "trickery" per se, but `s% extra_heat` is in erg/g/s, and we tend to think of masses and luminosities in solar units. My recommendation is to not fight your instincts and just convert everything to cgs within the subroutine. So if you read in $\Delta M$ and $L_{\mathrm{extra}}$ in solar units, convert them to cgs units using `Lsun` and `Msun` (from the `const` module) before using them in the calculation. You can use the `const` module to get the solar mass and luminosity in cgs units, so you don't have to hardcode them.
+Okay, it's not "trickery" per se, but `s% extra_heat` is in erg/g/s, and we tend to think of masses and luminosities in solar units. My recommendation is to not fight your instincts and just convert everything to cgs within the subroutine. So if you read in $\Delta M$ and $L_{\mathrm{extra}}$ in solar units, convert them to cgs units using `Lsun` and `Msun` (from the `const` module) before using them in the calculation.
 
 </div>
 </details>
@@ -1283,3 +1343,118 @@ And your `inlist_project` should have the following lines somewhere in the `cont
 
 When all is done with $\Delta M = 0.05~M_\odot$, $L_{\mathrm{extra}} = 0.1~L_\odot$, and the cutoff equilibrium temperature set to 310 K, the last frame of your pgstar evolution should look like this:
 ![Final Frame of pgstar Evolution](../grid1000138.png)
+
+## Part 5: Bonus Exercise: Adding Custom Output Columns
+
+If you got this far, you've done a great job! As a bonus exercise, let's compare the extra heating to the nuclear energy generation rate in the star, both locally and globally.
+
+**Task 5.1:** Use the existing four functions and subroutines dealing with history and profile columns to add a new column to both history and profile outputs. The history column should be called `L_ratio`, and it should be the ratio of the total extra heating to the total nuclear power generatio in the star. The profile column should be called `eps_ratio`, and it should be the ratio of the local extra heating to the local specific nuclear energy generation rate. When you have it working, load the profile and history files in [MESA Explorer](https://billwolf.space/mesa-explorer/) and plot these new columns against model number (history) and mass coordinate (profile). You'll probably want to use a logarithmic scale for the y-axis of the profile plot.
+
+<details class="hx-border hx-border-blue-200 dark:hx-border-blue-200 hx-rounded-md hx-my-2">
+<summary class="hx-bg-blue-100 dark:hx-bg-neutral-800 hx-text-blue-900 dark:hx-text-blue-200 hx-px-4 hx-py-2 hx-m-0 hx-cursor-pointer">
+<em>Hint: star info structure members</em>
+</summary>
+<div class="hx-p-4">
+
+You'll want to use the following member of the star info structure:
+- `total_extra_heating`
+- `total_nuclear_heating`
+- `extra_heat`
+- `eps_nuc`
+
+Beware; `extra_heat` is of type `auto_diff_real_star_order1`, so you'll need to use the `val` member to get the actual value of the extra heating at each zone. `auto_diff` is a great tool, but sometimes these gotchas can trip you up if you're not careful (I wasn't at first!).
+</div>
+</details>
+
+<details class="hx-border hx-border-green-200 dark:hx-border-green-200 hx-rounded-md hx-my-2">
+<summary class="hx-bg-green-100 dark:hx-bg-neutral-800 hx-text-green-900 dark:hx-text-green-200 hx-py-2 hx-px-4 hx-m-0 hx-cursor-pointer">
+<em>Answer</em>
+</summary>
+<div class="hx-p-4">
+
+The four functions and subroutines you need to implement are:
+```fortran
+integer function how_many_extra_history_columns(id)
+   integer, intent(in) :: id
+   integer :: ierr
+   type (star_info), pointer :: s
+   ierr = 0
+   call star_ptr(id, s, ierr)
+   if (ierr /= 0) return
+   how_many_extra_history_columns = 1
+end function how_many_extra_history_columns
+
+
+subroutine data_for_extra_history_columns(id, n, names, vals, ierr)
+   integer, intent(in) :: id, n
+   character (len=maxlen_history_column_name) :: names(n)
+   real(dp) :: vals(n)
+   integer, intent(out) :: ierr
+   type (star_info), pointer :: s
+   ierr = 0
+   call star_ptr(id, s, ierr)
+   if (ierr /= 0) return
+   
+   ! note: do NOT add the extras names to history_columns.list
+   ! the history_columns.list is only for the built-in history column options.
+   ! it must not include the new column names you are adding here.
+   names(1) = 'L_ratio'
+   vals(1) = s% total_extra_heating / (s% total_nuclear_heating)
+
+end subroutine data_for_extra_history_columns
+
+
+integer function how_many_extra_profile_columns(id)
+   integer, intent(in) :: id
+   integer :: ierr
+   type (star_info), pointer :: s
+   ierr = 0
+   call star_ptr(id, s, ierr)
+   if (ierr /= 0) return
+   how_many_extra_profile_columns = 1
+end function how_many_extra_profile_columns
+
+
+subroutine data_for_extra_profile_columns(id, n, nz, names, vals, ierr)
+   integer, intent(in) :: id, n, nz
+   character (len=maxlen_profile_column_name) :: names(n)
+   real(dp) :: vals(nz,n)
+   integer, intent(out) :: ierr
+   type (star_info), pointer :: s
+   integer :: k
+   ierr = 0
+   call star_ptr(id, s, ierr)
+   if (ierr /= 0) return
+   
+   ! note: do NOT add the extra names to profile_columns.list
+   ! the profile_columns.list is only for the built-in profile column options.
+   ! it must not include the new column names you are adding here.
+
+   names(1) = 'eps_ratio'
+   do k = 1, nz
+      vals(k,1) = s% extra_heat(k)% val / s% eps_nuc(k)
+   end do
+   
+end subroutine data_for_extra_profile_columns
+```
+Note that most of this was boilerplate. We needed to set to integers (in the `how_many_extra_*` functions) to 1 instead of 0, and then we needed to set the names and values in the `data_for_extra_*` subroutines. For the profile case, we had to do a loop to set the value of the ratio for each zone, and since `extra_heat` is of type `auto_diff_real_star_order1`, we had to use the `val` member to get the actual value of the extra heating at each zone.
+
+After re-running the model and uploading the output to MESA Explorer, here's what we get. First, the history plot of the ratio of total extra heating to total nuclear heating:
+![History Plot of L_ratio](../ratio_history.svg)
+And then the profile plot of the ratio of local extra heating to local nuclear energy generation:
+![Profile Plot of eps_ratio](../ratio_profile.svg)
+You can see that this blows up at the outer edge of the star, presumably because the nuclear energy generate rate drops off much faster than the extra heating exponential decay, causing the ratio to diverge.
+</div>
+</details>
+
+
+## Conclusion and Next Steps
+
+Congratulations! Though these examples were relatively simple, these building blocks are the same one used to implement more complex physics in MESA. I do want to mention a few more things before we wrap up.
+
+- **Additional Output (see bonus exercise):** If you want to output additional data to the history or profile files, you can do so by implementing the `how_many_extra_history_columns`, `data_for_extra_history_columns`, `how_many_extra_profile_columns`, and `data_for_extra_profile_columns` functions. These functions are called at the end of each timestep and allow you to add custom data to the output files. Note that you have to set the number of new columns in one function, and then that number is used in the other function to size the arrays that need to be set. You do **not** need to add these column names to `history_columns.list` or `profile_columns.list`.
+- **Calling Functions:** Take a look in `$MESA_DIR/star/public/star_lib.f90`. This file exposes a bunch of functions that you can call from your `run_star_extras.f90` file if `star_lib` is imported with a `use` statement. For instance, you can call `star_relax_mass` to change the mass of a star dynamically right in the middle of a run without having to switch to a new inlist.
+- **Saving Local Variables:** You can declare module-level variables (available across functions and subroutines) in `run_star_extras.f90`, but be careful with this, because they are not automatically saved when a photo is saved. You can add this feature by using the `other_photo_read` and `other_photo_write` hooks. These are [currently] not well documented, but see the `run_star_extras.f90` file of the `$MESA_DIR/star/test_suite/c13_pocket` test case to see how module level variables can be declared, used, and stored in photos using these hooks.
+- **More Hooks and Examples:** In the spirit of the last point, you saw that there are *many* hooks available in MESA. Each one works a bit differently, and their documentation is not always clear. A good way to learn how to use them is to look at the test cases in `$MESA_DIR/star/test_suite`. Not every hook is tested, but many are, so you can see how they are used in practice. For a real tour de force of what you can do with `run_star_extras.f90`, check out the `ppisn` test case.
+
+Have fun exploring what you can do with MESA! And when you really do get stuck, you can always send an email to the MESA users mailing list to see if a new pair of eyes can help you out. Just be sure to include a description of what you're trying to do, what you've tried, and any relevant code files. The MESA community is generally very helpful and responsive.
