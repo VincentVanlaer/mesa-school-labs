@@ -1,0 +1,106 @@
+&star_job
+  ! see star/defaults/star_job.defaults
+
+  ! begin with a pre-main sequence model
+    create_pre_main_sequence_model = .true.
+  ! reducing the number of preMS relaxation steps from 300 to 100 to save on some computation time
+    pre_ms_relax_num_steps = 100
+
+  ! display on-screen plots
+    pgstar_flag = .true.
+
+  ! wait for confirmation of the user before closing the pgstar plots
+    pause_before_terminate = .true.
+
+  ! print a summary of the nuclear network to the terminal
+    show_net_species_info = .true.
+
+  ! Our selection of only the finest history columns to include
+    history_columns_file = 'my_history_columns.list'
+    profile_columns_file = 'my_profile_columns.list'
+
+  ! save a model at the end of the run
+    save_model_when_terminate = .true.
+    save_model_filename = 'M2_Z00014_exponential_fov0010_f0ov0001_TAMS.mod'
+
+  ! increasing the first time step after a convective core has formed from 0.00001 years to 1 year to speed up the computation
+    set_initial_dt = .true.
+    years_for_initial_dt = 1d0
+
+/ ! end of star_job namelist
+
+
+&eos
+  ! eos options
+  ! see eos/defaults/eos.defaults
+
+/ ! end of eos namelist
+
+
+&kap
+  ! kap options
+  ! see kap/defaults/kap.defaults
+
+    use_Type2_opacities = .true.
+    Zbase = 0.0014d0
+
+/ ! end of kap namelist
+
+
+&controls
+  ! see star/defaults/controls.defaults
+
+  ! starting specifications
+    initial_mass = 2d0 ! in Msun units
+
+  ! when to stop
+
+    ! stop when the star nears ZAMS (Lnuc/L > 0.99)
+    Lnuc_div_L_zams_limit = 0.99d0
+    stop_near_zams = .false.
+
+    ! stop when the center mass fraction of h1 drops below this limit
+    xa_central_lower_limit_species(1) = 'h1'
+    xa_central_lower_limit(1) = 1d-6
+
+  ! wind
+    hot_wind_scheme = 'Dutch'
+    cool_wind_RGB_scheme = 'Dutch'
+    Dutch_scaling_factor = 1d0
+
+  ! atmosphere
+
+  ! rotation
+
+  ! element diffusion
+
+  ! mlt
+  ! the mixing length parameter alpha_MLT
+    mixing_length_alpha = 1.8d0
+
+  ! mixing
+    overshoot_scheme(1) = 'exponential'
+    overshoot_zone_type(1) = 'burn_H'
+    overshoot_zone_loc(1) = 'core'
+    overshoot_bdy_loc(1) = 'top'
+    overshoot_f(1) = 0.010d0
+    overshoot_f0(1) = 0.001d0
+
+  ! timesteps
+
+  ! mesh
+
+  ! solver
+  ! options for energy conservation (see MESA V, Section 3)
+    energy_eqn_option = 'dedt'
+    use_gold_tolerances = .true.
+
+  ! output
+  ! How often to write history output. We want output at every step since history output does not
+  ! take a lot of time or disk space to write.
+    history_interval = 1
+
+  ! Where to save the history and profile output
+    log_directory = 'LOGS_M2_Z00014_exponential_fov0010_f0ov0001/' ! Add your directory name here
+
+/ ! end of controls namelist
