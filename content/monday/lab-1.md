@@ -53,7 +53,7 @@ how the numerical simplifications impact the evolution of the model.
 In doing so, we will learn how to find reasonable values for
 model parameters, namely the initial mass of the star $M$,
 its initial metal mass fraction $Z$, the overshooting scheme, overshoot
-parameter $f_ov$ which describes how far from the core the overshoot
+parameter $f_{ov}$ which describes how far from the core the overshoot
 can reach and $f_0$ which describes how deep in the convection zones the
 model switches from mixing by convection to overshoot.
 
