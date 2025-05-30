@@ -32,6 +32,9 @@ and to avoid calculating the evolution to the TAMS several times,
 we will load the saved model every time when we will explore 
 different physical settings. 
 
+If you did not finish lab1 or by accident overwrote your model during lab1. 
+You can download the TAMS model here: 
+
 inlist_project: star_job
 ------------------------
 
