@@ -260,7 +260,7 @@ have to run your model all the way to the TAMS. You can interupt
 it using ctrl+C if you're on Linux and Cmd+C if you're on Mac.
 
 If you got stuck and cannot get your inlist to run, you can find
-[a functional inlist with all the changes described above here](lab1/completed_inlists/inlist_project1)
+[a functional inlist with all the changes described above here](https://github.com/Mathijs-Vanrespaille/mesa-school-labs/blob/main/content/monday/lab1/completed_inlists/inlist_project1)
 , so you can continue with limited delay.
 
 
@@ -365,7 +365,7 @@ the new file 'M5_Z0014_fov030_f0ov0005_TAMS.mod' is in your work
 directory.
 
 If you got stuck and cannot get your inlist to run, you can find
-[a functional inlist with all the changes described above here](lab1/completed_inlists/inlist_project2)
+[a functional inlist with all the changes described above here](https://github.com/Mathijs-Vanrespaille/mesa-school-labs/blob/main/content/monday/lab1/completed_inlists/inlist_project2)
 , so you can continue with limited delay.
 
 
@@ -558,11 +558,11 @@ While the history output only needs to write one row of values at each history o
 </details>
 
 If you got stuck and cannot get your inlist to run, you can find
-[a functional inlist with all the changes described above here](lab1/completed_inlists/inlist_project3)
+[a functional inlist with all the changes described above here](https://github.com/Mathijs-Vanrespaille/mesa-school-labs/blob/main/content/monday/lab1/completed_inlists/inlist_project3)
 , so you can continue with limited delay. You can also find the
-[completed inlist pgstar here](lab1/completed_inlists/inlist_pgstar),
-the [completed history columns list here](lab1/completed_inlists/my_history_columns.list), 
-and the [completed profile columns list here](lab1/completed_inlists/my_profile_columns.list).
+[completed inlist pgstar here](https://github.com/Mathijs-Vanrespaille/mesa-school-labs/blob/main/content/monday/lab1/completed_inlists/inlist_pgstar),
+the [completed history columns list here](https://github.com/Mathijs-Vanrespaille/mesa-school-labs/blob/main/content/monday/lab1/completed_inlists/my_history_columns.list), 
+and the [completed profile columns list here](https://github.com/Mathijs-Vanrespaille/mesa-school-labs/blob/main/content/monday/lab1/completed_inlists/my_profile_columns.list).
 
 
 
@@ -668,7 +668,7 @@ From this final line, record the following values in the second page of the spre
 These values will allow us to analyze how different overshooting parameters affect stellar evolution.
 
 If you got stuck and cannot get your inlist to run, you can find
-[a functional inlist with all the changes described above here](lab1/completed_inlists/inlist_project4)
+[a functional inlist with all the changes described above here](https://github.com/Mathijs-Vanrespaille/mesa-school-labs/blob/main/content/monday/lab1/completed_inlists/inlist_project4)
 , so you can continue with limited delay. You will still have to update the parameters
 and output filenames and directory according to your parameter set though. Ask your
 TA for assistance with that.
@@ -699,4 +699,4 @@ The provided parameter grid explores:
 - Overshooting parameters: 0.01-0.3
 - Penetration depths: 0.001-0.01
 
-For complete documentation and additional analysis tools, see [`bonus_tasks/README.md`](./bonus_tasks/README.md).
+For complete documentation and additional analysis tools, see [`bonus_tasks/README.md`](https://github.com/Mathijs-Vanrespaille/mesa-school-labs/blob/main/content/monday/lab1/bonus_tasks/README.md).
