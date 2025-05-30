@@ -33,7 +33,7 @@ we will load the saved model every time when we will explore
 different physical settings. 
 
 If you did not finish lab1 or by accident overwrote your model during lab1. 
-You can download the TAMS model here: 
+You can download the TAMS model [here](https://github.com/Daniel-Pauli/mesa-school-labs/blob/patch-1/content/monday/lab2/M5_Z0014_fov030_f0ov0005_TAMS.mod).
 
 inlist_project: star_job
 ------------------------
