@@ -51,9 +51,9 @@ In this session, we will examine how overshooting of a convective core
 affects a star's evolution together. We will also examine
 how the numerical simplifications impact the evolution of the model.
 In doing so, we will learn how to find reasonable values for
-model parameters, namely the initial mass of the star $M_\mathrm{ini}$,
+model parameters, namely the initial mass of the star $M_\rm{ini}$,
 its initial metal mass fraction $Z$, the overshooting scheme, overshoot
-parameter $f_\mathrm{ov}$ which describes how far from the core the overshoot
+parameter $f_\rm{ov}$ which describes how far from the core the overshoot
 can reach and $f_0$ which describes how deep in the convection zones the
 model switches from mixing by convection to overshoot.
 
@@ -259,6 +259,10 @@ your changes to the inlist did what they are supposed to. You don't
 have to run your model all the way to the TAMS. You can interupt
 it using ctrl+C if you're on Linux and Cmd+C if you're on Mac.
 
+If you got stuck and cannot get your inlist to run, you can find
+[a functional inlist with all the changes described above here](lab1/completed_inlists/inlist_project1)
+, so you can continue with limited delay.
+
 
 ### Upgrading the physics
 
@@ -360,6 +364,10 @@ into your terminal. When the run is finished, double check if
 the new file 'M5_Z0014_fov030_f0ov0005_TAMS.mod' is in your work
 directory.
 
+If you got stuck and cannot get your inlist to run, you can find
+[a functional inlist with all the changes described above here](lab1/completed_inlists/inlist_project2)
+, so you can continue with limited delay.
+
 
 ### Customising output
 
@@ -374,7 +382,8 @@ these and how to edit your *inlist_pgstar* in
 [this documentation page](https://docs.mesastar.org/en/24.08.1/reference/pgstar.html).
 
 For this lab, we have prepared a specialised
-*inlist_pgstar* for you. Download that *inlist_pgstar* here [TO DO]
+*inlist_pgstar* for you. Download that *inlist_pgstar* 
+[here](lab1/completed_inlists/inlist_pgstar_initial)
 and move it into your MESA work directory.
 
 Run your model again to see what the new pgstar plots look like.
@@ -548,6 +557,14 @@ Add <code>profile_interval = 10</code> to your inlist's <code>&controls</code> s
 While the history output only needs to write one row of values at each history output step, the profiles consist of many columns and thus take up considerable disk space. Therefore, MESA puts a limit on how many profiles it can write (100 by default). If the run keeps going after the maximum has been reached, the oldest profiles are overwritten.
 </details>
 
+If you got stuck and cannot get your inlist to run, you can find
+[a functional inlist with all the changes described above here](lab1/completed_inlists/inlist_project3)
+, so you can continue with limited delay. You can also find the
+[completed inlist pgstar here](lab1/completed_inlists/inlist_pgstar),
+the [completed history columns list here](lab1/completed_inlists/my_history_columns.list), 
+and the [completed profile columns list here](lab1/completed_inlists/my_profile_columns.list).
+
+
 
 ---
 
@@ -649,6 +666,13 @@ From this final line, record the following values in the second page of the spre
 - star_age/1e6 (to convert to Myr)
 
 These values will allow us to analyze how different overshooting parameters affect stellar evolution.
+
+If you got stuck and cannot get your inlist to run, you can find
+[a functional inlist with all the changes described above here](lab1/completed_inlists/inlist_project4)
+, so you can continue with limited delay. You will still have to update the parameters
+and output filenames and directory according to your parameter set though. Ask your
+TA for assistance with that.
+
 
 21. Now let's wrap up this lab by reading your MESA output in using Python
 and making some custom plots.
