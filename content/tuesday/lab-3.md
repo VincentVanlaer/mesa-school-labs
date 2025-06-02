@@ -27,7 +27,7 @@ Of course, there is additional physics in both of these prior examples that I ha
 
 ### Helpful Links
 
-The general Lab 3 github repo can be found [here](https://github.com/pmocz/mesa-summer-school-2025-day2/tree/main/minilab3).  This repo contains the solutions, separated by step, the starting point for the lab, and pre-made ZAMS models. 
+The general Lab 3 Google Drive can be found [here](https://drive.google.com/drive/folders/13a2fdxeXzITIJgJWkmvUShg0fPrFs9UX?usp=sharing).  This folder contains the solutions, separated by step, the starting point for the lab, and pre-made ZAMS models. 
 
 The Lab 3 Google Sheet can be found [here](https://docs.google.com/spreadsheets/d/1DSz7hmZfaAVm9XfVc-28lxwujzKFRZx4jOxRFkxqoPk/edit?usp=sharing).
   
@@ -43,11 +43,11 @@ The Google Colab script to make your plots can be found [here](https://colab.res
 > [!NOTE]
 > For clarity, specific tasks are marked by **bold** text
 
-First, **claim a mass and initial rotation from the Google Sheet by entering your initials in Column A**. Then, **copy the starting point from the github repo to a local working directory**. 
+First, **claim a mass and initial rotation from the Google Sheet by entering your initials in Column A**. Then, **copy the starting point from the Google Drive to a local working directory**. 
 
 This starting point should be a fairly familiar set of files. There are the standard MESA executables (`clean`, `mk`, `rn`, `re`), a file to tell MESA where to look at startup (`inlist`), a file with the particular run parameters we wish to use (`inlist_project`), a file that tells pgstar what to do (`inlist_pgstar`), a list of columns we want in our history file (`history_columns.list`), a list of columns we want in our profile file (`profile_columns.list`), and the mysterious `src` subdirectory. Each of these files has been -mostly- pre-prepared with the structure we will need to get going. Additionally, throughout each of these starting point files, variables that need to be changes are explicitly marked with "`!!!! !!!!`". This is also true if there is some particular section that needs your input. If you have trouble finding a value, feel free to ctrl+f your way around. 
 
-Next, given the star value you selected, **copy the relevant ZAMS model into your working directory from the Github Repo**. The working directory should now be:
+Next, given the star value you selected, **copy the relevant ZAMS model into your working directory from the Google Drive**. The working directory should now be:
 
 
 {{< filetree/container >}}
