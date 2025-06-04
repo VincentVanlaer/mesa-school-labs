@@ -13,22 +13,28 @@ MESA is quite powerful and flexible. In addition to saving all sorts of informat
 
 ## Theory
 
-The paper [Heger et al. (2000)](https://ui.adsabs.harvard.edu/abs/2000ApJ...528..368H/abstract) defines the Eddington-Sweet velocity as follows.
+The paper [Heger et al. (2000)](https://ui.adsabs.harvard.edu/abs/2000ApJ...528..368H/abstract) defines the Eddington-Sweet velocity, reproduced below.
+For this lab, do not worry about understanding this formula! Our goal is to take it at face-value and implement its calculation in MESA.
 
-From [Kippenhahn (1974)](https://ui.adsabs.harvard.edu/abs/1974IAUS...66...20K/abstract), an estimate of the circulation velocity is:
+The Eddington-Sweet velocity $v_{\mathrm{ES}}$ is the difference between an estimate for the circulation velocity (absolute value) minus a meridional circulation correction term:
+
+$$
+v_{\mathrm{ES}} \equiv \max \left(\left|v_e\right|-\left|v_\mu\right|, 0\right)
+$$
+
+From [Kippenhahn (1974)](https://ui.adsabs.harvard.edu/abs/1974IAUS...66...20K/abstract), the estimate of the circulation velocity is:
 
 $$
 v_e \equiv \frac{\nabla_{\mathrm{ad}}}{\delta\left(\nabla_{\mathrm{ad}}-\nabla\right)} \frac{\omega^2 r^3 l}{(G m)^2}\left[\frac{2\left(\varepsilon_n+\varepsilon_v\right) r^2}{l}-\frac{2 r^2}{m}-\frac{3}{4 \pi \rho r}\right]
 $$
 
-In the presence of $\mu$-gradients, meridional circulation has to work against the potential and thus might be inhibited or suppressed (Mestel 1952, 1953). Formally, this can be written as a "stabilizing" circulation velocity,
-
+In the presence of $\mu$-gradients, meridional circulation has to work against the potential and thus might be inhibited or suppressed ([Mestel 1952](https://ui.adsabs.harvard.edu/abs/1952MNRAS.112..598M/abstract), [1953](https://ui.adsabs.harvard.edu/abs/1953MNRAS.113..716M/abstract)). Formally, this can be written as a "stabilizing" circulation velocity,
 
 $$
 v_\mu \equiv \frac{H_P}{\tau_{\mathrm{KH}}^*} \frac{\varphi \nabla_\mu}{\delta\left(\nabla-\nabla_{\mathrm{ad}}\right)}
 $$
 
-([Kippenhahn (1974)](https://ui.adsabs.harvard.edu/abs/1974IAUS...66...20K/abstract); [Pinsonneault et al. (1989)](https://ui.adsabs.harvard.edu/abs/1989ApJ...338..424P/abstract)), where
+([Kippenhahn 1974](https://ui.adsabs.harvard.edu/abs/1974IAUS...66...20K/abstract); [Pinsonneault et al. 1989](https://ui.adsabs.harvard.edu/abs/1989ApJ...338..424P/abstract)), where
 
 $$
 \tau_{\mathrm{KH}}^* \equiv \frac{G m^2}{r\left(l-m \varepsilon_v\right)}
@@ -36,15 +42,14 @@ $$
 
 is the local Kelvin-Helmholtz timescale, used here as an
 estimate for the local thermal adjustment timescale of the
-currents ([Pinsonneault et al. (1989)](https://ui.adsabs.harvard.edu/abs/1989ApJ...338..424P/abstract)).
+currents ([Pinsonneault et al. 1989](https://ui.adsabs.harvard.edu/abs/1989ApJ...338..424P/abstract)).
 
-The Eddington-Sweet velocity is then:
+More on what all these variables are in a bit!
 
-$$
-v_{\mathrm{ES}} \equiv \max \left(\left|v_e\right|-\left|v_\mu\right|, 0\right)
-$$
+## Project work directory
 
-For our purposes, we can ignore $\varepsilon_v$ in our calculations.
+We will start with a clean project work directory `lab-2/`, which sets up a 10 solar mass rotating star, similar to lab-1 from today which you just completed. The star setup is defined in your inlist: `inlist_project` and the setup for plotting with `pgstar` is in the file `inlist_pgstar`. For this lab, we will be modifying the `src/run_star_extras.f90` Fortran file to add new computations into MESA
+
 
 ## Extending MESA
 
@@ -73,7 +78,22 @@ integer function how_many_extra_profile_columns(id)
 end function how_many_extra_profile_columns
 ```
 
-For this lab, modify your function in your work directory to look like the above.
+instead of
+```fortran
+integer function how_many_extra_profile_columns(id)
+   integer, intent(in) :: id
+   integer :: ierr
+   type (star_info), pointer :: s
+   ierr = 0
+   call star_ptr(id, s, ierr)
+   if (ierr /= 0) return
+   how_many_extra_profile_columns = 0
+end fun
+```
+
+Note: the only line that has changed is that we switched the variable `how_many_extra_profile_columns = 0` to `how_many_extra_profile_columns = 1`, to indicate that want to add a new profile to compute in the output.
+
+**Modify** the `how_many_extra_profile_columns` function `run_stars_extras.f90` file in your work directory now to look like the above.
 
 The second function (`data_for_extra_profile_columns`) will perform the calculation. In this lab, you will fill out this function.
 
@@ -90,37 +110,65 @@ subroutine data_for_extra_profile_columns(id, n, nz, names, vals, ierr)
    call star_ptr(id, s, ierr)
    if (ierr /= 0) return
 
-   ! IMPLEMENT EDDINTGON-SWEET VELOCITY CALCULATION HERE
+   ! TODO: IMPLEMENT EDDINTGON-SWEET VELOCITY CALCULATION HERE
+
+   names(1) = ! TODO: NAME OF MY NEW CUSTOM PROFILE COMPUTATION
+   do i = 1, nz
+      vals(i,1) = ! TODO: VALUE OF MY PROFILE AT ZONE i
+   end do
 
    end subroutine data_for_extra_profile_columns
 ```
+
+**Implement** the calculation of the Eddington-Sweet velocity inside the `data_for_extra_profile_columns` function now, using the guide below.
 
 You will have to specify the name of the new profile column,
 e.g. `names(1) = 'v_ES'`, and its values `vals(i,1)`, where `i` is the `i`-th zone in the star. There are `nz` zones in total. The index 1 refers to the fact that this is the 1st extra column we are filling out.
 
 To calculate the Eddington-Sweet velocity, we will need to know the variable names in the code that correspond to the ones in the equation. I provide a reference below:
 
-| Variable                      | in MESA                   |
-|-------------------------------|---------------------------|
-| $\nabla_{\mathrm{ad}}$        | s% grada(i)               |
-| $\delta$                      | s% chiT(i) / s% chiRho(i) |
-| $r$                           | s% r(i)                   |
-| $l$                           | s% L(i)                   |
-| $m$                           | s% m(i)                   |
-| $\rho$                        | s% rho(i)                 |
-| $\varepsilon_n$               | s% eps_nuc(i)             |
-| $\nabla_{\mathrm{ad}}-\nabla$ | s% gradT_sub_grada(i)     |
-| $G$                           | s% cgrav(i)               |
-| $\omega$                      | s% omega(i)               |
-| $H_P$                         | s% scale_height(i)        |
-| $\nabla_\mu$                  | s% am_gradmu_factor       |
-| $\varphi$                     | s% smoothed_brunt_B(i)    |
+| Variable                      | in MESA                   | physical meaning       |
+|-------------------------------|---------------------------|------------------------|
+| $\nabla_{\mathrm{ad}}$        | s% grada(i)               | adiabatic temperature gradient     |
+| $\delta$                      | s% chiT(i) / s% chiRho(i) | ratio of $d\ln{P}_{\rm eos}/d\ln{T}$ at constant $\rho$ and $d\ln{P}_{\rm eos}/d\ln{\rho}$ at constant $T$ |
+| $r$                           | s% r(i)                   | radial coordinate      |
+| $l$                           | s% L(i)                   | luminosity profile     |
+| $m$                           | s% m(i)                   | mass profile           |
+| $\rho$                        | s% rho(i)                 | density profile        |
+| $\varepsilon_n$               | s% eps_nuc(i)             | total energy (erg/g/s) from nuclear reactions |
+| $\nabla_{\mathrm{ad}}-\nabla$ | -s% gradT_sub_grada(i)    | difference between adiabatic temperature gradient and temperature gradient. ($\nabla>\nabla_{\rm ad}$ is convectively unstable) |
+| $G$                           | s% cgrav(i)               | gravitational constant |
+| $\omega$                      | s% omega(i)               | rotation frequency     |
+| $H_P$                         | s% scale_height(i)        | scale height           |
+| $\nabla_\mu$                  | s% am_gradmu_factor       | $d\ln{\mu}/d\ln{P}$    |
+| $\varphi$                     | s% smoothed_brunt_B(i)    | $\left(\frac{\partial \ln\rho}{\partial\ln\mu}\right)_{P,T}$ |
 
-You can find what they do exaclty by searching around in the code with the `grep` command-line tool.
+For our purposes, we can ignore $\varepsilon_nu$ (neutrinos) in our calculations.
+
+In Fortran, if you want to create new variables to store intermediate calculations, we need to declare them at the top of the function.
+
+For example, to declare a new decimal number called, let's say `delta`, do:
+```fortran
+real(dp) :: delta
+```
+
+and to declare a new integer, e.g. `m`, do:
+```fortran
+integer :: m
+```
+
+
+## Searching the codebase for variables
+
+You can find out what each variable exactly does in MESA by searching around in the code with the `grep` command-line tool.
 All the variables available can be found in the
-`star_data/public/*.inc` include files, and their default values in found in `star/defaults/controls.defaults`.
+`star_data/public/*.inc` include files, and their default values found in `star/defaults/controls.defaults`.
 To see where they appear in the source code, you'll need to search the Fortran `*.f90` source code files.
-E.g., in the main MESA directory, try out the following:
+E.g., go to your main MESA directory, 
+```console
+cd $MESA_DIR
+```
+and try out the following:
 ```console
 grep am_gradmu_factor star/defaults/controls.defaults
 grep am_gradmu_factor star_data/private/*.inc
@@ -132,8 +180,8 @@ to see all appearances and uses of `am_gradmu_factor` in the code.
 ### Bonus
 
 
-For numerical robustness, MESA sometimes internally smooths variables across cells.
-For example, a smoothed $\delta$ looks like the following.
+For numerical robustness, MESA sometimes internally smooths variables across zones.
+For example, a smoothed variant of our variable $\delta$ averaged across two zone looks like the following:
 
 ```fortran
 ! alpha smoothing
@@ -141,18 +189,35 @@ alfa = s% dq(i-1) / (s% dq(i-1) + s% dq(i))
 delta = alfa * s% chiT(i) / s% chiRho(i) + (1.0d0 - alfa) * s% chiT(i-1) / s% chiRho(i-1)
 ```
 
+Use this smoothed calculation of $\delta$ in your `run_star_extras.f90` file, instead of a single zone lookup.
 Investigate the result of alpha-smoothing on your calculation of the Eddington-Sweet velocity profile.
+
+
+## Run your MESA simulation
+
+Once you have implemented the Eddington-Sweet velocity, we will need to compile the code in your work directory and run it.
+To compile, do:
+```console
+./mk
+```
+and to run, do:
+```console
+./rn
+```
+The simulation will take a few minutes, and we've added custom code to plot the Eddington-Sweet velocity in `pgstar` as your simulation runs.
+
+Note: as you implement your calculation in `run_stars_extras.f90` and try to compile the code with `./mk`, you may run into bugs and error messages. The TA Team will help debug them.
 
 
 ## Compare your results against 2D ESTER models
 
-To plot your MESA results against 2D ESTER models, we will use the Python library [mesa-reader](https://billwolf.space/py_mesa_reader/) by Bill Wolf. If you have Python installed on your system, you'll need to install `mesa-reader` (e.g., `pip install mesa-reader`), and run the plotting script provided:
+To plot your final MESA results against 2D ESTER models, we will use the Python library [mesa-reader](https://billwolf.space/py_mesa_reader/) by Bill Wolf. If you have Python installed on your system, you'll need to install `mesa-reader` (e.g., `pip install mesa-reader`), and run the plotting script provided:
 
 ```console
 python plot.py
 ```
 
-Otherwise you can visit the following Google Colab notebook and plot it in the cloud:
+Otherwise you can visit the following Google Colab notebook and make the plot it in the cloud:
 
 [Google Colab MESA Day 2 Minilab 2 notebook](https://colab.research.google.com/drive/1RGBrGY_oHTjxuagSuYkgR7251CPplDug?usp=sharing)
 
