@@ -145,6 +145,8 @@ To calculate the Eddington-Sweet velocity, we will need to know the variable nam
 
 For our purposes, we can ignore $\varepsilon_{\nu}$ (neutrinos) in our calculations.
 
+Fortran has built-in functions liks `abs()` and `max()`, which may be useful. We also have access to the variable `pi` through the constants (`const`) module.
+
 In Fortran, if you want to create new variables to store intermediate calculations, we need to declare them at the top of your function.
 
 For example, to declare a new decimal number called, let's say `delta`, do:
@@ -206,12 +208,12 @@ and to run, do:
 ```
 The simulation will take a few minutes, and we've added custom code to plot the Eddington-Sweet velocity in `pgstar` as your simulation runs.
 
-Note: as you implement your calculation in `run_stars_extras.f90` and try to compile the code with `./mk`, you may run into bugs and error messages. The TA Team will help debug them.
+Note: as you implement your calculation in `run_stars_extras.f90` and try to compile the code with `./mk`, you may run into bugs and error messages. The TA Team can help debug them.
 
 
 ## Compare your results against 2D ESTER models
 
-To plot your final MESA results against 2D ESTER models, we will use the Python library [mesa-reader](https://billwolf.space/py_mesa_reader/) by Bill Wolf. If you have Python installed on your system, you'll need to install `mesa-reader` (e.g., `pip install mesa-reader`), and run the plotting script provided:
+To plot your final MESA results against 2D ESTER models, we will use the Python library [mesa-reader](https://billwolf.space/py_mesa_reader/) by Bill Wolf. If you have Python installed on your system, you'll need to install `mesa-reader` (e.g., `pip install mesa-reader`), and run the plotting script provided in your work directory:
 
 ```console
 python plot.py
