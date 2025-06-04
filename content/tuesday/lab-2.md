@@ -48,7 +48,7 @@ More on what all these variables are in a bit!
 
 ## Project work directory
 
-We will start with a clean project work directory `lab-2/`, which sets up a 10 solar mass rotating star, similar to lab-1 from today which you just completed. The star setup is defined in your inlist: `inlist_project` and the setup for plotting with `pgstar` is in the file `inlist_pgstar`. For this lab, we will be modifying the `src/run_star_extras.f90` Fortran file to add new computations into MESA
+We will start with a clean project work directory `lab-2/`, which sets up a 10 solar mass rotating star, similar to lab-1 from today which you just completed. The star setup is defined in your inlist: `inlist_project` and the setup for plotting with `pgstar` is in the file `inlist_pgstar`. For this lab, we will be modifying the `src/run_star_extras.f90` Fortran file to add new computations into MESA.
 
 
 ## Extending MESA
@@ -136,16 +136,16 @@ To calculate the Eddington-Sweet velocity, we will need to know the variable nam
 | $m$                           | s% m(i)                   | mass profile           |
 | $\rho$                        | s% rho(i)                 | density profile        |
 | $\varepsilon_n$               | s% eps_nuc(i)             | total energy (erg/g/s) from nuclear reactions |
-| $\nabla_{\mathrm{ad}}-\nabla$ | -s% gradT_sub_grada(i)    | difference between adiabatic temperature gradient and temperature gradient. ($\nabla>\nabla_{\rm ad}$ is convectively unstable) |
-| $G$                           | s% cgrav(i)               | gravitational constant |
+| $\nabla_{\mathrm{ad}}-\nabla$ | -s% gradT_sub_grada(i)    | difference between adiabatic temperature gradient and temperature gradient. (recall: $\nabla>\nabla_{\rm ad}$ means convectively unstable) |
+| $G$                           | s% cgrav(i)               | gravitational constant (note: MESA let's you modify the graviational strength, hence a zone-wise value) |
 | $\omega$                      | s% omega(i)               | rotation frequency     |
 | $H_P$                         | s% scale_height(i)        | scale height           |
 | $\nabla_\mu$                  | s% am_gradmu_factor       | $d\ln{\mu}/d\ln{P}$    |
 | $\varphi$                     | s% smoothed_brunt_B(i)    | $\left(\frac{\partial \ln\rho}{\partial\ln\mu}\right)_{P,T}$ |
 
-For our purposes, we can ignore $\varepsilon_nu$ (neutrinos) in our calculations.
+For our purposes, we can ignore $\varepsilon_{\nu}$ (neutrinos) in our calculations.
 
-In Fortran, if you want to create new variables to store intermediate calculations, we need to declare them at the top of the function.
+In Fortran, if you want to create new variables to store intermediate calculations, we need to declare them at the top of your function.
 
 For example, to declare a new decimal number called, let's say `delta`, do:
 ```fortran
@@ -180,7 +180,7 @@ to see all appearances and uses of `am_gradmu_factor` in the code.
 ### Bonus
 
 
-For numerical robustness, MESA sometimes internally smooths variables across zones.
+For numerical robustness, MESA sometimes internally smooths calculated variables across zones.
 For example, a smoothed variant of our variable $\delta$ averaged across two zone looks like the following:
 
 ```fortran
@@ -190,7 +190,7 @@ delta = alfa * s% chiT(i) / s% chiRho(i) + (1.0d0 - alfa) * s% chiT(i-1) / s% ch
 ```
 
 Use this smoothed calculation of $\delta$ in your `run_star_extras.f90` file, instead of a single zone lookup.
-Investigate the result of alpha-smoothing on your calculation of the Eddington-Sweet velocity profile.
+Investigate the result of alpha-smoothing on $\delta$ on your calculation of the Eddington-Sweet velocity profile.
 
 
 ## Run your MESA simulation
