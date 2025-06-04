@@ -7,36 +7,42 @@ author: Matthias Fabry
 
 This lecture is focused on gaining a basic understanding of how the `binary` module works, and how to use it.
 
-Stellar evolution is fun, we can investigate a lot of aspects about stellar physics.
+Stellar evolution is fun; with it, we can investigate a lot of aspects about stellar physics.
 However, a lot of stars in the universe come with companions, so it is important to have some tools to simulate a star and its companion, simultaneously.
 To this end, `mesa/binary` was conceived.
 In short, `mesa/binary`'s responsability is to make up to two stellar models communicate, by tracking the orbital angular momentum, the masses, and hence the period and separation.
-The evolution of the stars is still done within `mesa/star`, with its own set of settings that one is used from doing single star evolution.
+Routines are implemented to simulate the transfer of mass between the components, as well as processes that affect the angular momentum budget, such as the emission of gravitational radiation.
+The evolution of the stars themselves is still done within `mesa/star`, with its own set of settings that one is used from doing single star evolution.
 
 ## the work directory
 
-`binary` has a slightly different work directory than a single `star` does.
+We start by navigating to `$MESA_DIR/binary/work`.
+To see its contents, issue
+```shell
+tree -C
+```
+`binary` has a slightly different work directory compared to a single `star`.
 It has some extra files, like `inlist1`, `inlist2` and `src/run_binary_extras.f90`.
 
 ### inlists
-The new `inlist`s contain the single star options, and the typical structure of pointings is as follows:
+`inlist_project` now has the sections `&binary_job` and `&binary_controls`.
+These function similarly to `&star_job` and `&controls` for single stars.
+In `&binary_job`, a user can specify high-level, unchanging options.
+Most importantly, here you point to what inlists are used at the star level.
+The new `inlist`s contain the single-star options, and the typical structure of pointings is as follows:
 ```
 inlist -> inlist_project (binary level) |-> inlist1 (star 1 options)
                                         |-> inlist2 (star 2 options)
 
 ```
-`inlist_project` now has the sections `&binary_job` and `&binary_controls`.
-These function similarly to `&star_job` and `&controls` for single stars.
-In `&binary_job`, a user can specify high-level, unchanging options.
-Most importantly, here you point to what inlists are used at the star level:
-
+in `&binary_job`, it looks like this:
 ```fortran
 &binary_job
    inlist_names(1) = 'inlist1'
    inlist_names(2) = 'inlist2'
 /
 ```
-also, the user will specify if the companion is going to be evolved:
+also, the user will specify here if the companion is going to be evolved:
 ```fortran
 &binary_job
    evolve_both_stars = .true.
@@ -53,8 +59,8 @@ In the [Documentation](https://docs.mesastar.org/en/24.08.1/index.html), the [Re
 You can also define extra `binary_history` columns of custom quantities you want to track.
 
 A key ingredient in doing things in `run_binary_extras` is the existence of the fortran structure `binary_info`.
-It is essentially a container where we store all of the information we need to to keep track of the state of the binary, such as the orbital angular momentum, the masses of the components, the age of the system, etc.
-You setup the usage of this in the same way as `star_info`.
+It is essentially a container where we store all the information we need to keep track of the state of the binary, such as the orbital angular momentum, the masses of the components, the age of the system, etc.
+You set up the usage of this in the same way as `star_info`.
 Inside any routine, you write:
 ```fortran
 use binary_def, only : binary_info, binary_ptr
@@ -68,7 +74,7 @@ if (ierr /= 0) then
     return
 end if
 ```
-In this way, the binary pointer `b` is coupled to the info that way stored at index `binary_id` (you usually don't have to worry about what exactly `binary_id` is, as its an input of most subroutines and hooks).
+In this way, the binary pointer `b` is coupled to the info that way stored at index `binary_id` (you usually don't have to worry about what exactly `binary_id` is, as it's an input of most subroutines and hooks).
 
 Now we can access any information the `binary_info` structure possesses:
 ```fortran
@@ -79,13 +85,14 @@ See `$MESA_DIR/binary/public/binary_data.inc` to see which properties are stored
 
 ## control flow
 
-Now that we havemore properties to keep track of, and potentially two stars to evolve, we need a different control flow structure than what a single star run can provide.
-The main file that achieves this is `binary/private/run_binary_support.f90`.
-Instead of just reading all the code, we can explore the control flow by using some write statements at specific places in `run_star_extras` and `run_binary_extras`.
+Now that we have more properties to keep track of, and potentially two stars to evolve, we need a different control flow structure than what a single-star run provides.
+The main file that achieves this is `$MESA_DIR/binary/private/run_binary_support.f90`.
+Instead of just reading this code, we can explore the control flow by using some write statements at specific places in `run_star_extras` and `run_binary_extras`.
 
-1. First, make a copy of the standard binary work directory `binary/work` to a location of your choice (I called it `first_binary`).
-2. Then, copy the contents of `star/job/standard_run_star_extras.inc` into `run_star_extras` as a replacement of the `include` statement.
-3. write a `write` statement in `binary_start_step`, `binary_check_model`, `binary_finish_step`, and for stars in `start_step`, `check_model` and `finish_step`
+1. First, make a copy of the standard binary work directory `$MESA_DIR/binary/work` to a location of your choice (I called it `first_binary`).
+2. Then, copy the contents of `$MESA_DIR/star/job/standard_run_star_extras.inc` into `run_star_extras.f90` as a replacement of the `include` statement.
+3. Then, in `start_step`, `check_model` and `finish_step`, write your favorite `write` statements so you can tell which function is executing.
+4. Do the same in `run_binary_extras.f90`, write a `write` statement in `binary_start_step`, `binary_check_model`, `binary_finish_step`. 
 
 for example:
 ```fortran
@@ -118,12 +125,14 @@ integer function extras_start_step(id)
    extras_start_step = 0
 end function extras_start_step
 ```
-4. Let's run this model (whatever it actually is) to see the order in which these functions trigger:
+5. Let's compile and run this model (whatever it actually is) to see the order in which these functions trigger:
 
 ```shell
 ./mk
 ./rn
 ```
+> In case you encounter permission errors running `mesa`, issue:
+> `chmod +x mk` and `chmod +x rn`
 
 Kill the process after a dozen or so steps with `^C` (control-c).
 The output should look something {{< details title="like this." closed="true" >}}
@@ -164,7 +173,7 @@ We see that the order is:
 star start_step -> binary_start_step -> star_check_model -> binary_check_model -> binary_finish_step -> star finish_step
 ```
 
-To test what happens for two evolving stars, we have to change `evolve_both_stars` to `.true.`.
+To test what happens for two evolving stars, we have to change `evolve_both_stars` to `.true.` in `inlist_project`. 
 Let's run that model as well:
 {{< details title="This is the output you should see" closed="true" >}}
  ```text 
@@ -207,14 +216,14 @@ Next, we check if the model agrees with certain requirements.
 The biggest one from the binary side relates to mass transfer.
 Some examples:
 1. if $\dot{M} = 0$ and both stars do not overflow their respective Roche Lobes, this is fine, as it fulfills the requirements for a non-interacting binary.
-2. On the other hand, if it turns out that the evolution of donor is so that its radius is much larger than the Roche Lobe radius, the `roche_lobe` scheme of mass transfer is violated! We have to redo the step with a higher mass transfer rate, so that (hopefully) this reduces the radius of the donor star to just within the Roche Lobe radius.
+2. On the other hand, if it turns out that the evolution of donor is such that its radius is  larger than the Roche Lobe radius, the `roche_lobe` scheme of mass transfer is violated! We have to redo the step with a higher mass transfer rate, so that (hopefully) this reduces the radius of the donor star to just within the Roche Lobe radius.
 
 Finally, if it is decided that the step is accepted, we do some clean up to finish the step, and in `extras_binary_finish_step`, this is usually where you can implement custom stopping conditions that depend on the new state of the system.
 
 This we can explore as an exercise:
 1. First, turn `evolve_both_stars` back to `.false.`
-2. Set the initial period lower to 0.5 days, and set `do_jdot_mb = .false.` to disable magnetic braking
-3. Then, in `run_binary_extras`, implement a stopping condition in `extras_binary_finish_step` to stop the run as the star reaches 95% of the Roche Lobe.
+2. In `&controls` of `inlist_project`, set the initial period lower to 0.5 days, and set `do_jdot_mb = .false.` to disable magnetic braking.
+3. Then, in `run_binary_extras`, implement a stopping condition in `extras_binary_finish_step` to stop the run as the star reaches 95% of the Roche Lobe (remember to check `binary_data.inc` to find out how to retrieve, e.g., the Roche Lobe radius of the star)
 4. Test it with `./mk; ./rn`!
 
 {{< details title="Solution" closed="true" >}}
@@ -228,10 +237,10 @@ end if
 {{< /details >}}
 
 ## the `binary` folder
-The `$MESA_DIR/binary` folder contains all the code responsible for binary evolution. 
-To get a bit more familiar, we can use `tree -LC` to see the contents:
+The `$MESA_DIR/binary/private` folder contains all the modules responsible for binary evolution. 
+To get a bit more familiar, we can use `tree -C` to see the contents:
 ```shell
-$ tree -CL 1
+$ tree -C
 .
 ├── binary_ce.f90
 ├── binary_ctrls_io.f90
@@ -267,7 +276,7 @@ $ tree -CL 1
 
 1 directory, 31 files
 ```
-There are all of the physics modules, `pgbinary` plotting files, as well as `run_binary_support` where the main logic and evolution loop lives.
+There are all the physics modules, `pgbinary` plotting files, as well as `run_binary_support.f90` where the main logic and evolution loop lives.
 
 ### searching through the `binary` folder
 Sometimes you want to know how certain physics is implemented in MESA.
@@ -293,48 +302,50 @@ $$
 $$
 
 > As an exercise:
-> 1. Verify that the angular momentum loss from gravitational radiation follows:
-> $$
- \frac{\dot{J}}{J} = -\frac{32}{5}\frac{G^3}{c^5}M_1M_2\left(M_1+M_2\right)
-$$
-> 2. Verify the mass-transfer rate description from Ritter 1988:
+> Verify the mass-transfer rate description from Ritter 1988:
 > $$\dot{M} = -\frac{2\pi}{\sqrt{e}}\frac{c_s^3R_{\rm RL}^3}{GM}\rho_{\rm photosphere}F(q)\exp\left(-\frac{R_{\rm RL} - R}{\frac{H_P}{\gamma(q)}}\right)$$
 
-{{< details title="Solutions" closed="true" >}}
-1. grep -rn "subroutine.*jdot_gr", binary_jdot.f90 line 115
-2. grep -rn “subroutine.*ritter”, binary_mdot.f90, lines 711-730
+{{< details title="Solution" closed="true" >}}
+`grep -rn “subroutine.*ritter”, binary_mdot.f90, lines 711-730`
 {{< /details >}}
 
 ### `binary` hooks
 Binary hooks function similarly to hooks in `mesa/star`, by giving the ability to users to implement custom prescriptions of physical ingredients going into MESA.
 
-All binary hooks have "null" functions defined in `binary/other`, which also specify their function signature (meaning the amount and order of input parameters, you _have_ to respect these because of how hooks are implemented into the code).
+All binary hooks have "null" functions defined in `binary/other`, which also specify their function signature (meaning the amount and order of input parameters, you _have_ to respect these because of how hooks are tied into the main code).
 
 ## test suite
 The `binary` also contains a test suite of several test cases that validate the correct functioning of its components, such as mass transfer, angular momentum, and the binary evolution logic.
-When adjustments are made in the code, the developers have to sure the tests are still passing (and sometimes new test cases need to be designed for new features).
+When adjustments are made in the code, the developers have to make sure the tests are still passing (and sometimes new test cases need to be designed for new features).
 
-The test suite contains several good starting points for when embarking on new project.
+The test suite contains several good starting points for when you embark on new project.
 However, we must emphasize that the test suite models on their own **cannot** be used as science-grade models.
-Their resolution are limited, and they typically use simplified physics, so one needs to carefully adapt the inlists of the test cases before they produce science-grade models.
+Their resolution (in both space and time) is limited, and they typically use simplified physics, so one needs to carefully adapt the inlists of the test cases before they produce science-grade models.
 
 ## `pgbinary`
 We will use a test suite case to introduce `pgbinary`, which is the binary equivalent of `pgstar`.
-Previously, two `pgstar` windows were needed if a user wanted to simultaneously plot info of both stars during a `binary` run.
+In previous versions of `mesa`, two `pgstar` windows were needed if a user wanted to simultaneously plot info of both stars during a `binary` run.
 Now we have `pgbinary` to do all of this in just one.
 
 `pgbinary` works just like `pgstar`, by allowing users to plot windows and save plots to files.
-The biggest advantage is that `pgbinary` has a plot types called `Star1` and `Star2`, which essentially hands over plotting duties to `pgstar`.
-Typical usage is to setup a `Grid` at the binary level, and have both `Star1` and `Star2` as panels in that grid, along with any other binary information you'd want to plot (eg. the `Orbit`, some `history_panels`, etc.).
+The biggest advantage is that `pgbinary` has plot types called `Star1` and `Star2`, which essentially hands over plotting duties to `pgstar`.
+Typical usage of `pgbinary` is to set up a `Grid` at the binary level, and have both `Star1` and `Star2` as panels in that grid, along with any other binary information you'd want to plot (eg. the `Orbit`, some `history_panels`, etc.).
 Once a `Star` is plotted, it uses the current `&pgstar` options that are specified in the corresponding inlist at `inlist_names(1)` for `Star1` and `inlist_names(2)` for `Star2`.
 The [Reference tab](https://docs.mesastar.org/en/24.08.1/reference.html) also contains a list of `pgbinary` controls.
 
 We can discover `pgbinary` using one of the test cases:
 
 1. Navigate to the `binary/test_suite` folder
-2. Copy the `evolve_both_stars` case into a location of your choice and navigate to it.
-2. uncomment the `use_pgbinary_flag = .true.` line.
-3. run the model with `./mk; ./rn`
+2. Copy the `evolve_both_stars` test case into a location of your choice and navigate to it.
+3. In `inlist_project`, `&binary_job`, uncomment the `pgbinary_flag = .true.` line.
+4. set looser timestep controls in `&binary_controls`
+    ```fortran
+   fr = 5d-2
+   fr_limit = 1d-1
+   fj = 5d-2
+    ```
+
+5. run the model with `./mk; ./rn`
 
 A `pgbinary` window should spawn that looks somewhat like this:
 
@@ -342,7 +353,8 @@ A `pgbinary` window should spawn that looks somewhat like this:
 
 Depending on your screen size, you might want to change the window sizes in `Grid1_win_width` and `Grid1_win_aspect_ratio`, and also the text scalings to see things better (`Grid1_txt_scale_factor(1)` and others for different panels).
 
-As this run progresses, you should see the system evolving from detached to semi-detached, as the star 1 will start transfering mass to star 2. 
+As this run progresses, you should see the system evolving from detached to semi-detached, as the star 1 will start transfering mass to star 2.
+The simulation should stop at around 86 steps with the system entering a contact phase!
 
 ## Recap
 This was a small introduction into `mesa/binary`.
