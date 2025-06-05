@@ -104,15 +104,14 @@ Check how to terminate the MESA run in the "HINT" block.
 {{< /details >}}
 
 ## Task 3. Run a model with random initial binary parameters
-Now, we will explore different mass transfer cases and their stability across the initial binary parameter space. We will fix an initial primary mass to 20 Msun. Choose a random initial secondary mass from 1 to 19 Msun and an initial orbital period from 1 to 3000 days, and run the model.
+Now, we will explore different mass transfer cases and their stability across the initial binary parameter space. We will fix an initial primary mass to 20 Msun. Choose a random initial mass ratio and an initial orbital period from the "Initial binary parameters" sheet in the following Google Spreadsheet:
+https://docs.google.com/spreadsheets/d/1HLwsGPu6w3t2NMUcdVYvkHFvqgIOUDkigfrZruN6Uo8/edit?usp=sharing  
+And perform MESA run with the corresponding initial parameters.
 
-Observe the terminal output to check the case of the mass transfer when mass transfer begins (this is because Case A is always followed by Case B). If you missed it, you can do "grep -ir Case out.txt" to print out the occurrences of the string "Case" from the out.txt file.
-
-Record your results in the following Google Spreadsheet:
-https://docs.google.com/spreadsheets/d/1HLwsGPu6w3t2NMUcdVYvkHFvqgIOUDkigfrZruN6Uo8/edit?usp=sharing
+Observe the terminal output to check the case of the mass transfer when mass transfer begins (this is because Case A is always followed by Case B). If you missed it, you can do "grep -ir Case out.txt" to print out the occurrences of the string "Case" from the out.txt file. Record your results in the "P-q diagram" sheet in the Google Spreadsheet.
 
 Parameters to Enter:  
-**Initial mass ratio (M2/M1)**: A value between 0.05 and 0.95.  
+**Initial mass ratio (M2/M1)**: A value between 0.1 and 0.9.  
 **Initial orbital period**: A value between 1 and 3000 days.  
 **Case**: One of A, B, or C.  
 **Stable**: Enter y for stable mass transfer or n if terminated due to unstable mass transfer.  
