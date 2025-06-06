@@ -401,14 +401,21 @@ Capturing the full physics of this process requires 3D hydrodynamical simulation
 
 A central parameter in such models is the accretion efficiency, which describes the fraction of the donor’s mass loss that is successfully accreted by the companion. MESA implements this through a set of `&binary_controls` parameters:
 
-```fortran
+<!-- ```fortran
     mass_transfer_alpha  = 0d0 ! fraction of mass lost from the vicinity of donor as fast wind 
                                ! (e.g., isotropic re-emission)
     mass_transfer_beta   = 0d0 ! fraction of mass lost from the vicinity of accretor as fast wind
     mass_transfer_delta  = 0d0 ! fraction of mass lost from circumbinary coplanar toroid
     mass_transfer_gamma  = 0d0 ! radius of the circumbinary coplanar toroid is 
                                ! "gamma**2 * orbital_separation"
-```
+``` -->
+
+- `mass_transfer_alpha` - fraction of mass lost from the vicinity of donor as fast wind 
+                            ! (e.g., isotropic re-emission)
+- `mass_transfer_beta` - fraction of mass lost from the vicinity of accretor as fast wind
+- `mass_transfer_delta` - fraction of mass lost from circumbinary coplanar toroid
+- `mass_transfer_gamma` - radius of the circumbinary coplanar toroid is 
+                            ! "gamma**2 * orbital_separation"
 
 The effective accretion efficiency is given by:
 
