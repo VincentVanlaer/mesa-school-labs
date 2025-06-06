@@ -1,3 +1,5 @@
+
+
 # Minilab 1
 
 Massive star models become numerically more challenging as they
@@ -20,7 +22,7 @@ latest.
 
 **Task 1**: Download the `15Msun_problem` folder.
 
-{{< Hint >}}
+{{< details title="Hint. Click on it to reveal it." closed="true" >}}
 Download from git the repo for this lecture and get into the folder
 with the following `bash` one-liner (**N.B.:** `&&` is a `bash` "and", which
 will execute the second command only if the first exits successfully):
@@ -28,7 +30,7 @@ will execute the second command only if the first exits successfully):
 ```bash
 git clone git@github.com:mathren/mesa25_best_practices.git && cd mesa25_best_practices/15Msun_problem
 ```
-{{< /Hint >}}
+{{< /details >}}
 
 We will use a simple model of a 15M<sub>☉</sub> star (see [the work directory](./15Msun_problem)) to
 illustrate these problems. In the interest of speed, we will use a
@@ -47,9 +49,9 @@ luminosities, for example for SN precursor alerts, you need at least
 &sim;200 (e.g., [Farag et al. 2020](https://ui.adsabs.harvard.edu/abs/2020ApJ...893..133F/abstract)). If your science doesn't depend on the
 core structure, you may get away with small nuclear reaction networks.
 
-{{< Hint >}}
+{{< details title="Hint. Click on it to reveal it." closed="true" >}}
 You can inspect the [pgstar movie](./15Msun_problem/early_evolution.mp4) to see your initial conditions.
-{{</Hint>}}
+{{< /details >}}
 
 Ideally, we want to be able to run this to the onset of core collapse,
 but again for summer school purposes, let's just try to get beyond
@@ -67,14 +69,14 @@ only delay the issue, not fundamentally change it.
 **Task 2:** After initializing MESA and running `./clean && ./mk` start from
 the provided photo (`photos/x261`).
 
-{{< Hint >}}
+{{< details title="Hint. Click on it to reveal it." closed="true" >}}
 Without an argument `./re` will restart from the last photo saved on the
 disk, which should still be `x261`, and you can use the command line
 `touch` to update the time of last edit of a `photo` to trick MESA. We
 have modified the `./rn` bash script to add an extra check in case you
 really want to start from the beginning. **This is not something you
 should do during this lab**.
-{{</Hint>}}
+{{< /details >}}
 
 The main `inlist` points to `inlist_problem` which is at this point is the
 same as `inlist_early_evol` (use to create the pre-computed initial
@@ -137,7 +139,7 @@ proper Fortran files).
 **Task 3b**: Uncomment and set to `.true.` the `report_solver_progress`
 control and restart the run again.
 
-{{< Hint >}}
+{{< details title="Hint. Click on it to reveal it." closed="true" >}}
 The line you need to add to your `controls` namelist is the following:
 
 ```fortran
@@ -145,7 +147,7 @@ report_solver_progress = .true.
 ```
 
 and then `./re` to restart.
-{{</Hint>}}
+{{< /details >}}
 
 The run now produces more output per timestep, and thus scrolls faster
 (but you can still pause it with `Ctrl-Z`, restart with `f g`), but apart
@@ -178,13 +180,13 @@ place where all variables available to MESA are defined.
 see if anything useful comes up, you should find something to help you
 understand what this is.
 
-{{< Hint >}}
+{{< details title="Hint. Click on it to reveal it." closed="true" >}}
 Sometimes I do this from the `$MESA_DIR` directory if I don't know
 where to start from, it's only more work to weed out output you
 don't need.
-{{</Hint>}}
+{{< /details >}}
 
-{{< Hint >}}
+{{< details title="Hint. Click on it to reveal it." closed="true" >}}
 This is the `bash` command I used and the result for me:
 
 ```bash
@@ -227,7 +229,7 @@ Specifically, the 5<sup>th</sup> line from the bottom shows that `equ` is an arr
 of dimensions (`nvar`, `nz`) where `nvar` is the number of variables ($P, T,
 \rho, X_{i}$, &#x2026;.) and `nz` is the number of zones. The line just above shows
 a comment that suggests this is indeed the array of residuals.
-{{</Hint>}}
+{{< /details >}}
 
 Thus, the `equ` column tells us which residual is largest for the
 proposed and rejected solution:, in this case initially it's `equ_he4`
@@ -258,7 +260,7 @@ the luminosity is a solver variable and there isn't really a
 **Task 5:** Let's use tools such `grep` to inspect the code to find out what
 `equL` may be.
 
-{{< Hint >}}
+{{< details title="Hint. Click on it to reveal it." closed="true" >}}
 This is a one liner to find all the instances of `equL` in the folder
 `MESA_DIR,` regardless of capitalization (`-I` option, Fortran 90 doesn't
 care!) and recursively (`-R` option) including only `*.f90` files
@@ -322,7 +324,7 @@ $MESA_DIR/star/private/solver_support.f90:         if (s% convergence_ignore_equ
 
 It looks like it appears in the file
 `$MESA_DIR/star/private/hydro_temperature.f90` (among others).
-{{</Hint>}}
+{{< /details >}}
 
 In fact, `equL` is a short hand for `s%equ(i_equL, :)` which is assigned
 in `$MESA_DIR/star/private/hydro_temperature.f90` at line 274 by this
@@ -425,23 +427,23 @@ do this in MESA: this suggests this is a common enough problem!
 maybe remove the debug options we previously activated) and restart
 the run.
 
-{{< Hint >}}
+{{< details title="Hint. Click on it to reveal it." closed="true" >}}
 Look in `$MESA_DIR/star/defaults/controls.defaults` or in the
 [online documentation](https://docs.mesastar.org/en/latest/reference/controls.html) to see if you find a suitable flag.
-{{</Hint>}}
+{{< /details >}}
 
-{{< Hint >}}
+{{< details title="Hint. Click on it to reveal it." closed="true" >}}
 You can search the file (with `grep`, similar tools, or your text
 editor) for `convergence_ignore` to find suitable options
-{{</Hint>}}
+{{< /details >}}
 
-{{< Hint >}}
+{{< details title="Hint. Click on it to reveal it." closed="true" >}}
 Try adding this to the `controls` namelist of your inlist:
 
 ```fortran
 convergence_ignore_equL_residuals = .true.
 ```
-{{</Hint>}}
+{{< /details >}}
 
 This is of course **not** an elegant solution to be used with extra care
 only if acceptable for your scientific purposes.
@@ -458,7 +460,7 @@ transport/temperature gradient equation all these times?
 **Task 7**: find all instances of the `controls` setting in the
 `$MESA_DIR/star/test_suite`
 
-{{< Hint >}}
+{{< details title="Hint. Click on it to reveal it." closed="true" >}}
 Below is a one-liner that you can use from anywhere in your terminal
 to get the output above assuming `MESA_DIR` is initialized. It will go
 to the `test_suite` directory then (after `&&`), use `grep` to look for the
@@ -503,7 +505,7 @@ Which gives me:
 ./wd_nova_burst/inlist_wd_nova_burst:   convergence_ignore_equL_residuals = .true.
 ./wd_nova_burst/inlist_setup:   convergence_ignore_equL_residuals = .true.
 ```
-{{</Hint>}}
+{{< /details >}}
 
 In `$MESA_DIR/star/private/hydro_temperature.f90`, where we previously
 found the definition of `equL`, we can see a useful comment:
@@ -620,12 +622,12 @@ An inlist with the full solution is provided as a hidden file
 `.inlist_solution_minilab1`. You can rename it and/or point your main `inlist` to
 it. MESA will read a hidden file!
 
-{{< Hint >}}
+{{< details title="Hint. Click on it to reveal it." closed="true" >}}
 Open the main `inlist` and change every instance of the string
 `inlist_problem` with `.inlist_solution_minilab1`
 
 **N.B.:** don't forget the period at the **beginning** of the second string!
-{{</Hint>}}
+{{< /details >}}
 
 
 # Useful references
@@ -635,13 +637,3 @@ Relevant MESA documentation pages:
 -   [Best practices](https://docs.mesastar.org/en/latest/using_mesa/best_practices.html)
 -   [Debugging](https://docs.mesastar.org/en/latest/developing/debugging.html)
 
-Contribute back ready-to-use routines:
-
--   [MESA contrib](https://github.com/MESAHub/mesa-contrib)
-
-Tooling:
-
--   [compare MESA inlists](https://github.com/mathren/compare_workdir_MESA)
-
-
-# TODO
