@@ -1,6 +1,9 @@
+# Late massive star evolution: physics challenges to numerics
+
+[Mathieu Renzo](mailto:mrenzo@arizona.edu)
 
 
-# Minilab 1
+## Minilab 1
 
 Massive star models become numerically more challenging as they
 evolve. Issues manifest as plummeting timesteps below any threshold.
@@ -17,10 +20,9 @@ numerically more challenging to solve. This is why most (but notably
 not all) stellar evolution codes stop at C core depletion at the
 latest.
 
+### The starting point
 
-## The starting point
-
-**Task 1**: Download the `15Msun_problem` folder.
+**Task 1**: Download the `15Msun_problem` folder from [gitHub](https://github.com/mathren/mesa25_best_practices/tree/main).
 
 {{< details title="Hint. Click on it to reveal it." closed="true" >}}
 Download from git the repo for this lecture and get into the folder
@@ -63,8 +65,7 @@ not want to continue the evolution in testing, and in this particular
 case, we have tested that blindly lowering the `min_timestep_limit` will
 only delay the issue, not fundamentally change it.
 
-
-## Common situation: Running into a problem
+### Common situation: Running into a problem
 
 **Task 2:** After initializing MESA and running `./clean && ./mk` start from
 the provided photo (`photos/x261`).
@@ -98,8 +99,7 @@ work-around (e.g., fiddling with increasing resolution, decreasing
 the forest of MESA parameters. Sometimes, a problem cannot be worked
 around and needs to be fixed.
 
-
-## But what is the problem?
+### But what is the problem?
 
 The terminal output indicates that MESA took a series of `retries`
 before hitting `hydro_failed`.
@@ -120,8 +120,7 @@ resulted in the `hydro_failed`.
 
 Let's collect more output about this.
 
-
-### MESA's debugging output
+#### MESA's debugging output
 
 We will instruct MESA to provide debugging output we don't normally
 want to see. To do this we will use a particular set of `controls` in
@@ -359,8 +358,7 @@ to obtain the luminosity instead: ultimately `equL` is about the
 luminosity, but the equation it is the residual of is the temperature
 gradient equation
 
-
-#### **Optional**: confirming the bad derivative
+##### **Optional**: confirming the bad derivative
 
 To confirm that it is the derivative of the residual `equL` w.r.t.
 the density `lnd` is behaving bad, let's get some info about those
@@ -392,8 +390,7 @@ output:
 which confirms that the suspected partial derivative is the culprit of
 the problem!
 
-
-### So this is the (first) problem!
+#### So this is the (first) problem!
 
 The derivative of the residual of the equation for the temperature
 gradient, a.k.a. `equL` w.r.t. the variable `lnd`, the density is causing
@@ -412,8 +409,7 @@ a hole.
 crashing. Once you've identified the problem, the solution will
 typically need to be tailored to that specific problem.
 
-
-## Finding a solution
+### Finding a solution
 
 There may be more than one! This is where computing stellar structure
 and evolution models is a bit of an art, experience, trial and error,
@@ -536,8 +532,7 @@ proceed past model `1266`: you have successfully bypassed the problem!
 This model should continue until a second crash occurs during Si core
 burning. **Congratulations!**
 
-
-## After you found the solution
+### After you found the solution
 
 If your solution implies changing at some point something in the setup
 (e.g., any inlist entry changing the physics or numerics) you should
@@ -579,8 +574,7 @@ example.
 Option 2. at least will minimize the amount of hand-holding required
 for your models.
 
-
-## Wrap up
+### Wrap up
 
 The main point of this exercise was to teach how to access and read
 debugging output at a specific iteration of the solver during a MESA
@@ -615,8 +609,7 @@ able to afford a band-aid solution. But sometimes you need to know
 what is the root cause, which equation is yielding the largest
 residual and driving the decrease in timesteps.
 
-
-### Full solution minilab1
+#### Full solution minilab1
 
 An inlist with the full solution is provided as a hidden file
 `.inlist_solution_minilab1`. You can rename it and/or point your main `inlist` to
@@ -629,11 +622,9 @@ Open the main `inlist` and change every instance of the string
 **N.B.:** don't forget the period at the **beginning** of the second string!
 {{< /details >}}
 
-
-# Useful references
+## Useful references
 
 Relevant MESA documentation pages:
 
 -   [Best practices](https://docs.mesastar.org/en/latest/using_mesa/best_practices.html)
 -   [Debugging](https://docs.mesastar.org/en/latest/developing/debugging.html)
-
