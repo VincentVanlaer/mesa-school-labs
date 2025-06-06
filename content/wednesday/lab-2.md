@@ -446,7 +446,7 @@ To make the runs a bit faster, reduce the resolution to
       time_delta_coeff = 2.0d0
 ```
 
-As the last thing we would like to do is to compare the merge time with the one we got in the previous step. Modify slightly the `run_binary_extras` file, as we no longer need to calculate the merge time only fot the specific model - let it be calculated for every model to see whether this value changes. 
+As the last thing we would like to do is to compare the merge time with the one we got in the previous step. Modify slightly the `run_binary_extras` file, as we no longer need to calculate the merge time only fot the specific model - let it be calculated for every model to see whether this value changes. Add the resulting merge time to the **Google Spreadsheet** in the column next to your name under the selected case.
 
 Next, compile and run the models (`./mk && ./rn`) with a fixed set of initial parameters (donor and black hole masses, and orbital period), while exploring different values of mass_transfer_beta. This isolates the role of accretion efficiency in shaping the orbital evolution, mass growth, and observable properties of the system.
 
