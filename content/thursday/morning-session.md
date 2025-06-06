@@ -564,9 +564,12 @@ s% max_model_number = 1000
 ```
 
 There are some examples of doing these in the `test_suite` and from
-reproducible publications on [zenodo](https://zenodo.org/communities/mesa/records?q=&l=list&p=1&s=10&sort=newest)! See for example
-`$MESA_DIR/star/test_suite/ppisn/src/run_star_extras.f90` for a complex
-example.
+reproducible publications on
+[zenodo](https://zenodo.org/communities/mesa/records?q=&l=list&p=1&s=10&sort=newest)!
+See for example
+``$MESA_DIR/star/test_suite/make_co_wd/src/run_star_extras.f90` or
+`$MESA_DIR/star/test_suite/ppisn/src/run_star_extras.f90` for
+examples.
 
 **N.B.:** you can also use `b %` in the MESA `binary` module to change things
  of `binary_controls`.
