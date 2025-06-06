@@ -3,7 +3,7 @@ weight: 1
 math: true
 ---
 
-# Monday stuff
+# Thursday morning
 
 This is a test to see how far the page spans. If the page is kinda small, that is not as nice as we would like.
 
