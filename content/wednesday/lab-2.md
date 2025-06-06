@@ -546,7 +546,7 @@ Update the `inlist_CE` file like this:
 
 Then update the `run_star_extras.f90` as follows:
 ```fortran
-Fdrag = s% x_ctrl(5) * 4*pi*rho_r*pow2(G * M2 / vrel) * I
+Fdrag = s% x_ctrl(5) *  4*pi*rho_r*(G * M2 / vrel)**2 * I
 ```
 You can find a full implementation [here](https://heibox.uni-heidelberg.de/f/e47fa6a418cb4129a11b/?dl=1).
 
@@ -596,22 +596,22 @@ $$
 >          vrel = vorb - omega_r * a
 >          Eorb = -G*M_r*M2/(2*a)
 >          Mach_r = vrel / cs_r
->          Ra = 2.0d0 * G * M2 / pow2(vrel)
+>          Ra = 2.0d0 * G * M2 / vrel**2
 > 
 >          ! compute the drag force
 >          ! first, get Ostriker (1999) because needed for both implementations
 >          if (Mach_r < 1.0d0) then
 >             I = 0.5d0 * log((1.0d0 + Mach_r) / (1.d0 - Mach_r)) - Mach_r
 >          else
->             I = 0.5d0 * log( 1.0d0 - 1.0d0/pow2(Mach_r)) + log(2*a / r_min)
+>             I = 0.5d0 * log( 1.0d0 - 1.0d0/Mach_r**2) + log(2*a / r_min)
 >          end if
->          Fdrag_Ost = 4*pi*rho_r*pow2(G * M2 / vrel) * I
+>          Fdrag_Ost = 4*pi*rho_r*(G * M2 / vrel)**2 * I
 > 
 >          if (s% x_logical_ctrl(1)) then
 >             ! use  MacLeod & Ramirez-Ruiz (2015)
 >             eps_rho = H_P_r / Ra 
->             f_mod = 1.91791946 - 1.52814698 * eps_rho + 0.75992092 * pow2(eps_rho)
->             Fdrag_Mac = pi * pow2(Ra) * pow2(vrel) * rho_r * f_mod
+>             f_mod = 1.91791946 - 1.52814698 * eps_rho + 0.75992092 * eps_rho**2
+>             Fdrag_Mac = pi * Ra**2 * vrel**2 * rho_r * f_mod
 > 
 >             ! do smooth transition between the two
 >             if (Mach_r < 0.9d0) then
