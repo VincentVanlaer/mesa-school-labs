@@ -55,7 +55,7 @@ cd friday_labdir
 cp -r $MESA_DIR/star/work/* .
 ```
 
-Now, copy the files from [the friday labs github page](https://github.com/darthoctopus/mesa-asteroseismology-2025/blob/master/Resources/Models/lab1_template.zip). **CHECK THIS LINK BEFORE FINAL SUBMIT** Place these files into your working directory. Your directory should have the following files in it
+Now, copy the files from [the template](lab1_template.zip). Place these files into your working directory. Your directory should have the following files in it
 
 ```
 >> tree .
