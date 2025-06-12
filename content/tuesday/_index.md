@@ -5,7 +5,7 @@ toc: false
 ---
 
 {{< cards >}}
- {{< card link="morning-session" title="Introducing MESA" >}}
+ {{< card link="morning-session" title="Extending MESA with run_star_extras" >}}
 {{< /cards >}}
 
 # Day 2 topic
