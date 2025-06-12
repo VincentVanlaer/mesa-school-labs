@@ -1,6 +1,11 @@
 ---
 weight: 1
 math: true
+author: Bill Wolf
+title: Extending MESA with `run_star_extras.f90`
+description: |
+  Learn how to extend MESA's capabilities by writing your own Fortran code in `run_star_extras.f90`.
+  This exercise covers setting up a MESA project, implementing custom stopping conditions, and adding new physics.
 ---
 
 <!--
@@ -170,6 +175,12 @@ enddo
 ```
 
 ## Part 1: Setting Up Your Project
+
+> [!WARNING]
+> These next two code blocks show how you **might** set up a MESA project, but don't actually execute them. In Task 1.1, you'll actually get your project set up.
+<!-- {{< callout type="warning" >}} -->
+  <!-- These next two code blocks show how you **might** set up a MESA project, but don't actually execute them. In Task 1.1, you'll actually get your project set up. -->
+<!-- {{< /callout >}} -->
 
 When starting a new MESA project, you will often start with the default work directory:
 
