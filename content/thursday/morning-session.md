@@ -14,7 +14,7 @@ occasionally spurious artificial accelerations). The two kind of
 issues can also interact non-linearly with each other, resulting in
 the majority of a grid crashing.
 
-**N.B.:** this is not exclusively a "MESA" problem, but a result of the
+**Note:** this is not exclusively a "MESA" problem, but a result of the
 physics being described by progressively stiffer equations that are
 numerically more challenging to solve. This is why most (but notably
 not all) stellar evolution codes stop at C core depletion at the
@@ -39,7 +39,7 @@ illustrate these problems. In the interest of speed, we will use a
 22-isotope network and we have already evolved it beyond carbon core
 depletion (model number `1261`).
 
-**N.B.:** If you are interested in creating pre-SN models to study whether
+**Note:** If you are interested in creating pre-SN models to study whether
 stars explode or not (and with what energies), you want to properly
 capture the free electron *profile*, which determines the effective
 Chandrasekhar mass of the core and thus its structure. Specifically,
@@ -48,8 +48,9 @@ your nuclear reaction network. For this, you need at least &sim;80
 isotopes (e.g., [Farmer et al. 2016](https://ui.adsabs.harvard.edu/abs/2016ApJS..227...22F/abstract), [Renzo et al. 2024](https://ui.adsabs.harvard.edu/abs/2024RNAAS...8..152R/abstract), [Grichener et
 al. 2025](https://ui.adsabs.harvard.edu/abs/2025arXiv250300115G/abstract)). If you are interested in the nuclear neutrino
 luminosities, for example for SN precursor alerts, you need at least
-&sim;200 (e.g., [Farag et al. 2020](https://ui.adsabs.harvard.edu/abs/2020ApJ...893..133F/abstract)). If your science doesn't depend on the
-core structure, you may get away with small nuclear reaction networks.
+&sim;200 (e.g., [Kato et al. 2020](https://ui.adsabs.harvard.edu/abs/2020MNRAS.496.3961K/abstract), [Farag et al. 2020](https://ui.adsabs.harvard.edu/abs/2020ApJ...893..133F/abstract)). If your science
+doesn't depend on the core structure, you may get away with small
+nuclear reaction networks.
 
 {{< details title="Hint. Click on it to reveal it." closed="true" >}}
 You can inspect the [pgstar movie](./15Msun_problem/early_evolution.mp4) to see your initial conditions.
@@ -59,11 +60,11 @@ Ideally, we want to be able to run this to the onset of core collapse,
 but again for summer school purposes, let's just try to get beyond
 oxygen depletion and call it a success.
 
-**N.B.:** `min_timestep_limit` is set to 0.1 seconds, too high for production
-models past O core burning, but it's sufficiently low that one may
-not want to continue the evolution in testing, and in this particular
-case, we have tested that blindly lowering the `min_timestep_limit` will
-only delay the issue, not fundamentally change it.
+**Note:** `min_timestep_limit` is set to 0.1 seconds, too high for
+production models past O core burning, but it's sufficiently low that
+one may not want to continue the evolution in testing, and in this
+particular case, we have tested that blindly lowering the
+`min_timestep_limit` down to `1d-20` will not bypass this issue.
 
 ### Common situation: Running into a problem
 
@@ -83,7 +84,7 @@ The main `inlist` points to `inlist_problem` which is at this point is the
 same as `inlist_early_evol` (use to create the pre-computed initial
 conditions) except for the stopping criterion.
 
-**N.B.:** It's not exactly a bare-bone model, but definitely not
+**Note:** It's not exactly a bare-bone model, but definitely not
 science-ready!
 
 Watch your model evolve. The terminal output is often the quickest way
@@ -104,7 +105,7 @@ around and needs to be fixed.
 The terminal output indicates that MESA took a series of `retries`
 before hitting `hydro_failed`.
 
-![img](/thursday/2025-06-04_15-20-26_screenshot.png)
+![img](.org_notes_figures/Late_massive_star_evolution/2025-06-04_15-20-26_screenshot.png)
 
 The output also says that there has been 133 of these `retry`, (not all
 at this specific timestep though). A `retry` means that the proposed
@@ -149,13 +150,13 @@ and then `./re` to restart.
 {{< /details >}}
 
 The run now produces more output per timestep, and thus scrolls faster
-(but you can still pause it with `Ctrl-Z`, restart with `f g`), but apart
+(but you can still pause it with `Ctrl-Z`, restart with `fg`), but apart
 from that we haven't changed anything and it should crash in the same
 way.
 
 The solver call that crashes shows this:
 
-![img](/thursday/2025-06-04_15-28-20_screenshot.png)
+![img](.org_notes_figures/Late_massive_star_evolution/2025-06-04_15-28-20_screenshot.png)
 
 Which is described in the MESA documentation [here](https://docs.mesastar.org/en/latest/developing/debugging.html#step-2-run-the-model-and-find-the-bad-spot). After a line
 declaring the current solver call number (`1399`), which "gold"
@@ -238,18 +239,37 @@ crash. Moreover, scrolling upward through the solver iterations we see
 that the residual (4<sup>th</sup> but last column) is jumping from negative to
 positive from iteration `20` to iteration `21`. Finally, during these
 iterations, `lnd` (that is, physically, the density) is the problematic
-variable.
-
-At each iteration of the solver (shown as a line here), MESA is
+variable. At each iteration of the solver (shown as a line here), MESA is
 searching for a solution with a Generalized Newton-Raphson solver (see
 sec. 6.3 of [Paxton et al. 2011](https://iopscience.iop.org/article/10.1088/0067-0049/192/1/3)): the iterative corrections to an
 initial guess (the solution of the previous timestep) depend on the
-derivatives of the residuals w.r.t. the variables (see excellent
+derivatives of the residuals with respect to the variables (see excellent
 [wikipedia gif](https://en.wikipedia.org/wiki/Newton%27s_method#/media/File:NewtonIteration_Ani.gif) for intuition on this).
 
-So the correct way to interpret this output is that the residual `equL`
-has a bad derivative w.r.t. the variable `dens` that is causing the
-solver to *not* converge.
+**Note:** Unless the timestep is too small, the initial guess is usually
+not a good solution in many different ways, and which residual is
+initially largest among many too large values is not particularly
+important. The lines with the latest solver iterations are the most
+important here.
+
+So the correct way to interpret this output is that the equation `equL`
+cannot be satisfied within the defined numerical tolerances of the
+Newton-Raphson solver. This in general can occur because of multiple
+reason (and potentially requiring different fixes/work-arounds), for
+example:
+
+-   an assumption of the equation is violated (&rArr; maybe you want to
+    reformulate the equation differently, often there are options
+    already available in MESA or you can implement your own with
+    `run_star_extras.f90`)
+-   too large numerical errors introduced in the discretization (&rArr;
+    remeshing before the problem arise can help)
+-   One or more inputs or parameters of the equation are too noisy
+    (&rArr; you may need to remesh based on a quantity different than the one
+    calculated by the problematic equation).
+
+Moreover, the terminal output also shows that the residual `equL` has a
+bad derivative with respect to the variable `dens` in the last line.
 
 But what is the equation for which the residual is `equL`? One would
 naively assume a luminosity equation given the name! However, in MESA
@@ -345,22 +365,21 @@ resid = delm*dlnTdm - lnTdiff
 s% equ(i_equL, k) = resid%val
 ```
 
-which suggests that `equL` is the residual of the temperature gradient
-equation, **not** a (non-existing) luminosity equation. See also
-[Paxton et al. 2011](https://iopscience.iop.org/article/10.1088/0067-0049/192/1/3) Sec. 6.2 (specifically Eq. 8).
+which suggests that `equL` **is the residual of the temperature gradient
+equation**, not a (non-existing) luminosity equation. See also [Paxton et
+al. 2011](https://iopscience.iop.org/article/10.1088/0067-0049/192/1/3) Sec. 6.2 (specifically Eq. 8).
 
-Why this (terrible) name then? In a star, the temperature gradient
-will adjust to carry the luminosity (leading to convection if the
-radiative gradient is insufficient). So we can use the luminosity to
-calculate the temperature gradient. However, it is numerically
-convenient to flip things, and use the temperature gradient equation
-to obtain the luminosity instead: ultimately `equL` is about the
-luminosity, but the equation it is the residual of is the temperature
-gradient equation
+Why this name then? In a star, the temperature gradient will adjust to
+carry the luminosity (leading to convection if the radiative gradient
+is insufficient). So we can use the luminosity to calculate the
+temperature gradient. However, it is numerically convenient to flip
+things, and use the temperature gradient equation to obtain the
+luminosity instead: ultimately `equL` is about the luminosity, but the
+equation it is the residual of is the temperature gradient equation.
 
 ##### **Optional**: confirming the bad derivative
 
-To confirm that it is the derivative of the residual `equL` w.r.t.
+To confirm that it is the derivative of the residual `equL` with respect to
 the density `lnd` is behaving bad, let's get some info about those
 by uncommenting and setting in our inlist the following:
 
@@ -373,19 +392,19 @@ solver_test_partials_var_name = 'lnd'
 solver_test_partials_dx_0 = 1d-5
 ```
 
-**N.B.:** At this stage you may also want to set
+**Note:** At this stage you may also want to set
 `solver_save_photo_call_number` equal to the solver call of the problem
 (in our case `1399`) so MESA will save a `photo` just before this solver
 call, saving you time to debug.
 
 This tells MESA we want more output at solver call number `1399`, we
 want to inspect the `21` iteration of the solver, and we want to see the
-partial derivatives of the luminosity equation w.r.t. `lnd`. **This will
+partial derivatives of the luminosity equation with respect to `lnd`. **This will
 also make MESA crash right after that iteration of the solver**: you
 will need to undo these changes to continue. Scroll up to see the
 output:
 
-![img](/thursday/2025-06-04_16-29-50_screenshot.png)
+![img](.org_notes_figures/Late_massive_star_evolution/2025-06-04_16-29-50_screenshot.png)
 
 which confirms that the suspected partial derivative is the culprit of
 the problem!
@@ -393,35 +412,36 @@ the problem!
 #### So this is the (first) problem!
 
 The derivative of the residual of the equation for the temperature
-gradient, a.k.a. `equL` w.r.t. the variable `lnd`, the density is causing
+gradient, a.k.a. `equL` with respect to the variable `lnd`, the density is causing
 flip-flopping large corrections to the trial solution and preventing
 the solver from finding a satisfying solution. This suggest the
 calculation of this derivative is too imprecise &#x2013; this may not
 advance us so much, but at least we know which equation is giving us
 numerical troubles!
 
-**N.B.:** Sometimes it easier to spot problems making plots, or staring at
+**Note:** Sometimes it easier to spot problems making plots, or staring at
 `pgstar`. The technique illustrated here is a last resort when
 plotting and physical plus numerical intuition are not enough to get out of
 a hole.
 
-**N.B.:** This technique is general and can be used for any model
+**Note:** This technique is general and can be used for any model
 crashing. Once you've identified the problem, the solution will
 typically need to be tailored to that specific problem.
 
 ### Finding a solution
 
 There may be more than one! This is where computing stellar structure
-and evolution models is a bit of an art, experience, trial and error,
-and *many* wasted CPUh.
+and evolution models is a bit of an art: experience from
+trial-and-error and *many* wasted CPUh is the best way to become
+proficient at finding solutions and/or work-arounds.
 
 Since the problem is in `equL`, one naive thing one can do is to ignore
 the residuals of those equation. In fact, there is a `controls` flag to
 do this in MESA: this suggests this is a common enough problem!
 
-**Task 6**: Find the flag that may help us, add it to `inlist_problem` (and
-maybe remove the debug options we previously activated) and restart
-the run.
+**Task 6**: Find the flag that may help us and add it to `inlist_problem` (and
+maybe remove the debug options we previously activated to reduce I/O).
+Then restart the run.
 
 {{< details title="Hint. Click on it to reveal it." closed="true" >}}
 Look in `$MESA_DIR/star/defaults/controls.defaults` or in the
@@ -524,13 +544,58 @@ dynamical phase of evolution (massive stars going to core collapse,
 flashes, etc.): if your model is not perfectly in hydrostatic
 equilibrium, there is no reason to expect that this equation can be
 solved perfectly, because one of its implicit assumptions is not
-verified.
+exactly verified.
 
 This is what allows this "dirty trick" without having to throw away
-all the possible science! If everything went well, the run should now
-proceed past model `1266`: you have successfully bypassed the problem!
-This model should continue until a second crash occurs during Si core
-burning. **Congratulations!**
+all the possible science!
+
+**Note:** The fact that we ignore the residual in `equL` does not imply this
+equation will necessarily not be satisfied, we are just telling the
+solver that we are willing to accept solutions with large residual,
+and we hope that the numerical tolerances on other quantities will
+give a reasonable answer even if numerically not perfect.
+
+If everything went well, the run should now proceed past model `1266`:
+you have successfully bypassed the problem! This model should continue
+until Oxygen depletion (defined as $X_{c}(^{16}\mathrm{O})\le 10^{-5}$). **Congratulations!**
+
+**Bonus task 1**: You can edit the stopping condition in your
+`inlist_problem` to evolve past Oxygen depletion. You may also want to
+decrease the `min_timestep_limit` to something smaller than 1 second. A
+second crash should occur during Si core burning. You can use the
+things you learned in this lab to find the problem and try to fix it.
+Remember that the nuclear reaction network we are using here is
+insufficient for science focusing on the core of evolved massive
+stars!
+
+**Bonus task 2**: Find an alternative possible solution by reformulating
+the problematic equation (**Note:** this is untested by us!). You probably
+don't want to change which system of ODE you are solving on the fly
+(although there are exceptions, for example when a very massive star
+approaches pair instability you may want to change the momentum
+equation!), so you may need to restart the model from ZAMS.
+
+{{< details title="Hint. Click on it to reveal it." closed="true" >}}
+Use `grep` in the `$MESA_DIR/star/defaults/` folder to efficiently skim
+the documentation off-line based on keywords.
+{{< /details >}}
+
+{{< details title="Hint. Click on it to reveal it." closed="true" >}}
+Focus on `$MESA_DIR/star/defaults/controls.defaults`, this file
+typically contains the settings specifying form of equations and
+numerical tolerances.
+{{< /details >}}
+
+{{< details title="Hint. Click on it to reveal it." closed="true" >}}
+Search for `T_gradient` to see the other available options!
+{{< /details >}}
+
+**Bonus task 3**: Change the nuclear reaction network to `mesa_204.net` and
+try to push this model to the onset of core collapse. If you succeed,
+do a resolution test! If the quantities of interests are resolved, you
+may have a science-grade setup now! (**Note:** do not attempt this **during**
+the school, it will take too much computing time! This is also
+untested by us.)
 
 ### After you found the solution
 
@@ -560,16 +625,13 @@ the `s%` pointer. For example, to change `max_model_number` (a `controls`
 setting), you can overwrite your `inlist` with:
 
 ```fortran
-s% max_model_number = 1000
+s% max_model_number = 1260
 ```
 
 There are some examples of doing these in the `test_suite` and from
-reproducible publications on
-[zenodo](https://zenodo.org/communities/mesa/records?q=&l=list&p=1&s=10&sort=newest)!
-See for example
-``$MESA_DIR/star/test_suite/make_co_wd/src/run_star_extras.f90` or
-`$MESA_DIR/star/test_suite/ppisn/src/run_star_extras.f90` for
-examples.
+reproducible publications on [zenodo](https://zenodo.org/communities/mesa/records?q=&l=list&p=1&s=10&sort=newest)! See for example
+`$MESA_DIR/star/test_suite/make_co_wd/src/run_star_extras.f90` or
+`$MESA_DIR/star/test_suite/ppisn/src/run_star_extras.f90` for examples.
 
 **N.B.:** you can also use `b %` in the MESA `binary` module to change things
  of `binary_controls`.
@@ -629,5 +691,6 @@ Open the main `inlist` and change every instance of the string
 
 Relevant MESA documentation pages:
 
--   [Best practices](https://docs.mesastar.org/en/latest/using_mesa/best_practices.html)
--   [Debugging](https://docs.mesastar.org/en/latest/developing/debugging.html)
+-   [MESA docs: "Best practices"](https://docs.mesastar.org/en/latest/using_mesa/best_practices.html)
+-   [MESA docs: "Debugging"](https://docs.mesastar.org/en/latest/developing/debugging.html)
+-   [Bill Wolf's tutorial on debugging](https://billwolf.space/projects/mesa_debugging/)
