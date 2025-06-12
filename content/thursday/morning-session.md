@@ -105,7 +105,7 @@ around and needs to be fixed.
 The terminal output indicates that MESA took a series of `retries`
 before hitting `hydro_failed`.
 
-![img](.org_notes_figures/Late_massive_star_evolution/2025-06-04_15-20-26_screenshot.png)
+![img](thursday/2025-06-04_15-20-26_screenshot.png)
 
 The output also says that there has been 133 of these `retry`, (not all
 at this specific timestep though). A `retry` means that the proposed
@@ -156,7 +156,7 @@ way.
 
 The solver call that crashes shows this:
 
-![img](.org_notes_figures/Late_massive_star_evolution/2025-06-04_15-28-20_screenshot.png)
+![img](thursday/2025-06-04_15-28-20_screenshot.png)
 
 Which is described in the MESA documentation [here](https://docs.mesastar.org/en/latest/developing/debugging.html#step-2-run-the-model-and-find-the-bad-spot). After a line
 declaring the current solver call number (`1399`), which "gold"
@@ -404,7 +404,7 @@ also make MESA crash right after that iteration of the solver**: you
 will need to undo these changes to continue. Scroll up to see the
 output:
 
-![img](.org_notes_figures/Late_massive_star_evolution/2025-06-04_16-29-50_screenshot.png)
+![img](thursday/2025-06-04_16-29-50_screenshot.png)
 
 which confirms that the suspected partial derivative is the culprit of
 the problem!
