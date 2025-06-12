@@ -26,7 +26,7 @@ latest.
 
 {{< details title="Hint. Click on it to reveal it." closed="true" >}}
 Download from git the repo for this lecture and get into the folder
-with the following `bash` one-liner (**N.B.:** `&&` is a `bash` "and", which
+with the following `bash` one-liner (**Note:** `&&` is a `bash` "and", which
 will execute the second command only if the first exits successfully):
 
 ```bash
@@ -633,7 +633,7 @@ reproducible publications on [zenodo](https://zenodo.org/communities/mesa/record
 `$MESA_DIR/star/test_suite/make_co_wd/src/run_star_extras.f90` or
 `$MESA_DIR/star/test_suite/ppisn/src/run_star_extras.f90` for examples.
 
-**N.B.:** you can also use `b %` in the MESA `binary` module to change things
+**Note:** you can also use `b %` in the MESA `binary` module to change things
  of `binary_controls`.
 
 Option 2. at least will minimize the amount of hand-holding required
@@ -662,7 +662,7 @@ first thing is to make plots. It is quick and often useful to look at
 `pgplots`. Very often, with a bit of physical intuition and experience
 one can identify the problem just looking at the model.
 
-**N.B.:** At this stage, you may want to look at variables you don't
+**Note:** At this stage, you may want to look at variables you don't
 necessarily focus on for your science: sometimes it's things you don't
 care about that grind your model(s) to a halt! Stellar evolution is a
 highly non-linear problem. Sometimes changing axes (quantities and
@@ -674,6 +674,14 @@ able to afford a band-aid solution. But sometimes you need to know
 what is the root cause, which equation is yielding the largest
 residual and driving the decrease in timesteps.
 
+Finally, here we focused on showing the use of debugging options
+accessible from the inlist. Adding `print *,` statements in your
+`run_star/binary_extras.f90` can also be helpful (especially if you are
+doing something custom there). Ultimately, sometimes one **really** needs
+to get their hands dirty, and dig into the modules. If and when you
+reach this point, it may be useful to look at the [MESA documentation
+on how to develop](https://docs.mesastar.org/en/latest/developing.html) and reach out to the mailing list!
+
 #### Full solution minilab1
 
 An inlist with the full solution is provided as a hidden file
@@ -684,7 +692,7 @@ it. MESA will read a hidden file!
 Open the main `inlist` and change every instance of the string
 `inlist_problem` with `.inlist_solution_minilab1`
 
-**N.B.:** don't forget the period at the **beginning** of the second string!
+**Note:** don't forget the period at the **beginning** of the second string!
 {{< /details >}}
 
 ## Useful references
