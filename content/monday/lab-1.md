@@ -405,7 +405,7 @@ these and how to edit your *inlist_pgstar* in
 
 For this lab, we have prepared a specialised
 *inlist_pgstar* for you. Download that *inlist_pgstar*
-[here]([lab1/completed_inlists/inlist_pgstar_initial](https://github.com/Mathijs-Vanrespaille/mesa-school-labs/blob/main/content/monday/lab1/completed_inlists/inlist_pgstar_initial))
+[here](lab1/completed_inlists/inlist_pgstar_initial)
 and move it into your MESA work directory. Make sure to name the file `inlist_pgstar`!
 
 Run your model again to see what the new pgstar plots look like.
