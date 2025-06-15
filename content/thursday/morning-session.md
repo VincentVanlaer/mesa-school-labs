@@ -10,9 +10,11 @@ evolve. Issues manifest as plummeting timesteps below any threshold.
 Broadly speaking, these issues can be seeded in either "the core"
 (where nuclear burning of heavier elements stiffens the equations)
 and/or "the envelope" (where small timesteps result in waves and
-occasionally spurious artificial accelerations). The two kind of
-issues can also interact non-linearly with each other, resulting in
-the majority of a grid crashing.
+occasionally spurious artificial accelerations, convection can be
+inefficient and density inversions occur, (see [Paxton et al. 2013](https://ui.adsabs.harvard.edu/abs/2013ApJS..208....4P/abstract),
+[Jermyn et al. 2023](https://ui.adsabs.harvard.edu/abs/2023ApJS..265...15J/abstract)). The two kind of issues can also interact
+non-linearly with each other, resulting in the majority of a grid
+crashing.
 
 **Note:** this is not exclusively a "MESA" problem, but a result of the
 physics being described by progressively stiffer equations that are
@@ -34,7 +36,7 @@ git clone git@github.com:mathren/mesa25_best_practices.git && cd mesa25_best_pra
 ```
 {{< /details >}}
 
-We will use a simple model of a 15M<sub>☉</sub> star (see [the work directory](./15Msun_problem)) to
+We will use a simple model of a 15M<sub>☉</sub> star (see [the work directory](https://github.com/mathren/mesa25_best_practices/tree/596343a24ed598044e52e2aed763364fd2635e41/15Msun_problem)) to
 illustrate these problems. In the interest of speed, we will use a
 22-isotope network and we have already evolved it beyond carbon core
 depletion (model number `1261`).
@@ -52,15 +54,15 @@ luminosities, for example for SN precursor alerts, you need at least
 doesn't depend on the core structure, you may get away with small
 nuclear reaction networks.
 
-{{< details title="Hint. Click on it to reveal it." closed="true" >}}
-You can inspect the [pgstar movie](./15Msun_problem/early_evolution.mp4) to see your initial conditions.
-{{< /details >}}
+You can inspect the [pgstar
+movie](./15Msun_problem/early_evolution.mp4) to see your initial
+conditions, which can be reproduced re-running `inlist_early_evol`.
 
 Ideally, we want to be able to run this to the onset of core collapse,
 but again for summer school purposes, let's just try to get beyond
 oxygen depletion and call it a success.
 
-**Note:** `min_timestep_limit` is set to 0.1 seconds, too high for
+**Note:** `min_timestep_limit` is set to 1 seconds, too high for
 production models past O core burning, but it's sufficiently low that
 one may not want to continue the evolution in testing, and in this
 particular case, we have tested that blindly lowering the
@@ -94,7 +96,7 @@ it typing** `fg`.
 
 At model `1266` you should hit the `hydro_failed` condition.
 
-At this point, for an individual model I may fiddle a bit to find a
+At this point, for an individual model one may fiddle a bit to find a
 work-around (e.g., fiddling with increasing resolution, decreasing
 `min_timestep_limit`), but that can often become a messy random walk in
 the forest of MESA parameters. Sometimes, a problem cannot be worked
@@ -180,11 +182,8 @@ place where all variables available to MESA are defined.
 see if anything useful comes up, you should find something to help you
 understand what this is.
 
-{{< details title="Hint. Click on it to reveal it." closed="true" >}}
-Sometimes I do this from the `$MESA_DIR` directory if I don't know
-where to start from, it's only more work to weed out output you
-don't need.
-{{< /details >}}
+If you don't know where to start, you can `grep` the entire `$MESA_DIR`
+directory, but it's more work to weed out output you don't need.
 
 {{< details title="Hint. Click on it to reveal it." closed="true" >}}
 This is the `bash` command I used and the result for me:
@@ -398,11 +397,11 @@ solver_test_partials_dx_0 = 1d-5
 call, saving you time to debug.
 
 This tells MESA we want more output at solver call number `1399`, we
-want to inspect the `21` iteration of the solver, and we want to see the
-partial derivatives of the luminosity equation with respect to `lnd`. **This will
-also make MESA crash right after that iteration of the solver**: you
-will need to undo these changes to continue. Scroll up to see the
-output:
+want to inspect the `21` iteration of the solver, and we want to see
+the partial derivatives of the luminosity equation with respect to
+`lnd`. **This will also make MESA crash right after that iteration of
+the solver**: you will need to undo these changes to continue. Scroll
+up (or re-run) to see the output:
 
 ![img](/thursday/2025-06-04_16-29-50_screenshot.png)
 
@@ -535,8 +534,8 @@ found the definition of `equL`, we can see a useful comment:
 ```
 
 So according to this, the equation we are trying to solve assumes
-hydrostatic equilibrium **because** it implicitly rely on mixing length
-theory (MLT) to get &nabla; = `gradt_T`.
+hydrostatic equilibrium **because** it implicitly relies on mixing
+length theory (MLT) to get &nabla; = `gradt_T`.
 
 At the same time, most test cases where we find
 `convergence_ignore_equL_residuals = .true.` seem to imply some
