@@ -48,6 +48,10 @@ More on what all these variables are in a bit!
 
 ## Project work directory
 
+| 📋 TASK 0 |
+|:----------|
+| **Download** the `lab-2/` working directory. |
+
 We will start with a clean project work directory `lab-2/`, which sets up a 10 solar mass rotating star, similar to lab-1 from today which you just completed. The star setup is defined in your inlist: `inlist_project` and the setup for plotting with `pgstar` is in the file `inlist_pgstar`. For this lab, we will be modifying the `src/run_star_extras.f90` Fortran file to add new computations into MESA.
 
 
