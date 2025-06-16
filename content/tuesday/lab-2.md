@@ -44,7 +44,7 @@ is the local Kelvin-Helmholtz timescale, used here as an
 estimate for the local thermal adjustment timescale of the
 currents ([Pinsonneault et al. 1989](https://ui.adsabs.harvard.edu/abs/1989ApJ...338..424P/abstract)).
 
-More on what all these variables are in a bit!
+More on what all these variables are in a bit! Note: As a reference, MESA does compute the Eddington-Sweet velocity internally in the file `star/private/rotation_mix_info.f90`
 
 ## Project work directory
 
