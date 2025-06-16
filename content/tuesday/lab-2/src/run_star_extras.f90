@@ -166,6 +166,7 @@
             integer :: i
             ! !!! TODO: declare any extra variables you need here, e.g.:
             ! real(dp) :: my_variable1, my_variable2, ...
+            real(dp) :: t_kh, ve_mu
             ierr = 0
             call star_ptr(id, s, ierr)
             if (ierr /= 0) return
@@ -184,6 +185,10 @@
             ! SOLUTION
             do i = 2, nz
                ! !!! TODO: do Eddington-Sweet velocity calculation for cell i here
+               !
+               ! we've done some of the work for you, so you can use the following variables :)
+               t_kh = s% cgrav(i) * s% m(i) * s% m(i) / (s% r(i) * (s% L(i)))
+               ve_mu = (s% scale_height(i)/t_kh) * (s% am_gradmu_factor * s% smoothed_brunt_B(i)) / (s% gradT_sub_grada(i))
                !
                !
                vals(i,1) = ! TODO: store Eddington-Sweet velocity value
