@@ -136,7 +136,7 @@ To calculate the Eddington-Sweet velocity, we will need to know the variable nam
 | $m$                           | s% m(i)                   | mass profile           |
 | $\rho$                        | s% rho(i)                 | density profile        |
 | $\varepsilon_n$               | s% eps_nuc(i)             | total energy (erg/g/s) from nuclear reactions |
-| $\nabla_{\mathrm{ad}}-\nabla$ | -s% gradT_sub_grada(i)    | difference between adiabatic temperature gradient and temperature gradient. (recall: $\nabla>\nabla_{\rm ad}$ means convectively unstable) |
+| $\nabla-\nabla_{\mathrm{ad}}$ | s% gradT_sub_grada(i)     | difference between temperature gradient and adiabatic temperature gradient. (recall: $\nabla>\nabla_{\rm ad}$ means convectively unstable) |
 | $G$                           | s% cgrav(i)               | gravitational constant (note: MESA let's you modify the graviational strength, hence a zone-wise value) |
 | $\omega$                      | s% omega(i)               | rotation frequency     |
 | $H_P$                         | s% scale_height(i)        | scale height           |
