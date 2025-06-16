@@ -1,189 +1,73 @@
-# Part 1: X-ray binaries - exploring Cyg X-1
+# X-ray binaries - exploring Cyg X-1
 
-Cygnus X-1 is a well-known high-mass X-ray binary consisting of a black hole and an O-type supergiant companion. Recent observations (<https://arxiv.org/pdf/2504.05885>) have updated its parameters:
+Cygnus X-1 is a well-known high-mass X-ray binary located at a distance of about 2.2 kpc, consisting of a black hole and an O-type supergiant companion. It was the first strong black hole candidate ever identified and remains one of the most extensively studied X-ray sources, exhibiting persistent emission powered by accretion from the stellar wind of the massive donor star. 
+Recent observations by [Ramachandran et al., (2025)](https://arxiv.org/pdf/2504.05885) have updated its parameters:
 
 - Donor mass: $29^{+6}_{-3} \rm\ M_\odot$
 - Black hole mass: $17.5^{+2}_{-1} \rm\ M_\odot$
 - Orbital period: $5.6$ days
 
-## 1. Simulating the Evolution of Cygnus X-1
+The following exercises will focus on reconstructing the evolutionary history of Cygnus X-1. The goal is to identify a binary model that reproduces the observed parameters of the system.
 
-To simulate the evolution of Cygnus X-1, we start off with creating a fresh copy of the `work/` directory (`cp -r $MESA_DIR/binary/work .`) and with running a system with initial masses $M_\mathrm{1} = 34 \rm\ M_\odot,\ M_\mathrm{2} = 17.4 \rm\ M_\odot$ and orbital period $P = 5.5 \rm\ d$. As the secondary component is a black hole, we assume it to be a point mass and focus only on the detailed evolution of the donor. Additionally, we need to set a few additional controls to the system:
+## Task 1. Simulating the Evolution of Cygnus X-1
 
-<!-- - -----------????? limit accretion using the Eddington limit, ?????----------- -->
-- the `Kolb` mass transfer type,
-- do the wind mass accretion from the donor to the BH,
-- enable rotation by assuming tidal synchronisation,
-- assume conservation of the total angular momentum of the system, include loss of angular momentum via mass loss and via gravitational wave radiation,
+To simulate the evolution of Cygnus X-1, we would ideally start off with creating a fresh copy of the `work/` directory (`cp -r $MESA_DIR/binary/work .`) and modify the `inlist` files to capture all relevant physical efects leading the initial system to the current form. However, to save time we will use an already prepared *MESA work directory* that can be downloaded from --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+here -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-In the case of the donor, we need to modify the `&star_job` section :
+Lets start off with setting the initial masses of the components, $M_\mathrm{1} = 34 \rm\ M_\odot,\ M_\mathrm{2} = 17.4 \rm\ M_\odot$ and orbital period $P = 5.5 \rm\ d$ in the `inlist_project` file, designed to contain all information about the system-related quantities. To find the controls used by MESA, look into the MESA docs, under the [specifications for starting model](https://docs.mesastar.org/en/latest/reference/binary_controls.html#specifications-for-starting-model) section.
 
-```fortran
-&star_job
-
-    mesa_dir = ''
-    show_log_description_at_start = .true.
-
-    pause_before_terminate = .true.
-
-    pgstar_flag = .true.
-
-    ! initial metal abundances
-    relax_initial_Z = .true.
-    new_Z = 0.0142d0
-    initial_zfracs = 3 ! GS98
-
-    ! rotation
-    new_rotation_flag = .true.
-    change_rotation_flag = .true.
-    change_initial_rotation_flag = .true.
-
-/ ! end of star_job namelist
-```
-
-and the `&controls` section:
-
-```fortran
-&controls
-
-    extra_terminal_output_file = 'log1' 
-    log_directory = 'LOGS1'
-    write_profiles_flag = .false.
-
-    profile_interval = 50
-    history_interval = 1
-    terminal_interval = 1
-    write_header_frequency = 10
-
-    ! convection
-    use_ledoux_criterion = .true.
-    MLT_option = 'ML1' ! Bohm-Vitense 1958 scheme
-    mixing_length_alpha = 1.5d0
-    semiconvection_option = 'Langer_85'
-    alpha_semiconvection = 1.0d0
-
-
-    ! step overshoot 
-    overshoot_scheme(1) = 'step'
-    overshoot_zone_type(1) = 'any'     
-    overshoot_zone_loc(1) = 'core'      
-    overshoot_bdy_loc(1) = 'top'       
-    overshoot_f(1) = 0.345d0
-    overshoot_f0(1) = 1.0d-4
-
-    ! rotation
-    D_DSI_factor = 1.0d0         ! Dynamical shear instability
-    D_SSI_factor = 1.0d0         ! Secular shear instability
-    D_GSF_factor = 1.0d0         ! Goldreich-Schubert-Fricke instability
-    D_ES_factor = 1.0d0          ! Eddington-Sweet circulation
-    D_SH_factor = 0.0d0          ! Solberg-Høiland (disabled unless needed)
-
-
-    ! angular momentum
-    ! Enable specific angular momentum and composition transport mechanisms
-    am_D_mix_factor = 0.033d0 ! 1/30d0
-
-    am_nu_DSI_factor = 1.0d0         ! Dynamical shear instability
-    am_nu_SSI_factor = 1.0d0         ! Secular shear instability
-    am_nu_GSF_factor = 1.0d0         ! Goldreich-Schubert-Fricke instability
-    am_nu_ES_factor = 1.0d0          ! Eddington-Sweet circulation
-    am_nu_SH_factor = 0.0d0          ! Solberg-Høiland (disabled unless needed)
-
-    ! winds
-    hot_wind_scheme = 'Vink'
-    Vink_scaling_factor = 1.0d0 
-    Dutch_wind_lowT_scheme = 'Nieuwenhuijzen'
-    Dutch_scaling_factor = 1.0d0
-
-/ ! end of controls namelist
-```
-
-To see if all runs well, run your new model! (`./rn`).
+{{< details title="Note" closed="true" >}}
+Note, that the component assigned with index **1** is considered as donor throughout the whole MESA run. Thus, the natural thing is to assign the bigger mass to `m1`.
+{{< /details >}}
 
 {{< details title="Solution" closed="true" >}}
 
+In `binary_controls` section add the following lines
+
 ```fortran
-&binary_job
-
-   inlist_names(1) = 'inlist1' 
-   inlist_names(2) = 'inlist2'
-
-   evolve_both_stars = .false.
-
-/ ! end of binary_job namelist
-
-&binary_controls
-         
    m1 = 34d0  ! donor mass in Msun
    m2 = 17.4d0 ! companion mass in Msun
    initial_period_in_days = 5.5d0
-   mdot_scheme = "Kolb"
-
-   ! do wind accretion
-   do_wind_mass_transfer_1 = .true.
-
-   !rotation controls
-   do_tidal_sync = .true.
-
-   do_jdot_ls = .true.
-   do_jdot_gr = .true.
-   do_jdot_ml = .true.
-
-   accretor_overflow_terminate = 0.2d0 ! add some space
-
-   !control accretion using the Eddington limit
-   limit_retention_by_mdot_edd = .false.
-
-   max_tries_to_achieve = 20
-         
-/ ! end of binary_controls namelist
-
 ```
+
 {{< /details >}}
 
-<!-- ### Solution `inlist_project` -->
+As the secondary component is a black hole, we assume it to be a point mass and focus only on the detailed evolution of the donor. This can be done by setting `evolve_both_stars = .false.` in `binary_job` section. Additionally, we need to set a few additional controls to the system:
 
-<!-- >```fortran
->&binary_job
->
->   inlist_names(1) = 'inlist1' 
->   inlist_names(2) = 'inlist2'
->
->   evolve_both_stars = .false.
->
->/ ! end of binary_job namelist
->
->&binary_controls
->         
->   m1 = 34d0  ! donor mass in Msun
->   m2 = 17.4d0 ! companion mass in Msun
->   initial_period_in_days = 5.5d0
->   mdot_scheme = "Kolb"
->
->   ! initial orbit synchronisation
->   ! do_initial_orbit_sync_1 = .false.
->   ! do_initial_orbit_sync_2 = .false.
->
->   ! do wind accretion
->   do_wind_mass_transfer_1 = .true.
->
->   !rotation controls
->   do_tidal_sync = .true.
->
->   do_jdot_ls = .true.
->   do_jdot_gr = .true.
->   do_jdot_ml = .true.
->
->   accretor_overflow_terminate = 0.2d0 ! add some space
->
->   !control accretion using the Eddington limit
->   limit_retention_by_mdot_edd = .true./.false.
->
->   max_tries_to_achieve = 20
->         
->/ ! end of binary_controls namelist
->
->``` -->
+<!-- - -----------????? limit accretion using the Eddington limit, ?????----------- -->
+- the `Kolb` mass transfer scheme,
+- do the wind mass accretion from the donor to the BH. Look under the `do_wind_mass_transfer_1` control in MESA docs
+- assume conservation of the total angular momentum of the system, include loss of angular momentum via mass loss and via gravitational wave radiation. Explore the `do_jdot_*` controls in the MESA docs to find the relevant controls.
+{{< details title="Solution" closed="true" >}}
+
+```fortran
+   do_jdot_ml = .true.  ! mass loss 
+   do_jdot_gr = .true.  ! gravitational wave radiation
+   do_jdot_ls = .true.  ! assume L-S coupling due to tides
+```
+
+{{< /details >}}
+
+- enable rotation by assuming tidal synchronisation
+{{< details title="Solution" closed="true" >}}
+
+Typically, rotation of the components is not the system-related quantity, and in MESA we enable rotation per-component, in the `inlist1/inlist2` files, under `star_job` using
+
+```fortran
+      ! rotation
+      new_rotation_flag = .true.
+      change_rotation_flag = .true.
+      change_initial_rotation_flag = .true.
+```
+
+But we have that in our inlist already! What we want is to assume tidal synchronisation between stellar rotation period and the system orbital period. We do this in `inlist_project` file by allowing the `do_tidal_sync`.
+
+{{< /details >}}
+
+
+To see if all runs well, run your new model! (`./rn`).
+
+
 
 ### 1.1. Finding the model that fits the observations
 
