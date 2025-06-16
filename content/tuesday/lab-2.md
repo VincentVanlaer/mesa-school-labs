@@ -93,8 +93,8 @@ end fun
 
 Note: the only line that has changed is that we switched the variable `how_many_extra_profile_columns = 0` to `how_many_extra_profile_columns = 1`, to indicate that want to add a new profile to compute in the output.
 
-| 📋 TASK |
-|:--------|
+| 📋 TASK 1 |
+|:----------|
 | **Modify** the `how_many_extra_profile_columns` function `run_stars_extras.f90` file in your work directory now to look like the above. |
 
 The second function (`data_for_extra_profile_columns`) will perform the calculation. In this lab, you will fill out this function.
@@ -122,8 +122,8 @@ subroutine data_for_extra_profile_columns(id, n, nz, names, vals, ierr)
    end subroutine data_for_extra_profile_columns
 ```
 
-| 📋 TASK |
-|:--------|
+| 📋 TASK 2 |
+|:----------|
 | **Implement** the calculation of the Eddington-Sweet velocity inside the `data_for_extra_profile_columns` function now, using the guide below. |
 
 You will have to specify the name of the new profile column,
@@ -201,6 +201,10 @@ Investigate the result of alpha-smoothing on $\delta$ on your calculation of the
 
 ## Run your MESA simulation
 
+| 📋 TASK 3 |
+|:----------|
+| **Compile and Run** your simulation, using the instructions below. |
+
 Once you have implemented the Eddington-Sweet velocity, we will need to compile the code in your work directory and run it.
 To compile, do:
 ```console
@@ -216,6 +220,10 @@ Note: as you implement your calculation in `run_stars_extras.f90` and try to com
 
 
 ## Compare your results against 2D ESTER models
+
+| 📋 TASK 4 |
+|:----------|
+| **Plot** your simulation results against 2D ESTER models, using the instructions below. |
 
 To plot your final MESA results against 2D ESTER models, we will use the Python library [mesa-reader](https://billwolf.space/py_mesa_reader/) by Bill Wolf. If you have Python installed on your system, you'll need to install `mesa-reader` (e.g., `pip install mesa-reader`), and run the plotting script provided in your work directory:
 
