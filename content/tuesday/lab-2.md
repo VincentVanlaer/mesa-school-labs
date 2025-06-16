@@ -93,7 +93,9 @@ end fun
 
 Note: the only line that has changed is that we switched the variable `how_many_extra_profile_columns = 0` to `how_many_extra_profile_columns = 1`, to indicate that want to add a new profile to compute in the output.
 
-**Modify** the `how_many_extra_profile_columns` function `run_stars_extras.f90` file in your work directory now to look like the above.
+| 📋 TASK |
+|---------|
+| **Modify** the `how_many_extra_profile_columns` function `run_stars_extras.f90` file in your work directory now to look like the above. |
 
 The second function (`data_for_extra_profile_columns`) will perform the calculation. In this lab, you will fill out this function.
 
@@ -120,7 +122,9 @@ subroutine data_for_extra_profile_columns(id, n, nz, names, vals, ierr)
    end subroutine data_for_extra_profile_columns
 ```
 
-**Implement** the calculation of the Eddington-Sweet velocity inside the `data_for_extra_profile_columns` function now, using the guide below.
+| 📋 TASK |
+|---------|
+| **Implement** the calculation of the Eddington-Sweet velocity inside the `data_for_extra_profile_columns` function now, using the guide below. |
 
 You will have to specify the name of the new profile column,
 e.g. `names(1) = 'v_ES'`, and its values `vals(i,1)`, where `i` is the `i`-th zone in the star. There are `nz` zones in total. The index 1 refers to the fact that this is the 1st extra column we are filling out.
