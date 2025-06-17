@@ -25,8 +25,7 @@ The following exercises will focus on reconstructing the evolutionary history of
 
 ![CygX1](/wednesday/CygX1.png)
 
-**Fig. 1**: The HR diagram illustrating potential evolution of the Cyg X-1 donor star. Here, the evolution starts when the primary is already a BH (point mass) of
-$17.4\,\rm M_{\odot}$, O star donor of initial mass $34\,\rm M_{\odot}$, and an initial period of $5.5$ days. Three models are displayed here with mass-loss scaling factors of $1, 0.5$, and $0.2$ to demonstrate the effect of wind mass loss on evolution. (taken from [Ramachandran et al., (2025)](https://arxiv.org/pdf/2504.05885))
+**Fig. 1**: The HR diagram illustrating the potential evolution of the Cyg X-1 donor star. Here, the evolution starts with the initial period of $5.5$ days, when the primary is already a $17.4\,\rm M_{\odot}$ black hole (point mass), while the donor star is an O star with initial mass $34\,\rm M_{\odot}$. The plot displays three models with different mass-loss scaling factors of $1, 0.5$, and $0.2$ to demonstrate the effect of wind mass loss on evolution (taken from [Ramachandran et al., (2025)](https://arxiv.org/pdf/2504.05885))
 
 ## Task 1. Simulating the Evolution of Cygnus X-1
 
