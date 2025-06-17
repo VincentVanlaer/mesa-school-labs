@@ -192,7 +192,9 @@ The formula for the $\chi^2$ statiscics is as follows:
 $$\chi^2 = \sum_{i=1}^n \left( \frac{O_i-E_i}{\sigma_i} \right)^2, $$
 where $O_i$ is the observed value, $E_i$ is the theoretical value (in our case returned by MESA) and $\sigma_i$ is the observed error.
 
-    {{< details title="Bonus task solution" closed="true" >}}
+{{< /details >}}
+
+{{< details title="Bonus task solution" closed="true" >}}
 
     Here is the solution to the bonus task.
 
@@ -269,8 +271,6 @@ where $O_i$ is the observed value, $E_i$ is the theoretical value (in our case r
 
     ```
 
-    {{< /details >}}
-
 {{< /details >}}
 
 
@@ -283,15 +283,7 @@ We have an extra bonus task for you that explores stopping criteria and fitting 
 
 {{< /details >}}
 
-<details>
-  <summary><strong>Bonus task</strong></summary>
-  <p>Here is a description of the bonus task.</p>
 
-  <details>
-    <summary><strong>Bonus task solution</strong></summary>
-    <p>This is the solution to the bonus task.</p>
-  </details>
-</details>
 
 ### Gravitational waves radiation and merge time
 
