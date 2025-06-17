@@ -139,7 +139,10 @@ You can instruct MESA to stop computations by using `extras_binary_finish_step =
 {{< details title="Solution" closed="true" >}}
 
 ```fortran
-   ! TASK 1.1
+    integer function extras_binary_finish_step(binary_id)
+        ...
+
+         ! TASK 1.1
          ! Spectroscopic observations:
          !     Teff  = 28500 +/- 1000 K
          !     log_L = 5.5 +/- 0.1 Lsun
@@ -175,7 +178,7 @@ We will need that model in the subsequent runs! -->
 **Bonus task!:**  
 The above example was coded to terminate after finding the model that fits within the observations. As you may susspect, this model is not necessarily the only one, nor the best one to fit the observations. If you finished your assignments early, try to find the best model by applying some kind of a statistics, like $\chi^2$. You will need to define the `chi2` function outside of the `run_binary_extras.f90` main body, and call it before and after MESA calculates another step. You can find the places in `run_binary_extras.f90` that need some extra attention marked with a `! part of the bonus excercise` note.  **Good luck!**
 
-{{< details title="Hint" closed="True" >}}
+#### Hint
 
 For simplicity, we can assume that the $\chi^2$ have only one minimum between the models. This is, of course, a very naive approach as the evolutionary calculations are an extremely degenerate problem!
 
@@ -183,15 +186,12 @@ To be able to compare the value of the $\chi^2$ between the models we need to st
 
 This approach requires us to compute two values of $\chi^2$ at every step: the value for the previous step and for the current one. Here, the structure of the `run_binary_extras.f90` comes extremely helpful, as it contains two functions, `extras_binary_start_step` and `extras_binary_finish_step`. The latter updates the parameters of the system evolution after the calculations are done, while the former allows us to access the parameters before them being updated, thus from the previous step. This is the place to call the `chi2` function for the first time!
 
-{{< /details >}}
-
-{{< details title="The $\chi^2$ statiscics formula" closed="True" >}}
+#### The $\chi^2$ statiscics formula
 
 The formula for the $\chi^2$ statiscics is as follows:
 $$\chi^2 = \sum_{i=1}^n \left( \frac{O_i-E_i}{\sigma_i} \right)^2, $$
 where $O_i$ is the observed value, $E_i$ is the theoretical value (in our case returned by MESA) and $\sigma_i$ is the observed error.
 
-{{< /details >}}
 
 {{< /details >}}
 
