@@ -207,7 +207,7 @@ We have an extra bonus task for you that explores stopping criteria and fitting 
 
 ### Gravitational waves radiation and merge time
 
-Once we are all set to run our model, we can add one extra tweak to our computations. As we already assumed and implemented the loss of angular momentum via gravitational waves radiation in our model (the `do_jdot_gr` control in the `inlist_project` file), we can compute the approximate time our binary will take to merge.
+Once we are all set to run our model, we can add one extra tweak to our computations. As we already assumed and implemented the loss of angular momentum via gravitational waves radiation in our model (the `do_jdot_gr` control in the `inlist_project` file), we can compute the approximate time our binary will take to merge. 
 
 For two point masses $m_1$ and $m_2$ on a circular orbit with separation $a$, the GW inspiral time (Peters 1964) is given by
 
@@ -221,14 +221,27 @@ where $M_{\mathrm{chirp}}$ is the chirp mass:
 
 $$M_{\mathrm{chirp}} = \frac{(m_1 m_2)^{3/5}}{(m_1 + m_2)^{1/5}}$$
 
-> **Note**  
-> MESA computes all we need under-the-hood. All we need to do is to capture these values and compute $t_{\mathrm{merge}}$. 
->
+We need to do this once MESA has updated all the system parameters, thus in the `extras_binary_finish_step` fuction. We have two choices: we can force MESA to compute the merge time on a fly at every step, to be able to see how the merge time depends on the orbital period and the distribution of masses between the components, or we can implement this chunk of code inside the `if` statement of the previously implememnted stopping criterion. As we are primarily interested to know the merge time at the current phase of the evolution, we can chose the second option.
+
+{{< details title="Hint" closed="true" >}}
+
+MESA computes all we need under the hood. All we need to do is to capture all required quantities from MESA and to compute $t_{\mathrm{merge}}$. 
+
+{{< /details >}}
+
+
 > **Remember** that MESA lib gives b% m(1) and b% m(2) in grams and b% period in seconds. Constants, such as $G \equiv $ `standard_cgrav` are in cgs. If you want to use the MESA-computed constants, remember that the `const_def` module needs to be imported (it is by default) at the beginning of the `run_binary_extras.f90`.
 
 {{< details title="Solution" closed="true" >}}
 
 ```fortran
+
+    ! Initialise new variables
+    ! GRAVITATIONAL WAVES EMISSION PART 
+    real(dp) :: mchirp, t_merge, t_merge_gyr
+
+    ...
+
     ! Chirp mass
     mchirp = ((b% m(1) * b% m(2))**(3.0d0 / 5.0d0)) / ((b% m(1) + b% m(2))**(1.0d0 / 5.0d0))
 
@@ -239,15 +252,14 @@ $$M_{\mathrm{chirp}} = \frac{(m_1 m_2)^{3/5}}{(m_1 + m_2)^{1/5}}$$
     ! seconds to Gyr
     t_merge_gyr = t_merge / (3600.0d0 * 24.0d0 * 365.25d0 * 1.0d9)
 
-    ! write(*,*) 'Chirp mass [g]     = ', mchirp
     write(*,*) 'Merger time [Gyr]  = ', t_merge_gyr
 ```
 
 {{< /details >}}
 
-To apply all the changes you have made in your `run_binary_extras.f90` you need to compile and run your model (`./mk && ./rn`)!
+To apply all the changes you have made in your `run_binary_extras.f90` you need to compile (`./clean && ./mk`) and run your model (`./rn`)!
 
-{{< details title="Solution" closed="true" >}}
+<!-- {{< details title="Solution" closed="true" >}}
 
 ```fortran
       integer function extras_binary_finish_step(binary_id)
@@ -310,7 +322,7 @@ To apply all the changes you have made in your `run_binary_extras.f90` you need 
       end function extras_binary_finish_step
 ```
 
-{{< /details >}}
+{{< /details >}} -->
 
 <!-- ### Solution `run_binary_extras.f90`
 
