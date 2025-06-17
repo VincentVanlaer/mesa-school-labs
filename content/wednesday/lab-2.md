@@ -29,8 +29,7 @@ The following exercises will focus on reconstructing the evolutionary history of
 
 ## Task 1. Simulating the Evolution of Cygnus X-1
 
-To simulate the evolution of Cygnus X-1, we would ideally start off with creating a fresh copy of the `work/` directory (`cp -r $MESA_DIR/binary/work .`) and modify the `inlist` files to capture all relevant physical efects leading the initial system to the current form. However, to save time we will use an already prepared *MESA work directory* that can be downloaded from --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-here -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+To simulate the evolution of Cygnus X-1, we would ideally start off with creating a fresh copy of the `work/` directory (`cp -r $MESA_DIR/binary/work .`) and modify the `inlist` files to capture all relevant physical efects leading the initial system to the current form. However, to save time we will use an already prepared *MESA work directory* that can be downloaded from here: **[⬇ Download](/wednesday/lab2_working_copy.zip)**
 
 Following [Ramachandran et al., (2025)](https://arxiv.org/pdf/2504.05885), lets start off with setting the initial masses of the components, $M_\mathrm{1}~=~34 \rm\ M_\odot,\ M_\mathrm{2}~=~17.4 \rm\ M_\odot$ and orbital period $P~=~5.5 \rm\ d$ in the `inlist_project` file, designed to contain all information about the system-related quantities. To find the controls used by MESA, look into the MESA docs, under the [specifications for starting model](https://docs.mesastar.org/en/latest/reference/binary_controls.html#specifications-for-starting-model) section.
 
@@ -287,6 +286,13 @@ We have an extra bonus task for you that explores stopping criteria and fitting 
 
 {{< /details >}}
 
+<br><br><br>
+
+{{< details title="**Got stuck?**" closed="false" >}}
+
+Got stuct during the lab? Do not worry! You can always download solution from here **[⬇ Download](/wednesday/lab2_solutions.zip)** to catch up!
+
+{{< /details >}}
 
 
 ### Gravitational waves radiation and merge time
@@ -501,6 +507,15 @@ To apply all the changes you have made in your `run_binary_extras.f90` you need 
 ``` -->
 
 
+
+<br><br><br>
+
+{{< details title="**Got stuck?**" closed="false" >}}
+
+Got stuct during the lab? Do not worry! You can always download solution from here **[⬇ Download](/wednesday/lab2_solutions.zip)** to catch up!
+
+{{< /details >}}
+
 ## 2. The efficiency of mass transfer and it's impact on the evolution of Cyg X-1
 
 Mass transfer in close binary systems is a highly complex, multidimensional process shaped by hydrodynamic interactions, angular momentum exchange, and geometry-dependent flow patterns. Rather than a smooth and complete handover of mass from one star to the other, the gas is channeled through the inner Lagrangian point, forming a stream that enters the Roche lobe of the companion. Depending on the relative size and position of the stars, this stream may directly impact the accretor or settle into an accretion disk before any material is finally incorporated. A significant portion of the transferred matter might never reach the companion at all, being expelled from the system via outflows, disk winds, or loss through the outer Lagrangian points.
@@ -574,6 +589,13 @@ Next, compile (`./clean && ./mk`) and run the models (`./rn`) with a fixed set o
 > Is `mass_transfer_beta` the only way to control the accretor mass outcome? Can we substitute this parameter with other quantity that MESA provides, e.g. lowering the initial mass of the donor component? Why?
 
 
+<br><br><br>
+
+{{< details title="**Got stuck?**" closed="false" >}}
+
+Got stuct during the lab? Do not worry! You can always download solution from here **[⬇ Download](/wednesday/lab2_solutions.zip)** to catch up!
+
+{{< /details >}}
 
 
 {{< details title="Extra Bonus task" closed="true" >}}
