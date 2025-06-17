@@ -23,6 +23,11 @@ Recent observations by [Ramachandran et al., (2025)](https://arxiv.org/pdf/2504.
 
 The following exercises will focus on reconstructing the evolutionary history of Cygnus X-1. The goal is to identify a binary model that reproduces the observed parameters of the system.
 
+![CygX1](/wednesday/CygX1.png)
+
+**Fig. 1**: The HR diagram illustrating potential evolution of the Cyg X-1 donor star. Here, the evolution starts when the primary is already a BH (point mass) of
+$17.4\,\rm M_{\odot}$, O star donor of initial mass $34\,\rm M_{\odot}$, and an initial period of $5.5$ days. Three models are displayed here with mass-loss scaling factors of $1, 0.5$, and $0.2$ to demonstrate the effect of wind mass loss on evolution. (taken from [Ramachandran et al., (2025)](https://arxiv.org/pdf/2504.05885))
+
 ## Task 1. Simulating the Evolution of Cygnus X-1
 
 To simulate the evolution of Cygnus X-1, we would ideally start off with creating a fresh copy of the `work/` directory (`cp -r $MESA_DIR/binary/work .`) and modify the `inlist` files to capture all relevant physical efects leading the initial system to the current form. However, to save time we will use an already prepared *MESA work directory* that can be downloaded from --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
