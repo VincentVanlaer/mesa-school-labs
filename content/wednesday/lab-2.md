@@ -192,6 +192,84 @@ The formula for the $\chi^2$ statiscics is as follows:
 $$\chi^2 = \sum_{i=1}^n \left( \frac{O_i-E_i}{\sigma_i} \right)^2, $$
 where $O_i$ is the observed value, $E_i$ is the theoretical value (in our case returned by MESA) and $\sigma_i$ is the observed error.
 
+    {{< details title="Bonus task solution" closed="true" >}}
+
+    Here is the solution to the bonus task.
+
+    ```fortran
+        integer function extras_binary_start_step(binary_id,ierr)
+            ...
+            ! part of the bonus excercise
+            !
+            ! store all spectral parameters, like Teff, logL or logg 
+            ! from the previous step
+            Teff_old  = b% s1% Teff
+            logg_old  = b% s1% photosphere_logg
+            logL_old  = log10(b% s1% photosphere_L)
+
+            ! Calculate the chi2 statistics on the previous model
+
+            chi2_value_old = chi2(Teff_old, logL_old, logg_old, &
+                                Teff_obs, logL_obs, logg_obs, &
+                                dTeff_obs, dlogL_obs, dlogg_obs)
+
+            write(*,*) 'Chi2 from the previous step:',chi2_value_old
+        end function  extras_binary_start_step
+
+        ...
+
+        integer function extras_binary_finish_step(binary_id)
+            ...
+            ! part of the bonus excercise
+            ! Calculate the chi2 statistics on the current model
+            !
+            chi2_value = chi2(b% s1% Teff, log10(b% s1% photosphere_L), b% s1% photosphere_logg, &
+                Teff_obs, logL_obs, logg_obs, &
+                dTeff_obs, dlogL_obs, dlogg_obs)
+
+            write(*,*) 'Chi2 from the current step:', chi2_value
+            
+
+            ! TASK 1.1
+            ! Spectroscopic observations:
+            !     Teff  = 28500 +/- 1000 K
+            !     log_L = 5.5 +/- 0.1 Lsun
+            !     log_g = 3.2 +/- 0.1
+            !
+            ! Apply a terminating condition, after we find a model fitting within the observed parameters
+            if ( abs(b% s1% Teff - Teff_obs) < dTeff_obs .and. &
+                abs(log10(b% s1% photosphere_L) - logL_obs) < dlogL_obs .and. &
+                abs(b% s1% photosphere_logg - logg_obs) < dlogg_obs .and. &
+                chi2_value > chi2_value_old) then
+
+                ...
+                
+                extras_binary_finish_step = terminate
+            end if
+
+        end function extras_binary_finish_step
+
+        ...
+
+        ! Part of the bonus excercise
+        ! Create a function calculating chi2 to be called from any place in run_binary_extras 
+        !
+        real(dp) function chi2(Teff_mod, logL_mod, logg_mod, &
+                                Teff_obs, logL_obs, logg_obs, &
+                                Teff_err, logL_err, logg_err)
+            real(dp), intent(in) :: Teff_mod, logL_mod, logg_mod
+            real(dp), intent(in) :: Teff_obs, logL_obs, logg_obs
+            real(dp), intent(in) :: Teff_err, logL_err, logg_err
+
+            chi2 = 0.0d0
+            chi2 = chi2 + ((Teff_mod - Teff_obs) / Teff_err)**2
+            chi2 = chi2 + ((logL_mod - logL_obs) / logL_err)**2
+            chi2 = chi2 + ((logg_mod - logg_obs) / logg_err)**2
+        end function chi2
+
+    ```
+
+    {{< /details >}}
 
 {{< /details >}}
 
