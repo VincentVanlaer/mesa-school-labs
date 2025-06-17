@@ -2,10 +2,24 @@
 
 Cygnus X-1 is a well-known high-mass X-ray binary located at a distance of about 2.2 kpc, consisting of a black hole and an O-type supergiant companion. It was the first strong black hole candidate ever identified and remains one of the most extensively studied X-ray sources, exhibiting persistent emission powered by accretion from the stellar wind of the massive donor star. 
 Recent observations by [Ramachandran et al., (2025)](https://arxiv.org/pdf/2504.05885) have updated its parameters:
-
-- Donor mass: $29^{+6}_{-3} \rm\ M_\odot$
+<!-- - Donor mass: $29^{+6}_{-3} \rm\ M_\odot$
 - Black hole mass: $17.5^{+2}_{-1} \rm\ M_\odot$
-- Orbital period: $5.6$ days
+- Orbital period: $5.559$ d -->
+
+#### Orbital parameters
+
+- $M_\mathrm{donor} = 29 ^{+6} _{-3}\ \mathrm{M_\odot}$
+- $M_\mathrm{BH} = 17.5 ^{+2} _{-1}\ \mathrm{M_\odot}$
+- $P_\mathrm{orb} = 5.559\ \mathrm{d}$
+- $\log \dot{M} = -6.5 \pm 0.2\ \mathrm{M_\odot\, yr^{-1}}$
+
+#### Physical parameters of the donor
+
+- $T_\mathrm{eff} = 28\,500 \pm 1000\ \mathrm{K}$
+- $\log L/\mathrm{L_\odot} = 5.5 \pm 0.1$
+- $\log g = 3.2 \pm 0.1$
+- $R = 22.3 ^{+1.5} _{-2.5}\ \mathrm{R_\odot}$
+
 
 The following exercises will focus on reconstructing the evolutionary history of Cygnus X-1. The goal is to identify a binary model that reproduces the observed parameters of the system.
 
@@ -36,8 +50,18 @@ As the secondary component is a black hole, we assume it to be a point mass and 
 
 <!-- - -----------????? limit accretion using the Eddington limit, ?????----------- -->
 - the `Kolb` mass transfer scheme,
-- do the wind mass accretion from the donor to the BH. Look under the `do_wind_mass_transfer_1` control in MESA docs
-- assume conservation of the total angular momentum of the system, include loss of angular momentum via mass loss and via gravitational wave radiation. Explore the `do_jdot_*` controls in the MESA docs to find the relevant controls.
+- do the wind mass accretion from the donor to the BH. 
+
+{{< details title="Hint" closed="true" >}}
+Look under the `do_wind_mass_transfer_1` control in MESA docs
+{{< /details >}}
+
+- assume conservation of the total angular momentum of the system, include loss of angular momentum via mass loss and via gravitational wave radiation. 
+
+{{< details title="Hint" closed="true" >}}
+Explore the `do_jdot_*` controls in the MESA docs to find the relevant controls.
+{{< /details >}}
+
 {{< details title="Solution" closed="true" >}}
 
 ```fortran
@@ -49,7 +73,7 @@ As the secondary component is a black hole, we assume it to be a point mass and 
 {{< /details >}}
 
 - enable rotation by assuming tidal synchronisation
-{{< details title="Solution" closed="true" >}}
+{{< details title="Hint" closed="true" >}}
 
 Typically, rotation of the components is not the system-related quantity, and in MESA we enable rotation per-component, in the `inlist1/inlist2` files, under `star_job` using
 
@@ -64,28 +88,11 @@ But we have that in our inlist already! What we want is to assume tidal synchron
 
 {{< /details >}}
 
-
-To see if all runs well, run your new model! (`./rn`).
-
-
+To see if all runs well, compile (`./clean && ./mk`) and run your new model! (`./rn`). This is only to check if we set all the controls correctly, so kill the run after a few timesteps using `Ctrl C`.
 
 ### 1.1. Finding the model that fits the observations
 
-Cyg X-1 has accurate determinations of orbital and physical parameters (<https://arxiv.org/pdf/2504.05885>):
-
-#### Orbital parameters
-
-- $M_\mathrm{donor} = 29 ^{+6} _{-3}\ \mathrm{M_\odot}$
-- $M_\mathrm{BH} = 17.5 ^{+2} _{-1}\ \mathrm{M_\odot}$
-- $P_\mathrm{orb} = 5.559\ \mathrm{d}$
-- $\log \dot{M} = -6.5 \pm 0.2\ \mathrm{M_\odot\, yr^{-1}}$
-
-#### Physical parameters of the donor
-
-- $T_\mathrm{eff} = 28\,500 \pm 1000\ \mathrm{K}$
-- $\log L/\mathrm{L_\odot} = 5.5 \pm 0.1$
-- $\log g = 3.2 \pm 0.1$
-- $R = 22.3 ^{+1.5} _{-2.5}\ \mathrm{R_\odot}$
+Based on the parameters obtained by [Ramachandran et al., (2025)](https://arxiv.org/pdf/2504.05885), we can 
 
 Let's try and find the model that fits within the measured spectroscopic parameters, like $T_{\rm eff}$, $\log L$ and $\log g$, and terminate the computations after doing so.
 
@@ -123,6 +130,15 @@ Go ahead and add a stopping criterion `extras_binary_finish_step = terminate` in
 ```
 
 We will need that model in the subsequent runs! -->
+
+
+{{< details title="Extra bonus task" closed="false" >}}
+
+We have an extra bonus task for you that explores stopping criteria and fitting a model for yet another observed system! You can find it at the end of this lab. 
+
+**Disclaimer:** Take a look at this excercise **only** once you have finished all the parts below!
+
+{{< /details >}}
 
 ### Gravitational waves radiation and merge time
 
@@ -349,3 +365,9 @@ Next, compile and run the models (`./mk && ./rn`) with a fixed set of initial pa
 > **To think about:**  
 > Is `mass_transfer_beta` the only way to control the accretor mass outcome? Can we substitute this parameter with other quantity that MESA provides, e.g. lowering the initial mass of the donor component? Why?
 
+
+
+
+{{< details title="Extra bonus task" closed="true" >}}
+
+{{< /details >}}
