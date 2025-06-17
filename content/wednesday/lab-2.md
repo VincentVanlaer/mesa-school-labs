@@ -94,7 +94,17 @@ To see if all runs well, compile (`./clean && ./mk`) and run your new model! (`.
 
 Based on the parameters obtained by [Ramachandran et al., (2025)](https://arxiv.org/pdf/2504.05885) (see the introductory part of this lab), we can try and find the model that fits within the measured spectroscopic parameters, like $T_{\rm eff}$, $\log L$ and $\log g$, and terminate the computations after doing so.
 
-To force MESA to stop after finding a fitting model to the observations we need to modify the `run_binary_extras.f90` file. You can find it in the `src/` in working directory. We have already prepared the file, so all you need to do is to capture the MESA quantities and to compare them with observed parameters. Focus only on the *TASK 1.1* part this time. Go ahead and add a stopping criterion `extras_binary_finish_step = terminate` in the `extras_binary_finish_step` function once a model reached a desired surface properties.
+To force MESA to stop after finding a fitting model to the observations we need to modify the `run_binary_extras.f90` file. You can find it in the `src/` in working directory. We have already prepared the file, so all you need to do is to capture the MESA quantities and to compare them with observed parameters. One of the way is to use the observed uncertainities and to comare them with the MESA parameters as: 
+
+```fortran
+    if ( abs(Teff_MESA - Teff_obs) < dTeff_obs) then
+        ...
+    end if
+```
+
+As we want to capture not only $T_{\rm eff}$ but also other spectroscopic quantities, we need to expand the above example a bit.
+
+Go ahead and add a stopping criterion `extras_binary_finish_step = terminate` in the `extras_binary_finish_step` function once a model reached a desired surface properties. Focus only on the *TASK 1.1* part this time.
 
 {{< details title="Hint" closed="true" >}}
 
@@ -120,8 +130,6 @@ You can use the internally computed by MESA quantities using the binary pointer 
 
 {{< /details >}}
 
-Go ahead and add a stopping criterion `extras_binary_finish_step = terminate` in the `extras_binary_finish_step` function once a model reached a desired surface properties. Focus only on the *TASK 1.1* part this time.
-
 {{< details title="Hint" closed="true" >}}
 
 You can instruct MESA to stop computations by using `extras_binary_finish_step = terminate` at the right place. 
@@ -140,8 +148,7 @@ You can instruct MESA to stop computations by using `extras_binary_finish_step =
          ! Apply a terminating condition, after we find a model fitting within the observed parameters
          if ( abs(b% s1% Teff - Teff_obs) < dTeff_obs .and. &
               abs(log10(b% s1% photosphere_L) - logL_obs) < dlogL_obs .and. &
-              abs(b% s1% photosphere_logg - logg_obs) < dlogg_obs .and. &
-              chi2_value > chi2_value_old) then
+              abs(b% s1% photosphere_logg - logg_obs) < dlogg_obs) then
 
             write(*,*) "Found a model maching the observations. Terminating"
             extras_binary_finish_step = terminate
@@ -163,17 +170,35 @@ You can instruct MESA to stop computations by using `extras_binary_finish_step =
 
 We will need that model in the subsequent runs! -->
 
-{{< details title="Bonus task" closed="false" >}}
+{{< details title="Bonus task" closed="True" >}}
 
 **Bonus task!:**  
 The above example was coded to terminate after finding the model that fits within the observations. As you may susspect, this model is not necessarily the only one, nor the best one to fit the observations. If you finished your assignments early, try to find the best model by applying some kind of a statistics, like $\chi^2$. You will need to define the `chi2` function outside of the `run_binary_extras.f90` main body, and call it before and after MESA calculates another step. You can find the places in `run_binary_extras.f90` that need some extra attention marked with a `! part of the bonus excercise` note.  **Good luck!**
+
+{{< details title="Hint" closed="True" >}}
+
+For simplicity, we can assume that the $\chi^2$ have only one minimum between the models. This is, of course, a very naive approach as the evolutionary calculations are an extremely degenerate problem!
+
+To be able to compare the value of the $\chi^2$ between the models we need to store them across the calculations. The best (not the easiest, though) way would bo to construct a table and to store the values of $\chi^2$ in it. However, the assumption that $\chi^2$ has only one minimum allows us to store the $\chi^2$ from only the previous step and to compare it with the current-step value. If $\chi^2_{\rm old} > \chi^2_{\rm new}$ then we have yet to reach the minimum, and there is still place for improving the fit between the observation and the model. Once we find the first model with $\chi^2_{\rm old} < \chi^2_{\rm new}$ we are in the minimum! 
+
+This approach requires us to compute two values of $\chi^2$ at every step: the value for the previous step and for the current one. Here, the structure of the `run_binary_extras.f90` comes extremely helpful, as it contains two functions, `extras_binary_start_step` and `extras_binary_finish_step`. The latter updates the parameters of the system evolution after the calculations are done, while the former allows us to access the parameters before them being updated, thus from the previous step. This is the place to call the `chi2` function for the first time!
+
+{{< /details >}}
+
+{{< details title="The $\chi^2$ statiscics formula" closed="True" >}}
+
+The formula for the $\chi^2$ statiscics is as follows:
+$$\chi^2 = \sum_{i=1}^n \left( \frac{O_i-E_i}{\sigma_i} \right)^2, $$
+where $O_i$ is the observed value, $E_i$ is the theoretical value (in our case returned by MESA) and $\sigma_i$ is the observed error.
+
+{{< /details >}}
 
 {{< /details >}}
 
 
 {{< details title="**Extra bonus task**" closed="false" >}}
 
-**Extra bonus task**
+**Extra bonus task!:**
 We have an extra bonus task for you that explores stopping criteria and fitting a model for yet another observed system! You can find it at the end of this lab. 
 
 **Disclaimer:** Take a look at this excercise **only** once you have finished all the parts below!
@@ -182,7 +207,7 @@ We have an extra bonus task for you that explores stopping criteria and fitting 
 
 ### Gravitational waves radiation and merge time
 
-Once we are all set to run our model, we can add one extra tweak to our computations. As we assumed the loss of angular momentum via gravitational waves radiation in our model (the `do_jdot_gr` control), we can compute the approximate time our binary will take to merge.
+Once we are all set to run our model, we can add one extra tweak to our computations. As we already assumed and implemented the loss of angular momentum via gravitational waves radiation in our model (the `do_jdot_gr` control in the `inlist_project` file), we can compute the approximate time our binary will take to merge.
 
 For two point masses $m_1$ and $m_2$ on a circular orbit with separation $a$, the GW inspiral time (Peters 1964) is given by
 
@@ -199,7 +224,7 @@ $$M_{\mathrm{chirp}} = \frac{(m_1 m_2)^{3/5}}{(m_1 + m_2)^{1/5}}$$
 > **Note**  
 > MESA computes all we need under-the-hood. All we need to do is to capture these values and compute $t_{\mathrm{merge}}$. 
 >
-> **Remember** that MESA lib gives b% m(1) and b% m(2) in grams and b% period in seconds. Constants, such as $G \equiv $ `standard_cgrav` are in cgs. If you want to use the MESA-computed constants, remember to import the `const_def` module at the beginning of the `run_binary_extras.f90`.
+> **Remember** that MESA lib gives b% m(1) and b% m(2) in grams and b% period in seconds. Constants, such as $G \equiv $ `standard_cgrav` are in cgs. If you want to use the MESA-computed constants, remember that the `const_def` module needs to be imported (it is by default) at the beginning of the `run_binary_extras.f90`.
 
 {{< details title="Solution" closed="true" >}}
 
@@ -330,8 +355,6 @@ To apply all the changes you have made in your `run_binary_extras.f90` you need 
 
 ``` -->
 
-> **Bonus task!:**  
-> The above example was coded to terminate after finding the model that fits within the observations. As you may susspect, this model is not necessarily the only one, nor the best one to fit the observations. If you finished your assignments early, try to find the best model by applying some kind of a statistics, like $\chi^2$. You will need to define the `chi2` function outside of the run_binary_extras.f90 main body, and call it before and after MESA calculates another step. **Good luck!**
 
 ## 2. The efficiency of mass transfer and it's impact on the evolution of Cyg X-1
 
