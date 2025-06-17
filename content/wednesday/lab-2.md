@@ -500,21 +500,19 @@ It is important to check the units of the parameters in MESA as compared to the 
 {{< /details >}}
 
 ### Extra Bonus Task 2
-In Task 1 we have determined that working with just the effective temperature will not lead to a match between the simulation and the observations, as the luminosity is too low compared to the observations. In this next task, we will combine the luminosity and the effective temperature of the primary star to match the observations.
+In Extra Bonus Task 1 we have determined that working with just the effective temperature will not lead to a match between the simulation and the observations, as the luminosity is too low compared to the observations. In this next task, we will combine the luminosity and the effective temperature of the primary star to match the observations.
 Use the following additional parameter in the `extras_binary_finish_step` hook in `run_binary_extras.f90`: 
 
 `b% s1% l_surf` ! The luminosity of the primary star of the binary system in solar luminosities
 
+{{< details title="Hint 1" closed="true" >}}
 
-<details>
-  <summary>Hint 1</summary>
+As can be seen in the figure above, the stellar evolution track does not go through center of the data points. You will need to experiment with the error-margins to match the stellar track with the observations.
 
-As can be seen in the figure, the stellar evolution track does not go through center of the data points. You will need to experiment with the error-margins to match the stellar track with the observations.
+{{< /details >}}
 
-</details>
+{{< details title="Solution" closed="true" >}}
 
-<details>
-  <summary>Solution 1</summary>
   There are multiple possible solutions, depending on how you combine the two parameters. This is one example so you can continue to the next task.
   ```fortran
          if (((b% s1% teff) .lt. 9000) .and. (log10(b% s1% l_surf) .gt. 3.57))   then
@@ -523,7 +521,7 @@ As can be seen in the figure, the stellar evolution track does not go through ce
                return
          end if  
 ```
-</details>
+{{< /details >}}
 
 ### Extra Bonus Task 3
 Because we are working with a binary system, it is not only important to match the primary star, but also the secondary. However, matching two stars simultaneously is not a trivial task, and rather than fitting by eye like we are doing here, it is done with statistical methods. The best fit model presented in [Gilkis & Tomer 2022](https://ui.adsabs.harvard.edu/abs/2023MNRAS.518.3541G/abstract) thus does not match the exact observational values. So, instead of working with the observational values for the secondary, the model values will be used with the error-bars as presented in the literature, which is represented by the cyan cross in the HRD. The new values for the effective temperature and the luminosity are in the table below and were taken from Table 3 of the previously mentioned paper.
@@ -548,8 +546,8 @@ Use the following additional parameter in the `extras_binary_finish_step` hook i
 
 As in the previous tasks, write out the final luminosity and surface temperature of the simulation to the terminal.
 
-<details>
-  <summary>Solution 1</summary>
+
+{{< details title="Solution" closed="true" >}}
   
   ```fortran
        if (((b% s1% teff) .lt. 9000) .and. (log10(b% s1% l_surf) .gt. 3.57) .and. ((b% s2% teff) .lt. 21200))   then
@@ -559,10 +557,9 @@ As in the previous tasks, write out the final luminosity and surface temperature
              return
        end if  
 ```
-</details>
+{{< /details >}}
 
 
-***
 ### Extra Bonus Task 4
 If you have managed to get the double stopping criterion to work, you can experiment with other observables as can be found in Table 1 and 3 of the paper, and see which combinations work. For this you can use the following commands:
 
@@ -574,7 +571,7 @@ If you have managed to get the double stopping criterion to work, you can experi
 
 As in the previous parts, there are multiple combinations possible to reach the observed values for the stellar parameters or the modelled parameters. Not all combinations might work.
 
-***
+
 <br><br><br>
 ### Acknowledgement
 The MESA input files were built upon the following resource:  
