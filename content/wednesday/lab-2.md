@@ -122,11 +122,11 @@ You can use these when comparing with the MESA quantities.
 
 {{< details title="Hint" closed="true" >}}
 
-You can use the internally computed by MESA quantities using the binary pointer `b%` and star pointers `s1%`/`s2%` to acccess the donor/accretor modules, respectively. Some examples of useful values are:
+You can use the quantities internally computed by MESA using the binary pointer `b%` and star pointers `s1%`/`s2%` to acccess the donor/accretor modules, respectively. Some examples of useful values are:
 
 - `b% s1% Teff`: The stellar effective temperature of the primary.
 - `b% s1% photosphere_L`: The stellar luminosity of the primary.
-- `b% s1% photosphere_logg`: Logarythm of the stellar gravitational acceleration of the primary.
+- `b% s1% photosphere_logg`: Logarithm of the stellar gravitational acceleration of the primary.
 
 {{< /details >}}
 
@@ -173,10 +173,10 @@ You can instruct MESA to stop computations by using `extras_binary_finish_step =
 
 We will need that model in the subsequent runs! -->
 
-{{< details title="Bonus task" closed="True" >}}
+{{< details title="Bonus task" closed="true" >}}
 
 **Bonus task!:**  
-The above example was coded to terminate after finding the model that fits within the observations. As you may susspect, this model is not necessarily the only one, nor the best one to fit the observations. If you finished your assignments early, try to find the best model by applying some kind of a statistics, like $\chi^2$. You will need to define the `chi2` function outside of the `run_binary_extras.f90` main body, and call it before and after MESA calculates another step. You can find the places in `run_binary_extras.f90` that need some extra attention marked with a `! part of the bonus excercise` note.  **Good luck!**
+The above example was coded to terminate after finding the model that fits within the observations. As you may suspect, this model is not necessarily the only one, nor the best one to fit the observations. If you finished your assignments early, try to find the best model by applying some kind of a statistics, like $\chi^2$. You will need to define the `chi2` function outside of the `run_binary_extras.f90` main body, and call it before and after MESA calculates another step. You can find the places in `run_binary_extras.f90` that need some extra attention marked with a `! part of the bonus excercise` note.  **Good luck!**
 
 #### Hint
 
@@ -229,8 +229,57 @@ MESA computes all we need under the hood. All we need to do is to capture all re
 
 {{< /details >}}
 
+{{< details title="Hint" closed="true" >}}
 
-> **Remember** that MESA lib gives b% m(1) and b% m(2) in grams and b% period in seconds. Constants, such as $G \equiv $ `standard_cgrav` are in cgs. If you want to use the MESA-computed constants, remember that the `const_def` module needs to be imported (it is by default) at the beginning of the `run_binary_extras.f90`.
+You can capture the required masses and orbital period using pointers, with `b% m(1)`, `b% m(2)` and `b% period`. The constants, as the speed of light $c$, the gravitational constant $G$ or the approximate value of $pi$ can be accesed from the `const_def` module (inside `const/public/const_def.f90` file). 
+
+{{< /details >}}
+
+{{< details title="Hint" closed="true" >}}
+
+The scaffolding of where the gravitational wave calculations should be done
+
+```fortran
+      ! returns either keep_going or terminate.
+      ! note: cannot request retry; extras_check_model can do that.
+      integer function extras_binary_finish_step(binary_id)
+         type (binary_info), pointer :: b
+         integer, intent(in) :: binary_id
+         integer :: ierr
+
+         ! Initialise new variables
+         ! GRAVITATIONAL WAVES EMISSION PART 
+         ! real(dp) :: mchirp, t_merge, t_merge_gyr
+
+         call binary_ptr(binary_id, b, ierr)
+         if (ierr /= 0) then ! failure in  binary_ptr
+            return
+         end if  
+         extras_binary_finish_step = keep_going
+
+      
+         ! TASK 1.1
+         ! Spectroscopic observations:
+         !     Teff  = 28500 +/- 1000 K
+         !     log_L = 5.5 +/- 0.1 Lsun
+         !     log_g = 3.2 +/- 0.1
+         !
+         ! Apply a terminating condition, after we find a model fitting within the observed parameters
+         ! if(...) then
+
+            ! GRAVITATIONAL WAVES EMISSION PART 
+            ! Now that we have found the quasi-best fitting model, let's compute merger time due to GW 
+            ! emission, based on Peters 1964
+            !     From MESA lib: b% m(1) and b% m(2) are in grams, b% period is in seconds,
+            !     const_def gives Msun, clight and standard_cgrav in cgs
+
+         ! end if
+
+      end function extras_binary_finish_step
+```
+{{< /details >}}
+
+> **Remember** that MESA lib (i.e. the internal library of MESA that allows direct access to stellar and binary model data during runtime) gives b% m(1) and b% m(2) in grams and b% period in seconds. Constants, such as $G \equiv $ `standard_cgrav` are in cgs. If you want to use the MESA-computed constants, remember that the `const_def` module needs to be imported (it is by default) at the beginning of the `run_binary_extras.f90`.
 
 {{< details title="Solution" closed="true" >}}
 
@@ -404,12 +453,12 @@ In this minilab, we will investigate how the choice of these parameters — part
 
 To explore the effect of mass trasnfer efficiency on future evolution of Cyg X-1, we will vary the efficiency of mass transfer by changing the `mass_transfer_beta` parameter while keeping the initial primary masses and orbital period fixed, as were before. As each run may take a while, we will crowd-source this!
 
-The participants should split into gropus that will be assigned a value of `mass_transfer_beta`. To do so, please write your name in the following **Google Spreadsheet**: https://docs.google.com/spreadsheets/d/1HLwsGPu6w3t2NMUcdVYvkHFvqgIOUDkigfrZruN6Uo8/edit?gid=1375531873#gid=1375531873 to select a $\beta$ value, from **0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9**, corresponding to accretion efficiencies from 100% up to 10%, respectively. These values come either without Eddington limit (by default) or with Eddington limited mass-accretion rate. If you choose the latter, remember to include `limit_retention_by_mdot_edd` in your `binary_controls` section!
+The participants should split into gropus that will be assigned different values of `mass_transfer_beta` and `limit_retention_by_mdot_edd`, which is a control for the Eddington limited mass-accretion rate. To do so, please write your name in the following [**Google Spreadsheet**](https://docs.google.com/spreadsheets/d/1HLwsGPu6w3t2NMUcdVYvkHFvqgIOUDkigfrZruN6Uo8/edit?gid=1375531873#gid=1375531873) (navigate to *Lab2 Mass Transfer Efficiency* tab in the lower-left corner if needed) to select a $\beta$ value, from **0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9**, corresponding to accretion efficiencies from 100% up to 10%, respectively. These values come either without Eddington limit (by default) or with Eddington limited mass-accretion rate. If you choose the latter, remember to include `limit_retention_by_mdot_edd = .true.` in your `binary_controls` section!
 
 > **Note:**  
 >Do not change the initial masses or period. Focus only on the effect of beta. If you have a slower machine (with lower number of cores), choose lower $\beta$ as these runs tend to be faster. Faster machines can attempt higher beta values, which lead to more computationally demanding models. The $\beta=0.0$ run should take approximately 5 minutes on 2-core machines, while the $\beta~=~0.9$ run needs around 10 minutes.
 
-As the model fitting within Cyg X-1 determined parameters is right on the onset of mass transfer, let us comment out the previously applied stopping criterion from the `run_binary_extras.f90` to let the system evolve a bit further. This time, let us choose the stopping criterion based on the minimum mass of the donor set to $23\,\mathrm{M_\odot}$.
+As the model fitting within Cyg X-1 determined parameters is right on the onset of mass transfer, let us comment out the previously applied stopping criterion from the `run_binary_extras.f90` to let the system evolve a bit further. This time, let us choose the stopping criterion based on the minimum mass of the donor set to $23\,\mathrm{M_\odot}$. As MESA already has a command telling it to finish a run after such a condition is met, we do not need it to be implemented inside the `run_binary_extras.f90`. Instead, as the limit of mass applies only to one of the components, we need to include this condition in the `inlist1` file. Explore [stopping conditions](https://docs.mesastar.org/en/latest/reference/controls.html#when-to-stop) in the MESA docs to find the right command.
 
 {{< details title="Solution" closed="true" >}}
   
@@ -428,9 +477,9 @@ To make the runs a bit faster, reduce the resolution to
       time_delta_coeff = 2.0d0
 ```
 
-As the last thing we would like to do is to compare the merge time with the one we got in the previous step. Modify slightly the `run_binary_extras` file, as we no longer need to calculate the merge time only fot the specific model - let it be calculated for every model to see whether this value changes. Add the resulting merge time to the **Google Spreadsheet** in the column next to your name under the selected case.
+As the last thing we would like to do is to compare the merge time with the one we got in the previous step. Modify slightly the `run_binary_extras` file, as we no longer need to calculate the merge time only fot the specific model - let it be calculated for every model to see whether this value changes. Add the resulting merge time of the last computed model, when the donor reaches the minimum mass which terminates the run, to the [**Google Spreadsheet**](https://docs.google.com/spreadsheets/d/1HLwsGPu6w3t2NMUcdVYvkHFvqgIOUDkigfrZruN6Uo8/edit?gid=1375531873#gid=1375531873) in the column next to your name under the selected case.
 
-Next, compile and run the models (`./mk && ./rn`) with a fixed set of initial parameters (donor and black hole masses, and orbital period), while exploring different values of mass_transfer_beta. This isolates the role of accretion efficiency in shaping the orbital evolution, mass growth, and observable properties of the system.
+Next, compile (`./clean && ./mk`) and run the models (`./rn`) with a fixed set of initial parameters (donor and black hole masses, and orbital period), while exploring different values of mass_transfer_beta. This isolates the role of accretion efficiency in shaping the orbital evolution, mass growth, and observable properties of the system.
 
 > **As a group effort:**  
 >What can we say about the future evolution of Cyg X-1 system from shuffling the `mass_transfer_beta` alone? How does the orbit react and why? 
