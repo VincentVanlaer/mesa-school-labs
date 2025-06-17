@@ -11,16 +11,18 @@ Broadly speaking, these issues can be seeded in either "the core"
 (where nuclear burning of heavier elements stiffens the equations)
 and/or "the envelope" (where small timesteps result in waves and
 occasionally spurious artificial accelerations, convection can be
-inefficient and density inversions occur, (see [Paxton et al. 2013](https://ui.adsabs.harvard.edu/abs/2013ApJS..208....4P/abstract),
-[Jermyn et al. 2023](https://ui.adsabs.harvard.edu/abs/2023ApJS..265...15J/abstract)). The two kind of issues can also interact
-non-linearly with each other, resulting in the majority of a grid
-crashing.
+inefficient and density inversions occur, see [Paxton et al.
+2013](https://ui.adsabs.harvard.edu/abs/2013ApJS..208....4P/abstract),
+[Jermyn et al.
+2023](https://ui.adsabs.harvard.edu/abs/2023ApJS..265...15J/abstract)).
+Each kind of issues can also interact non-linearly with the other,
+resulting in the majority of a grid crashing.
 
-**Note:** this is not exclusively a "MESA" problem, but a result of the
-physics being described by progressively stiffer equations that are
-numerically more challenging to solve. This is why most (but notably
-not all) stellar evolution codes stop at C core depletion at the
-latest.
+**Note:** this is not exclusively a "MESA" problem, but a result of
+the physics being described by progressively stiffer equations that
+are numerically more challenging to solve and require smaller
+timesteps. This is why most (but notably not all) stellar evolution
+codes stop at C core depletion at the latest.
 
 ### The starting point
 
