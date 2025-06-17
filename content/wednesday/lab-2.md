@@ -461,7 +461,7 @@ The stellar parameters can be found in this table, which has been adapted from T
 | $logL_{1}[L_{\odot}]$    | $3.67\pm0.15$       |
 | $logL_{2}[L_{\odot}]$    | $3.1\pm0.2$        |
 
-## Extra Bonus Task 1
+### Extra Bonus Task 1
 In this task, you will try to capture the point where the simulation agrees with the observational data with only one stopping criterion, the effective temperature. Because the Roche-lobe overflow phase is computationally heavy for this particular system, the run will start shortly after, at the red dot in the HRD presented above. The saved model files are in 'Load', and you will need to adjust the path to the files in `inlist1` and `inlist2`. Besides this change, you won't have to change anything else in the various inlist-files, we will work with the `run_binary_extras.f90` exclusively. To make sure the models do not run too long, there is a maximum amount of models implemented in the `inlist_star`.
 
 To find the stopping point, use the following parameter in the `extras_binary_finish_step` hook in `run_binary_extras.f90`: 
@@ -501,7 +501,7 @@ It is important to check the units of the parameters in MESA as compared to the 
 ```
 </details>
 
-## Task 2
+### Extra Bonus Task 2
 In Task 1 we have determined that working with just the effective temperature will not lead to a match between the simulation and the observations, as the luminosity is too low compared to the observations. In this next task, we will combine the luminosity and the effective temperature of the primary star to match the observations.
 Use the following additional parameter in the `extras_binary_finish_step` hook in `run_binary_extras.f90`: 
 
@@ -527,7 +527,7 @@ As can be seen in the figure, the stellar evolution track does not go through ce
 ```
 </details>
 
-## Task 3
+### Extra Bonus Task 3
 Because we are working with a binary system, it is not only important to match the primary star, but also the secondary. However, matching two stars simultaneously is not a trivial task, and rather than fitting by eye like we are doing here, it is done with statistical methods. The best fit model presented in [Gilkis & Tomer 2022](https://ui.adsabs.harvard.edu/abs/2023MNRAS.518.3541G/abstract) thus does not match the exact observational values. So, instead of working with the observational values for the secondary, the model values will be used with the error-bars as presented in the literature, which is represented by the cyan cross in the HRD. The new values for the effective temperature and the luminosity are in the table below and were taken from Table 3 of the previously mentioned paper.
 
 ![image](UpsSagHRD2.png)
