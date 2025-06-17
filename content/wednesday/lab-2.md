@@ -447,13 +447,13 @@ Next, compile and run the models (`./mk && ./rn`) with a fixed set of initial pa
 
 Upsilon Sagittarii is a hydrogren deficient binary that has been suggested to be in its second stage of mass transfer, after the primary has expanded to become a helium supergiant following core helium exhaustion. [Gilkis & Shenar 2022](https://ui.adsabs.harvard.edu/abs/2023MNRAS.518.3541G/abstract) have identified the progentitor of this system to be a $5 M_{\odot}$ star with a $3.125 M_{\odot}$ companion and an initial orbital period of 8.4 days.
 
-Like in Task 1.1. you will modify `src/run_binary_extras.f90` to capture the simulation at the values as determined from the observations of the binary system. Because the track is rather complicated, as can be seen in the figure below, we will slowly build up to finding the right combination of stopping criteria to match the models with the system.
+Like in Task 1.1. you will modify `src/run_binary_extras.f90` to capture the simulation at the values as determined from the observations of the binary system. Because the track is rather complicated, as can be seen in the figure below, we will slowly build up to finding the right combination of stopping criteria to match the models with the system. Remember to recompile the code every time you change something in the `src/run_binary_extras.f90` with (`./clean && ./mk`) and run your new model! (`./rn`).
 
 ![image](UpsSagHRD1.png)
 
 *The HRD of the best fitting model from the paper along with the data points from the observations.*
 
-The stellar parameters can be found in this table, which has been adapted from Table 1 of [Gilkis & Tomer 2022](https://ui.adsabs.harvard.edu/abs/2023MNRAS.518.3541G/abstract).
+The stellar parameters can be found in this table, which has been adapted from Table 1 of [Gilkis & Shenar 2022](https://ui.adsabs.harvard.edu/abs/2023MNRAS.518.3541G/abstract).
 | Parameter       | Value       |
 | -----------     | ----------- |
 | $T_{eff,1}[kK]$      | $10\pm1$       |
@@ -462,7 +462,7 @@ The stellar parameters can be found in this table, which has been adapted from T
 | $logL_{2}[L_{\odot}]$    | $3.1\pm0.2$        |
 
 ### Extra Bonus Task 1
-In this task, you will try to capture the point where the simulation agrees with the observational data with only one stopping criterion, the effective temperature. Because the Roche-lobe overflow phase is computationally heavy for this particular system, the run will start shortly after, at the red dot in the HRD presented above. The saved model files are in 'Load', and you will need to adjust the path to the files in `inlist1` and `inlist2`. Besides this change, you won't have to change anything else in the various inlist-files, we will work with the `run_binary_extras.f90` exclusively. To make sure the models do not run too long, there is a maximum amount of models implemented in the `inlist_star`.
+In this task, you will try to capture the point where the simulation agrees with the observational data with only one stopping criterion, the effective temperature. Because the Roche-lobe overflow phase is computationally heavy for this particular system, the run will start shortly after, at the red dot in the HRD presented above. The saved model files are in 'Load', and you will need to adjust the path to the files in `inlist1` and `inlist2`. Besides this change, you won't have to change anything else in the various inlist-files, we will work with the `run_binary_extras.f90` exclusively. To make sure the models do not run too long, there is a maximum amount of models implemented in the `inlist_star`. To see if all runs well, compile (`./clean && ./mk`) and run your new model! (`./rn`). This is only to check if we set all the controls correctly, so kill the run after a few timesteps using `Ctrl C`.
 
 To find the stopping point, use the following parameter in the `extras_binary_finish_step` hook in `run_binary_extras.f90`: 
 
@@ -565,7 +565,7 @@ As in the previous tasks, write out the final luminosity and surface temperature
 
 
 ***
-**Bonus exercise:**  
+### Extra Bonus Task 4
 If you have managed to get the double stopping criterion to work, you can experiment with other observables as can be found in Table 1 and 3 of the paper, and see which combinations work. For this you can use the following commands:
 
 `b% s1% surface_()` ! The surface abundance of the following isotopes: h1, he4, c12, n14, o16.
