@@ -28,7 +28,7 @@ The following exercises will focus on reconstructing the evolutionary history of
 To simulate the evolution of Cygnus X-1, we would ideally start off with creating a fresh copy of the `work/` directory (`cp -r $MESA_DIR/binary/work .`) and modify the `inlist` files to capture all relevant physical efects leading the initial system to the current form. However, to save time we will use an already prepared *MESA work directory* that can be downloaded from --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 here -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-Lets start off with setting the initial masses of the components, $M_\mathrm{1} = 34 \rm\ M_\odot,\ M_\mathrm{2} = 17.4 \rm\ M_\odot$ and orbital period $P = 5.5 \rm\ d$ in the `inlist_project` file, designed to contain all information about the system-related quantities. To find the controls used by MESA, look into the MESA docs, under the [specifications for starting model](https://docs.mesastar.org/en/latest/reference/binary_controls.html#specifications-for-starting-model) section.
+Following [Ramachandran et al., (2025)](https://arxiv.org/pdf/2504.05885), lets start off with setting the initial masses of the components, $M_\mathrm{1}~=~34 \rm\ M_\odot,\ M_\mathrm{2}~=~17.4 \rm\ M_\odot$ and orbital period $P~=~5.5 \rm\ d$ in the `inlist_project` file, designed to contain all information about the system-related quantities. To find the controls used by MESA, look into the MESA docs, under the [specifications for starting model](https://docs.mesastar.org/en/latest/reference/binary_controls.html#specifications-for-starting-model) section.
 
 {{< details title="Note" closed="true" >}}
 Note, that the component assigned with index **1** is considered as donor throughout the whole MESA run. Thus, the natural thing is to assign the bigger mass to `m1`.
@@ -39,9 +39,9 @@ Note, that the component assigned with index **1** is considered as donor throug
 In `binary_controls` section add the following lines
 
 ```fortran
-   m1 = 34d0  ! donor mass in Msun
-   m2 = 17.4d0 ! companion mass in Msun
-   initial_period_in_days = 5.5d0
+   m1 = 34.0d0  ! donor mass in Msun
+   m2 = 17.4d0  ! companion mass in Msun
+   initial_period_in_days = 5.5d0  ! initial orbital period
 ```
 
 {{< /details >}}
@@ -67,7 +67,7 @@ Explore the `do_jdot_*` controls in the MESA docs to find the relevant controls.
 ```fortran
    do_jdot_ml = .true.  ! mass loss 
    do_jdot_gr = .true.  ! gravitational wave radiation
-   do_jdot_ls = .true.  ! assume L-S coupling due to tides
+   do_jdot_ls = .true.  ! assume LS coupling due to tides
 ```
 
 {{< /details >}}
@@ -92,35 +92,67 @@ To see if all runs well, compile (`./clean && ./mk`) and run your new model! (`.
 
 ### 1.1. Finding the model that fits the observations
 
-Based on the parameters obtained by [Ramachandran et al., (2025)](https://arxiv.org/pdf/2504.05885), we can 
+Based on the parameters obtained by [Ramachandran et al., (2025)](https://arxiv.org/pdf/2504.05885) (see the introductory part of this lab), we can try and find the model that fits within the measured spectroscopic parameters, like $T_{\rm eff}$, $\log L$ and $\log g$, and terminate the computations after doing so.
 
-Let's try and find the model that fits within the measured spectroscopic parameters, like $T_{\rm eff}$, $\log L$ and $\log g$, and terminate the computations after doing so.
+To force MESA to stop after finding a fitting model to the observations we need to modify the `run_binary_extras.f90` file. You can find it in the `src/` in working directory. We have already prepared the file, so all you need to do is to capture the MESA quantities and to compare them with observed parameters. Focus only on the *TASK 1.1* part this time. Go ahead and add a stopping criterion `extras_binary_finish_step = terminate` in the `extras_binary_finish_step` function once a model reached a desired surface properties.
 
-To force MESA to stop after finding a fitting model to the observations we need to modify the `run_binary_extras.f90` file. You can find it in the `src/` in your directory. You can use the internally computed by MESA quantities using the binary pointer `b%` and star pointers `s1%`/`s2%` to acccess the donor/accretor modules, respectively. Some examples of useful values are:
+{{< details title="Hint" closed="true" >}}
 
-- `b% s1% Teff`: The stellar effective temperature.
-- `b% s1% photosphere_L`: The stellar luminosity.
-- `b% s1% photosphere_logg`: Logarythm of the stellar gravitational acceleration.
-
-Go ahead and add a stopping criterion `extras_binary_finish_step = terminate` in the `extras_binary_finish_step` function once a model reached a desired surface properties:
+In the very beggining of the `run_binary_extras` file we have already initialised some variables to address the observed parameters of the system:
 
 ```fortran
-    ! returns either keep_going or terminate.
-    ! note: cannot request retry; extras_check_model can do that.
-    integer function extras_binary_finish_step(binary_id)
-        type (binary_info), pointer :: b
-        integer, intent(in) :: binary_id
-        integer :: ierr
-        call binary_ptr(binary_id, b, ierr)
-        if (ierr /= 0) then ! failure in  binary_ptr
-        return
-        end if  
-        extras_binary_finish_step = keep_going
+    ! Global parameters of Cyg X-1 
+    real(dp), parameter ::  Teff_obs = 28500.0d0,  logL_obs = 5.5d0,  logg_obs = 3.2d0
+    real(dp), parameter :: dTeff_obs =  1000.0d0, dlogL_obs = 0.1d0, dlogg_obs = 0.1d0
+```
+
+You can use these when comparing with the MESA quantities.
+
+{{< /details >}}
+
+{{< details title="Hint" closed="true" >}}
+
+You can use the internally computed by MESA quantities using the binary pointer `b%` and star pointers `s1%`/`s2%` to acccess the donor/accretor modules, respectively. Some examples of useful values are:
+
+- `b% s1% Teff`: The stellar effective temperature of the primary.
+- `b% s1% photosphere_L`: The stellar luminosity of the primary.
+- `b% s1% photosphere_logg`: Logarythm of the stellar gravitational acceleration of the primary.
+
+{{< /details >}}
+
+Go ahead and add a stopping criterion `extras_binary_finish_step = terminate` in the `extras_binary_finish_step` function once a model reached a desired surface properties. Focus only on the *TASK 1.1* part this time.
+
+{{< details title="Hint" closed="true" >}}
+
+You can instruct MESA to stop computations by using `extras_binary_finish_step = terminate` at the right place. 
+
+{{< /details >}}
+
+{{< details title="Solution" closed="true" >}}
+
+```fortran
+   ! TASK 1.1
+         ! Spectroscopic observations:
+         !     Teff  = 28500 +/- 1000 K
+         !     log_L = 5.5 +/- 0.1 Lsun
+         !     log_g = 3.2 +/- 0.1
+         !
+         ! Apply a terminating condition, after we find a model fitting within the observed parameters
+         if ( abs(b% s1% Teff - Teff_obs) < dTeff_obs .and. &
+              abs(log10(b% s1% photosphere_L) - logL_obs) < dlogL_obs .and. &
+              abs(b% s1% photosphere_logg - logg_obs) < dlogg_obs .and. &
+              chi2_value > chi2_value_old) then
+
+            write(*,*) "Found a model maching the observations. Terminating"
+            extras_binary_finish_step = terminate
         
-        !!! Add a stopping criterion 
+        end if
 
     end function extras_binary_finish_step
 ```
+
+{{< /details >}}
+
 
 <!-- To store a model at the end of the run, add the save controls in the `&star_job` section in your inlist:
 
@@ -131,9 +163,17 @@ Go ahead and add a stopping criterion `extras_binary_finish_step = terminate` in
 
 We will need that model in the subsequent runs! -->
 
+{{< details title="Bonus task" closed="false" >}}
 
-{{< details title="Extra bonus task" closed="false" >}}
+**Bonus task!:**  
+The above example was coded to terminate after finding the model that fits within the observations. As you may susspect, this model is not necessarily the only one, nor the best one to fit the observations. If you finished your assignments early, try to find the best model by applying some kind of a statistics, like $\chi^2$. You will need to define the `chi2` function outside of the `run_binary_extras.f90` main body, and call it before and after MESA calculates another step. You can find the places in `run_binary_extras.f90` that need some extra attention marked with a `! part of the bonus excercise` note.  **Good luck!**
 
+{{< /details >}}
+
+
+{{< details title="**Extra bonus task**" closed="false" >}}
+
+**Extra bonus task**
 We have an extra bonus task for you that explores stopping criteria and fitting a model for yet another observed system! You can find it at the end of this lab. 
 
 **Disclaimer:** Take a look at this excercise **only** once you have finished all the parts below!
