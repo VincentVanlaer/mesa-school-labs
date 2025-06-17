@@ -283,6 +283,16 @@ We have an extra bonus task for you that explores stopping criteria and fitting 
 
 {{< /details >}}
 
+<details>
+  <summary><strong>Bonus task</strong></summary>
+  <p>Here is a description of the bonus task.</p>
+
+  <details>
+    <summary><strong>Bonus task solution</strong></summary>
+    <p>This is the solution to the bonus task.</p>
+  </details>
+</details>
+
 ### Gravitational waves radiation and merge time
 
 Once we are all set to run our model, we can add one extra tweak to our computations. As we already assumed and implemented the loss of angular momentum via gravitational waves radiation in our model (the `do_jdot_gr` control in the `inlist_project` file), we can compute the approximate time our binary will take to merge. 
