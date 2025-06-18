@@ -23,13 +23,13 @@ Recent observations by [Ramachandran et al., (2025)](https://arxiv.org/pdf/2504.
 
 The following exercises will focus on reconstructing the evolutionary history of Cygnus X-1. The goal is to identify a binary model that reproduces the observed parameters of the system.
 
-![CygX1](/wednesday/CygX1.png)
+![CygX1](//wednesday/CygX1.png)
 
 **Fig. 1**: The HR diagram illustrating the potential evolution of the Cyg X-1 donor star as a product of a $17.4\,\rm M_{\odot}$ black hole (point mass) and a $34\,\rm M_{\odot}$ O-type star on the $5.5$ days orbit overlaid on the observed position of the Cyg X-1 primary. The plot displays three models with different mass-loss scaling factors of $1, 0.5$, and $0.2$ to demonstrate the effect of wind mass loss on evolution (taken from [Ramachandran et al., (2025)](https://arxiv.org/pdf/2504.05885))
 
 ## Task 1. Simulating the Evolution of Cygnus X-1
 
-To simulate the evolution of Cygnus X-1, we would ideally start off with creating a fresh copy of the `work/` directory (`cp -r $MESA_DIR/binary/work .`) and modify the `inlist` files to capture all relevant physical efects leading the initial system to the current form. However, to save time we will use an already prepared *MESA work directory* that can be downloaded from here: **[⬇ Download](/wednesday/lab2_working_copy.zip)**
+To simulate the evolution of Cygnus X-1, we would ideally start off with creating a fresh copy of the `work/` directory (`cp -r $MESA_DIR/binary/work .`) and modify the `inlist` files to capture all relevant physical efects leading the initial system to the current form. However, to save time we will use an already prepared *MESA work directory* that can be downloaded from here: **[⬇ Download](/mesa-school-labs-2025/wednesday/lab2_working_copy.zip)**
 
 Following [Ramachandran et al., (2025)](https://arxiv.org/pdf/2504.05885), lets start off with setting the initial masses of the components, $M_\mathrm{1}~=~34 \rm\ M_\odot,\ M_\mathrm{2}~=~17.4 \rm\ M_\odot$ and orbital period $P~=~5.5 \rm\ d$ in the `inlist_project` file, designed to contain all information about the system-related quantities. To find the controls used by MESA, look into the MESA docs, under the [specifications for starting model](https://docs.mesastar.org/en/latest/reference/binary_controls.html#specifications-for-starting-model) section.
 
@@ -290,7 +290,7 @@ We have an extra bonus task for you that explores stopping criteria and fitting 
 
 {{< details title="**Got stuck?**" closed="false" >}}
 
-Got stuct during the lab? Do not worry! You can always download solution from here **[⬇ Download](/wednesday/lab2_solutions.zip)** to catch up!
+Got stuct during the lab? Do not worry! You can always download solution from here **[⬇ Download](/mesa-school-labs-2025/wednesday/lab2_solutions.zip)** to catch up!
 
 {{< /details >}}
 
@@ -512,7 +512,7 @@ To apply all the changes you have made in your `run_binary_extras.f90` you need 
 
 {{< details title="**Got stuck?**" closed="false" >}}
 
-Got stuct during the lab? Do not worry! You can always download solution from here **[⬇ Download](/wednesday/lab2_solutions.zip)** to catch up!
+Got stuct during the lab? Do not worry! You can always download solution from here **[⬇ Download](/mesa-school-labs-2025/wednesday/lab2_solutions.zip)** to catch up!
 
 {{< /details >}}
 
@@ -593,7 +593,7 @@ Next, compile (`./clean && ./mk`) and run the models (`./rn`) with a fixed set o
 
 {{< details title="**Got stuck?**" closed="false" >}}
 
-Got stuct during the lab? Do not worry! You can always download solution from here **[⬇ Download](/wednesday/lab2_solutions.zip)** to catch up!
+Got stuct during the lab? Do not worry! You can always download solution from here **[⬇ Download](/mesa-school-labs-2025/wednesday/lab2_solutions.zip)** to catch up!
 
 {{< /details >}}
 
