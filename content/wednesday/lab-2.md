@@ -93,7 +93,7 @@ But we have that in our inlist already! What we want is to assume tidal synchron
 
 To see if all runs well, compile (`./clean && ./mk`) and run your new model! (`./rn`). This is only to check if we set all the controls correctly, so kill the run after a few timesteps using `Ctrl C`.
 
-### 1.1. Finding the model that fits the observations
+### Finding the model that fits the observations
 
 Based on the parameters obtained by [Ramachandran et al., (2025)](https://arxiv.org/pdf/2504.05885) (see the introductory part of this lab), we can try and find the model that fits within the measured spectroscopic parameters, like $T_{\rm eff}$, $\log L$ and $\log g$, and terminate the computations after doing so.
 
@@ -516,7 +516,7 @@ Got stuct during the lab? Do not worry! You can always download solution from he
 
 {{< /details >}}
 
-## 2. The efficiency of mass transfer and it's impact on the evolution of Cyg X-1
+## Task 2. The efficiency of mass transfer and it's impact on the evolution of Cyg X-1
 
 Mass transfer in close binary systems is a highly complex, multidimensional process shaped by hydrodynamic interactions, angular momentum exchange, and geometry-dependent flow patterns. Rather than a smooth and complete handover of mass from one star to the other, the gas is channeled through the inner Lagrangian point, forming a stream that enters the Roche lobe of the companion. Depending on the relative size and position of the stars, this stream may directly impact the accretor or settle into an accretion disk before any material is finally incorporated. A significant portion of the transferred matter might never reach the companion at all, being expelled from the system via outflows, disk winds, or loss through the outer Lagrangian points.
 
