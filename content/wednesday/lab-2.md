@@ -653,10 +653,13 @@ Use the following additional parameter in the `extras_binary_finish_step` hook i
 `b% s1% l_surf` ! The luminosity of the primary star of the binary system in solar luminosities
 
    {{< details title="Hint 1" closed="true" >}}
+   
    As can be seen in the figure above, the stellar evolution track does not go through center of the data points. You will need to experiment with the error-margins to match the stellar track with the observations.
+   
    {{< /details >}}
 
    {{< details title="Solution" closed="true" >}}
+   
    There are multiple possible solutions, depending on how you combine the two parameters. This is one example so you can continue to the next task.
    ```fortran
           if (((b% s1% teff) .lt. 9000) .and. (log10(b% s1% l_surf) .gt. 3.57))   then
@@ -665,6 +668,7 @@ Use the following additional parameter in the `extras_binary_finish_step` hook i
                 return
           end if  
    ```
+
    {{< /details >}}
 
 #### Extra Bonus Task 3
