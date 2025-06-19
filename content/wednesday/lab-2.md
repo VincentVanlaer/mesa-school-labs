@@ -627,32 +627,32 @@ Then, to compare with the observational data, add a write statement to your stop
 
 [Here are all the files](https://github.com/HEBrinkman/mesa-school-labs/tree/lab3/content/wednesday/BinaryEvolution_Lab3)
 
-{{< details title="Hint 1" closed="true" >}}
+    {{< details title="Hint 1" closed="true" >}}
 
-It is important to check the units of the parameters in MESA as compared to the units given in the literature. The effective temperature is given in kK in the table, while MESA uses Kelvin in the output.
+    It is important to check the units of the parameters in MESA as compared to the units given in the literature. The effective temperature is given in kK in the table, while MESA uses Kelvin in the output.
 
-{{< /details >}}
+    {{< /details >}}
 
-{{< details title="Hint 2" closed="true" >}}
+    {{< details title="Hint 2" closed="true" >}}
 
-  `write(*,*) "(your text)", (values) `
+    `write(*,*) "(your text)", (values) `
   
- is used to print text to the terminal by calling the appropriate values.
+   is used to print text to the terminal by calling the appropriate values.
 
-{{< /details >}}
+   {{< /details >}}
 
-{{< details title="Solution" closed="true" >}}
+   {{< details title="Solution" closed="true" >}}
 
-  There are multiple possible solutions. This is one example so you can continue to the next task.  
+   There are multiple possible solutions. This is one example so you can continue to the next task.  
   
-  ```fortran
-         if ((b% s1% teff) .gt. 9000) then
-               extras_binary_finish_step = terminate
-               write(*,*) "terminating at requested effective temperature and luminosity:", b% s1% teff, log10(b% s1% l_surf)
-               return
-         end if
-```
-{{< /details >}}
+   ```fortran
+          if ((b% s1% teff) .gt. 9000) then
+                extras_binary_finish_step = terminate
+                write(*,*) "terminating at requested effective temperature and luminosity:", b% s1% teff, log10(b% s1% l_surf)
+                return
+          end if
+   ```
+   {{< /details >}}
 
 #### Extra Bonus Task 2
 In Extra Bonus Task 1 we have determined that working with just the effective temperature will not lead to a match between the simulation and the observations, as the luminosity is too low compared to the observations. In this next task, we will combine the luminosity and the effective temperature of the primary star to match the observations.
