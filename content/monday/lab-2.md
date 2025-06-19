@@ -98,6 +98,7 @@ Can you find on the website any content that is related to **load** something?
 <details class="hx-border hx-border-green-200 dark:hx-border-green-200 hx-rounded-md hx-my-2">
 <summary class="hx-bg-green-100 dark:hx-bg-neutral-800 hx-text-green-900 dark:hx-text-green-200 hx-p-2 hx-m-0 hx-cursor-pointer">
 <em>Show answer</em>
+</summary>
 
 Add to your *star_job* section in the *inlist_project* the following lines::
 ```
@@ -134,16 +135,19 @@ want to go to the end of core helium burning (CHeB), which we
 will define as core helium mass fraction < 1d-5. Replace the 
 old stopping condition by the new one.
 
-<details>
-<summary>Show hint 1</summary>
-
+<details class="hx-border hx-border-blue-200 dark:hx-border-blue-200 hx-rounded-md hx-my-2">
+<summary class="hx-bg-blue-100 dark:hx-bg-neutral-800 hx-text-blue-900 dark:hx-text-blue-200 hx-p-2 hx-m-0 hx-cursor-pointer">
+<em>Show hint 1</em>
+</summary>
 Look in the *controls* panel under *References and Defaults* in the 
 [MESA documentation](https://docs.mesastar.org/en/24.08.1/reference/controls.html)
 
 </details>
 
-<details>
-<summary>Show answer</summary>
+<details class="hx-border hx-border-green-200 dark:hx-border-green-200 hx-rounded-md hx-my-2">
+<summary class="hx-bg-green-100 dark:hx-bg-neutral-800 hx-text-green-900 dark:hx-text-green-200 hx-p-2 hx-m-0 hx-cursor-pointer">
+<em>Show answer</em>
+</summary>
 
 Replace the lines::
 ```
@@ -309,16 +313,20 @@ in *inlist_extra*. Can you figure out how we need to modify
 them to tell MESA that we want a second overshooting region
 on top of the helium burning core?
 
-<details>
-<summary>Show hint 1</summary>
+<details class="hx-border hx-border-blue-200 dark:hx-border-blue-200 hx-rounded-md hx-my-2">
+<summary class="hx-bg-blue-100 dark:hx-bg-neutral-800 hx-text-blue-900 dark:hx-text-blue-200 hx-p-2 hx-m-0 hx-cursor-pointer">
+<em>Show hint 1</em>
+</summary>
 
 Since the first overshooting scheme is already used in the first set ``(1)`` we need to change them to ``(2)``
 for all controls.
 
 </details>
 
-<details>
-<summary>Show hint 2</summary>
+<details class="hx-border hx-border-blue-200 dark:hx-border-blue-200 hx-rounded-md hx-my-2">
+<summary class="hx-bg-blue-100 dark:hx-bg-neutral-800 hx-text-blue-900 dark:hx-text-blue-200 hx-p-2 hx-m-0 hx-cursor-pointer">
+<em>Show hint 2</em>
+</summary>
 
 Are the locations, types and boundaries of the overshooting zone still correct? 
 Can you find on the website other options where to allow overshooting? 
@@ -326,8 +334,10 @@ Check the controls for overshooting on [here](https://docs.mesastar.org/en/24.08
 
 </details>
 
-<details>
-<summary>Show answer</summary>
+<details class="hx-border hx-border-green-200 dark:hx-border-green-200 hx-rounded-md hx-my-2">
+<summary class="hx-bg-green-100 dark:hx-bg-neutral-800 hx-text-green-900 dark:hx-text-green-200 hx-p-2 hx-m-0 hx-cursor-pointer">
+<em>Show answer</em>
+</summary>
 
 In the end you should have in the *controls* section of your *inlist_extra* lines that are similar to::
 ```
@@ -371,8 +381,10 @@ you can have a look at your pgstar files saved in
 ``output_no_overshoot/png``. Are the maximum masses similar
 or different and why?
 
-<details>
-<summary>Show answer</summary>
+<details class="hx-border hx-border-green-200 dark:hx-border-green-200 hx-rounded-md hx-my-2">
+<summary class="hx-bg-green-100 dark:hx-bg-neutral-800 hx-text-green-900 dark:hx-text-green-200 hx-p-2 hx-m-0 hx-cursor-pointer">
+<em>Show answer</em>
+</summary>
 
 Overshooting is very efficient in mixing additional fuel into the core, leading to a growth.
 
@@ -384,8 +396,10 @@ mass grows and receeds again. That is strange. At the model
 numbers where these pulses occur, can you see something happening
 in the structure of the star in the Kippenhahn diagram?
 
-<details>
-<summary>Show answer</summary>
+<details class="hx-border hx-border-green-200 dark:hx-border-green-200 hx-rounded-md hx-my-2">
+<summary class="hx-bg-green-100 dark:hx-bg-neutral-800 hx-text-green-900 dark:hx-text-green-200 hx-p-2 hx-m-0 hx-cursor-pointer">
+<em>Show answer</em>
+</summary>
 
 You should see that a convective region forms directly on top of the overshooting region. 
 This phenomenon is called helium breathing pulses and occurs mostly in low and intermediate
@@ -454,8 +468,10 @@ core mass. How does it compare to to the model with the
 strong overshooting and the model without overshooting? Do you 
 have an idea why these differences appear?
 
-<details>
-<summary>Show answer</summary>
+<details class="hx-border hx-border-green-200 dark:hx-border-green-200 hx-rounded-md hx-my-2">
+<summary class="hx-bg-green-100 dark:hx-bg-neutral-800 hx-text-green-900 dark:hx-text-green-200 hx-p-2 hx-m-0 hx-cursor-pointer">
+<em>Show answer</em>
+</summary>
 
 The new included physics quickly remove the growth of the core by overshooting 
 due to the strong chemical gradient between the core and the H-burning shell. 
