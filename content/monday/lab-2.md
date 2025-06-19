@@ -627,6 +627,7 @@ This is the 6th plot we add, so make sure that you also use it as (6).
 <summary class="hx-bg-green-100 dark:hx-bg-neutral-800 hx-text-green-900 dark:hx-text-green-200 hx-p-2 hx-m-0 hx-cursor-pointer">
 <em>Show answer</em>
 </summary>
+
 ```
 	Grid1_plot_name(6) = 'Profile_Panels1'
 	Grid1_plot_row(6) = 1          ! number from 1 at top
@@ -634,6 +635,7 @@ This is the 6th plot we add, so make sure that you also use it as (6).
 	Grid1_plot_col(6) =  3          ! Number from 1 at left
 	Grid1_plot_colspan(6) = 1       ! plot spans this number of columns  
 ```
+
 </details>
 
 You can now start your model and check if the plot shows up.
@@ -654,12 +656,13 @@ until you find a good fit on your computer.
 <summary class="hx-bg-green-100 dark:hx-bg-neutral-800 hx-text-green-900 dark:hx-text-green-200 hx-p-2 hx-m-0 hx-cursor-pointer">
 <em>Show answer</em>
 </summary>
+
 In our case, a good plot was found using:
 ```
 	Grid1_plot_pad_top(5) = 0.03     
 	Grid1_plot_pad_bot(5) = 0.03     
 	Grid1_plot_pad_right(5) = 0.03     
-	
+
 	Grid1_plot_pad_top(6) = 0.03     
 	Grid1_plot_pad_bot(6) = 0.03     
 	Grid1_plot_pad_left(6) = 0.03     
