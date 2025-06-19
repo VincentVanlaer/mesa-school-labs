@@ -74,13 +74,12 @@ Now, we need to add lines that tell MESA to load a saved model.
 Can you go to the MESA website and search for commands that allow
 us to load a saved model?
 
-<details>
-<summary>Show hint 1</summary>
+{{< details summary="Show hint 1" >}}
 
 Look in the *star_job* panel under *References and Defaults* in the  
 [MESA documentation](https://docs.mesastar.org/en/24.08.1/reference/star_job.html)
 
-</details>
+{{< /details >}}
 
 <details>
 <summary>Show hint 2</summary>
@@ -211,7 +210,7 @@ in *inlist_extra* a controls and a pgstar section::
 	  ! Here we can edit stuff related to pgstar
 	  
 	/ ! end of pgstar namelist
-
+	
 ```
 
 Note, that you need to include also the additional empty line
@@ -370,7 +369,7 @@ mass stars occuring during core helium burning. The reason that this happens is 
 convective core reaching into layers with a strong chemical gradient. When this happens, a
 convective region forms on top of the core that is stable against overshooting, pushing down
 the overshooting and the core mass. Numerically, the modeling of the convective boundaries in these regions
-is challenging and has to do with the $\nabla_{rad}$ profile changing during the evolution leading to
+is challenging and has to do with the $\nabla_\text{rad}$ profile changing during the evolution leading to
 the formation of with the formation of the convective region forming when reaching a local minimum. 
 It is not clear if the helium breathing pulses are of physical or numerical nature. If you want to
 read more about helium breathing pulses, you can check out these papers: [Castellani et al. 1985](https://ui.adsabs.harvard.edu/abs/1985ApJ...296..204C/abstract), [Constantino et al. 2016](https://ui.adsabs.harvard.edu/abs/2016MNRAS.456.3866C/abstract), [Salaris & Cassisi 2017](https://ui.adsabs.harvard.edu/abs/2017RSOS....470192S/abstract), [Paxton et al. 2018](https://ui.adsabs.harvard.edu/abs/2018ApJS..234...34P/abstract), and [Córsico & Althaus 2024](https://ui.adsabs.harvard.edu/abs/2024ApJ...964...30C/abstract) (their figure 1 nicely illustrates the impact of the breathing pules on the core helium burning time).
