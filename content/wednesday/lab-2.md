@@ -627,18 +627,16 @@ Then, to compare with the observational data, add a write statement to your stop
 
 [Here are all the files](https://github.com/HEBrinkman/mesa-school-labs/tree/lab3/content/wednesday/BinaryEvolution_Lab3)
 
-      {{< details title="Hint 1" closed="true" >}}
-      It is important to check the units of the parameters in MESA as compared to the units given in the literature. The effective temperature is given in kK in the table, while MESA uses Kelvin in the output.
-      {{< /details >}}
-      {{< details title="Hint 2" closed="true" >}}
-      `write(*,*) "(your text)", (values) `
-       is used to print text to the terminal by calling the appropriate values.
-       {{< /details >}}
+   {{< details title="Hint 1" closed="true" >}}
+   It is important to check the units of the parameters in MESA as compared to the units given in the literature. The effective temperature is given in kK in the table, while MESA uses Kelvin in the output.
+   {{< /details >}}
+   {{< details title="Hint 2" closed="true" >}}
+   `write(*,*) "(your text)", (values) `
+   is used to print text to the terminal by calling the appropriate values.
+   {{< /details >}}
 
    {{< details title="Solution" closed="true" >}}
-
    There are multiple possible solutions. This is one example so you can continue to the next task.  
-  
    ```fortran
           if ((b% s1% teff) .gt. 9000) then
                 extras_binary_finish_step = terminate
@@ -654,23 +652,20 @@ Use the following additional parameter in the `extras_binary_finish_step` hook i
 
 `b% s1% l_surf` ! The luminosity of the primary star of the binary system in solar luminosities
 
-{{< details title="Hint 1" closed="true" >}}
+   {{< details title="Hint 1" closed="true" >}}
+   As can be seen in the figure above, the stellar evolution track does not go through center of the data points. You will need to experiment with the error-margins to match the stellar track with the observations.
+   {{< /details >}}
 
-As can be seen in the figure above, the stellar evolution track does not go through center of the data points. You will need to experiment with the error-margins to match the stellar track with the observations.
-
-{{< /details >}}
-
-{{< details title="Solution" closed="true" >}}
-
-  There are multiple possible solutions, depending on how you combine the two parameters. This is one example so you can continue to the next task.
-  ```fortran
-         if (((b% s1% teff) .lt. 9000) .and. (log10(b% s1% l_surf) .gt. 3.57))   then
-               extras_binary_finish_step = terminate
-               write(*,*) "terminating at requested effective temperature and luminosity:", b% s1% teff, log10(b% s1% l_surf)
-               return
-         end if  
-```
-{{< /details >}}
+   {{< details title="Solution" closed="true" >}}
+   There are multiple possible solutions, depending on how you combine the two parameters. This is one example so you can continue to the next task.
+   ```fortran
+          if (((b% s1% teff) .lt. 9000) .and. (log10(b% s1% l_surf) .gt. 3.57))   then
+                extras_binary_finish_step = terminate
+                write(*,*) "terminating at requested effective temperature and luminosity:", b% s1% teff, log10(b% s1% l_surf)
+                return
+          end if  
+   ```
+   {{< /details >}}
 
 #### Extra Bonus Task 3
 Because we are working with a binary system, it is not only important to match the primary star, but also the secondary. However, matching two stars simultaneously is not a trivial task, and rather than fitting by eye like we are doing here, it is done with statistical methods. The best fit model presented in [Gilkis & Shenar 2022](https://ui.adsabs.harvard.edu/abs/2023MNRAS.518.3541G/abstract) thus does not match the exact observational values. So, instead of working with the observational values for the secondary, the model values will be used with the error-bars as presented in the literature, which is represented by the cyan cross in the HRD. The new values for the effective temperature and the luminosity are in the table below and were taken from Table 3 of the previously mentioned paper.
@@ -696,17 +691,16 @@ Use the following additional parameter in the `extras_binary_finish_step` hook i
 As in the previous tasks, write out the final luminosity and surface temperature of the simulation to the terminal.
 
 
-{{< details title="Solution" closed="true" >}}
-  
-  ```fortran
-       if (((b% s1% teff) .lt. 9000) .and. (log10(b% s1% l_surf) .gt. 3.57) .and. ((b% s2% teff) .lt. 21200))   then
-             extras_binary_finish_step = terminate
-             write(*,*) "terminating at requested effective temperature and luminosity:", b% s1% teff, log10(b% s1% l_surf)
-             write(*,*) "terminating at requested effective temperature and luminosity:", b% s2% teff, log10(b% s2% l_surf)
-             return
-       end if  
-```
-{{< /details >}}
+   {{< details title="Solution" closed="true" >}}
+   ```fortran
+        if (((b% s1% teff) .lt. 9000) .and. (log10(b% s1% l_surf) .gt. 3.57) .and. ((b% s2% teff) .lt. 21200))   then
+              extras_binary_finish_step = terminate
+              write(*,*) "terminating at requested effective temperature and luminosity:", b% s1% teff, log10(b% s1% l_surf)
+              write(*,*) "terminating at requested effective temperature and luminosity:", b% s2% teff, log10(b% s2% l_surf)
+              return
+        end if  
+   ```
+   {{< /details >}}
 
 
 #### Extra Bonus Task 4
