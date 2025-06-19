@@ -74,22 +74,20 @@ Now, we need to add lines that tell MESA to load a saved model.
 Can you go to the MESA website and search for commands that allow
 us to load a saved model?
 
-{{< details summary="Show hint 1" >}}
+{{< details summary="Show hint 1" open=false >}}
 
 Look in the *star_job* panel under *References and Defaults* in the  
 [MESA documentation](https://docs.mesastar.org/en/24.08.1/reference/star_job.html)
 
 {{< /details >}}
 
-<details>
-<summary>Show hint 2</summary>
+{{< details summary="Show hint 2" open=false >}}
 
 Can you find on the website any content that is related to **load** something?
 
-</details>
+{{< /details >}}
 
-<details>
-<summary>Show answer</summary>
+{{< details summary="Show answer" open=false >}}
 
 Add to your *star_job* section in the *inlist_project* the following lines::
 ```
@@ -98,7 +96,7 @@ Add to your *star_job* section in the *inlist_project* the following lines::
     load_model_filename = 'M5_Z0014_fov030_f0ov0005_TAMS.mod'
 ```
 
-</details>
+{{< /details >}}
   
 
 inlist_project: controls
