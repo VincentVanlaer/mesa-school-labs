@@ -732,4 +732,4 @@ As in the previous parts, there are multiple combinations possible to reach the 
 The MESA input files were built upon the following resource:  
 [Gilkis & Shenar 2022](https://ui.adsabs.harvard.edu/abs/2023MNRAS.518.3541G/abstract)
 
-{{< /details >}}
+    {{< /details >}}
