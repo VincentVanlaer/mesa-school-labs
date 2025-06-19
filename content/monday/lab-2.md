@@ -23,6 +23,9 @@ directories LOGS, photos, and png::
 	rm -r LOGS photos png
 ```
 
+Alternatively, or if you want to be sure that everything is working properly,
+you can download a cleaned folder [here]().
+
 In the previous Lab1 we have calculated a 5Msun model with 
 step overshooting having f=0.030 and f0=0.005 until core-hydrogen
 depletion. The model should be saved as ``M5_Z0014_fov030_f0ov0005_TAMS.mod``
@@ -50,7 +53,7 @@ out (by putting an "!" infront of the text) the following lines::
 ```
 
 We also do no longer need to save the model at the end of the run, 
-meaning that we can also delete the following lines::
+meaning that we can also delete or comment out the following lines::
 
 ```
   ! save a model and photo at the end of the run
@@ -61,7 +64,7 @@ meaning that we can also delete the following lines::
 
 Furthermore, since we do want to start from a previously saved
 model, we do not want to fix the initial timesteps and thus 
-remove the lines:: 
+remove or comment out the lines:: 
 
 ```
   ! Set the initial time step to 1 year
@@ -73,20 +76,28 @@ Now, we need to add lines that tell MESA to load a saved model.
 Can you go to the MESA website and search for commands that allow
 us to load a saved model?
 
-{{< details "Show hint 1" >}}
+<details class="hx-border hx-border-blue-200 dark:hx-border-blue-200 hx-rounded-md hx-my-2">
+<summary class="hx-bg-blue-100 dark:hx-bg-neutral-800 hx-text-blue-900 dark:hx-text-blue-200 hx-p-2 hx-m-0 hx-cursor-pointer">
+<em>Show hint 1</em>
+</summary>
 
 Look in the *star_job* panel under *References and Defaults* in the  
 [MESA documentation](https://docs.mesastar.org/en/24.08.1/reference/star_job.html)
 
-{{< /details >}}
+</details>
 
-{{< details "Show hint 2" >}}
+<details class="hx-border hx-border-blue-200 dark:hx-border-blue-200 hx-rounded-md hx-my-2">
+<summary class="hx-bg-blue-100 dark:hx-bg-neutral-800 hx-text-blue-900 dark:hx-text-blue-200 hx-p-2 hx-m-0 hx-cursor-pointer">
+<em>Show hint 2</em>
+</summary>
 
 Can you find on the website any content that is related to **load** something?
 
-{{< /details >}}
+</details>
 
-{{< details "Show answer" >}}
+<details class="hx-border hx-border-green-200 dark:hx-border-green-200 hx-rounded-md hx-my-2">
+<summary class="hx-bg-green-100 dark:hx-bg-neutral-800 hx-text-green-900 dark:hx-text-green-200 hx-p-2 hx-m-0 hx-cursor-pointer">
+<em>Show answer</em>
 
 Add to your *star_job* section in the *inlist_project* the following lines::
 ```
@@ -95,7 +106,7 @@ Add to your *star_job* section in the *inlist_project* the following lines::
     load_model_filename = 'M5_Z0014_fov030_f0ov0005_TAMS.mod'
 ```
 
-{{< /details >}}
+</details>
   
 
 inlist_project: controls
@@ -105,7 +116,7 @@ Now that we are done with modifying the *star_job* section, we
 also need to check if there are any controls that will cause 
 issues when loading and running the model. 
 
-The first controls that can be removed are, the ones defining 
+The first controls that can be removed or commented out are, the ones defining 
 the initial conditions at the beginning of the evolution::
 	
 ```
@@ -157,6 +168,15 @@ Alternatively, you can use the following shortcut::
 
 </details>
 
+If you want to make sure that all the changes you have made are correct,
+you can quickly compile and run your model. If the pgstar window opens up,
+everything is fine and you can stop the model. 
+
+```
+	./clean && ./mk
+	./rn
+```
+To stop your model, you can press in the terminal ctrl+c for a linux or cmd+c for a mac.
     
 adding a new inlist file: inlist_extra
 --------------------------------------
@@ -211,10 +231,17 @@ in *inlist_extra* a controls and a pgstar section::
 ```
 
 Note, that you need to include also the additional empty line
-at the end of the block, otherwise MESA will throw an error.
+at the end of the block, otherwise MESA will throw an error. 
+Just for safety, lets see if everything worked, the model starts and the
+pgstar window opens again:
+
+```
+	./rn
+```
+To stop your model, you can press in the terminal ctrl+c for a linux or cmd+c for a mac.
 
 Running different models until Terminal Age Core Helium Burning (TACHeB)
-=====================================
+======================================
 
 Core helium burning without core overshooting
 --------------------------------------
