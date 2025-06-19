@@ -627,24 +627,24 @@ Then, to compare with the observational data, add a write statement to your stop
 
 [Here are all the files](https://github.com/HEBrinkman/mesa-school-labs/tree/lab3/content/wednesday/BinaryEvolution_Lab3)
 
-   {{< details title="Hint 1" closed="true" >}}
-   It is important to check the units of the parameters in MESA as compared to the units given in the literature. The effective temperature is given in kK in the table, while MESA uses Kelvin in the output.
-   {{< /details >}}
-   {{< details title="Hint 2" closed="true" >}}
-   `write(*,*) "(your text)", (values) `
-   is used to print text to the terminal by calling the appropriate values.
-   {{< /details >}}
+    {{< details title="Hint 1" closed="true" >}}
+    It is important to check the units of the parameters in MESA as compared to the units given in the literature. The effective temperature is given in kK in the table, while MESA uses Kelvin in the output.
+    {{< /details >}}
+    {{< details title="Hint 2" closed="true" >}}
+    `write(*,*) "(your text)", (values) `
+    is used to print text to the terminal by calling the appropriate values.
+    {{< /details >}}
 
-   {{< details title="Solution" closed="true" >}}
-   There are multiple possible solutions. This is one example so you can continue to the next task.  
-   ```fortran
+    {{< details title="Solution" closed="true" >}}
+    There are multiple possible solutions. This is one example so you can continue to the next task.  
+    ```fortran
           if ((b% s1% teff) .gt. 9000) then
                 extras_binary_finish_step = terminate
                 write(*,*) "terminating at requested effective temperature and luminosity:", b% s1% teff, log10(b% s1% l_surf)
                 return
           end if
-   ```
-   {{< /details >}}
+    ```
+    {{< /details >}}
 
 #### Extra Bonus Task 2
 In Extra Bonus Task 1 we have determined that working with just the effective temperature will not lead to a match between the simulation and the observations, as the luminosity is too low compared to the observations. In this next task, we will combine the luminosity and the effective temperature of the primary star to match the observations.
@@ -653,6 +653,7 @@ Use the following additional parameter in the `extras_binary_finish_step` hook i
 `b% s1% l_surf` ! The luminosity of the primary star of the binary system in solar luminosities
 
     {{< details title="Hint 1" closed="true" >}}
+    
     As can be seen in the figure above, the stellar evolution track does not go through center of the data points. You will need to experiment with the error-margins to match the stellar track with the observations.
    
     {{< /details >}}
@@ -660,6 +661,7 @@ Use the following additional parameter in the `extras_binary_finish_step` hook i
     {{< details title="Solution" closed="true" >}}
    
     There are multiple possible solutions, depending on how you combine the two parameters. This is one example so you can continue to the next task.
+    
     ```fortran
           if (((b% s1% teff) .lt. 9000) .and. (log10(b% s1% l_surf) .gt. 3.57))   then
                 extras_binary_finish_step = terminate
@@ -693,16 +695,16 @@ Use the following additional parameter in the `extras_binary_finish_step` hook i
 
 As in the previous tasks, write out the final luminosity and surface temperature of the simulation to the terminal.
 
-   {{< details title="Solution" closed="true" >}}
-   ```fortran
+    {{< details title="Solution" closed="true" >}}
+    ```fortran
         if (((b% s1% teff) .lt. 9000) .and. (log10(b% s1% l_surf) .gt. 3.57) .and. ((b% s2% teff) .lt. 21200))   then
               extras_binary_finish_step = terminate
               write(*,*) "terminating at requested effective temperature and luminosity:", b% s1% teff, log10(b% s1% l_surf)
               write(*,*) "terminating at requested effective temperature and luminosity:", b% s2% teff, log10(b% s2% l_surf)
               return
         end if  
-   ```
-   {{< /details >}}
+    ```
+    {{< /details >}}
 
 
 #### Extra Bonus Task 4
@@ -722,4 +724,4 @@ As in the previous parts, there are multiple combinations possible to reach the 
 The MESA input files were built upon the following resource:  
 [Gilkis & Shenar 2022](https://ui.adsabs.harvard.edu/abs/2023MNRAS.518.3541G/abstract)
 
-   {{< /details >}} 
+    {{< /details >}} 
