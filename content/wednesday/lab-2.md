@@ -732,4 +732,58 @@ As in the previous parts, there are multiple combinations possible to reach the 
 The MESA input files were built upon the following resource:  
 [Gilkis & Shenar 2022](https://ui.adsabs.harvard.edu/abs/2023MNRAS.518.3541G/abstract)
 
+- <details open>
+  <summary><a href="#">Section 1 with a link</a></summary>
+
+  - <details>
+    <summary><a href="../src/actions/">subsection 2 with a link</a></summary>
+
+    - a list
+    - with some stuff
+
+    > and other things
+
+    - [x] like
+    - [ ] a task list 
+
+    </details>
+
+  - <details>
+    <summary><b>another subsection</a></summary>
+
+    a. with another list
+    b. and some other stuff
+    d. [and](),
+      [more](),
+      [classic](),
+      [md]
+    e. _no need_ __of html__
+    </details>
+
+  - <details>
+    <summary>last sub-section</a></summary>
+
+    blablabla
+
+    ```rb
+    def some_code
+      puts "Rails is so cool"
+    end
+    ```
+    </details>
+
+  - a random not collapsable section
+    > legacy. Should be restructured.
+
+    ```js
+    console.log("look what I found, a new js framework. Still no real alternative to rails though")
+    ```
+
+  - <details>
+    <summary>and another collapsable section</summary>
+
+    ...
+  </details>
+
+
     {{< /details >}}
