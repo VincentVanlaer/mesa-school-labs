@@ -634,12 +634,16 @@ It is important to check the units of the parameters in MESA as compared to the 
 {{< /details >}}
        
 {{< details title="Hint 2" closed="true" >}}
+
     `write(*,*) "(your text)", (values) `
     is used to print text to the terminal by calling the appropriate values.
+    
 {{< /details >}}
 
 {{< details title="Solution" closed="true" >}}
+
     There are multiple possible solutions. This is one example so you can continue to the next task.  
+    
     ```fortran
           if ((b% s1% teff) .gt. 9000) then
                 extras_binary_finish_step = terminate
@@ -647,6 +651,7 @@ It is important to check the units of the parameters in MESA as compared to the 
                 return
           end if
     ```
+    
 {{< /details >}}
 
 #### Extra Bonus Task 2
@@ -699,6 +704,7 @@ Use the following additional parameter in the `extras_binary_finish_step` hook i
 As in the previous tasks, write out the final luminosity and surface temperature of the simulation to the terminal.
 
 {{< details title="Solution" closed="true" >}}
+
     ```fortran
         if (((b% s1% teff) .lt. 9000) .and. (log10(b% s1% l_surf) .gt. 3.57) .and. ((b% s2% teff) .lt. 21200))   then
               extras_binary_finish_step = terminate
@@ -707,6 +713,7 @@ As in the previous tasks, write out the final luminosity and surface temperature
               return
         end if  
     ```
+    
 {{< /details >}}
 
 
