@@ -653,7 +653,7 @@ Use the following additional parameter in the `extras_binary_finish_step` hook i
 `b% s1% l_surf` ! The luminosity of the primary star of the binary system in solar luminosities
 
    {{< details title="Hint 1" closed="true" >}}
-   
+   {{<summary><b>another subsection</a>}}{{</summary>}}
    As can be seen in the figure above, the stellar evolution track does not go through center of the data points. You will need to experiment with the error-margins to match the stellar track with the observations.
    
    {{< /details >}}
