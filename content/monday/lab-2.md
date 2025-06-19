@@ -1,7 +1,8 @@
 # Monday MaxiLab 2: Overshooting during core helium burning (CHeB)
 
 
-### Preparation
+Preparation
+======================================
 
 Now we are interested in studying how stars with and without core 
 overshooting evolve during the CHeB and which impact it has. 
@@ -479,5 +480,200 @@ When the stabilizing gradient is hit, overshooting is suppressed. Therefore,
 the final convective mass of the helium core of this star is quite similar 
 to that one of the model without overshooting.
 
+</details>
+
+Bonus Task: Including additional plots
+======================================
+
+In the previous exercises, we have encountered that if we use overshooting during 
+core helium burning, the helium breathing pulses are triggered. Here, we would 
+like to investigate a bit further when and why MESA turns specific regions into
+ convective regions and when not. Following the Schwarzschild criterion, a zone 
+ in a star becomes convective if $\nabla_\text{rad} > \nabla_\text{ad}$. 
+So let's modify our *inlist_pgstar* such that we can see how the gradients evolve.
+
+At first, we need to make more space for an additional plot. In the *inlist_pgstar* 
+You can see that the grids the plots are shown on have 3 columns and 2 rows:
+```
+	Grid1_num_cols = 3 ! divide plotting region into this many equal width cols
+	Grid1_num_rows = 2 ! divide plotting region into this many equal height rows
+```
+For now, we do not need to add more rows or columns, the history panel shows the
+growth of the convective core is quite large anyways, so lets make it smaller. Can
+you identify the code block in *inlist_pgstar* that is telling the grid where to plot the history panel of convective core mass? If yes, change its column width from
+2 to 1.
+ 
+<details class="hx-border hx-border-blue-200 dark:hx-border-blue-200 hx-rounded-md hx-my-2">
+<summary class="hx-bg-blue-100 dark:hx-bg-neutral-800 hx-text-blue-900 dark:hx-text-blue-200 hx-p-2 hx-m-0 hx-cursor-pointer">
+<em>Show hint 1</em>
+</summary>
+
+The quantity "Grid1_plot_name" tells pgstar which plot we want to assign a position and width.
 
 </details>
+
+<details class="hx-border hx-border-blue-200 dark:hx-border-blue-200 hx-rounded-md hx-my-2">
+<summary class="hx-bg-blue-100 dark:hx-bg-neutral-800 hx-text-blue-900 dark:hx-text-blue-200 hx-p-2 hx-m-0 hx-cursor-pointer">
+<em>Show hint 2</em>
+</summary>
+
+The history panel showing the growth of the convective core is not a default one 
+and might have a different name than "conv_mass_core".
+
+</details>
+
+
+<details class="hx-border hx-border-blue-200 dark:hx-border-blue-200 hx-rounded-md hx-my-2">
+<summary class="hx-bg-blue-100 dark:hx-bg-neutral-800 hx-text-blue-900 dark:hx-text-blue-200 hx-p-2 hx-m-0 hx-cursor-pointer">
+<em>Show hint 3</em>
+</summary>
+
+The position of a plot is set by "Grid1_plot_row" and "Grid1_plot_col", while its 
+size is determined by "Grid1_plot_rowspan" and "Grid1_plot_colspan".
+
+</details>
+
+<details class="hx-border hx-border-green-200 dark:hx-border-green-200 hx-rounded-md hx-my-2">
+<summary class="hx-bg-green-100 dark:hx-bg-neutral-800 hx-text-green-900 dark:hx-text-green-200 hx-p-2 hx-m-0 hx-cursor-pointer">
+<em>Show answer</em>
+</summary>
+
+```
+	Grid1_plot_name(5) = 'History_Panels1'
+	Grid1_plot_row(5) = 1          ! number from 1 at top
+	Grid1_plot_rowspan(5) = 1       ! plot spans this number of rows
+	Grid1_plot_col(5) =  2          ! Number from 1 at left
+	Grid1_plot_colspan(5) = 1       ! plot spans this number of columns
+```
+
+</details>
+
+To test if your changes yield the correct result, start your model and see if the
+ pgstar window looks as expected.
+
+```
+	./rn
+```
+
+To investigate how the adiabatic and radiative temperature gradients change in the
+star, we need to add a profile panel. This can be done by adding the following code
+in the upper part of your *inlist_pgstar*:
+
+```
+	! Profile Panel
+	Profile_Panels1_win_flag = .false. ! we do not want an extra window to open up.
+
+	Profile_Panels1_win_width = 10
+	Profile_Panels1_win_aspect_ratio = 1.1
+
+	Profile_Panels1_title = ''
+
+	Profile_Panels1_xaxis_name = 'mass'
+
+	Profile_Panels1_num_panels = 1
+	Profile_Panels1_yaxis_name(1) = ''
+	Profile_Panels1_other_yaxis_name(1) = ''
+```
+as you can see the "Profile_Panels1_yaxis_name" and "Profile_Panels1_yaxis_name" are left blank so far. This is where we want to add the individual gradients. Unfortunately, we do not have an output yet for them. The Profile_Panels access the parameters that are used in the profile_cloumns.list. Open *my_profile_columns.list* and search for the adiabatic and radiative temperature gradients and comment them out.
+
+<details class="hx-border hx-border-green-200 dark:hx-border-green-200 hx-rounded-md hx-my-2">
+<summary class="hx-bg-green-100 dark:hx-bg-neutral-800 hx-text-green-900 dark:hx-text-green-200 hx-p-2 hx-m-0 hx-cursor-pointer">
+<em>Show answer</em>
+</summary>
+
+The adiabatic temperature gradient in MESA is called "grade", and the radiative temperature gradient is "gradr".  
+
+</details>
+
+Now that these are saved, pgstar can access them. So let's include them using
+```
+	Profile_Panels1_yaxis_name(1) = 'grada'
+	Profile_Panels1_other_yaxis_name(1) = 'gradr'
+```
+
+And lastly, before we can investigate how these gradients evolve in our models,
+we need to tell the grid, that we now want to plot a 6th plot and where to put it.
+To add another plot, we need to change
+```
+	Grid1_num_plots = 5 ! <= 10
+```
+to 
+```
+	Grid1_num_plots = 6 ! <= 10
+```
+
+Given your experience in resizing the history panel. Can you add a code block telling the grid to plot the profile plot in the upper right corner?
+
+<details class="hx-border hx-border-blue-200 dark:hx-border-blue-200 hx-rounded-md hx-my-2">
+<summary class="hx-bg-blue-100 dark:hx-bg-neutral-800 hx-text-blue-900 dark:hx-text-blue-200 hx-p-2 hx-m-0 hx-cursor-pointer">
+<em>Show hint 1</em>
+</summary>
+
+The "Grid1_plot_name" of the profile plot in our case is "Profile_Panels1".
+
+</details>
+
+<details class="hx-border hx-border-blue-200 dark:hx-border-blue-200 hx-rounded-md hx-my-2">
+<summary class="hx-bg-blue-100 dark:hx-bg-neutral-800 hx-text-blue-900 dark:hx-text-blue-200 hx-p-2 hx-m-0 hx-cursor-pointer">
+<em>Show hint 2</em>
+</summary>
+
+This is the 6th plot we add, so make sure that you also use it as (6).
+
+</details>
+
+
+<details class="hx-border hx-border-green-200 dark:hx-border-green-200 hx-rounded-md hx-my-2">
+<summary class="hx-bg-green-100 dark:hx-bg-neutral-800 hx-text-green-900 dark:hx-text-green-200 hx-p-2 hx-m-0 hx-cursor-pointer">
+<em>Show answer</em>
+</summary>
+```
+	Grid1_plot_name(6) = 'Profile_Panels1'
+	Grid1_plot_row(6) = 1          ! number from 1 at top
+	Grid1_plot_rowspan(6) = 1       ! plot spans this number of rows
+	Grid1_plot_col(6) =  3          ! Number from 1 at left
+	Grid1_plot_colspan(6) = 1       ! plot spans this number of columns  
+```
+</details>
+
+You can now start your model and check if the plot shows up.
+```
+	./rn
+```
+As you might see, the history panels and the profile panels are overlapping. For a better representation, you can adjust their paddings at the to,p lef,t right,t and bottom via 
+```
+	Grid1_plot_pad_top(6) = x     
+	Grid1_plot_pad_bot(6) = x     
+	Grid1_plot_pad_left(6) = x    
+	Grid1_plot_pad_right(6) = x   
+```
+Play around with the values, restart your model to check what the panels look like,
+until you find a good fit on your computer. 
+
+<details class="hx-border hx-border-green-200 dark:hx-border-green-200 hx-rounded-md hx-my-2">
+<summary class="hx-bg-green-100 dark:hx-bg-neutral-800 hx-text-green-900 dark:hx-text-green-200 hx-p-2 hx-m-0 hx-cursor-pointer">
+<em>Show answer</em>
+</summary>
+In our case, a good plot was found using:
+```
+	Grid1_plot_pad_top(5) = 0.03     
+	Grid1_plot_pad_bot(5) = 0.03     
+	Grid1_plot_pad_right(5) = 0.03     
+	
+	Grid1_plot_pad_top(6) = 0.03     
+	Grid1_plot_pad_bot(6) = 0.03     
+	Grid1_plot_pad_left(6) = 0.03     
+```
+
+</details>
+
+Maybe some of you already noted, but the gradients scale differently, which makes identifying regions where convection should occur ($\nabla_\text{rad} > \nabla_\text{ad}$) very hard. This can be quickly fixed by adding the same minima and maxima for both axes, like this:
+```	
+	Profile_Panels1_ymin(1) = 0 
+	Profile_Panels1_ymax(1) = 0.5
+	Profile_Panels1_other_ymin(1) = 0 
+	Profile_Panels1_other_ymax(1) = 0.5
+```
+
+Now everything should be good. Modify your *inlist_extra* and investigate how the gradients evolve in the case without overshooting, with overshooting, and using the brunt factor. Can you see why the Brunt factor is more like a workaround and not a real solution to the problem?
+
