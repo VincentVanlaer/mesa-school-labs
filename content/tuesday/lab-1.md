@@ -3,7 +3,7 @@ weight: 1
 author: Beatriz Bordadágua
 ---
 
-# Minilab 1: 1D rotating stellar models
+# Minilab 1: 1D rotating stellar models draft
 ## Introduction
 In the most simple case of a non-rotating single star the only forces acting on a mass element are pressure and gravity. The resulting spherical symmetry implies that the stellar structure equations depend only on one spatial coordinate (e.g., mass) and time.
 However, **rotation deforms the spherical symmetry** (i.e., the equatorial radius becomes larger than the polar radius) consequently affecting stellar surface parameters, abundances and even its course of evolution (see e.g., [Palacios 2013](https://doi.org/10.1051/eas/1362007)). You can guess that to properly account for all the effects associated with rotation we need a multi-dimensional approach to solve the stellar structure equations. Today, **we will compare our 1D MESA rotating models with 2D ESTER models** ([Mombarg et al, 2023;](https://doi.org/10.1051/0004-6361/202347454)[ 2024](https://doi.org/10.1051/0004-6361/202348466)).
