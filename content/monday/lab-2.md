@@ -73,20 +73,20 @@ Now, we need to add lines that tell MESA to load a saved model.
 Can you go to the MESA website and search for commands that allow
 us to load a saved model?
 
-{{< details summary="Show hint 1" closed=true>}}
+{{< details "Show hint 1" >}}
 
 Look in the *star_job* panel under *References and Defaults* in the  
 [MESA documentation](https://docs.mesastar.org/en/24.08.1/reference/star_job.html)
 
 {{< /details >}}
 
-{{< details summary="Show hint 2" closed=false>}}
+{{< details "Show hint 2" >}}
 
 Can you find on the website any content that is related to **load** something?
 
 {{< /details >}}
 
-{{< details summary="Show answer" closed=false>}}
+{{< details "Show answer" >}}
 
 Add to your *star_job* section in the *inlist_project* the following lines::
 ```
