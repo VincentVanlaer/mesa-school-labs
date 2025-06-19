@@ -40,8 +40,8 @@ inlist_project: star_job
 
 To load a saved model, we need to modify our *inlist_project* 
 in the *star_job* section. Since we do not need to start with
-a pre-main-sequence model anymore, we need to delete the following
-lines::
+a pre-main-sequence model anymore, we need to delete or comment
+out (by putting an "!" infront of the text) the following lines::
 
 ```
   ! begin with a pre-main sequence model
@@ -210,9 +210,12 @@ in *inlist_extra* a controls and a pgstar section::
 	&pgstar
 	  ! Here we can edit stuff related to pgstar
 	  
-	/ ! end of star_job namelist
+	/ ! end of pgstar namelist
 
 ```
+
+Note, that you need to include also the additional empty line
+at the end of the block, otherwise MESA will throw an error.
 
 Running different models until Terminal Age Core Helium Burning (TACHeB)
 =====================================
@@ -258,13 +261,13 @@ plot depicting how much the convective core grows in mass.
 How does the core evolve? Was it as you expected? Can you 
 figure out why the core behaves as it does?
 
-Core helium burning with strong step overshooting
+Core helium burning with step overshooting
 -----------------------------------------------
 
 Now lets add some overshooting on top of the helium burning
-core to see how it impacts the evolution. As a first model, 
-lets start with a strong step overshooting as used in lab1,
-namely f_ov = 0.3 and f0_ov = 0.005. In lab1, we added 
+core to see how it impacts the evolution. For core helium
+burning, lets use a moderate step overshooting,
+namely f_ov = 0.1 and f0_ov = 0.005. In lab1, we added
 overshooting on the top of the hydrogen burning core by 
 using the following lines::
 
@@ -310,7 +313,7 @@ In the end you should have in the *controls* section of your *inlist_extra* line
      overshoot_zone_type(2) = 'burn_He'
      overshoot_zone_loc(2) = 'core'
      overshoot_bdy_loc(2) = 'top'
-     overshoot_f(2) = 0.3
+     overshoot_f(2) = 0.1
      overshoot_f0(2) = 0.005
 ```
 
@@ -362,14 +365,19 @@ in the structure of the star in the Kippenhahn diagram?
 <summary>Show answer</summary>
 
 You should see that a convective region forms directly on top of the overshooting region. 
-That is strange, isn't it? The convective core reaches into layers with a strong chemical gradient. 
-If this happens, convective region forms on top of the core and is stable against overshooting, 
-pushing down the overshooting and the core mass. This is a well-known problem that is encountered 
-during CHeB in low and intermediate mass stars. Here, the modeling of the convective boundaries 
-is challenging and has to do with the Nabla_rad profile changing during the evolution leading to 
+This phenomenon is called helium breathing pulses and occurs mostly in low and intermediate
+mass stars occuring during core helium burning. The reason that this happens is due to the
+convective core reaching into layers with a strong chemical gradient. When this happens, a
+convective region forms on top of the core that is stable against overshooting, pushing down
+the overshooting and the core mass. Numerically, the modeling of the convective boundaries in these regions
+is challenging and has to do with the $\nabla_{rad}$ profile changing during the evolution leading to
 the formation of with the formation of the convective region forming when reaching a local minimum. 
-It is not clear if this of physical or numerical nature. One thing that we have been ignoring sofar 
-in our threatment of overshooting is the impact of a chemical gradient as the one between the helium 
+It is not clear if the helium breathing pulses are of physical or numerical nature. If you want to
+read more about helium breathing pulses, you can check out these papers: [Castellani et al. 1985](https://ui.adsabs.harvard.edu/abs/1985ApJ...296..204C/abstract), [Constantino et al. 2016](https://ui.adsabs.harvard.edu/abs/2016MNRAS.456.3866C/abstract), [Salaris & Cassisi 2017](https://ui.adsabs.harvard.edu/abs/2017RSOS....470192S/abstract), [Paxton et al. 2018](https://ui.adsabs.harvard.edu/abs/2018ApJS..234...34P/abstract), and [Córsico & Althaus 2024](https://ui.adsabs.harvard.edu/abs/2024ApJ...964...30C/abstract) (their figure 1 nicely illustrates the impact of the breathing pules on the core helium burning time).
+
+
+One thing that we have been ignoring sofar
+in our treatment of overshooting is the impact of a chemical gradient as the one between the helium 
 burning core and the envelope as an additional stabilizing force, reducing the size of the overshooting region.
 Resolving where the convective boundary lies is way beyond the scope of our lab, but we encourage 
 you to explore other mixing options. 
