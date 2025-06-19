@@ -1,3 +1,35 @@
+{{- /* Get arguments. */}}
+{{- $summary := or (.Get "summary") (T "details") "Details" | .Page.RenderString }}
+{{- $altSummary := or (.Get "altSummary") $summary | .Page.RenderString }}
+{{- $open := false }}
+{{- with .Get "open" }}
+    {{- if not (eq . false) }}
+        {{- $open = true }}
+    {{- end }}
+{{- end }}
+{{- $attributes := dict }}
+{{- range $key, $value := .Params }}
+    {{- if not (in (slice "summary" "altSummary" "open") $key) }}
+        {{- $attributes = merge $attributes (dict (string $key) $value) }}
+    {{- end }}
+{{- end }}
+
+{{- /* Render. */}}
+<details
+    {{- if $open }} open {{- end -}}
+    {{- range $key, $value := $attributes }} {{ $key }}="{{ $value }}"{{- end }}
+>
+<summary onclick="this.innerHTML = this.parentNode.open ? '{{ $summary }}' : '{{ $altSummary }}';">
+    {{ if $open }}
+        {{ $altSummary }}
+    {{ else }}
+        {{ $summary }}
+    {{ end }}
+</summary>
+    {{ .Inner | .Page.RenderString (dict "display" "block") }}
+</details>
+
+
 
 # Monday MaxiLab 2: Overshooting during core helium burning (CHeB)
 
@@ -74,20 +106,20 @@ Now, we need to add lines that tell MESA to load a saved model.
 Can you go to the MESA website and search for commands that allow
 us to load a saved model?
 
-{{< details summary="Show hint 1" open=false >}}
+{{< details summary="Show hint 1" >}}
 
 Look in the *star_job* panel under *References and Defaults* in the  
 [MESA documentation](https://docs.mesastar.org/en/24.08.1/reference/star_job.html)
 
 {{< /details >}}
 
-{{< details summary="Show hint 2" open=false >}}
+{{< details summary="Show hint 2" >}}
 
 Can you find on the website any content that is related to **load** something?
 
 {{< /details >}}
 
-{{< details summary="Show answer" open=false >}}
+{{< details summary="Show answer" >}}
 
 Add to your *star_job* section in the *inlist_project* the following lines::
 ```
