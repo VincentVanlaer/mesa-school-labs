@@ -690,7 +690,6 @@ Use the following additional parameter in the `extras_binary_finish_step` hook i
 
 As in the previous tasks, write out the final luminosity and surface temperature of the simulation to the terminal.
 
-
    {{< details title="Solution" closed="true" >}}
    ```fortran
         if (((b% s1% teff) .lt. 9000) .and. (log10(b% s1% l_surf) .gt. 3.57) .and. ((b% s2% teff) .lt. 21200))   then
@@ -720,4 +719,4 @@ As in the previous parts, there are multiple combinations possible to reach the 
 The MESA input files were built upon the following resource:  
 [Gilkis & Shenar 2022](https://ui.adsabs.harvard.edu/abs/2023MNRAS.518.3541G/abstract)
 
-      {{< /details >}} 
+   {{< /details >}} 
