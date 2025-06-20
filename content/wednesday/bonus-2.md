@@ -8,7 +8,7 @@ Upsilon Sagittarii is a binary system with a hydrogen primary star. It has has b
 
 | Parameter       | Value       |
 | -----------     | ----------- |
-| $T_{eff,1}[kK]$      | $10\pm1$       |
+| $T_{eff,1}[kK]$      | $9\pm1$       |
 | $T_{eff,2}[kK]$      | $23\pm2$        |
 | $logL_{1}[L_{\odot}]$    | $3.67\pm0.15$       |
 | $logL_{2}[L_{\odot}]$    | $3.1\pm0.2$        |
