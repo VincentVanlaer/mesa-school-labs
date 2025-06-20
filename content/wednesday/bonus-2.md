@@ -37,7 +37,7 @@ It is important to check the units of the parameters in MESA as compared to the 
 
     `write(*,*) "(your text)", (values)`
     
-    is used to print text to the terminal by calling the appropriate values.
+is used to print text to the terminal by calling the appropriate values.
 {{< /details >}}
 
 {{< details title="Solution" closed="true" >}}
