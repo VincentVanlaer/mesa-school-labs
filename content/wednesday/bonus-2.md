@@ -45,11 +45,11 @@ is used to print text to the terminal by calling the appropriate values.
 There are multiple possible solutions. This is one example so you can continue to the next task.  
 
 ```fortran
-    if ((b% s1% teff) .gt. 9000) then
-          extras_binary_finish_step = terminate
-          write(*,*) "terminating at requested effective temperature and luminosity:", b% s1% teff, log10(b% s1% l_surf)
-          return
-    end if
+if ((b% s1% teff) .gt. 9000) then
+   extras_binary_finish_step = terminate
+   write(*,*) "terminating at requested effective temperature and luminosity:", b% s1% teff, log10(b% s1% l_surf)
+   return
+end if
 ```
     
 {{< /details >}}
@@ -71,11 +71,11 @@ As can be seen in the figure above, the stellar evolution track does not go thro
 There are multiple possible solutions, depending on how you combine the two parameters. This is one example so you can continue to the next task.
     
 ```fortran
-     if (((b% s1% teff) .lt. 9000) .and. (log10(b% s1% l_surf) .gt. 3.57))   then
-            extras_binary_finish_step = terminate
-            write(*,*) "terminating at requested effective temperature and luminosity:", b% s1% teff, log10(b% s1% l_surf)
-            return
-     end if  
+if (((b% s1% teff) .lt. 9000) .and. (log10(b% s1% l_surf) .gt. 3.57))   then
+    extras_binary_finish_step = terminate
+    write(*,*) "terminating at requested effective temperature and luminosity:", b% s1% teff, log10(b% s1% l_surf)
+    return
+end if  
 ```
 
 {{< /details >}}
