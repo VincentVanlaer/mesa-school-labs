@@ -318,7 +318,7 @@ Now, the drag force in the supersonic regime is a bit weaker. Therefore, the plu
 {{< /details >}}
 
 
-## Assumptions, limitations and points to improve:
+## Assumptions, limitations and points to improve
 
 > [!NOTE]
 > - CE is not point-symmetric (not 1D) $\rightarrow$ our models only valid for low mass ratios, i.e., $M_2/M_1 \ll 1$
