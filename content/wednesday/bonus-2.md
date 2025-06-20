@@ -105,14 +105,14 @@ As in the previous tasks, write out the final luminosity and surface temperature
 
 {{< details title="Solution" closed="true" >}}
 
-    ```fortran
-        if (((b% s1% teff) .lt. 9000) .and. (log10(b% s1% l_surf) .gt. 3.57) .and. ((b% s2% teff) .lt. 21200))   then
-              extras_binary_finish_step = terminate
-              write(*,*) "terminating at requested effective temperature and luminosity:", b% s1% teff, log10(b% s1% l_surf)
-              write(*,*) "terminating at requested effective temperature and luminosity:", b% s2% teff, log10(b% s2% l_surf)
-              return
-        end if  
-    ```
+```fortran
+if (((b% s1% teff) .lt. 9000) .and. (log10(b% s1% l_surf) .gt. 3.57) .and. ((b% s2% teff) .lt. 21200))   then
+   extras_binary_finish_step = terminate
+   write(*,*) "terminating at requested effective temperature and luminosity:", b% s1% teff, log10(b% s1% l_surf)
+   write(*,*) "terminating at requested effective temperature and luminosity:", b% s2% teff, log10(b% s2% l_surf)
+   return
+end if  
+```
     
 {{< /details >}}
 
