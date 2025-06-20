@@ -44,7 +44,7 @@ Additionally, we use a Gaussian weighting kernel $\propto \exp[-(\Delta r/R_\mat
 
 ## Tasks for students
 
-### 1. Check out the `run-star-extras.f90` file: 
+### 1. Check out the `run-star-extras.f90` file
 Please download the provided MESA directory from [here](https://heibox.uni-heidelberg.de/f/7ca116519fe14d5fa929/?dl=1). This includes many files, most of which you can ignore for now. Have a close look at the `src/run-star-extras.f90` file, especially the `other_energy` hook and the `extras_finish_step` function. Try to understand how the drag force is calculated and how it is used to update the orbital separation.
 
 {{< details title="Solution" closed="true" >}}
@@ -54,7 +54,7 @@ All the heating is done in the `CE_heating` function at the end of the file.
 {{< /details >}}
 
 
-### 2. Run the CE model: 
+### 2. Run the CE model
 Run the CE model with the provided `inlist*` files. You are provided with a $12\,\mathrm{M}_\odot$ red supergiant model (take after core helium exhaustion from the `12M_pre_ms_to_core_collapse` test suite) and a $1.4\,\mathrm{M}_\odot$ companion star (could be a neutron star). Everything is already implemented as described above. You only need to focus on `inlist_CE`. The other inlists are taken from the test suite and not modified. So you really just have to do `./mk && ./rn`. Have a look at how the orbital separation changes over time and try to identify the different phases of CE evolution. The orbital separation is directly printed to the terminal but also saved to the `history.log` as `separation`. You can use the [MESA explorer](https://billwolf.space/mesa-explorer/) to visualize `separation` vs `star_age` (you need to upload your `history.log`file).
 
 {{< details title="Solution" closed="true" >}}
@@ -63,7 +63,7 @@ The orbital separation is $\sim 41.1 \, {\rm R}_\odot$ after 2 years of CE evolu
 {{< /details >}}
 
 
-### 3. Change the companion mass:
+### 3. Change the companion mass
 Run the same setup but vary the mass of the companion star. What happens if you increase the mass of the companion star? What happens if you decrease it? How does this affect the orbital separation? **What could be the physical reson for this behavior?** We have tested the cases for $ 0.5\,\mathrm{M}_\odot \leq M_2 \leq 2.0\,\mathrm{M}_\odot$. Depending on the companion mass, you might need to adjust the stopping criterion in the `inlist_CE` file.
 
 {{< details title="Hint (companion mass)" closed="true" >}}
@@ -85,7 +85,7 @@ The variable `x_ctrl(1)` in `inlist_CE` determines the mass of the companion. Fo
 ![CE separation for different companion masses](/wednesday/CE_separation_masses.png)
 {{< /details >}}
 
-### 4. Modify the drag force:
+### 4. Modify the drag force
 The current implementation of the drag force is based on the assumption that the companion star is moving on a straight path through a uniform density background. This is not the case during the CE phase. In a more realistic scenario, the drag force may be weaker. Implement a free parameter in the drag force calculation that allows you to scale the drag force by a global factor $C_\mathrm{drag}$. Implement it such that you can control this factor from the `inlist_CE` file. What happens if you set $C_\mathrm{drag} = 0.5$? Is this what you expected? 
 
 > [!CAUTION]
@@ -236,7 +236,7 @@ For the fiducial model ($M_2=1.4\,\mathrm{M}_\odot$ and $C_\mathrm{drag} = 1.0$)
 {{< /details >}}
 
 
-### 6. (Bonus task) Modify the drag force prescription:
+### 6. (Bonus task) Modify the drag force prescription
 Let's extend the drag force prescription to include the density gradient of the envelope. Implement the drag force prescription from [MacLeod & Ramirez-Ruiz (2015)](https://doi.org/10.1088/0004-637X/803/1/41) in the `run-star-extras.f90` file. The drag force is given by
 $$
  F_\mathrm{drag} = \pi R_\mathrm{a}^2 v_\mathrm{rel}^2\rho(c_1 + c_2 \epsilon_\rho + c_3 \epsilon_\rho^2)
