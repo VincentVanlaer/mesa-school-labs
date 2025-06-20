@@ -35,10 +35,9 @@ It is important to check the units of the parameters in MESA as compared to the 
        
 {{< details title="Hint 2" closed="true" >}}
 
-    `write(*,*) "(your text)", (values) `
+    `write(*,*) "(your text)", (values)`
     
     is used to print text to the terminal by calling the appropriate values.
-
 {{< /details >}}
 
 {{< details title="Solution" closed="true" >}}
