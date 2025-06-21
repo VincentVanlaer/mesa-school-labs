@@ -2,7 +2,7 @@
 weight: 1
 math: true
 author: Bill Wolf
-title: Extending MESA with `run_star_extras.f90`
+title: Extending MESA with run_star_extras.f90
 description: |
   Learn how to extend MESA's capabilities by writing your own Fortran code in `run_star_extras.f90`.
   This exercise covers setting up a MESA project, implementing custom stopping conditions, and adding new physics.
@@ -36,8 +36,6 @@ HINT:
 </details>
 -->
 
-# Extending MESA with `run_star_extras.f90`
-
 Inlists, models, and photos are the core of MESA, and you can do a lot of great science without even knowing how to write a line of Fortran code. But fairly soon in your MESA journey, you will run into limits of what you can do with inlists alone. This is where `run_star_extras.f90` comes in. It allows you to extend MESA's capabilities by writing your own Fortran code that can interact with the star model. A few examples of things you can do with `run_star_extras.f90` include:
 
 - creating a custom stopping condition
@@ -47,20 +45,20 @@ Inlists, models, and photos are the core of MESA, and you can do a lot of great 
 
 The goal of these exercises is to get you up and running with `run_star_extras.f90` and provide a resource you can return to when you next need to extend MESA.
 
-## About This Exercise
+## About This Tutorial
 
 ### Prerequisites
 
-This exercise assumes you
+This tutorial assumes you
 
-- have a working installation of MESA r24.08.1
+- have a working installation of MESA 24.08.1
 - can do basic command line operations
 - can open, edit, and save files in a text editor
 - know basic MESA operations like editing inlists, looking up documentation, compiling, and running MESA projects
 
 ### Learning Objectives
 
-In this exercise you'll learn how to…
+In this tutorial you'll learn how to…
 
 - set up a MESA project to use `run_star_extras.f90`
 - understand the structure of `run_star_extras.f90` and how it fits into MESA's execution flow
@@ -68,9 +66,11 @@ In this exercise you'll learn how to…
 - implement new physics in MESA by writing some basic Fortran code
 - [BONUS] add new columns to the profile and history files
 
+You'll do this by reading through the provided material and completing clearly outlined **tasks**. Most tasks have hints and/or answers available if you get stuck. Don't be afraid to use these! Just click on the header for a hint or answer to expand it.
+
 ### About the Author
 
-Hi, I'm [Bill Wolf](https://billwolf.space). I'm an associate professor of physics and astronomy at [the University of Wisconsin–Eau Claire](https://uwec.edu), where I study the physics of accreting white dwarf stars with a team of undergraduate researchers. I've been using MESA since 2012 and have been a TA, organizer, or lecturer in 11 MESA schools since. I've been on the MESA Developer team since 2019, where my primary responsibiltiy is our [distributed testing infrastructure](https://testhub.mesastar.org). I also wrote a few tools to work with MESA, including [MESA Explorer](https://billwolf.space/mesa-explorer), [MESA Reader](https://billwolf.space/py_mesa_reader), and [MesaScript](https://billwolf.space/MesaScript/).
+Hi, I'm [Bill Wolf](https://billwolf.space). I'm an associate professor of physics and astronomy at [the University of Wisconsin–Eau Claire](https://uwec.edu), where I study the physics of accreting white dwarf stars with a team of undergraduate researchers. I've been using MESA since 2012 and have been a TA, organizer, or lecturer in 11 MESA schools since. I've been on the MESA Developer team since 2017, where my primary responsibiltiy is our [distributed testing infrastructure](https://testhub.mesastar.org). I also wrote a few tools to work with MESA, including [MESA Explorer](https://billwolf.space/mesa-explorer), [MESA Reader](https://billwolf.space/py_mesa_reader), and [MesaScript](https://billwolf.space/MesaScript/).
 
 ### Acknowledgements
 
@@ -175,12 +175,9 @@ enddo
 ```
 
 ## Part 1: Setting Up Your Project
-
-> [!WARNING]
-> These next two code blocks show how you **might** set up a MESA project, but don't actually execute them. In Task 1.1, you'll actually get your project set up.
-<!-- {{< callout type="warning" >}} -->
-  <!-- These next two code blocks show how you **might** set up a MESA project, but don't actually execute them. In Task 1.1, you'll actually get your project set up. -->
-<!-- {{< /callout >}} -->
+{{< callout type="warning" >}}
+  These next two code blocks show how you **might** set up a MESA project, but don't actually execute them. In Task 1.1, you'll actually get your project set up.
+{{</ callout >}}
 
 When starting a new MESA project, you will often start with the default work directory:
 
@@ -197,7 +194,11 @@ cp -r $MESA_DIR/star/test_suite/wd_nova_burst my_new_project
 cd my_new_project
 ```
 
-For this exercise, we are providing a work directory that is already set up for you. It's pretty simple; it evolves a 1.0 solar mass star from near the zero-age main sequence to core hydrogen exhaustion, and then pauses before exiting.
+For this tutorial, I am providing a work directory that is already set up for you. It's pretty simple; it evolves a 1.0 solar mass star from near the zero-age main sequence to core hydrogen exhaustion, and then pauses before exiting.
+
+{{< callout type=info >}}
+   This work directory is designed to run pretty quickly. For parts 1 through 3, no simulations should take more than about a minute to run. They make take a bit longer in part 4, but still should finishin within a few minutes.
+{{</ callout >}}
 
 **Task 1.1:** [Download the work directory](../day2-dev_mesa.zip), move it somewhere sensible, unzip it, and change into the directory.
 
@@ -276,7 +277,11 @@ The file `run_star_extras.f90` lives in the `src` directory of your work directo
 
 ### Creating a boilerplate `run_star_extras.f90`
 
-**Task 2.1:** Open the file `run_star_extras.f90` in your favorite text editor. You should see a file that looks like this:
+{{< callout type="info" >}}
+We'll be opening and editing files a lot for the rest of this tutorial. For simplicity, I'm assuming you're using VS Code and its associated `code` command to open and edit files. But if you're using, say, Emacs, you can substitute `code` with `emacs` (or whatever command you use to open files in your text editor of choice).
+{{</ callout >}}
+
+**Task 2.1:** Open the file `run_star_extras.f90` in your favorite text editor. You can change into the `src` directory and then open the file (e.g. `cd src && code run_star_extras.f90`, but remember to `cd ..` to return to the work directory when you are done with the `src` directory) or open it directly (e.g. `code src/run_star_extras.f90`) You should see a file that looks like this:
 
 ```fortran
 ! ***********************************************************************
@@ -309,7 +314,7 @@ The file `run_star_extras.f90` lives in the `src` directory of your work directo
 
 This file defines a module called `run_star_extras`, which itself loads four other modules (`star_lib`, `star_def`, `const_def`, and `math_lib`), which refer to different parts of MESA's other modules that might be useful to you. The `implicit none` statement is a good practice in Fortran that prevents you from accidentally using variables that haven't been declared.
 
-The actual "body" of the module is then punted to the file `standard_run_star_extras.inc`, which is included at the end of the module. This file has the main boilerplate of most of the code you might want to edit, and it is by default set up to do nothing. To edit this text, though, we need to copy it into our `run_star_extras.f90`.
+The actual "body" of the module is then delegated to the file `standard_run_star_extras.inc`, which is included at the end of the module. This file has the main boilerplate of most of the code you might want to edit, and it is by default set up to do nothing. To edit this text, though, we need to copy it into our `run_star_extras.f90`.
 
 **Task 2.2:** Copy the entire contents of `$MESA_DIR/include/standard_run_star_extras.inc` and paste it into your `run_star_extras.f90` file, replacing the `include 'standard_run_star_extras.inc'` line. Maintain the lines above and below the `include` line, as they are necessary for the module to work correctly.
 
@@ -329,6 +334,12 @@ Then select **all** the text in the file, copy it, and paste it into your `run_s
 
 ```bash
 code src/run_star_extras.f90
+```
+
+of if you are already in the `src` directory, you can just use:
+
+```bash
+code run_star_extras.f90
 ```
 
 The newly-pasted content should start with the subroutine `extras_controls` and end with the subroutine `extras_after_evolve`, though the line `end module run_star_extras` should still be at the end of the file.
@@ -623,7 +634,9 @@ Below is the complete contents of what your edited `run_star_extras.f90` file sh
 </div>
 </details>
 
-**NEVER** edit the `$MESA_DIR/include/standard_run_star_extras.inc` file directly, as it is part of the MESA source code and is read by any MESA project that uses the stock `run_star_extras.f90`. Instead, you should always copy the contents of this file into your own `run_star_extras.f90` and edit that file.
+{{< callout type="warning" >}}
+**NEVER** edit the `$MESA_DIR/include/standard_run_star_extras.inc` file directly, as it is part of the MESA source code and is read by any MESA project that uses the stock `run_star_extras.f90`. Instead, you should always copy the contents of this file into your own `run_star_extras.f90` and edit *that* file.
+{{</ callout >}}
 
 Whenever you change the `run_star_extras.f90` file, you will need to recompile your project for the changes to take effect. You do *not* need to recompile your project if you only change the inlists or other files that are not part of the `src` directory. Usually a simple `./mk` will suffice, but if things are wonky, you can try `./clean && ./mk` to clean the project and recompile from scratch. 
 
@@ -667,6 +680,7 @@ Each of the `extras_*` functions and subroutines in `run_star_extras.f90` is cal
 write(*,*) 'Hello, MESA!'
 ```
 - Compile and run the project again, confirming that you get a bunch of annoying messages printed to the terminal.
+- Once you confirm that the code works, you may cancel the run by pressing `Ctrl+C` in the terminal.
 
 
 <details class="hx-border hx-border-blue-200 dark:hx-border-blue-200 hx-rounded-md hx-my-2">
@@ -892,33 +906,56 @@ And the solar radius is called `Rsun`. You can find it on line 129 of the same f
 ### Putting It All Together
 Now that we have all the pieces, we can put them together to create a custom stopping condition. We'll add this code to the `extras_finish_step` function, which is called after each timestep is completed.
 
-**Task 3.3:** Edit `extras_finish_step` in your `run_star_extras.f90` file to compute the temperature at Earth, stop the evolution if it exceeds a value set by the user in `x_ctrl(1)`, and print out a message explaining why it is stopping. You'll need to use the members we found earlier as well as the constants for an AU and $R_\odot$. You'll need to use an `if` block, so review the Fortran syntax from the Fortran primer if you need a refresher. Finally, to actually tell MESA to stop the evolution, you'll need to set `extras_finish_step = terminate` in the `if` block.
+**Task 3.3:** Edit `extras_finish_step` in your `run_star_extras.f90` file to compute the temperature at Earth and print it to the screen. You'll need to use the members we found earlier as well as the constants for an AU and $R_\odot$. Compile and run the project to make sure it works. You should see temperatures that start around 250 K and continuously rise to around 300 K by the end of the run.
 
 <details class="hx-border hx-border-blue-200 dark:hx-border-blue-200 hx-rounded-md hx-my-2">
-<summary class="hx-bg-blue-100 dark:hx-bg-neutral-800 hx-text-blue-900 dark:hx-text-blue-200 hx-px-4 hx-py-2 hx-m-0 hx-cursor-pointer">
-<em>Hint: Computing Earth's Equilibrium Temperature</em>
+<summary class="hx-bg-blue-100 dark:hx-bg-neutral-800 hx-text-blue-900 dark:hx-text-blue-200 hx-p-2 hx-m-0 hx-cursor-pointer">
+<em>Hint: Defining a New Variable</em>
+</summary>
+<div class="hx-p-2">
+
+While not absolutely necessary, I recommend defining a new variable for the equilibrium temperature of the Earth. You can do this by adding a line like this at the top of the `extras_finish_step` function:
+
+```fortran
+real(dp) :: T_eq_earth
+```
+Then later on in the function, you can compute the equilibrium temperature of the Earth and assign it to this variable. Then you can use it like any other variable.
+</div>
+</details>
+
+<details class="hx-border hx-border-green-200 dark:hx-border-green-200 hx-rounded-md hx-my-2">
+<summary class="hx-bg-green-100 dark:hx-bg-neutral-800 hx-text-green-900 dark:hx-text-green-200 hx-p-2 hx-m-0 hx-cursor-pointer">
+<em>Answer</em>
 </summary>
 <div class="hx-p-4">
 
-While you could hardcode a number into the `if` block, it's probably cleaner to define a variable for the equilibrium temperature of the Earth. You can do this by adding another variable declaration at the top of the `extras_finish_step` function, like so:
+Here's an implementation of the `extras_finish_step` function that computes the equilibrium temperature of the Earth and prints it to the screen:
 
-```fortran
-real(dp) :: T_earth_eq
+```fortran {hl_lines=[5, 11, 12]}
+integer function extras_finish_step(id)
+    integer, intent(in) :: id
+    integer :: ierr
+    type (star_info), pointer :: s
+    real(dp) :: T_eq_earth
+    ierr = 0
+    call star_ptr(id, s, ierr)
+    if (ierr /= 0) return
+    extras_finish_step = keep_going
+
+    T_eq_earth = s% Teff * (s% photosphere_R * Rsun / (2d0 * AU))**0.5d0
+    write(*,*) 'Earth equilibrium temperature:', T_eq_earth
+
+    if (extras_finish_step == terminate) s% termination_code = t_extras_finish_step
+end function extras_finish_step
 ```
 
-Then you can compute the equilibrium temperature of the Earth using the formula we discussed earlier:
+The highlighted lines show the definition of the variable `T_eq_earth`, its assignment using the formula, constants, and star info structure members we discussed earlier, and the `write` statement that prints the equilibrium temperature of the Earth to the screen.
 
-```fortran
-T_earth_eq = s% Teff * sqrt(s% photosphere_R * Rsun / (2d0 * au))
-```
-
-Consider writing this out to the terminal as well so you can see what it's doing. You can always comment out the `write` statement later if it's too noisy:
-
-```fortran
-write(*,*) 'Earth equilibrium temperature:', T_earth_eq
-```
+As usual, compile and run the project again with `./mk && ./rn`.
 </div>
 </details>
+
+**Task 3.4:** Further edit your `extras_finish_step` function to check if the equilibrium temperature of the Earth exceeds the value set in `x_ctrl(1)`. If it does, print a message to the terminal and set `extras_finish_step = terminate` to stop the evolution. You'll need to use an `if` block, so review the Fortran syntax from the Fortran primer if you need a refresher. Finally, to actually tell MESA to stop the evolution, you'll need to set `extras_finish_step = terminate` in the `if` block. Try compiling to debug, but don't run the project yet.
 
 <details class="hx-border hx-border-blue-200 dark:hx-border-blue-200 hx-rounded-md hx-my-2">
 <summary class="hx-bg-blue-100 dark:hx-bg-neutral-800 hx-text-blue-900 dark:hx-text-blue-200 hx-px-4 hx-py-2 hx-m-0 hx-cursor-pointer">
@@ -949,7 +986,7 @@ Note that we can print multiple things in the same `write` statement by separati
 
 The completed `extras_finish_step` function should look like this:
 
-```fortran
+```fortran {hl_lines=[14, 15, 16, 17, 18]}
 integer function extras_finish_step(id)
     integer, intent(in) :: id
     integer :: ierr
@@ -961,22 +998,25 @@ integer function extras_finish_step(id)
     extras_finish_step = keep_going
 
     T_eq_earth = s% Teff * (s% photosphere_R * Rsun / (2d0 * AU))**0.5
+    write(*,*) 'Earth equilibrium temperature:', T_eq_earth
+
     if (T_eq_earth > s% x_ctrl(1)) then
         write(*,*) 'extras_finish_step: T_eq_earth =', T_eq_earth, '>', s% x_ctrl(1), 'K'
         write(*,*) 'extras_finish_step: terminating run'
         extras_finish_step = terminate
     end if
+
     if (extras_finish_step == terminate) s% termination_code = t_extras_finish_step
 end function extras_finish_step
-
 ```
+Highlighted are the new lines, namely the `if` block that checks the equilibrium temperature against the value set in `x_ctrl(1)`, prints a message if the condition is met, and sets `extras_finish_step = terminate` to stop the evolution.
 
 </div>
 </details>
 
 Now let's test our new stopping condition. We'll need to set the value of `x_ctrl(1)` in the inlist. We'll set it to a pretty high value of 310 K, but this is too high to reach in the current model since it stops at core hydrogen depletion.
 
-**Task 3.4:** Edit your `inlist` to set `x_ctrl(1)` to 310 K (these go in the `controls` namelist), and prevent the old stopping condition from functioning. Then compile and run the project again. It should run for about 126 timesteps before stopping if everything is working correctly.
+**Task 3.5:** Edit your `inlist` to set `x_ctrl(1)` to 310 K (these go in the `controls` namelist), and prevent the old stopping condition from functioning. Then compile and run the project again. It should run for about 126 timesteps before stopping if everything is working correctly.
 
 <details class="hx-border hx-border-green-200 dark:hx-border-green-200 hx-rounded-md hx-my-2">
 <summary class="hx-bg-green-100 dark:hx-bg-neutral-800 hx-text-green-900 dark:hx-text-green-200 hx-py-2 hx-px-4 hx-m-0 hx-cursor-pointer">
@@ -1012,7 +1052,7 @@ The stopping condition we just added is a simple one, and it doesn't actually af
 
 ### Steps for Implementing a Hook
 
-More interesting is adding new physics to the model. This is a bit more involved, but for the most part, this can be done in `run_star_extras.f90`, rather than hacking at MESA itself. We do this through so-called "hooks," which are functions that MESA callas at specific points within the monolithic "take step" stage on the flowchart above. There are many of these hooks, so they are not included in the standard `run_star_extras.f90` boilerplate. 
+More interesting is adding new physics to the model. This is a bit more involved, but for the most part, this can be done in `run_star_extras.f90`, rather than hacking at MESA itself. We do this through so-called "hooks," which are functions that MESA calls at specific points within the monolithic "take step" stage on the flowchart above. There are many of these hooks, so they are not included in the standard `run_star_extras.f90` boilerplate. 
 
 Instead, we follow a multi-step process to implement a new hook:
 
@@ -1096,7 +1136,7 @@ We see that it brings in a few other modules and defines some variables. There's
 
 We won't be doing that here, though, as we'll want to set the value of `extra_heat` to a different value at every zone in the model, so we can safely delete that line as well as the comment afterward.
 
-**Task 4.2:** Rename the subroutine to `day2_other_energy` and delete the two comments at the end of the subroutine. Compile again to make sure you haven't introduced any syntax errors. If you have, fix them before proceeding.
+**Task 4.2:** Rename the subroutine to `day2_other_energy` and delete the two comments at the end of the subroutine. Remember, the name appears at the beginning *and* the end of the subroutine! Compile again to make sure you haven't introduced any syntax errors. If you have, fix them before proceeding.
 
 <details class="hx-border hx-border-green-200 dark:hx-border-green-200 hx-rounded-md hx-my-2">
 <summary class="hx-bg-green-100 dark:hx-bg-neutral-800 hx-text-green-900 dark:hx-text-green-200 hx-py-2 hx-px-4 hx-m-0 hx-cursor-pointer">
@@ -1162,7 +1202,7 @@ You need to edit `extras_controls` by adding the following line somewhere in the
 s% other_energy => day2_other_energy
 ```
 
-This sets the pointer `s% other_energy` to point to our new subroutine `day2_other_energy`. This is how MESA knows to call our subroutine when it reaches the `other_energy` hook in the flowchart. For me the entirety of the `extras_controls` subroutine now looks like this:
+This sets the pointer `s% other_energy` to point to our new subroutine `day2_other_energy`. This is how MESA knows to call our subroutine when it reaches the `other_energy` hook in the flowchart. For me, the entirety of the `extras_controls` subroutine now looks like this:
 
 ```fortran
 subroutine extras_controls(id, ierr)
@@ -1278,11 +1318,11 @@ When you compile and run the project again, you should see no change in the mode
 </div>
 </details>
 
-Now let's finally implement something that's actually interesting! We'll assume this magic new energy is destributed exponentially from the center as a function of the mass coordinate. That is, it's strongest at the center and decreases exponentially outward. We'll use this function:
+Now let's finally implement something that's actually interesting! We'll assume this magic new energy is distributed exponentially from the center as a function of the mass coordinate. That is, it's strongest at the center and decreases exponentially outward. We'll use this function:
 
 $$\epsilon_{\mathrm{extra}}(M_r) = L_{\mathrm{extra}}\frac{1}{\Delta M}\exp\left(-\frac{M_r}{\Delta M}\right),$$
 
-where $L_{\mathrm{extra}}$ is the total luminosity from this new energy source, $M_r$ is the mass coordinate of the zone, and $\Delta M$ is a characteristic mass scale that determines how quickly the energy source decreases with increasing mass coordinate. Well-behaved values for $\Delta M$ and $L_{\mathrm{extra}}$ are $0.5~M_\odot$ and $0.1~L_\odot$, respectively, but I encourage you to make these values user-accessible in the inlist so you can experiment with them later.
+where $L_{\mathrm{extra}}$ is the total luminosity from this new energy source, $M_r$ is the mass coordinate of the zone, and $\Delta M$ is a characteristic mass scale that determines how quickly the energy source decreases with increasing mass coordinate. Well-behaved values for $\Delta M$ and $L_{\mathrm{extra}}$ are $0.05~M_\odot$ and $0.1~L_\odot$, respectively, but I encourage you to make these values user-accessible in the inlist so you can experiment with them later.
 
 **Task 4.6:** Implement the above energy source in your `day2_other_energy` subroutine. You should already have a loop ready to go, but now instead of setting each zone's `extra_heat` to zero, you should compute the value locally for each zone. Compile, run, and check the plot that shows `extra_energy` to confirm that it is behaving appropriately. As always, beware unit trickery!
 
@@ -1305,7 +1345,7 @@ Okay, it's not "trickery" per se, but `s% extra_heat` is in erg/g/s, and we tend
 </summary>
 <div class="hx-p-4">
 
-The "mass coordinate" is the mass of the star enclosed within a zone. So at the center, its zero, and and at the surface, it's the total mass of the star. In MESA, you can access this using `s% m(k)`, where `k` is the zone index (1-indexed; probably your looping variable). Thankfully, this quantity is already in cgs units.
+The "mass coordinate" is the mass of the star enclosed within a zone. So at the center, it's zero, and and at the surface, it's the total mass of the star. In MESA, you can access this using `s% m(k)`, where `k` is the zone index (1-indexed; probably your looping variable). Thankfully, this quantity is already in cgs units.
 
 </div>
 </details>
@@ -1359,7 +1399,7 @@ When all is done with $\Delta M = 0.05~M_\odot$, $L_{\mathrm{extra}} = 0.1~L_\od
 
 If you got this far, you've done a great job! As a bonus exercise, let's compare the extra heating to the nuclear energy generation rate in the star, both locally and globally.
 
-**Task 5.1:** Use the existing four functions and subroutines dealing with history and profile columns to add a new column to both history and profile outputs. The history column should be called `L_ratio`, and it should be the ratio of the total extra heating to the total nuclear power generatio in the star. The profile column should be called `eps_ratio`, and it should be the ratio of the local extra heating to the local specific nuclear energy generation rate. When you have it working, load the profile and history files in [MESA Explorer](https://billwolf.space/mesa-explorer/) and plot these new columns against model number (history) and mass coordinate (profile). You'll probably want to use a logarithmic scale for the y-axis of the profile plot.
+**Task 5.1:** Use the existing four functions and subroutines dealing with history and profile columns to add a new column to both history and profile outputs. The history column should be called `L_ratio`, and it should be the ratio of the total extra heating to the total nuclear power generation in the star. The profile column should be called `eps_ratio`, and it should be the ratio of the local extra heating to the local specific nuclear energy generation rate. When you have it working, load the last profile and history files in [MESA Explorer](https://billwolf.space/mesa-explorer/) and plot these new columns against model number (history) and mass coordinate (profile). You'll probably want to use a logarithmic scale for the y-axis of the profile plot.
 
 <details class="hx-border hx-border-blue-200 dark:hx-border-blue-200 hx-rounded-md hx-my-2">
 <summary class="hx-bg-blue-100 dark:hx-bg-neutral-800 hx-text-blue-900 dark:hx-text-blue-200 hx-px-4 hx-py-2 hx-m-0 hx-cursor-pointer">
