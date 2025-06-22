@@ -1,18 +1,18 @@
 # Introduction to running MESA
 
 
-# Monday MaxiLab 1: Modelling core overshooting in main-sequence stars
+# Monday MaxiLab 1: Modeling core overshooting in main-sequence stars
 
 In this lab, you will learn how to set up a MESA model from scratch,
-learn how to monitor the run, customise its output and how to choose
+monitor the run, customize its output and choose
 reasonable values for model parameters. Our science case is focused on
 the effects of core overshooting on the core of main-sequence stars.
 
 As a maxilab, this lab will take two 1.5h sessions. Each session is
-organised in three sections, structured as below with an estimate of the
+organized in three sections, structured as below with an estimate of the
 time you are expected to spend on each. Please do not hesitate to ask
 your TA and/or the other people at your table for assistance if you
-notice you are falling behind on schedule.
+notice you are falling behind.
 
 ---
 
@@ -35,7 +35,7 @@ notice you are falling behind on schedule.
 
 **D. Adapting the input parameters**
 - *\~10 minutes*
-- Make further changes to the inlist, e.g. adjust mass, overshooting parameters, and time steps and visualise the impact.
+- Make further changes to the inlist, e.g. adjust mass, overshooting parameters, and time steps and visualize the impact.
 
 **E. Making your own plots**
 - *\~20 minutes*
@@ -45,17 +45,6 @@ notice you are falling behind on schedule.
 - *\~20+ minutes*
 - Learn to loop over parameter grids using shell scripts or Python (e.g., `inlist_template` + script).
 
----
-
-In this session, we will examine how overshooting of a convective core
-affects a star's evolution together. We will also examine
-how the numerical simplifications impact the evolution of the model.
-In doing so, we will learn how to find reasonable values for
-model parameters, namely the initial mass of the star $M$,
-its initial metal mass fraction $Z$, the overshooting scheme, overshoot
-parameter $f_{ov}$ which describes how far from the core the overshoot
-can reach and $f_0$ which describes how deep in the convection zones the
-model switches from mixing by convection to overshoot.
 
 ---
 
@@ -76,19 +65,18 @@ the empty directory and copy over the default MESA work directory:
 
 Do a quick ``ls`` to check what is included in this default work directory.
 You'll see a number of executables, namely _clean_, _mk_, _re_ and
-_rn_. You can look at the summary at the start of this README to see what
-these executables do. The subdirectories _make_ and _src_ contain the
+_rn_. The subdirectories _make_ and _src_ contain the
 Makefile and extra code to include, but you don't have to look into that
-today. For now, let's take a look at the inlists _inlist_,
+today. For now, let's take a look at the inlists *inlist*,
 *inlist_pgstar* and *inlist_project*. These files describe what you want
-MESA to do. In particular MESA will always look for _inlist_. Using your
-favourite text editor, take a look at what is in _inlist_.
+MESA to do. In particular MESA will always look for *inlist*. Using your
+favorite text editor, take a look at what is in *inlist*.
 
-What this _inlist_ essentially does is redirect MESA to the other two
+What this *inlist* essentially does is redirect MESA to the other two
 inlist files for all the real content, with *inlist_project* containing
 most of the fields describing how the MESA run should go and
 *inlist_pgstar* describing what visuals MESA should produce. For now,
-let's focus on *inlist_project*.
+focus on *inlist_project*.
 
 
 2. Let's start with a very simple main-sequence model of a star with
@@ -111,11 +99,12 @@ so this ``&starjob`` does not work on photo restarts.
 
 </details>
 
+
 <details>
 <summary>Side note 2</summary>
 
 Have you spotted those `d0` at the end of these lines? The `d` therein indicates that the numbers we provide are double precision floating point numbers in fortran.
-The number afterwards, `0` in this case, indicates the order of magnitude in a scientific notation. For example, `2.2d3 = 2200.0` or we could have written `initial_z = 1.4d-2`. Even when the order is zero, it is considered good practice to always add `d0` after your floats.
+The number afterwards, `0` in this case, indicates the order of magnitude in a scientific notation. For example, `2.2d3 = 2200.0` or we could have written `initial_z = 1.4d-2`. Even when the order is zero, it is good practice to always add `d0` after your floats.
 
 </details>
 
@@ -163,7 +152,7 @@ or only below the relevant convection zone(s).
 <details>
 <summary>Show answer</summary>
 
-Strictly speaking, you can place them anywhere in the `&controls` namelist. However, you'll probably notice that `&controls` is organised into subsections like "starting specifications", "when to stop", "wind" and so on. Sticking to this or a similar structure is a good idea to keep your inlist clearly organised.
+Strictly speaking, you can place them anywhere in the `&controls` namelist. However, you'll probably notice that `&controls` is organized into subsections like "starting specifications", "when to stop", "wind" and so on. Sticking to this or a similar structure is a good idea to keep your inlist clearly organized.
 As such, we recommend copy-pasting the six lines above under "! mixing".
 
 </details>
@@ -396,14 +385,14 @@ If you got stuck and cannot get your inlist to run, you can find
 11. Now let's turn to these animated plots, often called
 the pgstar plots. These are incredible useful in understanding what
 is going on in your model while its running, helping you spot
-potential problems early. Therefore, it is worthwhile to customise
+potential problems early. Therefore, it is worthwhile to customize
 your pgstar panels to show those quantities that are the most important
 to your work. To this end, MESA has a bunch of prepared windows you can
 easily add by adding one flag to your *inlist_pgstar*. You can find
 these and how to edit your *inlist_pgstar* in
 [this documentation page](https://docs.mesastar.org/en/24.08.1/reference/pgstar.html).
 
-For this lab, we have prepared a specialised
+For this lab, we have prepared a specialized
 *inlist_pgstar* for you. Download that *inlist_pgstar*
 [here](https://github.com/Mathijs-Vanrespaille/mesa-school-labs/blob/main/content/monday/lab1/completed_inlists/inlist_pgstar_initial)
 and move it into your MESA work directory. Make sure to name the file `inlist_pgstar`!
@@ -457,13 +446,13 @@ pause_before_terminate = .true.
 
 For now, focus on that mixing panel in the bottom right.
 
-**Question**: What is the mixing panel showing exactly? What does the colour of each line indicate?
+**Question**: What is the mixing panel showing exactly? What does the color of each line indicate?
 
 <details>
 <summary>Show answer</summary>
 
 MESA treats the mixing of chemicals as a diffusive process. The y-axis shows the logarithm of the diffusive mixing coefficient in cm²/s (unless otherwise specified, MESA uses cgs units).
-The colour indicates the process behind the mixing — blue for convection and white for overshooting.
+The color indicates the process behind the mixing — blue for convection and white for overshooting.
 These are the only two mixing processes in our model, but there are a plethora of other processes MESA can include.
 
 </details>
@@ -723,22 +712,6 @@ and making some custom plots.
 
 ## F :  BONUS: Batch Parameter Studies with MESA
 
-If you've completed the main lab activities and have time remaining, explore the automated parameter study framework in the [`batch_runs/`](./batch_runs) directory. This framework enables systematic exploration of overshooting effects across multiple stellar models.
+If you've completed the main lab activities and have time remaining, explore the automated parameter study framework in the [`bonus_tasks/`](./lab1/bonus_tasks/batch_runs/) directory. This framework enables systematic exploration of overshooting effects across a grid of stellar model parameters.
 
-### Why Run Batch Studies?
-
-1. **Efficiency**: Run dozens of MESA models without manual intervention
-2. **Thoroughness**: Test how overshooting parameters affect stellar evolution across different masses and metallicities
-3. **Reproducibility**: Generate standardized output for consistent analysis
-
-
-### Available Parameter Space
-
-The provided parameter grid explores:
-- Stellar masses: 2, 5, 15, 30 M☉
-- Metallicities: Z = 0.014, 0.0014
-- Overshooting schemes: None, Exponential, Step
-- Overshooting parameters: 0.01-0.3
-- Penetration depths: 0.001-0.01
-
-For complete documentation and additional analysis tools, see [`bonus_tasks/README.md`](https://github.com/Mathijs-Vanrespaille/mesa-school-labs/blob/main/content/monday/lab1/bonus_tasks/README.md).
+For complete documentation and additional analysis tools, see [`bonus_tasks/README.md`](./lab1/bonus_tasks/README.md).
