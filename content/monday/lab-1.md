@@ -123,9 +123,7 @@ overshoot_f0(1) = 0.005d0
 
 **Question**: The first three `overshoot_` fields describe where the overshooting should take place. Go into [the MESA documentation](https://docs.mesastar.org/en/latest/reference/controls.html) and look up what each of these fields means.  
 
-
-<details>
-<summary>Show answer</summary>
+{{< details title="Click here to show the answer" closed="true" >}}
 
 - `overshoot_zone_type` lets you only activate overshooting around
 regions where certain types of burning takes place.
@@ -135,7 +133,7 @@ or a shell
 - `overshoot_bdy_loc` whether the overshoot should occur only above
 or only below the relevant convection zone(s).
 
-</details>
+{{< /details >}}
 
 
 **Question**: Where should you add these fields?
@@ -193,12 +191,12 @@ xa_central_lower_limit(1) = 1d-3
 <details>
 <summary>Show answer</summary>
 
-When the mass fraction of \$^1\$H drops below 0.001.
+When the mass fraction of $^1$H drops below 0.001.
 
 </details>
 
 For our purposes today, it will be interesting to go a little bit
-further. Therefore, **change the lower limit on \$^1\$H to $10^{-6}$**:
+further. Therefore, **change the lower limit on $^1$H to $10^{-6}$**:
 
 ```fortran
 xa_central_lower_limit_species(1) = 'h1'
