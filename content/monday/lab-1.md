@@ -91,22 +91,13 @@ initial_mass = 5d0
 initial_z = 0.014d0
 ```
 
-<details>
-<summary>Side note 1</summary>
-
-Fields starting with ``initial_`` are only used when starting a model from the pre-ms or loading from a .mod file,
+> [!NOTE]
+> Fields starting with ``initial_`` are only used when starting a model from the pre-ms or loading from a .mod file,
 so this ``&starjob`` does not work on photo restarts.
 
-</details>
 
-
-<details>
-<summary>Side note 2</summary>
-
-Have you spotted those `d0` at the end of these lines? The `d` therein indicates that the numbers we provide are double precision floating point numbers in fortran.
-The number afterwards, `0` in this case, indicates the order of magnitude in a scientific notation. For example, `2.2d3 = 2200.0` or we could have written `initial_z = 1.4d-2`. Even when the order is zero, it is good practice to always add `d0` after your floats.
-
-</details>
+> [!NOTE]
+> Have you spotted those `d0` at the end of these lines? The `d` therein indicates that the numbers we provide are double precision floating point numbers in fortran. The number afterwards, `0` in this case, indicates the order of magnitude in a scientific notation. For example, `2.2d3 = 2200.0` or we could have written `initial_z = 1.4d-2`. Even when the order is zero, it is good practice to always add `d0` after your floats.
 
 
 The opacity table MESA uses depends on the reference metallicity,
