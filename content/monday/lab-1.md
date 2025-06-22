@@ -674,14 +674,14 @@ and output filenames and directory according to your parameter set though. Ask y
 TA for assistance with that.
 
 
-## E :  Plotting MESA output
+### E :  Plotting MESA output
 
 20. Now let's wrap up this lab by reading your MESA output in using Python
 and making some custom plots.
 
 ---
 
-## F :  BONUS: Batch Parameter Studies with MESA
+### F :  BONUS: Batch Parameter Studies with MESA
 
 If you've completed the main lab activities and have time remaining, explore the automated parameter study framework in the [`bonus_tasks/`](./lab1/bonus_tasks/batch_runs/) directory. This framework enables systematic exploration of overshooting effects across a grid of stellar model parameters.
 
