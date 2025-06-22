@@ -176,8 +176,7 @@ stop_near_zams = .true.
 which is designed to stop the model at the zero-age main-sequence (ZAMS),
 that it defines as the point where 99% of the energy released comes from
 nuclear reactions. As we seek to model the main-sequence, we obviously
-do not want the run to end around the ZAMS. Therefore, **disable 
-`stop_near_zams` by setting: **
+do not want the run to end around the ZAMS. Therefore, **disable `stop_near_zams` by setting: **
 
 ```fortran
 stop_near_zams = .false.
