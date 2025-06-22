@@ -138,25 +138,21 @@ or only below the relevant convection zone(s).
 
 **Question**: Where should you add these fields?
 
-
-<details>
-<summary>Show answer</summary>
+{{< details title="Click here to show the answer" closed="true" >}}
 
 Strictly speaking, you can place them anywhere in the `&controls` namelist. However, you'll probably notice that `&controls` is organized into subsections like "starting specifications", "when to stop", "wind" and so on. Sticking to this or a similar structure is a good idea to keep your inlist clearly organized.
 As such, we recommend copy-pasting the six lines above under "! mixing".
 
-</details>
+{{< /details >}}
 
 
 **Bonus Question**: Why does each overshoot field in our example have that `(1)` at the end?
 
-
-<details>
-<summary>Show answer</summary>
+{{< details title="Click here to show the answer" closed="true" >}}
 
 All these `overshoot_` are actually arrays and `(1)` indicates the first element of that array in fortran. This way, each element can represent a different overshooting zone so you can use different settings for each overshooting zone.
 
-</details>
+{{< /details >}}
 
 
 4. Before you run your model, you should consider when the model is
@@ -188,12 +184,11 @@ xa_central_lower_limit(1) = 1d-3
 
 **Question**: How does the default *inlist\_project* define the TAMS?
 
-<details>
-<summary>Show answer</summary>
+{{< details title="Click here to show the answer" closed="true" >}}
 
 When the mass fraction of $^1$H drops below 0.001.
 
-</details>
+{{< /details >}}
 
 For our purposes today, it will be interesting to go a little bit
 further. Therefore, **change the lower limit on $^1$H to $10^{-6}$**:
@@ -271,28 +266,25 @@ of `&controls` to see what the default wind mass loss is. You could also look th
 the default values in the MESA code inside `$MESA_DIR/star/defaults/`, though the website
 documentation is easier to navigate if you don't know the name of the relevant fields yet.
 
-<details>
-<summary>Show hint</summary>
+{{< details title="Click here to show a hint" closed="true" >}}
 
 In the panel on the left of the website, navigate to *Reference and Defaults > controls*. On the right, you can now see the contents of this page. Mass loss by winds is found under *mass gain and loss*.
 
-</details>
+{{< /details >}}
 
 
-<details>
-<summary>Show answer</summary>
+{{< details title="Click here to show the answer" closed="true" >}}
 
 By default, there is no mass loss due to winds. You can add mass loss by setting a negative value to the field `mass_change` or with some `wind_scheme`.
 
-</details>
+{{< /details >}}
 
 You will see in the documentation that there is a wealth of wind mass loss schemes available,
 all of which can be scaled up or down by a constant factor. Each scheme is appropriate in particular regimes of the surface temperature, composition, etc.
 The so-called Dutch scheme attempts to merge some of these schemes into a cohesive whole.
 **Add it into your *inlist\_project* without scaling.**
 
-<details>
-<summary>Show hint</summary>
+{{< details title="Click here to show how to implement this" closed="true" >}}
 
 In order to use the Dutch scheme at all temperature ranges and without changing its scaling, use:
 
@@ -302,7 +294,7 @@ cool_wind_RGB_scheme = 'Dutch'
 Dutch_scaling_factor = 1d0
 ```
 
-</details>
+{{< /details >}}
 
 
 8. MESA uses the mixing-length theory (MLT) to describe the
@@ -423,23 +415,22 @@ For now, **turn to that mixing panel in the bottom right and ponder these questi
 
 **Question**: What is the mixing panel showing exactly? What does the color of each line indicate?
 
-<details>
-<summary>Show answer</summary>
+{{< details title="Click here to show the answer" closed="true" >}}
 
 MESA treats the mixing of chemicals as a diffusive process. The y-axis shows the logarithm of the diffusive mixing coefficient in cm²/s (unless otherwise specified, MESA uses cgs units).
 The color indicates the process behind the mixing — blue for convection and white for overshooting.
 These are the only two mixing processes in our model, but there are a plethora of other processes MESA can include.
 
-</details>
+{{< /details >}}
+
 
 **Bonus Question**: Why do we plot the model number on the x-axis instead of, say, the stellar age?
 
-<details>
-<summary>Show answer</summary>
+{{< details title="Click here to show the answer" closed="true" >}}
 
 Since MESA automatically adjusts the time steps, some evolutionary stages where the star rapidly evolves are poorly resolved if you plot against age. The model number does a reasonable job of resolving these stages.
 
-</details>
+{{< /details >}}
 
 
 13. Customizing MESA's Output Data
@@ -483,13 +474,12 @@ Finally, let's consider how often MESA writes this history output.
 
 **Bonus Question**: How often does MESA write its history output by default?
 
-<details>
-<summary>Show answer</summary>
+{{< details title="Click here to show the answer" closed="true" >}}
 
 If you open the history output in a text editor, you may see that the output is created after every 5 time steps since the model number increases by 5 between each line.
 Alternatively, you may have spotted `history_interval` in the documentation, which is 5 by default.
 
-</details>
+{{< /details >}}
 
 As we don't need that many history columns, it's reasonable to write them at
 every step. **Do so by setting in your `&controls`:**
@@ -547,18 +537,20 @@ profile_columns_file = 'my_profile_columns.list'
 
 **Bonus Question**: By default, MESA only saves a profile every 50 model steps. This might miss important evolutionary phases. How could you increase this frequency?
 
-<details>
-<summary>Show answer</summary>
+{{< details title="Click here to show the answer" closed="true" >}}
+
 Add <code>profile_interval = 10</code> to your inlist's <code>&controls</code> section to save profiles more frequently. You could also enable <code>write_profile_when_terminate = .true.</code> to guarantee a profile at the end of the run.
-</details>
+
+{{< /details >}}
 
 
 **Bonus Question**: How many profiles can MESA write over the course of a run? Why might you want to limit it?
 
-<details>
-<summary>Show answer</summary>
+{{< details title="Click here to show the answer" closed="true" >}}
+
 While the history output only needs to write one row of values at each history output step, the profiles consist of many columns and thus take up considerable disk space. Therefore, MESA puts a limit on how many profiles it can write (100 by default). If the run keeps going after the maximum has been reached, the oldest profiles are overwritten.
-</details>
+
+{{< /details >}}
 
 If you got stuck and cannot get your inlist to run, you can find
 [a functional inlist with all the changes described above here](https://github.com/Mathijs-Vanrespaille/mesa-school-labs/blob/main/content/monday/lab1/completed_inlists/inlist_project3)
