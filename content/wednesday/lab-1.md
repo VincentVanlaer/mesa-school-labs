@@ -42,17 +42,25 @@ It is important to check the units of the parameters in MESA. In many cases, it 
 
 
 {{< details title="Hint 1-1 (2)" closed="true" >}}
-! Convert mass transfer rate from g/s to Msun/yr
-! 1 year = 3.15576e7 s, 1 Msun = 1.989e33 g
+! Convert mass transfer rate from g/s to Msun/yr  
+! 1 year = 3.15576e7 s, 1 Msun = 1.989e33 g  
 ! Use: abs(b% mtransfer_rate)/Msun*secyer
+{{< /details >}}
+
+
+{{< details title="Hint 1-1 (3)" closed="true" >}}
+Check how to print a string in the terminal at core carbon depletion in the "HINT" block in `run_star_extras.f90`.  
+write(*,*) ' ... '
 {{< /details >}}
 
 
 {{< details title="Solution 1-1" closed="true" >}}
 ```fortran
-    if (abs(b% mtransfer_rate)/Msun*secyer > 1d-10) then
-			write(*,*) '****************** Undergoing mass transfer ******************'
-    end if 
+         !!! TASK 1 block begins !!!
+         if (abs(b% mtransfer_rate)/Msun*secyer > 1d-10) then
+             write(*,*) '****************** Undergoing mass transfer ******************'
+         end if
+         !!! TASK 1 block ends !!!
 ```
 {{< /details >}}
 
@@ -61,10 +69,15 @@ It is important to check the units of the parameters in MESA. In many cases, it 
 > So, even when you miss the terminal output, you can check the out.txt file to see what was printed out during the run.
 > Also, you can use "grep -ir XXX out.txt" to see if XXX is included in out.txt.
 
-Please make sure that your implementation is working correctly by running a model and checking if it indeed gives the desired output when the mass-transfer rate exceeds the threshold. In the PGSTAR plot, you can find the current mass-transfer rate in the middle of the upper text box. 
+Please make sure that your implementation is working correctly by running a model and checking if it indeed gives the desired output when the mass-transfer rate exceeds the threshold. In the PGSTAR plot, you can find the mass transfer rate (blue line) in the upper right corner (`lg_mtransfer_rate` in logarithmic scale). This run should end with the following print out in the terminal:
+```
+ *********************************************
+ **** Terminated at core carbon depletion ****
+ *********************************************
+```
 
 ### Task 1-2. Which evolutionary phase is the primary in?
-As a next step, we now want to identify during which burning stage our model has stopped. Note that typically core hydrogen burning is considered to be finished when the central hydrogen abundance drops below 1e-6, and core helium burning is finished when the central helium abundance is below 1e-6. **Now add more if conditions in the previous condition to identify during which evolutionary state the mass transfer was initiated.** Please also test if your code compiles, to avoid propagating the errors.  
+As a next step, we now want to identify during which burning stage our model is undergoing mass transfer. Note that typically core hydrogen burning is considered to be finished when the central hydrogen abundance drops below 1e-6, and core helium burning is finished when the central helium abundance is below 1e-6. **Now think of conditions to identify which evolutionary state the primary is in, and print it out.** Please also test if your code compiles, to avoid propagating the errors.  
 1. Core hydrogen burning phase  
 2. Core helium burning phase  
 3. Core helium depletion onwards
@@ -78,54 +91,72 @@ Check the mass fractions of hydrogen (```b% s1% center_h1```) and helium (```b% 
 
 
 {{< details title="Solution 1-2" closed="true" >}}
-Core hydrogen burning phase: ```b% s1% center_h1 > 1e-6```  
-Core helium burning phase: ```(b% s1% center_he4 > 1e-6) .and. (b% s1% center_h1 < 1e-6)```  
-The phase after core helium depletion: ```b% s1% center_he4 < 1e-6```
+```fortran
+         !!! TASK 1 block begins !!!
+         if (abs(b% mtransfer_rate)/Msun*secyer > 1d-10) then
+             write(*,*) '****************** Undergoing mass transfer ******************'
+         end if
+         
+         if (b% s1% center_h1 > 1e-6) then
+             write(*,*) '****************** Core hydrogen burning ******************'
+         else if ((b% s1% center_he4 > 1e-6) .and. (b% s1% center_h1 < 1e-6)) then
+             write(*,*) '****************** Core helium burning ******************'
+         else if (b% s1% center_he4 < 1e-6) then
+             write(*,*) '****************** Past core helium burning ******************'
+         end if
+         !!! TASK 1 block ends !!!
+```
 {{< /details >}}
 
 ### Task 1-3. Print out Case A / B / C
-As a last step, we need to output in the terminal which mass-transfer phase we are at. **Add a write statement in each if condition that prints out if we are in Case A, B, or C mass transfer.** Please compile your code and test your model. Can you identify in the out.txt in which mass-transfer phase your model stopped?
+As a last step, we want to output in the terminal which mass transfer case it is when there is a mass transfer. **Comment out the previous scripts in the "TASK 1" block and write new if-else statements that prints out Case A / B / C if the corresponding mass transfer is occuring.** Please compile your code and test your model. Can you identify which mass transfer case that your model underwent? If you missed the terminal output, you can check the out.txt file to see what was printed out during the run.
 
 > [!WARNING]
 > Don't forget to do `./clean` and `./mk` after modifying the `run_star_extras.f90` file.
 
-How to print out a string in the terminal?
-{{< details title="Hint 1-3 (1)" closed="true" >}}
-Check how to print a string in the terminal at core carbon depletion in the "HINT" block in `run_star_extras.f90`.  
-write(*,*) ' ... '
-{{< /details >}}
-
 If-else statements to print out Case A/B/C?
-{{< details title="Hint 1-3 (2)" closed="true" >}}
+{{< details title="Hint 1-3 (1)" closed="true" >}}
 ```fortran
-   !!!!! TASK 1 block begins !!!
-   if (Condition for Case A event) then
-       write(*,*) '****************** Case A ******************'
-   else if (Condition for Case B event) then
-       write(*,*) '****************** Case B ******************'
-   else if (Condition for Case C event) then
-       write(*,*) '****************** Case C ******************'
-   end if   
-   !!!!! TASK 1 block ends !!!
+         !!! TASK 1 block begins !!!
+!         if (abs(b% mtransfer_rate)/Msun*secyer > 1d-10) then
+!             write(*,*) '****************** Undergoing mass transfer ******************'
+!         end if
+         
+!         if (b% s1% center_h1 > 1e-6) then
+!             write(*,*) '****************** Core hydrogen burning ******************'
+!         else if ((b% s1% center_he4 > 1e-6) .and. (b% s1% center_h1 < 1e-6)) then
+!             write(*,*) '****************** Core helium burning ******************'
+!         else if (b% s1% center_he4 < 1e-6) then
+!             write(*,*) '****************** Past core helium burning ******************'
+!         end if
+
+         if (Condition for Case A event) then
+             write(*,*) '****************** Case A ******************'
+         else if (Condition for Case B event) then
+             write(*,*) '****************** Case B ******************'
+         else if (Condition for Case C event) then
+             write(*,*) '****************** Case C ******************'
+         end if   
+         !!! TASK 1 block ends !!!
 ```
 {{< /details >}}
 
 Condition for Case A event?
-{{< details title="Hint 1-3 (3)" closed="true" >}}
+{{< details title="Hint 1-3 (2)" closed="true" >}}
 ```fortran
 (b% s1% center_h1 > 1d-6) .and. (abs(b% mtransfer_rate)/Msun*secyer > 1d-10)
 ```
 {{< /details >}}
 
 Condition for Case B event?
-{{< details title="Hint 1-3 (4)" closed="true" >}}
+{{< details title="Hint 1-3 (3)" closed="true" >}}
 ```fortran
 (b% s1% center_h1 < 1d-6) .and. (b% s1% center_he4 > 1d-6) .and. (abs(b% mtransfer_rate)/Msun*secyer > 1d-10)
 ```
 {{< /details >}}
 
 Condition for Case C event?
-{{< details title="Hint 1-3 (5)" closed="true" >}}
+{{< details title="Hint 1-3 (4)" closed="true" >}}
 ```fortran
 (b% s1% center_he4 < 1d-6) .and. (abs(b% mtransfer_rate)/Msun*secyer > 1d-10)
 ```
@@ -134,15 +165,27 @@ Condition for Case C event?
 
 {{< details title="Solution 1-3" closed="true" >}}
 ```fortran
-   !!!!! TASK 1 block begins !!!
-   if ((b% s1% center_h1 > 1d-6) .and. (abs(b% mtransfer_rate)/Msun*secyer > 1d-10)) then
-       write(*,*) '****************** Case A ******************'
-   else if ((b% s1% center_h1 < 1d-6) .and. (b% s1% center_he4 > 1d-6) .and. (abs(b% mtransfer_rate)/Msun*secyer > 1d-10)) then
-       write(*,*) '****************** Case B ******************'
-   else if ((b% s1% center_he4 < 1d-6) .and. (abs(b% mtransfer_rate)/Msun*secyer > 1d-10)) then
-       write(*,*) '****************** Case C ******************'
-   end if   
-   !!!!! TASK 1 block ends !!!
+         !!! TASK 1 block begins !!!
+!         if (abs(b% mtransfer_rate)/Msun*secyer > 1d-10) then
+!             write(*,*) '****************** Undergoing mass transfer ******************'
+!         end if
+         
+!         if (b% s1% center_h1 > 1e-6) then
+!             write(*,*) '****************** Core hydrogen burning ******************'
+!         else if ((b% s1% center_he4 > 1e-6) .and. (b% s1% center_h1 < 1e-6)) then
+!             write(*,*) '****************** Core helium burning ******************'
+!         else if (b% s1% center_he4 < 1e-6) then
+!             write(*,*) '****************** Past core helium burning ******************'
+!         end if
+
+         if ((b% s1% center_h1 > 1d-6) .and. (abs(b% mtransfer_rate)/Msun*secyer > 1d-10)) then
+             write(*,*) '****************** Case A ******************'
+         else if ((b% s1% center_h1 < 1d-6) .and. (b% s1% center_he4 > 1d-6) .and. (abs(b% mtransfer_rate)/Msun*secyer > 1d-10)) then
+             write(*,*) '****************** Case B ******************'
+         else if ((b% s1% center_he4 < 1d-6) .and. (abs(b% mtransfer_rate)/Msun*secyer > 1d-10)) then
+             write(*,*) '****************** Case C ******************'
+         end if   
+         !!! TASK 1 block ends !!!
 ```
 {{< /details >}}
 
