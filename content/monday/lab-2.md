@@ -1,8 +1,7 @@
 # Monday MaxiLab 2: Overshooting during core helium burning (CHeB)
 
 
-Preparation
-======================================
+## Preparation
 
 Now we are interested in studying how stars with and without core 
 overshooting evolve during the CHeB and which impact it has. 
@@ -38,8 +37,7 @@ different physical settings.
 If you did not finish lab1 or by accident overwrote your model during lab1. 
 You can download the TAMS model [here](https://github.com/Daniel-Pauli/mesa-school-labs/blob/patch-1/content/monday/lab2/M5_Z0014_fov030_f0ov0005_TAMS.mod).
 
-inlist_project: star_job
-------------------------
+### inlist_project: star_job
 
 To load a saved model, we need to modify our *inlist_project* 
 in the *star_job* section. Since we do not need to start with
@@ -111,8 +109,7 @@ Add to your *star_job* section in the *inlist_project* the following lines::
 </details>
   
 
-inlist_project: controls
-------------------------
+### inlist_project: controls
 
 Now that we are done with modifying the *star_job* section, we 
 also need to check if there are any controls that will cause 
@@ -183,8 +180,7 @@ everything is fine and you can stop the model.
 ```
 To stop your model, you can press in the terminal ctrl+c for a linux or cmd+c for a mac.
     
-adding a new inlist file: inlist_extra
---------------------------------------
+### adding a new inlist file: inlist_extra
 
 In the next step, we want to vary the input parameters of our
 model calculations and the output files where the LOGS and png
@@ -245,11 +241,9 @@ pgstar window opens again:
 ```
 To stop your model, you can press in the terminal ctrl+c for a linux or cmd+c for a mac.
 
-Running different models until Terminal Age Core Helium Burning (TACHeB)
-======================================
+## Running different models until Terminal Age Core Helium Burning (TACHeB)
 
-Core helium burning without core overshooting
---------------------------------------
+### Core helium burning without core overshooting
 	
 As a first run, we want to calculate the 5Msun model until
 core helium depletion without including core overshoot. To 
@@ -289,8 +283,7 @@ plot depicting how much the convective core grows in mass.
 How does the core evolve? Was it as you expected? Can you 
 figure out why the core behaves as it does?
 
-Core helium burning with step overshooting
------------------------------------------------
+### Core helium burning with step overshooting
 
 Now lets add some overshooting on top of the helium burning
 core to see how it impacts the evolution. For core helium
@@ -423,8 +416,7 @@ you to explore other mixing options.
 
 </details>
 
-Limiting core overshooting in regions with strong chemical gradients
---------------------------------------------------------------------
+### Limiting core overshooting in regions with strong chemical gradients
 
 In MESA while modeling overshooting, one can account for a stabilizing 
 composition gradient in the calculations using the Brunt-Vaisala frequency.
@@ -482,8 +474,7 @@ to that one of the model without overshooting.
 
 </details>
 
-Bonus Task: Including additional plots
-======================================
+## Bonus Task: Including additional plots
 
 In the previous exercises, we have encountered that if we use overshooting during 
 core helium burning, the helium breathing pulses are triggered. Here, we would 
