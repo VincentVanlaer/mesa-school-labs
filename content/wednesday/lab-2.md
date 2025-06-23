@@ -63,8 +63,8 @@ As the secondary component is a black hole, we assume it to be a point mass and 
 Look under the `do_wind_mass_transfer_1` control in MESA docs
 {{< /details >}} -->
 
-    > [!TIP]
-    > Look under the `do_wind_mass_transfer_1` control in MESA docs
+> [!TIP]
+> Look under the `do_wind_mass_transfer_1` control in MESA docs
 
 
 - assume conservation of the total angular momentum of the system, include loss of angular momentum via mass loss and via gravitational wave radiation. 
@@ -73,8 +73,8 @@ Look under the `do_wind_mass_transfer_1` control in MESA docs
 Explore the `do_jdot_*` controls in the MESA docs to find the relevant controls. -->
 {{< /details >}}
 
-    > [!TIP]
-    > Explore the `do_jdot_*` controls in the MESA docs to find the relevant controls.
+> [!TIP]
+> Explore the `do_jdot_*` controls in the MESA docs to find the relevant controls.
 
 {{< details title="Solution" closed="true" >}}
 
