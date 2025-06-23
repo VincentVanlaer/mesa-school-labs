@@ -2,16 +2,16 @@
 
 ## Overview
 
-## A. Setting up the MESA model
+### A. Setting up the MESA model
 * ~10 Minutes
 * Adjusting the MESA inlist files to run until core helium depletion
 * Creating a new file called inlist_extra, where we can vary our physics quickly
 
-## B. Running a star until core helium depletion with different physical assumptions
+### B. Running a star until core helium depletion with different physical assumptions
 * ~30 Minutes
 * exploring how different physical assumptions change the evolution of a star and the structure of the convective core
 
-## C. BONUS: Adding new plots to pgstar
+### C. BONUS: Adding new plots to pgstar
 * ~20 Minutes
 * Getting familiar with pgstar and modifying it to show an additional plotting window
 * Intestivate when convection zones in a star are formed
