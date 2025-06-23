@@ -101,6 +101,21 @@ Note: the only line that has changed is that we switched the variable `how_many_
 |:----------|
 | **Modify** the `how_many_extra_profile_columns` function `run_stars_extras.f90` file in your work directory now to look like the above. |
 
+{{< details title="Solution. Click on it to check your solution." closed="true" >}}
+Your function should look like the following.
+```fortran
+integer function how_many_extra_profile_columns(id)
+   integer, intent(in) :: id
+   integer :: ierr
+   type (star_info), pointer :: s
+   ierr = 0
+   call star_ptr(id, s, ierr)
+   if (ierr /= 0) return
+   how_many_extra_profile_columns = 1
+end function how_many_extra_profile_columns
+```
+{{< /details >}}
+
 The second function (`data_for_extra_profile_columns`) will perform the calculation. In this lab, you will fill out this function.
 
 ```fortran
