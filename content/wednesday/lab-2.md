@@ -88,7 +88,7 @@ Explore the `do_jdot_*` controls in the MESA docs to find the relevant controls.
 
 - enable rotation by assuming tidal synchronisation
 
-{{< details title="Hint" closed="true" >}}
+<!-- {{< details title="Hint" closed="true" >}}
 
 Typically, rotation of the components is not the system-related quantity, and in MESA we enable rotation per-component, in the `inlist1/inlist2` files, under `star_job` using
 
@@ -101,7 +101,7 @@ Typically, rotation of the components is not the system-related quantity, and in
 
 But we have that in our inlist already! What we want is to assume tidal synchronisation between stellar rotation period and the system orbital period. We do this in `inlist_project` file by allowing the `do_tidal_sync`.
 
-{{< /details >}}
+{{< /details >}} -->
 
 > [!TIP]
 > Typically, rotation of the components is not the system-related quantity, and in MESA we enable rotation per-component, in the `inlist1/inlist2` files, under `star_job` using
@@ -133,7 +133,7 @@ As we want to capture not only $T_{\rm eff}$ but also other spectroscopic quanti
 
 Go ahead and add a stopping criterion `extras_binary_finish_step = terminate` in the `extras_binary_finish_step` function once a model reached a desired surface properties. Focus only on the *TASK 1.1* part this time.
 
-{{< details title="Hint" closed="true" >}}
+<!-- {{< details title="Hint" closed="true" >}}
 
 In the very beggining of the `run_binary_extras` file we have already initialised some variables to address the observed parameters of the system:
 
@@ -145,9 +145,20 @@ In the very beggining of the `run_binary_extras` file we have already initialise
 
 You can use these when comparing with the MESA quantities.
 
-{{< /details >}}
+{{< /details >}} -->
 
-{{< details title="Hint" closed="true" >}}
+> [!TIP]
+> In the very beggining of the `run_binary_extras` file we have already initialised some variables to address the observed parameters of the system:
+
+>```fortran
+>    ! Global parameters of Cyg X-1 
+>    real(dp), parameter ::  Teff_obs = 28500.0d0,  logL_obs = 5.5d0,  logg_obs = 3.2d0
+>    real(dp), parameter :: dTeff_obs =  1000.0d0, dlogL_obs = 0.1d0, dlogg_obs = 0.1d0
+>```
+>
+>You can use these when comparing with the MESA quantities.
+
+<!-- {{< details title="Hint" closed="true" >}}
 
 You can use the quantities internally computed by MESA using the binary pointer `b%` and star pointers `s1%`/`s2%` to acccess the donor/accretor modules, respectively. Some examples of useful values are:
 
@@ -155,13 +166,23 @@ You can use the quantities internally computed by MESA using the binary pointer 
 - `b% s1% photosphere_L`: The stellar luminosity of the primary.
 - `b% s1% photosphere_logg`: Logarithm of the stellar gravitational acceleration of the primary.
 
-{{< /details >}}
+{{< /details >}} -->
 
-{{< details title="Hint" closed="true" >}}
+> [!IMPORTANT]
+> You can use the quantities internally computed by MESA using the binary pointer `b%` and star pointers `s1%`/`s2%` to acccess the donor/accretor modules, respectively. Some examples of useful values are:
+>
+>- `b% s1% Teff`: The stellar effective temperature of the primary.
+>- `b% s1% photosphere_L`: The stellar luminosity of the primary.
+>- `b% s1% photosphere_logg`: Logarithm of the stellar gravitational acceleration of the primary.
+
+<!-- {{< details title="Hint" closed="true" >}}
 
 You can instruct MESA to stop computations by using `extras_binary_finish_step = terminate` at the right place. 
 
-{{< /details >}}
+{{< /details >}} -->
+
+> [!TIP]
+> You can instruct MESA to stop computations by using `extras_binary_finish_step = terminate` at the right place. 
 
 {{< details title="Solution" closed="true" >}}
 
