@@ -24,7 +24,7 @@ directories LOGS, photos, and png:
 ```
 
 Alternatively, or if you want to be sure that everything is working properly,
-you can download a cleaned folder [here]().
+you can download a cleaned folder [here](https://github.com/Daniel-Pauli/mesa-school-labs/blob/patch-1/content/monday/lab2).
 
 In the previous Lab1 we have calculated a 5Msun model with 
 step overshooting having f=0.030 and f0=0.005 until core-hydrogen
@@ -525,7 +525,7 @@ as you can see the "Profile_Panels1_yaxis_name" and "Profile_Panels1_yaxis_name"
 
 {{< details title="Show answer" closed="true" >}}
 
-The adiabatic temperature gradient in MESA is called "grade", and the radiative temperature gradient is "gradr".  
+The adiabatic temperature gradient in MESA is called "grada", and the radiative temperature gradient is "gradr".  
 
 {{< /details >}}
 
