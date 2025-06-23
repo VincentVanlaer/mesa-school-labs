@@ -33,9 +33,13 @@ To simulate the evolution of Cygnus X-1, we would ideally start off with creatin
 
 Following [Ramachandran et al., (2025)](https://arxiv.org/pdf/2504.05885), lets start off with setting the initial masses of the components, $M_\mathrm{1}~=~34 \rm\ M_\odot,\ M_\mathrm{2}~=~17.4 \rm\ M_\odot$ and orbital period $P~=~5.5 \rm\ d$ in the `inlist_project` file, designed to contain all information about the system-related quantities. To find the controls used by MESA, look into the MESA docs, under the [specifications for starting model](https://docs.mesastar.org/en/latest/reference/binary_controls.html#specifications-for-starting-model) section.
 
-{{< details title="Note" closed="true" >}}
+<!-- {{< details title="Note" closed="true" >}}
 Note, that the component assigned with index **1** is considered as donor throughout the whole MESA run. Thus, the natural thing is to assign the bigger mass to `m1`.
-{{< /details >}}
+{{< /details >}} -->
+
+> [!IMPORTANT]
+> Note, that the component assigned with index **1** is considered as donor throughout the whole MESA run. Thus, the natural thing is to assign the bigger mass to `m1`.
+
 
 {{< details title="Solution" closed="true" >}}
 
@@ -55,15 +59,22 @@ As the secondary component is a black hole, we assume it to be a point mass and 
 - the `Kolb` mass transfer scheme,
 - do the wind mass accretion from the donor to the BH. 
 
-{{< details title="Hint" closed="true" >}}
+<!-- {{< details title="Hint" closed="true" >}}
 Look under the `do_wind_mass_transfer_1` control in MESA docs
-{{< /details >}}
+{{< /details >}} -->
+
+    > [!TIP]
+    > Look under the `do_wind_mass_transfer_1` control in MESA docs
+
 
 - assume conservation of the total angular momentum of the system, include loss of angular momentum via mass loss and via gravitational wave radiation. 
 
-{{< details title="Hint" closed="true" >}}
-Explore the `do_jdot_*` controls in the MESA docs to find the relevant controls.
+<!-- {{< details title="Hint" closed="true" >}}
+Explore the `do_jdot_*` controls in the MESA docs to find the relevant controls. -->
 {{< /details >}}
+
+    > [!TIP]
+    > Explore the `do_jdot_*` controls in the MESA docs to find the relevant controls.
 
 {{< details title="Solution" closed="true" >}}
 
