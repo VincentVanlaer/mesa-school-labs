@@ -149,7 +149,7 @@ You can use these when comparing with the MESA quantities.
 
 > [!TIP]
 > In the very beggining of the `run_binary_extras` file we have already initialised some variables to address the observed parameters of the system:
-
+>
 >```fortran
 >    ! Global parameters of Cyg X-1 
 >    real(dp), parameter ::  Teff_obs = 28500.0d0,  logL_obs = 5.5d0,  logg_obs = 3.2d0
@@ -331,11 +331,13 @@ Here is the solution to the bonus task.
 <br><br><br>
 {{< details title="**Extra bonus task**" closed="false" >}}
 
-> [!**Extra bonus task!:**]
+> [!Important]
+> **Extra bonus task!:**
 > We have an extra bonus task for you that explores stopping criteria and fitting a model for yet another observed system! You can find it at the end of this lab.
 
 > > [!WARNING]
 > > Take a look at this excercise **only** once you have finished all the parts below!
+
 <!-- **Extra bonus task!:**
 We have an extra bonus task for you that explores stopping criteria and fitting a model for yet another observed system! You can find it at the end of this lab. 
 
@@ -344,12 +346,13 @@ We have an extra bonus task for you that explores stopping criteria and fitting 
 
 <br><br><br>
 
-{{< details title="**Got stuck?**" closed="false" >}}
-
+<!-- {{< details title="**Got stuck?**" closed="false" >}}
 Got stuct during the lab? Do not worry! You can always download solution from here **[⬇ Download](/mesa-school-labs-2025/wednesday/lab2_solutions.zip)** to catch up!
+{{< /details >}} -->
 
-{{< /details >}}
-
+> [!CAUTION]
+> **Got stuck?**
+> Got stuct during the lab? Do not worry! You can always download solution from here **[⬇ Download](/mesa-school-labs-2025/wednesday/lab2_solutions.zip)** to catch up!
 
 ### Gravitational waves radiation and merge time
 
