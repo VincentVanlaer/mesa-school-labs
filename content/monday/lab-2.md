@@ -7,7 +7,7 @@ Now we are interested in studying how stars with and without core
 overshooting evolve during the CHeB and which impact it has. 
 
 As a first step, we copy the folder from Lab1 and name it Lab2.
-You can do this by hand or run in your terminal::
+You can do this by hand or run in your terminal:
 
 ```
 	cp -r lab1 lab2
@@ -16,7 +16,7 @@ You can do this by hand or run in your terminal::
 Before we start modifying the inlists such that we can model the 
 further evolution of our 5Msun star, lets clean up the directory
 and delete not needed files from our previous runs, such as the 
-directories LOGS, photos, and png::
+directories LOGS, photos, and png:
 
 ```
 	./clean
@@ -42,7 +42,7 @@ You can download the TAMS model [here](https://github.com/Daniel-Pauli/mesa-scho
 To load a saved model, we need to modify our *inlist_project* 
 in the *star_job* section. Since we do not need to start with
 a pre-main-sequence model anymore, we need to delete or comment
-out (by putting an "!" infront of the text) the following lines::
+out (by putting an "!" infront of the text) the following lines:
 
 ```
   ! begin with a pre-main sequence model
@@ -52,7 +52,7 @@ out (by putting an "!" infront of the text) the following lines::
 ```
 
 We also do no longer need to save the model at the end of the run, 
-meaning that we can also delete or comment out the following lines::
+meaning that we can also delete or comment out the following lines:
 
 ```
   ! save a model and photo at the end of the run
@@ -63,7 +63,7 @@ meaning that we can also delete or comment out the following lines::
 
 Furthermore, since we do want to start from a previously saved
 model, we do not want to fix the initial timesteps and thus 
-remove or comment out the lines:: 
+remove or comment out the lines: 
 
 ```
   ! Set the initial time step to 1 year
@@ -91,7 +91,7 @@ Can you find on the website any content that is related to **load** something?
 
 {{< details title="Show answer" closed="true" >}}
 
-Add to your *star_job* section in the *inlist_project* the following lines::
+Add to your *star_job* section in the *inlist_project* the following lines:
 ```
 ! loading the pre-saved 5Msun model
     load_saved_model = .true.
@@ -108,7 +108,7 @@ also need to check if there are any controls that will cause
 issues when loading and running the model. 
 
 The first controls that can be removed or commented out are, the ones defining 
-the initial conditions at the beginning of the evolution::
+the initial conditions at the beginning of the evolution:
 	
 ```
   ! starting specifications
@@ -133,7 +133,7 @@ Look in the *controls* panel under *References and Defaults* in the
 
 {{< details title="Show answer" closed="true" >}}
 
-Replace the lines::
+Replace the lines:
 ```
 ! stop when the center mass fraction of h1 drops below this limit
     xa_central_lower_limit_species(1) = 'h1'
@@ -148,7 +148,7 @@ with
     xa_central_lower_limit(1) = 1d-5
 ```
 
-Alternatively, you can use the following shortcut::
+Alternatively, you can use the following shortcut:
 ```
 ! stop at the end of core helium burning 
     stop_at_phase_TACHeB = .true.
@@ -175,7 +175,7 @@ editing the various parameters in the *inlist_project* and
 *inlist_pgstar* at the same time, lets create a new inlist, 
 in which we only have the controls that we want to edit for
 both files. To do that, we can modify the *inlist* file. In 
-the *controls* section, add the following lines::
+the *controls* section, add the following lines:
 
 ```
   ! adding an external file where we can add additional controls
@@ -185,7 +185,7 @@ the *controls* section, add the following lines::
 
 This allows MESA to read *inlist_project* first, and then *inlist_extra*. 
     
-Similarly, in the *pgstar* section in *inlist*, add::
+Similarly, in the *pgstar* section in *inlist*, add:
 
 ```
   ! adding an external file where we can add additional controls
@@ -195,14 +195,14 @@ Similarly, in the *pgstar* section in *inlist*, add::
     
 So far the file *inlist_extra* does not exist, so 
 lets create it. You can do that by typing in your 
-terminal::
+terminal:
 
 ```
 	touch inlist_extra
 ```
 	
 To tell MESA where to read the new controls, we need to add 
-in *inlist_extra* a controls and a pgstar section::
+in *inlist_extra* a controls and a pgstar section:
 
 ```
 	&controls
@@ -236,14 +236,14 @@ core helium depletion without including core overshoot. To
 be able to compare the output between the different models,
 lets create for each run a separate output folder for the 
 LOGS and the png files. To change the default storage folders
-we can add in the *controls* section in the *inlist_extra*::
+we can add in the *controls* section in the *inlist_extra*:
 
 ```
   ! change the LOGS directory
     log_directory = 'output_no_overshoot/LOGS'
 ```
 
-and in the *pgstar* section in the *inlist_extra*::
+and in the *pgstar* section in the *inlist_extra*:
 
 ```
   ! change the png directory
@@ -257,7 +257,7 @@ Should the core grow, stay at the same size, or even receed
 and why do you think so?
     
 Finally it is time to run the model! Go to your terminal,
-load and run MESA::
+load and run MESA:
 
 ```
 	./clean && ./mk
@@ -276,7 +276,7 @@ core to see how it impacts the evolution. For core helium
 burning, lets use a moderate step overshooting,
 namely f_ov = 0.1 and f0_ov = 0.005. In lab1, we added
 overshooting on the top of the hydrogen burning core by 
-using the following lines::
+using the following lines:
 
 ```
   ! mixing
@@ -310,7 +310,7 @@ Check the controls for overshooting on [here](https://docs.mesastar.org/en/24.08
 
 {{< details title="Show answer" closed="true" >}}
 
-In the end you should have in the *controls* section of your *inlist_extra* lines that are similar to::
+In the end you should have in the *controls* section of your *inlist_extra* lines that are similar to:
 ```
 ! mixing
      overshoot_scheme(2) = 'step'
@@ -326,7 +326,7 @@ In the end you should have in the *controls* section of your *inlist_extra* line
 Before we start the model, remember to change the output files
 such that we are not overwriting the outputs from the last run.
 We can do that in the *inlist_extra* by overwriting the directory
-commands with::
+commands with:
 
 ```
   ! change the LOGS directory
@@ -339,7 +339,7 @@ commands with::
 What do you expect to happen now? Will the core grow, stay at
 the same level, or receed? 
 
-Okay we are ready to go, lets run the model::
+Okay we are ready to go, lets run the model:
 
 ```
 	./rn
@@ -391,7 +391,7 @@ you to explore other mixing options.
 
 In MESA while modeling overshooting, one can account for a stabilizing 
 composition gradient in the calculations using the Brunt-Vaisala frequency.
-This is turned on in MESA by default::
+This is turned on in MESA by default:
 
 ```
    calculate_Brunt_B = .true.
@@ -401,27 +401,27 @@ This is turned on in MESA by default::
 However, the threshold is set to ``0d0``. For our calculations, let's 
 set this threshold to a higher value to prevent to overshoot in regions
 with a strong chemical gradient. In your *controls* section in your 
-*inlist_extra* add::
+*inlist_extra* add:
 
 ```
     overshoot_brunt_B_max = 1d-1   
 ```
     
-and change the output directories to::
+and change the output directories to:
 
 ```
   ! change the LOGS directory
     log_directory = 'output_overshoot_brunt/LOGS'
 ```
     
-and::
+and:
 
 ```
   ! change the png directory
     Grid1_file_dir = 'output_overshoot_brunt/png'
 ```
 
-Lets have a look, what MESA will tell us::
+Lets have a look, what MESA will tell us:
 
 ```
 	./rn
