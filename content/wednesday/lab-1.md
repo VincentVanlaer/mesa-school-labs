@@ -91,7 +91,8 @@ As a last step, we need to output in the terminal which mass-transfer phase we a
 
 How to print out a string in the terminal?
 {{< details title="Hint 1-3 (1)" closed="true" >}}
-Check how to print a string in the terminal at core carbon depletion in the "HINT" block in `run_star_extras.f90`.
+Check how to print a string in the terminal at core carbon depletion in the "HINT" block in `run_star_extras.f90`.  
+write(*,*) ' ... '
 {{< /details >}}
 
 If-else statements to print out Case A/B/C?
