@@ -75,29 +75,21 @@ Now, we need to add lines that tell MESA to load a saved model.
 Can you go to the MESA website and search for commands that allow
 us to load a saved model?
 
-<details class="hx-border hx-border-blue-200 dark:hx-border-blue-200 hx-rounded-md hx-my-2">
-<summary class="hx-bg-blue-100 dark:hx-bg-neutral-800 hx-text-blue-900 dark:hx-text-blue-200 hx-p-2 hx-m-0 hx-cursor-pointer">
-<em>Show hint 1</em>
-</summary>
+{{< details title="Show hint 1" closed="true" >}}
 
 Look in the *star_job* panel under *References and Defaults* in the  
 [MESA documentation](https://docs.mesastar.org/en/24.08.1/reference/star_job.html)
 
-</details>
+{{< /details >}}
 
-<details class="hx-border hx-border-blue-200 dark:hx-border-blue-200 hx-rounded-md hx-my-2">
-<summary class="hx-bg-blue-100 dark:hx-bg-neutral-800 hx-text-blue-900 dark:hx-text-blue-200 hx-p-2 hx-m-0 hx-cursor-pointer">
-<em>Show hint 2</em>
-</summary>
+{{< details title="Show hint 2" closed="true" >}}
 
 Can you find on the website any content that is related to **load** something?
 
-</details>
+{{< /details >}}
 
-<details class="hx-border hx-border-green-200 dark:hx-border-green-200 hx-rounded-md hx-my-2">
-<summary class="hx-bg-green-100 dark:hx-bg-neutral-800 hx-text-green-900 dark:hx-text-green-200 hx-p-2 hx-m-0 hx-cursor-pointer">
-<em>Show answer</em>
-</summary>
+
+{{< details title="Show answer" closed="true" >}}
 
 Add to your *star_job* section in the *inlist_project* the following lines::
 ```
@@ -106,7 +98,7 @@ Add to your *star_job* section in the *inlist_project* the following lines::
     load_model_filename = 'M5_Z0014_fov030_f0ov0005_TAMS.mod'
 ```
 
-</details>
+{{< /details >}}
   
 
 ### inlist_project: controls
@@ -133,19 +125,13 @@ want to go to the end of core helium burning (CHeB), which we
 will define as core helium mass fraction < 1d-5. Replace the 
 old stopping condition by the new one.
 
-<details class="hx-border hx-border-blue-200 dark:hx-border-blue-200 hx-rounded-md hx-my-2">
-<summary class="hx-bg-blue-100 dark:hx-bg-neutral-800 hx-text-blue-900 dark:hx-text-blue-200 hx-p-2 hx-m-0 hx-cursor-pointer">
-<em>Show hint 1</em>
-</summary>
+{{< details title="Show hint 1" closed="true" >}}
 Look in the *controls* panel under *References and Defaults* in the 
 [MESA documentation](https://docs.mesastar.org/en/24.08.1/reference/controls.html)
 
-</details>
+{{< /details >}}
 
-<details class="hx-border hx-border-green-200 dark:hx-border-green-200 hx-rounded-md hx-my-2">
-<summary class="hx-bg-green-100 dark:hx-bg-neutral-800 hx-text-green-900 dark:hx-text-green-200 hx-p-2 hx-m-0 hx-cursor-pointer">
-<em>Show answer</em>
-</summary>
+{{< details title="Show answer" closed="true" >}}
 
 Replace the lines::
 ```
@@ -168,7 +154,7 @@ Alternatively, you can use the following shortcut::
     stop_at_phase_TACHeB = .true.
 ```
 
-</details>
+{{< /details >}}
 
 If you want to make sure that all the changes you have made are correct,
 you can quickly compile and run your model. If the pgstar window opens up,
@@ -307,31 +293,22 @@ in *inlist_extra*. Can you figure out how we need to modify
 them to tell MESA that we want a second overshooting region
 on top of the helium burning core?
 
-<details class="hx-border hx-border-blue-200 dark:hx-border-blue-200 hx-rounded-md hx-my-2">
-<summary class="hx-bg-blue-100 dark:hx-bg-neutral-800 hx-text-blue-900 dark:hx-text-blue-200 hx-p-2 hx-m-0 hx-cursor-pointer">
-<em>Show hint 1</em>
-</summary>
+{{< details title="Show hint 1" closed="true" >}}
 
 Since the first overshooting scheme is already used in the first set ``(1)`` we need to change them to ``(2)``
 for all controls.
 
-</details>
+{{< /details >}}
 
-<details class="hx-border hx-border-blue-200 dark:hx-border-blue-200 hx-rounded-md hx-my-2">
-<summary class="hx-bg-blue-100 dark:hx-bg-neutral-800 hx-text-blue-900 dark:hx-text-blue-200 hx-p-2 hx-m-0 hx-cursor-pointer">
-<em>Show hint 2</em>
-</summary>
+{{< details title="Show hint 2" closed="true" >}}
 
 Are the locations, types and boundaries of the overshooting zone still correct? 
 Can you find on the website other options where to allow overshooting? 
 Check the controls for overshooting on [here](https://docs.mesastar.org/en/24.08.1/reference/controls.html). 
 
-</details>
+{{< /details >}}
 
-<details class="hx-border hx-border-green-200 dark:hx-border-green-200 hx-rounded-md hx-my-2">
-<summary class="hx-bg-green-100 dark:hx-bg-neutral-800 hx-text-green-900 dark:hx-text-green-200 hx-p-2 hx-m-0 hx-cursor-pointer">
-<em>Show answer</em>
-</summary>
+{{< details title="Show answer" closed="true" >}}
 
 In the end you should have in the *controls* section of your *inlist_extra* lines that are similar to::
 ```
@@ -344,7 +321,7 @@ In the end you should have in the *controls* section of your *inlist_extra* line
      overshoot_f0(2) = 0.005
 ```
 
-</details>
+{{< /details >}}
 
 Before we start the model, remember to change the output files
 such that we are not overwriting the outputs from the last run.
@@ -375,14 +352,11 @@ you can have a look at your pgstar files saved in
 ``output_no_overshoot/png``. Are the maximum masses similar
 or different and why?
 
-<details class="hx-border hx-border-green-200 dark:hx-border-green-200 hx-rounded-md hx-my-2">
-<summary class="hx-bg-green-100 dark:hx-bg-neutral-800 hx-text-green-900 dark:hx-text-green-200 hx-p-2 hx-m-0 hx-cursor-pointer">
-<em>Show answer</em>
-</summary>
+{{< details title="Show answer" closed="true" >}}
 
 Overshooting is very efficient in mixing additional fuel into the core, leading to a growth.
 
-</details>
+{{< /details >}}
 
 If you look at the upper right plot, showing the evolution 
 of the growing core, you should see some pulses where the core
@@ -390,10 +364,7 @@ mass grows and receeds again. That is strange. At the model
 numbers where these pulses occur, can you see something happening
 in the structure of the star in the Kippenhahn diagram?
 
-<details class="hx-border hx-border-green-200 dark:hx-border-green-200 hx-rounded-md hx-my-2">
-<summary class="hx-bg-green-100 dark:hx-bg-neutral-800 hx-text-green-900 dark:hx-text-green-200 hx-p-2 hx-m-0 hx-cursor-pointer">
-<em>Show answer</em>
-</summary>
+{{< details title="Show answer" closed="true" >}}
 
 You should see that a convective region forms directly on top of the overshooting region. 
 This phenomenon is called helium breathing pulses and occurs mostly in low and intermediate
@@ -414,7 +385,7 @@ Resolving where the convective boundary lies is way beyond the scope of our lab,
 you to explore other mixing options. 
 
 
-</details>
+{{< /details >}}
 
 ### Limiting core overshooting in regions with strong chemical gradients
 
@@ -461,10 +432,7 @@ core mass. How does it compare to to the model with the
 strong overshooting and the model without overshooting? Do you 
 have an idea why these differences appear?
 
-<details class="hx-border hx-border-green-200 dark:hx-border-green-200 hx-rounded-md hx-my-2">
-<summary class="hx-bg-green-100 dark:hx-bg-neutral-800 hx-text-green-900 dark:hx-text-green-200 hx-p-2 hx-m-0 hx-cursor-pointer">
-<em>Show answer</em>
-</summary>
+{{< details title="Show answer" closed="true" >}}
 
 The new included physics quickly remove the growth of the core by overshooting 
 due to the strong chemical gradient between the core and the H-burning shell. 
@@ -472,7 +440,7 @@ When the stabilizing gradient is hit, overshooting is suppressed. Therefore,
 the final convective mass of the helium core of this star is quite similar 
 to that one of the model without overshooting.
 
-</details>
+{{< /details >}}
 
 ## Bonus Task: Including additional plots
 
@@ -494,40 +462,28 @@ growth of the convective core is quite large anyways, so lets make it smaller. C
 you identify the code block in *inlist_pgstar* that is telling the grid where to plot the history panel of convective core mass? If yes, change its column width from
 2 to 1.
  
-<details class="hx-border hx-border-blue-200 dark:hx-border-blue-200 hx-rounded-md hx-my-2">
-<summary class="hx-bg-blue-100 dark:hx-bg-neutral-800 hx-text-blue-900 dark:hx-text-blue-200 hx-p-2 hx-m-0 hx-cursor-pointer">
-<em>Show hint 1</em>
-</summary>
+{{< details title="Show hint 1" closed="true" >}}
 
 The quantity "Grid1_plot_name" tells pgstar which plot we want to assign a position and width.
 
-</details>
+{{< /details >}}
 
-<details class="hx-border hx-border-blue-200 dark:hx-border-blue-200 hx-rounded-md hx-my-2">
-<summary class="hx-bg-blue-100 dark:hx-bg-neutral-800 hx-text-blue-900 dark:hx-text-blue-200 hx-p-2 hx-m-0 hx-cursor-pointer">
-<em>Show hint 2</em>
-</summary>
+{{< details title="Show hint 2" closed="true" >}}
 
 The history panel showing the growth of the convective core is not a default one 
 and might have a different name than "conv_mass_core".
 
-</details>
+{{< /details >}}
 
 
-<details class="hx-border hx-border-blue-200 dark:hx-border-blue-200 hx-rounded-md hx-my-2">
-<summary class="hx-bg-blue-100 dark:hx-bg-neutral-800 hx-text-blue-900 dark:hx-text-blue-200 hx-p-2 hx-m-0 hx-cursor-pointer">
-<em>Show hint 3</em>
-</summary>
+{{< details title="Show hint 3" closed="true" >}}
 
 The position of a plot is set by "Grid1_plot_row" and "Grid1_plot_col", while its 
 size is determined by "Grid1_plot_rowspan" and "Grid1_plot_colspan".
 
-</details>
+{{< /details >}}
 
-<details class="hx-border hx-border-green-200 dark:hx-border-green-200 hx-rounded-md hx-my-2">
-<summary class="hx-bg-green-100 dark:hx-bg-neutral-800 hx-text-green-900 dark:hx-text-green-200 hx-p-2 hx-m-0 hx-cursor-pointer">
-<em>Show answer</em>
-</summary>
+{{< details title="Show answer" closed="true" >}}
 
 ```
 	Grid1_plot_name(5) = 'History_Panels1'
@@ -537,7 +493,7 @@ size is determined by "Grid1_plot_rowspan" and "Grid1_plot_colspan".
 	Grid1_plot_colspan(5) = 1       ! plot spans this number of columns
 ```
 
-</details>
+{{< /details >}}
 
 To test if your changes yield the correct result, start your model and see if the
  pgstar window looks as expected.
@@ -567,14 +523,11 @@ in the upper part of your *inlist_pgstar*:
 ```
 as you can see the "Profile_Panels1_yaxis_name" and "Profile_Panels1_yaxis_name" are left blank so far. This is where we want to add the individual gradients. Unfortunately, we do not have an output yet for them. The Profile_Panels access the parameters that are used in the profile_cloumns.list. Open *my_profile_columns.list* and search for the adiabatic and radiative temperature gradients and comment them out.
 
-<details class="hx-border hx-border-green-200 dark:hx-border-green-200 hx-rounded-md hx-my-2">
-<summary class="hx-bg-green-100 dark:hx-bg-neutral-800 hx-text-green-900 dark:hx-text-green-200 hx-p-2 hx-m-0 hx-cursor-pointer">
-<em>Show answer</em>
-</summary>
+{{< details title="Show answer" closed="true" >}}
 
 The adiabatic temperature gradient in MESA is called "grade", and the radiative temperature gradient is "gradr".  
 
-</details>
+{{< /details >}}
 
 Now that these are saved, pgstar can access them. So let's include them using
 ```
@@ -595,29 +548,20 @@ to
 
 Given your experience in resizing the history panel. Can you add a code block telling the grid to plot the profile plot in the upper right corner?
 
-<details class="hx-border hx-border-blue-200 dark:hx-border-blue-200 hx-rounded-md hx-my-2">
-<summary class="hx-bg-blue-100 dark:hx-bg-neutral-800 hx-text-blue-900 dark:hx-text-blue-200 hx-p-2 hx-m-0 hx-cursor-pointer">
-<em>Show hint 1</em>
-</summary>
+{{< details title="Show hint 1" closed="true" >}}
 
 The "Grid1_plot_name" of the profile plot in our case is "Profile_Panels1".
 
-</details>
+{{< /details >}}
 
-<details class="hx-border hx-border-blue-200 dark:hx-border-blue-200 hx-rounded-md hx-my-2">
-<summary class="hx-bg-blue-100 dark:hx-bg-neutral-800 hx-text-blue-900 dark:hx-text-blue-200 hx-p-2 hx-m-0 hx-cursor-pointer">
-<em>Show hint 2</em>
-</summary>
+{{< details title="Show hint 2" closed="true" >}}
 
 This is the 6th plot we add, so make sure that you also use it as (6).
 
-</details>
+{{< /details >}}
 
 
-<details class="hx-border hx-border-green-200 dark:hx-border-green-200 hx-rounded-md hx-my-2">
-<summary class="hx-bg-green-100 dark:hx-bg-neutral-800 hx-text-green-900 dark:hx-text-green-200 hx-p-2 hx-m-0 hx-cursor-pointer">
-<em>Show answer</em>
-</summary>
+{{< details title="Show answer" closed="true" >}}
 
 ```
 	Grid1_plot_name(6) = 'Profile_Panels1'
@@ -627,7 +571,7 @@ This is the 6th plot we add, so make sure that you also use it as (6).
 	Grid1_plot_colspan(6) = 1       ! plot spans this number of columns  
 ```
 
-</details>
+{{< /details >}}
 
 You can now start your model and check if the plot shows up.
 ```
@@ -643,10 +587,7 @@ As you might see, the history panels and the profile panels are overlapping. For
 Play around with the values, restart your model to check what the panels look like,
 until you find a good fit on your computer. 
 
-<details class="hx-border hx-border-green-200 dark:hx-border-green-200 hx-rounded-md hx-my-2">
-<summary class="hx-bg-green-100 dark:hx-bg-neutral-800 hx-text-green-900 dark:hx-text-green-200 hx-p-2 hx-m-0 hx-cursor-pointer">
-<em>Show answer</em>
-</summary>
+{{< details title="Show answer" closed="true" >}}
 
 In our case, a good plot was found using:
 ```
@@ -659,7 +600,7 @@ In our case, a good plot was found using:
 	Grid1_plot_pad_left(6) = 0.03     
 ```
 
-</details>
+{{< /details >}}
 
 Maybe some of you already noted, but the gradients scale differently, which makes identifying regions where convection should occur ($\nabla_\text{rad} > \nabla_\text{ad}$) very hard. This can be quickly fixed by adding the same minima and maxima for both axes, like this:
 ```	
