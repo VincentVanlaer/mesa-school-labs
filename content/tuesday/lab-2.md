@@ -182,6 +182,67 @@ and to declare a new integer, e.g. `m`, do:
 integer :: m
 ```
 
+{{< details title="Hint 1." closed="true" >}}
+Naming the new profile column should look like this, inside the `data_for_extra_profile_columns()` function:
+```fortran
+names(1) = 'v_ES'
+```
+{{< /details >}}
+
+{{< details title="Hint 1." closed="true" >}}
+A few calculated terms may look like the following:
+```fortran
+delta = s% chiT(i) / s% chiRho(i)
+! Heger+2000 Eqn. (35)
+bracket_term = 2.0d0 * s% r(i) * s% r(i) * (s% eps_nuc(i)/(s% L(i)) - 1.0d0/(s% m(i))) - 3.0d0 / (pi4 * s% rho(i) * (s% r(i)))
+denom = (-s% gradT_sub_grada(i) * delta * pow2(s% cgrav(i) * s% m(i)))
+ve0 = s% grada(i) * s% omega(i) * s% omega(i) * s% r(i) * s% r(i) * s% r(i) *s% L(i) * bracket_term/denom
+```
+(Don't forget to declare new parameter names, e.g. `real(dp) :: delta, bracket_term, denom, ve0`, at the top of the function in Fortran!)
+{{< /details >}}
+
+{{< details title="Solution. Click on it to check your solution." closed="true" >}}
+Your function should look like the following.
+```fortran
+subroutine data_for_extra_profile_columns(id, n, nz, names, vals, ierr)
+   integer, intent(in) :: id, n, nz
+   character (len=maxlen_profile_column_name) :: names(n)
+   real(dp) :: vals(nz,n)
+   integer, intent(out) :: ierr
+   type (star_info), pointer :: s
+   integer :: k
+   integer :: i
+   real(dp) :: alfa, delta, bracket_term, denom, ve0, t_kh, ve_mu
+   ierr = 0
+   call star_ptr(id, s, ierr)
+   if (ierr /= 0) return
+
+   ! note: do NOT add the extra names to profile_columns.list
+   ! the profile_columns.list is only for the built-in profile column options.
+   ! it must not include the new column names you are adding here.
+
+   ! here is an example for adding a profile column
+   ! Eddington-Sweet circulation velocity
+   if (n /= 1) stop 'data_for_extra_profile_columns'
+   names(1) = 'v_ES'
+   vals(1,1) = 0.0d0
+
+   ! SOLUTION
+   do i = 2, nz
+      delta = s% chiT(i) / s% chiRho(i)
+      ! Heger+2000 Eqn. (35)
+      bracket_term = 2.0d0 * s% r(i) * s% r(i) * (s% eps_nuc(i)/(s% L(i)) - 1.0d0/(s% m(i))) - 3.0d0 / (pi4 * s% rho(i) * (s% r(i)))
+      denom = (-s% gradT_sub_grada(i) * delta * pow2(s% cgrav(i) * s% m(i)))
+      ve0 = s% grada(i) * s% omega(i) * s% omega(i) * s% r(i) * s% r(i) * s% r(i) *s% L(i) * bracket_term/denom
+      t_kh = s% cgrav(i) * s% m(i) * s% m(i) / (s% r(i) * (s% L(i)))
+      ve_mu = (s% scale_height(i)/t_kh) * (s% am_gradmu_factor * s% smoothed_brunt_B(i)) / (s% gradT_sub_grada(i))
+      vals(i,1) = max(0._dp, abs(ve0) - abs(ve_mu))
+   end do
+   
+end subroutine data_for_extra_profile_columns
+```
+{{< /details >}}
+
 
 ## Searching the codebase for variables
 
