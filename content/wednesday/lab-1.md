@@ -69,7 +69,7 @@ write(*,*) ' ... '
 > So, even when you miss the terminal output, you can check the out.txt file to see what was printed out during the run.
 > Also, you can use "grep -ir XXX out.txt" to see if XXX is included in out.txt.
 
-Please make sure that your implementation is working correctly by running a model and checking if it indeed gives the desired output when the mass-transfer rate exceeds the threshold. In the PGSTAR plot, you can find the mass transfer rate (blue line) in the upper right corner (`lg_mtransfer_rate` in logarithmic scale). This run should end with the following print out in the terminal:
+Please make sure that your implementation is working correctly by running a model and checking if it indeed gives the desired output when the mass-transfer rate exceeds the threshold. In the PGSTAR plot, you can find the mass transfer rate in the upper right corner (`lg_mtransfer_rate`: mass transfer rate in Msun/yr in log). This run should end with the following print out in the terminal:
 ```
  *********************************************
  **** Terminated at core carbon depletion ****
@@ -77,10 +77,10 @@ Please make sure that your implementation is working correctly by running a mode
 ```
 
 ### Task 1-2. Which evolutionary phase is the primary in?
-As a next step, we now want to identify during which burning stage our model is undergoing mass transfer. Note that typically core hydrogen burning is considered to be finished when the central hydrogen abundance drops below 1e-6, and core helium burning is finished when the central helium abundance is below 1e-6. **Now think of conditions to identify which evolutionary state the primary is in, and print it out.** Please also test if your code compiles, to avoid propagating the errors.  
-1. Core hydrogen burning phase  
-2. Core helium burning phase  
-3. Core helium depletion onwards
+As a next step, we now want to identify during which burning stage our primary star is. Note that typically core hydrogen burning is considered to be finished when the central hydrogen abundance drops below 1e-6, and core helium burning is finished when the central helium abundance is below 1e-6. **Now add conditions to identify which evolutionary state the primary is in among the following, and print it out.** Run it and see if the print-out is compatible with the result in the PGSTAR plot (upper middle panel).  
+1. Core hydrogen burning  
+2. Core helium burning  
+3. Past core helium burning
 
 > [!WARNING]
 > Don't forget to do `./clean` and `./mk` after modifying the `run_star_extras.f90` file.
@@ -196,35 +196,24 @@ Can you print out which mass transfer cases a binary system undergoes throughout
 
 
 > [!TIP]
-> **Got stuck** during the lab? Do not worry! You can always download solution from here **[⬇ Download](/mesa-school-labs-2025/wednesday/BinaryEvolution_Lab1.tar)** to catch up!
+> **Got stuck** during the lab? Do not worry! You can always download solution from here **[⬇ Download](/mesa-school-labs-2025/wednesday/BinaryEvolution_Lab1_Solution.tar)** to catch up!
 
 
 ## Task 2. Determine mass transfer stability
 In some cases, mass transfer becomes unstable, leading the binary to enter a common-envelope phase. 
 
-***
-**Bonus exercise:**  
-If you have many cores (more than approx. 6), run a binary model with the following initial binary parameters:  
-m1 = 20  
-m2 = 6  
-initial_period_in_days = 5  
-You need to modify "inlist_extra", which contains handles for `binary_controls` for changing initial binary parameters.
+Run a binary model with initial primary mass of 20 Msun, initial secondary mass of 6 Msun, and initial orbital periods of 5 days. You need to modify "inlist_extra", which contains handles for `binary_controls` for changing initial binary parameters.
 
 ```fortran
 &binary_controls
    m1 = 20.0d0                     ! initial donor mass in Msun
-   m2 = 12.0d0                     ! initial companion mass in Msun
-   initial_period_in_days = 100d0  ! initial orbital period in days
+   m2 = 6.0d0                      ! initial companion mass in Msun
+   initial_period_in_days = 5d0    ! initial orbital period in days
 / ! end of binary_controls namelist
-```
-What do you see in the screen output? Can you identify which parameter is changing?  
 
-> [!TIP]
-> You can check the number of cores via:  
-> grep -c ^processor /proc/cpuinfo       (in terminal for Linux)  
-> echo %NUMBER_OF_PROCESSORS%            (in CMD for Windows)  
-> sysctl hw.ncpu                         (in terminal for macOS)  
-***
+```
+What do you see in the screen output and in the PGSTAR plot? Can you identify which parameter is changing significantly?  
+Stop the run manually by (Ctrl+C) when the model number reaches ~150.
 
 One way to detect this instability is to check the mass transfer rate and the timestep. If the mass transfer rate is high and the timestep becomes very small (on the order of seconds to minutes), it is an indication that unstable mass transfer has started.
 
@@ -241,7 +230,7 @@ You can instruct MESA to stop computations by using `extras_binary_finish_step =
 ```fortran
 
          !!!!! TASK 2 block begins !!!
-         if ((abs(b% mtransfer_rate)/Msun*secyer > 1d-3) .and. (b% s1% dt / secyer < 0.1)) then
+         if ((abs(b% mtransfer_rate)/Msun*secyer > 1d-3) .and. (b% s1% dt/secyer < 0.1)) then
              write(*,*) '**********************************************'
              write(*,*) '** Terminated due to unstable mass transfer **'
              write(*,*) '**********************************************'
@@ -253,12 +242,18 @@ You can instruct MESA to stop computations by using `extras_binary_finish_step =
 {{< /details >}}
 
 > [!TIP]
-> **Got stuck** during the lab? Do not worry! You can always download solution from here **[⬇ Download](/mesa-school-labs-2025/wednesday/BinaryEvolution_Lab1.tar)** to catch up!
+> **Got stuck** during the lab? Do not worry! You can always download solution from here **[⬇ Download](/mesa-school-labs-2025/wednesday/BinaryEvolution_Lab1_Solution.tar)** to catch up!
 
 ## Task 3. Run a model with random initial binary parameters
 Now, we will explore different mass transfer cases and their stability across the initial binary parameter space. We will fix an initial primary mass to 20 Msun. Choose a random pair of initial mass ratio and an initial orbital period from the "P-q diagram" sheet in the following Google Spreadsheet, and put your name in the corresponding column:
 https://docs.google.com/spreadsheets/d/1HLwsGPu6w3t2NMUcdVYvkHFvqgIOUDkigfrZruN6Uo8/edit?usp=sharing  
-**And perform MESA run with the corresponding initial parameters.** You need to modify "inlist_extra", which contains handles for `binary_controls` for changing initial binary parameters.
+**And perform MESA run with the corresponding initial parameters.** If you have many cores (more than approx. 6), you can choose the ones with high initial orbital periods (2000~3000 days). You need to modify "inlist_extra", which contains handles for `binary_controls` for changing initial binary parameters.
+
+> [!TIP]
+> You can check the number of cores via:  
+> grep -c ^processor /proc/cpuinfo       (in terminal for Linux)  
+> echo %NUMBER_OF_PROCESSORS%            (in CMD for Windows)  
+> sysctl hw.ncpu                         (in terminal for macOS)  
 
 ```fortran
 &binary_controls
