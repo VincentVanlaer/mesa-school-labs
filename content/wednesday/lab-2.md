@@ -305,7 +305,9 @@ $$t_{\mathrm{merge}} = \frac{5}{256} \cdot \frac{c^5 a^4}{G^3 m_1 m_2 (m_1 + m_2
 
 Alternatively, using orbital period $P$ instead of orbital separation:
 
-$$t_{\mathrm{merge}} = \frac{5}{256} \cdot \frac{(G M_{\mathrm{chirp}})^{-5/3}}{c^5} \cdot \left( \frac{P}{2\pi} \right)^{8/3},$$
+<!-- $$t_{\mathrm{merge}} = \frac{5}{256} \cdot \frac{(G M_{\mathrm{chirp}})^{-5/3}}{c^5} \cdot \left( \frac{P}{2\pi} \right)^{8/3},$$ -->
+
+$$t_{\mathrm{merge}} = \frac{5}{256} \cdot c^5(G M_{\mathrm{chirp}})^{-5/3} \left( \frac{P}{2\pi} \right)^{8/3},$$
 
 where $M_{\mathrm{chirp}}$ is the chirp mass:
 
