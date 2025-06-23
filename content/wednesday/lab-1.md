@@ -10,7 +10,7 @@ Mass transfer can be divided into three cases based on the evolutionary phase of
 **Case B**: The primary transfers mass while core helium burning.  
 **Case C**: The primary transfers mass after the end of core helium burning.
 
-Now, let's download the MESA work directory from [here](https://heibox.uni-heidelberg.de/f/e438b0ef7cb64b90a497/?dl=1).
+Now, let's download the MESA work directory from **[⬇ here](/mesa-school-labs-2025/wednesday/BinaryEvolution_Lab1.tar)**.
 
 > [!TIP]
 > To extract the compressed directory (`BinaryEvolution_Lab1.tar`) into the current folder, use the following command:
@@ -220,7 +220,7 @@ Can you print out which mass transfer cases a binary system undergoes throughout
 
 
 > [!TIP]
-> **Got stuck** during the lab? Do not worry! You can always download solution from here **[⬇ Download](/mesa-school-labs-2025/wednesday/BinaryEvolution_Lab1_Solution.tar)** to catch up!
+> **Got stuck** during the lab? Do not worry! You can always download solution from here **[⬇ Download](/mesa-school-labs-2025/wednesday/solution_run_binary_extras.f90)** to catch up!
 
 
 ## Task 2. Determine mass transfer stability
@@ -256,7 +256,7 @@ You can instruct MESA to stop computations by using `extras_binary_finish_step =
 {{< /details >}}
 
 > [!TIP]
-> **Got stuck** during the lab? Do not worry! You can always download solution from here **[⬇ Download](/mesa-school-labs-2025/wednesday/BinaryEvolution_Lab1_Solution.tar)** to catch up!
+> **Got stuck** during the lab? Do not worry! You can always download solution from here **[⬇ Download](/mesa-school-labs-2025/wednesday/solution_run_binary_extras.f90)** to catch up!
 
 ## Task 3. Run a model with random initial binary parameters
 Now, we will explore different mass transfer cases and their stability across the initial binary parameter space. We will fix an initial primary mass to 20 Msun. Choose a random pair of initial mass ratio and an initial orbital period from the "P-q diagram" sheet in the following Google Spreadsheet, and put your name in the corresponding column:
