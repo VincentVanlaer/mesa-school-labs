@@ -340,7 +340,7 @@ We have an extra bonus task for you that explores stopping criteria and fitting 
 > [!Important]
 > **Extra bonus task!:**
 > We have an extra bonus task for you that explores stopping criteria and fitting a model for yet another observed system! You can find it at the end of this lab.
-
+>
 > > [!WARNING]
 > > Take a look at this excercise **only** once you have finished all the parts below!
 
@@ -643,7 +643,7 @@ Next, compile (`./clean && ./mk`) and run the models (`./rn`) with a fixed set o
 >What can we say about the future evolution of Cyg X-1 system from shuffling the `mass_transfer_beta` alone? How does the orbit react and why? 
 >
 >Should the merge time differ from the previous step, try to anwer why is that so? 
-
+>
 > **To think about:**  
 > Is `mass_transfer_beta` the only way to control the accretor mass outcome? Can we substitute this parameter with other quantity that MESA provides, e.g. lowering the initial mass of the donor component? Why?
 
