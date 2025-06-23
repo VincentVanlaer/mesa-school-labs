@@ -318,7 +318,7 @@ Otherwise you can visit the following Google Colab notebook and make the plot it
 You'll need to upload the MESA output (the files inside `M10_Z0p20_fov0p015_logD3_O20/`) and the ESTER mode (`ester_models/M10_O60_X071Z200_evol_viscv1e7_visc_h1e7_delta010_2_0025.h5`) into the `/content/` folder and press `Run` to create the plot.
 
 {{< details title="Solution. Click on it to check your solution." closed="true" >}}
-Plotting the comparison should look like this:
+Plotting the comparison between your 1D MESA model and a 2D ESTER model will look like this:
 ![landscape](/tuesday/eddington_sweet_velocity.png)
-As you can see, a simple 1D MESA model does not accurately capture all details of a detailed 2D rotating model.
+As you can see, a simple 1D MESA model does not accurately capture all details of a detailed 2D rotating model, although it does capture many of its global properties as a function or rotation rate.
 {{< /details >}}
