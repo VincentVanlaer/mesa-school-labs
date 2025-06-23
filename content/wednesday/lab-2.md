@@ -329,7 +329,13 @@ Here is the solution to the bonus task.
 {{< /details >}}
 
 <br><br><br>
-{{< details title="**Extra bonus task**" closed="false" >}}
+<!-- {{< details title="**Extra bonus task**" closed="false" >}} -->
+
+<!-- **Extra bonus task!:**
+We have an extra bonus task for you that explores stopping criteria and fitting a model for yet another observed system! You can find it at the end of this lab. 
+
+**Disclaimer:** Take a look at this excercise **only** once you have finished all the parts below! -->
+<!-- {{< /details >}} -->
 
 > [!Important]
 > **Extra bonus task!:**
@@ -337,12 +343,6 @@ Here is the solution to the bonus task.
 
 > > [!WARNING]
 > > Take a look at this excercise **only** once you have finished all the parts below!
-
-<!-- **Extra bonus task!:**
-We have an extra bonus task for you that explores stopping criteria and fitting a model for yet another observed system! You can find it at the end of this lab. 
-
-**Disclaimer:** Take a look at this excercise **only** once you have finished all the parts below! -->
-<!-- {{< /details >}} -->
 
 <br><br><br>
 
@@ -374,17 +374,14 @@ $$M_{\mathrm{chirp}} = \frac{(m_1 m_2)^{3/5}}{(m_1 + m_2)^{1/5}}$$
 
 We need to do this once MESA has updated all the system parameters, thus in the `extras_binary_finish_step` fuction. We have two choices: we can force MESA to compute the merge time on a fly at every step, to be able to see how the merge time depends on the orbital period and the distribution of masses between the components, or we can implement this chunk of code inside the `if` statement of the previously implememnted stopping criterion. As we are primarily interested to know the merge time at the current phase of the evolution, we can chose the second option.
 
-{{< details title="Hint" closed="true" >}}
 
-MESA computes all we need under the hood. All we need to do is to capture all required quantities from MESA and to compute $t_{\mathrm{merge}}$. 
+> [!NOTE]
+> MESA computes all we need under the hood. All we need to do is to capture all required quantities from MESA and to compute $t_{\mathrm{merge}}$. 
 
-{{< /details >}}
+> [!TIP]
+>You can capture the required masses and orbital period using pointers, with `b% m(1)`, `b% m(2)` and `b% period`. The constants, as the speed of light $c$, the gravitational constant $G$ or the approximate value of $\pi$ can be accesed from the `const_def` module (inside `const/public/const_def.f90` file). 
 
-{{< details title="Hint" closed="true" >}}
 
-You can capture the required masses and orbital period using pointers, with `b% m(1)`, `b% m(2)` and `b% period`. The constants, as the speed of light $c$, the gravitational constant $G$ or the approximate value of $pi$ can be accesed from the `const_def` module (inside `const/public/const_def.f90` file). 
-
-{{< /details >}}
 
 {{< details title="Hint" closed="true" >}}
 
@@ -430,6 +427,7 @@ The scaffolding of where the gravitational wave calculations should be done
 ```
 {{< /details >}}
 
+> [!IMPORTANT]
 > **Remember** that MESA lib (i.e. the internal library of MESA that allows direct access to stellar and binary model data during runtime) gives b% m(1) and b% m(2) in grams and b% period in seconds. Constants, such as $G \equiv $ `standard_cgrav` are in cgs. If you want to use the MESA-computed constants, remember that the `const_def` module needs to be imported (it is by default) at the beginning of the `run_binary_extras.f90`.
 
 {{< details title="Solution" closed="true" >}}
@@ -568,14 +566,13 @@ To apply all the changes you have made in your `run_binary_extras.f90` you need 
 ``` -->
 
 
-
 <br><br><br>
 
-{{< details title="**Got stuck?**" closed="false" >}}
+> [!CAUTION]
+> **Got stuck?**
+> Got stuct during the lab? Do not worry! You can always download solution from here **[⬇ Download](/mesa-school-labs-2025/wednesday/lab2_solutions.zip)** to catch up!
 
-Got stuct during the lab? Do not worry! You can always download solution from here **[⬇ Download](/mesa-school-labs-2025/wednesday/lab2_solutions.zip)** to catch up!
 
-{{< /details >}}
 
 ## Task 2. The efficiency of mass transfer and it's impact on the evolution of Cyg X-1
 
@@ -615,7 +612,7 @@ To explore the effect of mass trasnfer efficiency on future evolution of Cyg X-1
 
 The participants should split into gropus that will be assigned different values of `mass_transfer_beta` and `limit_retention_by_mdot_edd`, which is a control for the Eddington limited mass-accretion rate. To do so, please write your name in the following [**Google Spreadsheet**](https://docs.google.com/spreadsheets/d/1HLwsGPu6w3t2NMUcdVYvkHFvqgIOUDkigfrZruN6Uo8/edit?gid=1375531873#gid=1375531873) (navigate to *Lab2 Mass Transfer Efficiency* tab in the lower-left corner if needed) to select a $\beta$ value, from **0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9**, corresponding to accretion efficiencies from 100% up to 10%, respectively. These values come either without Eddington limit (by default) or with Eddington limited mass-accretion rate. If you choose the latter, remember to include `limit_retention_by_mdot_edd = .true.` in your `binary_controls` section!
 
-> **Note:**  
+> [!NOTE]
 >Do not change the initial masses or period. Focus only on the effect of beta. If you have a slower machine (with lower number of cores), choose lower $\beta$ as these runs tend to be faster. Faster machines can attempt higher beta values, which lead to more computationally demanding models. The $\beta=0.0$ run should take approximately 5 minutes on 2-core machines, while the $\beta~=~0.9$ run needs around 10 minutes.
 
 As the model fitting within Cyg X-1 determined parameters is right on the onset of mass transfer, let us comment out the previously applied stopping criterion from the `run_binary_extras.f90` to let the system evolve a bit further. This time, let us choose the stopping criterion based on the minimum mass of the donor set to $23\,\mathrm{M_\odot}$. As MESA already has a command telling it to finish a run after such a condition is met, we do not need it to be implemented inside the `run_binary_extras.f90`. Instead, as the limit of mass applies only to one of the components, we need to include this condition in the `inlist1` file. Explore [stopping conditions](https://docs.mesastar.org/en/latest/reference/controls.html#when-to-stop) in the MESA docs to find the right command.
@@ -641,6 +638,7 @@ As the last thing we would like to do is to compare the merge time with the one 
 
 Next, compile (`./clean && ./mk`) and run the models (`./rn`) with a fixed set of initial parameters (donor and black hole masses, and orbital period), while exploring different values of mass_transfer_beta. This isolates the role of accretion efficiency in shaping the orbital evolution, mass growth, and observable properties of the system.
 
+> [!IMPORTANT]
 > **As a group effort:**  
 >What can we say about the future evolution of Cyg X-1 system from shuffling the `mass_transfer_beta` alone? How does the orbit react and why? 
 >
@@ -652,8 +650,6 @@ Next, compile (`./clean && ./mk`) and run the models (`./rn`) with a fixed set o
 
 <br><br><br>
 
-{{< details title="**Got stuck?**" closed="false" >}}
-
-Got stuct during the lab? Do not worry! You can always download solution from here **[⬇ Download](/mesa-school-labs-2025/wednesday/lab2_solutions.zip)** to catch up!
-
-{{< /details >}}
+> [!CAUTION]
+> **Got stuck?**
+> Got stuct during the lab? Do not worry! You can always download solution from here **[⬇ Download](/mesa-school-labs-2025/wednesday/lab2_solutions.zip)** to catch up!
