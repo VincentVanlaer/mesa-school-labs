@@ -48,7 +48,7 @@ It is important to check the units of the parameters in MESA. In many cases, it 
 {{< /details >}}
 
 
-{{< details title="Solution 1" closed="true" >}}
+{{< details title="Solution 1-1" closed="true" >}}
 ```fortran
     if (abs(b% mtransfer_rate)/Msun*secyer > 1d-10) then
 			write(*,*) '****************** Undergoing mass transfer ******************'
@@ -72,12 +72,12 @@ As a next step, we now want to identify during which burning stage our model has
 > [!WARNING]
 > Don't forget to do `./clean` and `./mk` after modifying the `run_star_extras.f90` file.
 
-{{< details title="Hint 1-2 (1)" closed="true" >}}
+{{< details title="Hint 1-2" closed="true" >}}
 Check the mass fractions of hydrogen (```b% s1% center_h1```) and helium (```b% s1% center_he4```) to determine the current burning phase. Check how core carbon depletion is captured in the "HINT" block in `run_star_extras.f90`. In the case of hydrogen and helium, check whether the mass fractions of hydrogen and helium are above or below 1e-6.
 {{< /details >}}
 
 
-{{< details title="Solution 2" closed="true" >}}
+{{< details title="Solution 1-2" closed="true" >}}
 Core hydrogen burning phase: ```b% s1% center_h1 > 1e-6```  
 Core helium burning phase: ```(b% s1% center_he4 > 1e-6) .and. (b% s1% center_h1 < 1e-6)```  
 The phase after core helium depletion: ```b% s1% center_he4 < 1e-6```
@@ -89,11 +89,12 @@ As a last step, we need to output in the terminal which mass-transfer phase we a
 > [!WARNING]
 > Don't forget to do `./clean` and `./mk` after modifying the `run_star_extras.f90` file.
 
-
+How to print out a string in the terminal?
 {{< details title="Hint 1-3 (1)" closed="true" >}}
 Check how to print a string in the terminal at core carbon depletion in the "HINT" block in `run_star_extras.f90`.
 {{< /details >}}
 
+If-else statements to print out Case A/B/C?
 {{< details title="Hint 1-3 (2)" closed="true" >}}
 ```fortran
    !!!!! TASK 1 block begins !!!
@@ -108,32 +109,29 @@ Check how to print a string in the terminal at core carbon depletion in the "HIN
 ```
 {{< /details >}}
 
-
+Condition for Case A event?
 {{< details title="Hint 1-3 (3)" closed="true" >}}
 ```fortran
-Condition for Case A event
 (b% s1% center_h1 > 1d-6) .and. (abs(b% mtransfer_rate)/Msun*secyer > 1d-10)
 ```
 {{< /details >}}
 
-
+Condition for Case B event?
 {{< details title="Hint 1-3 (4)" closed="true" >}}
 ```fortran
-Condition for Case B event
 (b% s1% center_h1 < 1d-6) .and. (b% s1% center_he4 > 1d-6) .and. (abs(b% mtransfer_rate)/Msun*secyer > 1d-10)
 ```
 {{< /details >}}
 
-
+Condition for Case C event?
 {{< details title="Hint 1-3 (5)" closed="true" >}}
 ```fortran
-Condition for Case C event
 (b% s1% center_he4 < 1d-6) .and. (abs(b% mtransfer_rate)/Msun*secyer > 1d-10)
 ```
 {{< /details >}}
 
 
-{{< details title="Solution 3" closed="true" >}}
+{{< details title="Solution 1-3" closed="true" >}}
 ```fortran
    !!!!! TASK 1 block begins !!!
    if ((b% s1% center_h1 > 1d-6) .and. (abs(b% mtransfer_rate)/Msun*secyer > 1d-10)) then
@@ -195,7 +193,7 @@ Use `b% mtransfer_rate` (mass transfer rate in g/s, negative) and `b% s1% dt` (t
 You can instruct MESA to stop computations by using `extras_binary_finish_step = terminate` at the right place. Check how to terminate the MESA run in the "HINT" block in `run_star_extras.f90`.
 {{< /details >}}
 
-{{< details title="Solution" closed="true" >}}
+{{< details title="Solution 2" closed="true" >}}
 ```fortran
 
          !!!!! TASK 2 block begins !!!
