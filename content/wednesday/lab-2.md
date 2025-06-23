@@ -346,12 +346,9 @@ We have an extra bonus task for you that explores stopping criteria and fitting 
 
 <br><br><br>
 
-<!-- {{< details title="**Got stuck?**" closed="false" >}}
-Got stuct during the lab? Do not worry! You can always download solution from here **[⬇ Download](/mesa-school-labs-2025/wednesday/lab2_solutions.zip)** to catch up!
-{{< /details >}} -->
-
 > [!CAUTION]
 > **Got stuck?**
+>
 > Got stuct during the lab? Do not worry! You can always download solution from here **[⬇ Download](/mesa-school-labs-2025/wednesday/lab2_solutions.zip)** to catch up!
 
 ### Gravitational waves radiation and merge time
@@ -570,6 +567,7 @@ To apply all the changes you have made in your `run_binary_extras.f90` you need 
 
 > [!CAUTION]
 > **Got stuck?**
+> 
 > Got stuct during the lab? Do not worry! You can always download solution from here **[⬇ Download](/mesa-school-labs-2025/wednesday/lab2_solutions.zip)** to catch up!
 
 
@@ -652,4 +650,5 @@ Next, compile (`./clean && ./mk`) and run the models (`./rn`) with a fixed set o
 
 > [!CAUTION]
 > **Got stuck?**
+>
 > Got stuct during the lab? Do not worry! You can always download solution from here **[⬇ Download](/mesa-school-labs-2025/wednesday/lab2_solutions.zip)** to catch up!
