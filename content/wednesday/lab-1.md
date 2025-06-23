@@ -6,9 +6,9 @@ Over the past decade, it has become clear that most massive stars are born in bi
 
 ## Task 1. Identifying different mass transfer cases
 Mass transfer can be divided into three cases based on the evolutionary phase of the primary star when the transfer occurs. The primary star evolves faster, fills its Roche lobe, and begins transferring mass to the secondary star. The three cases are:  
-Case A: The primary transfers mass while core hydrogen burning.  
-Case B: The primary transfers mass while core helium burning.  
-Case C: The primary transfers mass after the end of core helium burning.
+**Case A**: The primary transfers mass while core hydrogen burning.  
+**Case B**: The primary transfers mass while core helium burning.  
+**Case C**: The primary transfers mass after the end of core helium burning.
 
 Now, let's download the MESA work directory from [here](https://heibox.uni-heidelberg.de/f/e438b0ef7cb64b90a497/?dl=1).
 
@@ -25,8 +25,8 @@ Now, let's download the MESA work directory from [here](https://heibox.uni-heide
 
 `inlist_extra` contains handles for `binary_controls` for changing initial binary parameters. What are the current initial primary mass, initial secondary mass, and initial orbital period?
 {{< details title="Solution 0" closed="true" >}}
-Initial primary mass: 20 Msun
-Initial secondary mass: 12 Msun
+Initial primary mass: 20 Msun  
+Initial secondary mass: 12 Msun  
 Initial orbital period: 100 days
 {{< /details >}}
 
@@ -62,7 +62,9 @@ It is important to check the units of the parameters in MESA. In many cases, it 
 {{< details title="Hint 1-1 (3)" closed="true" >}}
 Convert mass transfer rate from g/s to Msun/yr  
 1 year = 3.15576e7 s, 1 Msun = 1.989e33 g  
+```
 abs(b% mtransfer_rate)/Msun*secyer
+```
 {{< /details >}}
 
 
@@ -77,10 +79,16 @@ abs(b% mtransfer_rate)/Msun*secyer
 {{< /details >}}
 
 > [!TIP]
-> When you do a MESA run via "./rn | tee out.txt", the terminal output is saved to a file called `out.txt`.
+> When you do a MESA run as:
+> ```
+> ./rn | tee out.txt
+> ```
+> the terminal output is saved to a file called `out.txt`.
 > So, even when you miss the terminal output in real-time, you can review the full output later by checking `out.txt`.
 > If you're looking for specific content, you can search within the file using:
-> ```grep -ir XXX out.txt```
+> ```
+> grep -ir XXX out.txt
+> ```
 > This command will help you find whether XXX appears anywhere in `out.txt`.
 
 Please make sure that your implementation is working correctly by running a model and verifying that it produces the desired output when the mass-transfer rate exceeds the threshold. In the PGSTAR plot, you can find the mass-transfer rate in the upper right corner (`lg_mtransfer_rate`: mass transfer rate in Msun/yr in logarithmic scale). This run should end with the following terminal output:
@@ -255,24 +263,25 @@ https://docs.google.com/spreadsheets/d/1HLwsGPu6w3t2NMUcdVYvkHFvqgIOUDkigfrZruN6
 **And perform MESA run with the corresponding initial parameters.** If you have many cores (more than approx. 6), you can choose the ones with high initial orbital periods (>2000 days). You need to modify "inlist_extra" to use new initial binary parameters.
 
 > [!TIP]
-> You can check the number of cores via:  
+> You can check the number of cores via:
+> ```
 > grep -c ^processor /proc/cpuinfo       (in terminal for Linux)  
 > echo %NUMBER_OF_PROCESSORS%            (in CMD for Windows)  
-> sysctl hw.ncpu                         (in terminal for macOS)  
+> sysctl hw.ncpu                         (in terminal for macOS)
+> ```
 
 
-Observe the terminal output to check the case of the mass transfer when mass transfer begins (this is because Case A is always followed by Case B). If you missed it, you can do 
+Observe the terminal output to check the case of the mass transfer when mass transfer begins (this is because Case A is always followed by Case B). If you missed it, again, you can do 
 ```
 grep -ir Case out.txt
 ```
 to print out the occurrences of the string "Case" from the `out.txt` file. Record your results in the "P-q diagram" sheet in the Google Spreadsheet.
 
-Parameters to Enter:  
-**Initial mass ratio (M2/M1)**: A value between 0.1 and 0.9.  
-**Initial orbital period**: A value between 1 and 3000 days.  
-**Case**: One of A, B, or C.  
-**Stable**: Enter y for stable mass transfer or n if terminated due to unstable mass transfer.  
-If there was no mass transfer, leave **Case** and **Stable** blank.  
+> [!IMPORTANT]
+> Parameters to Enter:  
+> **Case**: One of A, B, or C.  
+> **Stable**: Enter y for stable mass transfer or n if terminated due to unstable mass transfer.  
+> If there was no mass transfer, leave **Case** and **Stable** blank. 
 
 
 ***
@@ -283,12 +292,13 @@ You may also choose an initial mass ratio and an initial orbital period differen
 (If you do so, please append your values as a new row at the end of the table.)
 ***
 
-As many students input values, a pattern will emerge in the initial orbital period-mass ratio (P-q) diagram. 
-- Where do Case A, B, and C systems appear on the P–q diagram, and why?
-- How does the initial mass ratio influence the stability of mass transfer, and why?
-- Do you observe any other interesting patterns? What might be the reasons behind them?
-Discuss these questions with your group members.
-
+> [!NOTE]
+> As many students input values, a pattern will emerge in the initial orbital period-mass ratio (P-q) diagram.  
+> - Where do Case A, B, and C systems appear on the P–q diagram, and why?  
+> - How does the initial mass ratio influence the stability of mass transfer, and why?  
+> - Do you observe any other interesting patterns? What might be the reasons behind them?
+> 
+> Discuss these questions with your group members.
 
 # Task 4 (optional): Visualizing the effect of binary evolution with TULIPS
 ![Example TULIPS visualization](https://astro-tulips.readthedocs.io/en/latest/_images/first_animation.gif "TULIPS visualization of the apparent size and color evolution of a massive star")
