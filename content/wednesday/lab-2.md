@@ -71,7 +71,7 @@ Look under the `do_wind_mass_transfer_1` control in MESA docs
 
 <!-- {{< details title="Hint" closed="true" >}}
 Explore the `do_jdot_*` controls in the MESA docs to find the relevant controls. -->
-{{< /details >}}
+<!-- {{< /details >}} -->
 
 > [!TIP]
 > Explore the `do_jdot_*` controls in the MESA docs to find the relevant controls.
@@ -87,6 +87,7 @@ Explore the `do_jdot_*` controls in the MESA docs to find the relevant controls.
 {{< /details >}}
 
 - enable rotation by assuming tidal synchronisation
+
 {{< details title="Hint" closed="true" >}}
 
 Typically, rotation of the components is not the system-related quantity, and in MESA we enable rotation per-component, in the `inlist1/inlist2` files, under `star_job` using
@@ -101,6 +102,18 @@ Typically, rotation of the components is not the system-related quantity, and in
 But we have that in our inlist already! What we want is to assume tidal synchronisation between stellar rotation period and the system orbital period. We do this in `inlist_project` file by allowing the `do_tidal_sync`.
 
 {{< /details >}}
+
+> [!TIP]
+> Typically, rotation of the components is not the system-related quantity, and in MESA we enable rotation per-component, in the `inlist1/inlist2` files, under `star_job` using
+>
+>```fortran
+>      ! rotation
+>      new_rotation_flag = .true.
+>      change_rotation_flag = .true.
+>      change_initial_rotation_flag = .true.
+>```
+>
+>But we have that in our inlist already! What we want is to assume tidal synchronisation between stellar rotation period and the system orbital period. We do this in `inlist_project` file by allowing the `do_tidal_sync`.
 
 To see if all runs well, compile (`./clean && ./mk`) and run your new model! (`./rn`). This is only to check if we set all the controls correctly, so kill the run after a few timesteps using `Ctrl C`.
 
