@@ -102,8 +102,9 @@ Please make sure that your implementation is working correctly by running a mode
 As a next step, we want to determine the current evolutionary phase of the primary star. Typically, core hydrogen burning is considered complete when the central hydrogen abundance drops below 1e-6, and core helium burning ends when the central helium abundance drops below 1e-6. **Now, add conditions to !!! TASK 1 block !!! to identify which evolutionary state the primary star is in from the following list, and print it out:**  
 1. Core hydrogen burning  
 2. Core helium burning  
-3. Past core helium burning  
-Run the model and verify that the terminal output aligns with the results shown in the PGSTAR plot (upper middle panel)
+3. Past core helium burning
+   
+Run the model and verify that the terminal output aligns with the results shown in the PGSTAR plot (abundance profiles in the upper middle panel)
 
 > [!WARNING]
 > Don't forget to do `./clean` and `./mk` after modifying the `run_star_extras.f90` file.
