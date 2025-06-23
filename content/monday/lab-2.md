@@ -29,7 +29,7 @@ You can do this by hand or run in your terminal:
 ```
 
 Before we start modifying the inlists such that we can model the 
-further evolution of our 5Msun star, lets clean up the directory
+further evolution of our 5 Msun star, let us clean up the directory
 and delete not needed files from our previous runs, such as the 
 directories LOGS, photos, and png:
 
@@ -41,12 +41,12 @@ directories LOGS, photos, and png:
 Alternatively, or if you want to be sure that everything is working properly,
 you can download a cleaned folder [here](https://github.com/Daniel-Pauli/mesa-school-labs/blob/patch-1/content/monday/lab2).
 
-In the previous Lab1 we have calculated a 5Msun model with 
+In lab1 we have calculated a 5 Msun model with 
 step overshooting having f=0.030 and f0=0.005 until core-hydrogen
 depletion. The model should be saved as ``M5_Z0014_fov030_f0ov0005_TAMS.mod``
 and should be still in your lab2 folder. To save computation time, 
 and to avoid calculating the evolution to the TAMS several times,
-we will load the saved model every time when we will explore 
+we will be loading this saved model every time to explore 
 different physical settings. 
 
 If you did not finish lab1 or by accident overwrote your model during lab1. 
@@ -187,7 +187,7 @@ In the next step, we want to vary the input parameters of our
 model calculations and the output files where the LOGS and png
 files are saved. Because it can be quite messy, adding and
 editing the various parameters in the *inlist_project* and 
-*inlist_pgstar* at the same time, lets create a new inlist, 
+*inlist_pgstar* at the same time, let us create a new inlist, 
 in which we only have the controls that we want to edit for
 both files. To do that, we can modify the *inlist* file. In 
 the *controls* section, add the following lines:
@@ -209,7 +209,7 @@ Similarly, in the *pgstar* section in *inlist*, add:
 ```
     
 So far the file *inlist_extra* does not exist, so 
-lets create it. You can do that by typing in your 
+let us create it. You can do that by typing in your 
 terminal:
 
 ```
@@ -234,7 +234,7 @@ in *inlist_extra* a controls and a pgstar section:
 
 Note, that you need to include also the additional empty line
 at the end of the block, otherwise MESA will throw an error. 
-Just for safety, lets see if everything worked, the model starts and the
+Just for safety, let us see if everything worked, the model starts, and the
 pgstar window opens again:
 
 ```
@@ -246,10 +246,10 @@ To stop your model, you can press in the terminal ctrl+c for a linux or cmd+c fo
 
 ### Core helium burning without core overshooting
 	
-As a first run, we want to calculate the 5Msun model until
+As a first run, we want to calculate the 5 Msun model until
 core helium depletion without including core overshoot. To 
 be able to compare the output between the different models,
-lets create for each run a separate output folder for the 
+let us create for each run a separate output folder for the 
 LOGS and the png files. To change the default storage folders
 we can add in the *controls* section in the *inlist_extra*:
 
@@ -286,11 +286,11 @@ figure out why the core behaves as it does?
 
 ### Core helium burning with step overshooting
 
-Now lets add some overshooting on top of the helium burning
+Now add some overshooting on top of the helium-burning
 core to see how it impacts the evolution. For core helium
-burning, lets use a moderate step overshooting,
+burning, use a moderate step overshooting,
 namely f_ov = 0.1 and f0_ov = 0.005. In lab1, we added
-overshooting on the top of the hydrogen burning core by 
+overshooting on top of the hydrogen burning core by 
 using the following lines:
 
 ```
@@ -304,20 +304,21 @@ using the following lines:
 ```
 
 Let's add similar lines in the *controls* section 
-in *inlist_extra*. Can you figure out how we need to modify
-them to tell MESA that we want a second overshooting region
-on top of the helium burning core?
+in *inlist_extra*. 
+Can you figure out how we need to modify
+them to tell MESA that we also want a overshooting region
+on top of the helium-burning core?
 
 {{< details title="Show hint 1" closed="true" >}}
 
-Since the first overshooting scheme is already used in the first set ``(1)`` we need to change them to ``(2)``
+Since the first overshooting scheme is already used in the first set ``(1)``, we need to change it to ``(2)``
 for all controls.
 
 {{< /details >}}
 
 {{< details title="Show hint 2" closed="true" >}}
 
-Are the locations, types and boundaries of the overshooting zone still correct? 
+Are the locations, types, and boundaries of the overshooting zone still correct? 
 Can you find on the website other options where to allow overshooting? 
 Check the controls for overshooting on [here](https://docs.mesastar.org/en/24.08.1/reference/controls.html). 
 
@@ -325,7 +326,7 @@ Check the controls for overshooting on [here](https://docs.mesastar.org/en/24.08
 
 {{< details title="Show answer" closed="true" >}}
 
-In the end you should have in the *controls* section of your *inlist_extra* lines that are similar to:
+In the end, you should have in the *controls* section of your *inlist_extra* lines that are similar to:
 ```
 ! mixing
      overshoot_scheme(2) = 'step'
@@ -354,7 +355,7 @@ commands with:
 What do you expect to happen now? Will the core grow, stay at
 the same level, or receed? 
 
-Okay we are ready to go, lets run the model:
+Okay we are ready to go. Let us run the model:
 
 ```
 	./rn
@@ -381,14 +382,17 @@ in the structure of the star in the Kippenhahn diagram?
 
 {{< details title="Show answer" closed="true" >}}
 
-You should see that a convective region forms directly on top of the overshooting region. 
-This phenomenon is called helium breathing pulses and occurs mostly in low and intermediate
-mass stars occuring during core helium burning. The reason that this happens is due to the
+In the Kippenhahn diagram, shown in the lower left corner of the pgstar windows, you should see 
+that a convective region forms directly on top of the overshooting region. 
+Alternatively, you can also in the mixing plot, shown in the lower right corner of the pgstar window,
+that a convective region is forming every now and then on top of the overshooting region.
+This phenomenon is called helium breathing pulses and occurs mostly in low and intermediate-mass stars,
+occurring during core helium burning. The reason that this happens is due to the
 convective core reaching into layers with a strong chemical gradient. When this happens, a
 convective region forms on top of the core that is stable against overshooting, pushing down
 the overshooting and the core mass. Numerically, the modeling of the convective boundaries in these regions
-is challenging and has to do with the $\nabla_\text{rad}$ profile changing during the evolution leading to
-the formation of with the formation of the convective region forming when reaching a local minimum. 
+is challenging and has to do with the $\nabla_\text{rad}$ profile changing during the evolution, leading to
+the formation of a convective region when reaching a local minimum. 
 It is not clear if the helium breathing pulses are of physical or numerical nature. If you want to
 read more about helium breathing pulses, you can check out these papers: [Castellani et al. 1985](https://ui.adsabs.harvard.edu/abs/1985ApJ...296..204C/abstract), [Constantino et al. 2016](https://ui.adsabs.harvard.edu/abs/2016MNRAS.456.3866C/abstract), [Salaris & Cassisi 2017](https://ui.adsabs.harvard.edu/abs/2017RSOS....470192S/abstract), [Paxton et al. 2018](https://ui.adsabs.harvard.edu/abs/2018ApJS..234...34P/abstract), and [Córsico & Althaus 2024](https://ui.adsabs.harvard.edu/abs/2024ApJ...964...30C/abstract) (their figure 1 nicely illustrates the impact of the breathing pules on the core helium burning time).
 
@@ -404,17 +408,21 @@ you to explore other mixing options.
 
 ### Limiting core overshooting in regions with strong chemical gradients
 
+One thing that we have been ignoring so far in our treatment of overshooting is 
+the role of a chemical gradient as the one between the helium-burning core and
+the envelope as an additional stabilizing force, reducing the size of the overshooting region. 
 In MESA while modeling overshooting, one can account for a stabilizing 
-composition gradient in the calculations using the Brunt-Vaisala frequency.
-This is turned on in MESA by default:
+composition gradient in the calculations using the Brunt-Vaisala frequency (or buoyancy frequency), 
+which is a measure of the stability of a fluid to vertical displacement as present in overshooting regions.
+To turned on the frequency in MESA use the following lines in your *controls* section of you *inlist_extra*:
 
 ```
    calculate_Brunt_B = .true.
    calculate_Brunt_N2 = .true.
 ```
 
-However, the threshold is set to ``0d0``. For our calculations, let's 
-set this threshold to a higher value to prevent to overshoot in regions
+Even when turned on, the default value for the threshold is set to ``0d0``. For our calculations, let's 
+set this threshold to a higher value to prevent overshooting in regions
 with a strong chemical gradient. In your *controls* section in your 
 *inlist_extra* add:
 
@@ -436,7 +444,7 @@ and:
     Grid1_file_dir = 'output_overshoot_brunt/png'
 ```
 
-Lets have a look, what MESA will tell us:
+Let us have a look, what MESA will tell us:
 
 ```
 	./rn
@@ -449,11 +457,11 @@ have an idea why these differences appear?
 
 {{< details title="Show answer" closed="true" >}}
 
-The new included physics quickly remove the growth of the core by overshooting 
+The newly included physics quickly removes the growth of the core by overshooting 
 due to the strong chemical gradient between the core and the H-burning shell. 
-When the stabilizing gradient is hit, overshooting is suppressed. Therefore, 
-the final convective mass of the helium core of this star is quite similar 
-to that one of the model without overshooting.
+When the stabilizing gradient is hit, overshooting is suppressed. 
+Therefore, the final convective mass of the helium core of this star is quite similar 
+to that of the model without overshooting.
 
 {{< /details >}}
 
@@ -473,7 +481,7 @@ You can see that the grids the plots are shown on have 3 columns and 2 rows:
 	Grid1_num_rows = 2 ! divide plotting region into this many equal height rows
 ```
 For now, we do not need to add more rows or columns, the history panel shows the
-growth of the convective core is quite large anyways, so lets make it smaller. Can
+growth of the convective core is quite large anyways, so let us make it smaller. Can
 you identify the code block in *inlist_pgstar* that is telling the grid where to plot the history panel of convective core mass? If yes, change its column width from
 2 to 1.
  
