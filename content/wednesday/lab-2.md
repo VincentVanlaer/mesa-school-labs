@@ -33,9 +33,13 @@ To simulate the evolution of Cygnus X-1, we would ideally start off with creatin
 
 Following [Ramachandran et al., (2025)](https://arxiv.org/pdf/2504.05885), lets start off with setting the initial masses of the components, $M_\mathrm{1}~=~34 \rm\ M_\odot,\ M_\mathrm{2}~=~17.4 \rm\ M_\odot$ and orbital period $P~=~5.5 \rm\ d$ in the `inlist_project` file, designed to contain all information about the system-related quantities. To find the controls used by MESA, look into the MESA docs, under the [specifications for starting model](https://docs.mesastar.org/en/latest/reference/binary_controls.html#specifications-for-starting-model) section.
 
-{{< details title="Note" closed="true" >}}
+<!-- {{< details title="Note" closed="true" >}}
 Note, that the component assigned with index **1** is considered as donor throughout the whole MESA run. Thus, the natural thing is to assign the bigger mass to `m1`.
-{{< /details >}}
+{{< /details >}} -->
+
+> [!IMPORTANT]
+> Note, that the component assigned with index **1** is considered as donor throughout the whole MESA run. Thus, the natural thing is to assign the bigger mass to `m1`.
+
 
 {{< details title="Solution" closed="true" >}}
 
@@ -55,15 +59,22 @@ As the secondary component is a black hole, we assume it to be a point mass and 
 - the `Kolb` mass transfer scheme,
 - do the wind mass accretion from the donor to the BH. 
 
-{{< details title="Hint" closed="true" >}}
+<!-- {{< details title="Hint" closed="true" >}}
 Look under the `do_wind_mass_transfer_1` control in MESA docs
-{{< /details >}}
+{{< /details >}} -->
+
+> [!TIP]
+> Look under the `do_wind_mass_transfer_1` control in MESA docs
+
 
 - assume conservation of the total angular momentum of the system, include loss of angular momentum via mass loss and via gravitational wave radiation. 
 
-{{< details title="Hint" closed="true" >}}
-Explore the `do_jdot_*` controls in the MESA docs to find the relevant controls.
-{{< /details >}}
+<!-- {{< details title="Hint" closed="true" >}}
+Explore the `do_jdot_*` controls in the MESA docs to find the relevant controls. -->
+<!-- {{< /details >}} -->
+
+> [!TIP]
+> Explore the `do_jdot_*` controls in the MESA docs to find the relevant controls.
 
 {{< details title="Solution" closed="true" >}}
 
@@ -76,7 +87,8 @@ Explore the `do_jdot_*` controls in the MESA docs to find the relevant controls.
 {{< /details >}}
 
 - enable rotation by assuming tidal synchronisation
-{{< details title="Hint" closed="true" >}}
+
+<!-- {{< details title="Hint" closed="true" >}}
 
 Typically, rotation of the components is not the system-related quantity, and in MESA we enable rotation per-component, in the `inlist1/inlist2` files, under `star_job` using
 
@@ -89,7 +101,19 @@ Typically, rotation of the components is not the system-related quantity, and in
 
 But we have that in our inlist already! What we want is to assume tidal synchronisation between stellar rotation period and the system orbital period. We do this in `inlist_project` file by allowing the `do_tidal_sync`.
 
-{{< /details >}}
+{{< /details >}} -->
+
+> [!TIP]
+> Typically, rotation of the components is not the system-related quantity, and in MESA we enable rotation per-component, in the `inlist1/inlist2` files, under `star_job` using
+>
+>```fortran
+>      ! rotation
+>      new_rotation_flag = .true.
+>      change_rotation_flag = .true.
+>      change_initial_rotation_flag = .true.
+>```
+>
+>But we have that in our inlist already! What we want is to assume tidal synchronisation between stellar rotation period and the system orbital period. We do this in `inlist_project` file by allowing the `do_tidal_sync`.
 
 To see if all runs well, compile (`./clean && ./mk`) and run your new model! (`./rn`). This is only to check if we set all the controls correctly, so kill the run after a few timesteps using `Ctrl C`.
 
@@ -109,7 +133,7 @@ As we want to capture not only $T_{\rm eff}$ but also other spectroscopic quanti
 
 Go ahead and add a stopping criterion `extras_binary_finish_step = terminate` in the `extras_binary_finish_step` function once a model reached a desired surface properties. Focus only on the *TASK 1.1* part this time.
 
-{{< details title="Hint" closed="true" >}}
+<!-- {{< details title="Hint" closed="true" >}}
 
 In the very beggining of the `run_binary_extras` file we have already initialised some variables to address the observed parameters of the system:
 
@@ -121,9 +145,20 @@ In the very beggining of the `run_binary_extras` file we have already initialise
 
 You can use these when comparing with the MESA quantities.
 
-{{< /details >}}
+{{< /details >}} -->
 
-{{< details title="Hint" closed="true" >}}
+> [!TIP]
+> In the very beggining of the `run_binary_extras` file we have already initialised some variables to address the observed parameters of the system:
+>
+>```fortran
+>    ! Global parameters of Cyg X-1 
+>    real(dp), parameter ::  Teff_obs = 28500.0d0,  logL_obs = 5.5d0,  logg_obs = 3.2d0
+>    real(dp), parameter :: dTeff_obs =  1000.0d0, dlogL_obs = 0.1d0, dlogg_obs = 0.1d0
+>```
+>
+>You can use these when comparing with the MESA quantities.
+
+<!-- {{< details title="Hint" closed="true" >}}
 
 You can use the quantities internally computed by MESA using the binary pointer `b%` and star pointers `s1%`/`s2%` to acccess the donor/accretor modules, respectively. Some examples of useful values are:
 
@@ -131,13 +166,23 @@ You can use the quantities internally computed by MESA using the binary pointer 
 - `b% s1% photosphere_L`: The stellar luminosity of the primary.
 - `b% s1% photosphere_logg`: Logarithm of the stellar gravitational acceleration of the primary.
 
-{{< /details >}}
+{{< /details >}} -->
 
-{{< details title="Hint" closed="true" >}}
+> [!IMPORTANT]
+> You can use the quantities internally computed by MESA using the binary pointer `b%` and star pointers `s1%`/`s2%` to acccess the donor/accretor modules, respectively. Some examples of useful values are:
+>
+>- `b% s1% Teff`: The stellar effective temperature of the primary.
+>- `b% s1% photosphere_L`: The stellar luminosity of the primary.
+>- `b% s1% photosphere_logg`: Logarithm of the stellar gravitational acceleration of the primary.
+
+<!-- {{< details title="Hint" closed="true" >}}
 
 You can instruct MESA to stop computations by using `extras_binary_finish_step = terminate` at the right place. 
 
-{{< /details >}}
+{{< /details >}} -->
+
+> [!TIP]
+> You can instruct MESA to stop computations by using `extras_binary_finish_step = terminate` at the right place. 
 
 {{< details title="Solution" closed="true" >}}
 
@@ -181,13 +226,20 @@ We will need that model in the subsequent runs! -->
 **Bonus task!:**  
 The above example was coded to terminate after finding the model that fits within the observations. As you may suspect, this model is not necessarily the only one, nor the best one to fit the observations. If you finished your assignments early, try to find the best model by applying some kind of a statistics, like $\chi^2$. You will need to define the `chi2` function outside of the `run_binary_extras.f90` main body, and call it before and after MESA calculates another step. You can find the places in `run_binary_extras.f90` that need some extra attention marked with a `! part of the bonus excercise` note.  **Good luck!**
 
-#### Hint
+> [!Tip]
+> For simplicity, we can assume that the $\chi^2$ have only one minimum between the models. This is, of course, a very naive approach as the evolutionary calculations are an extremely degenerate problem!
+>
+>To be able to compare the value of the $\chi^2$ between the models we need to store them across the calculations. The best (not the easiest, though) way would bo to construct a table and to store the values of $\chi^2$ in it. However, the assumption that $\chi^2$ has only one minimum allows us to store the $\chi^2$ from only the previous step and to compare it with the current-step value. If $\chi^2_{\rm old} > \chi^2_{\rm new}$ then we have yet to reach the minimum, and there is still place for improving the fit between the observation and the model. Once we find the first model with $\chi^2_{\rm old} < \chi^2_{\rm new}$ we are in the minimum! 
+>
+>This approach requires us to compute two values of $\chi^2$ at every step: the value for the previous step and for the current one. Here, the structure of the `run_binary_extras.f90` comes extremely helpful, as it contains two functions, `extras_binary_start_step` and `extras_binary_finish_step`. The latter updates the parameters of the system evolution after the calculations are done, while the former allows us to access the parameters before them being updated, thus from the previous step. This is the place to call the `chi2` function for the first time!
 
-For simplicity, we can assume that the $\chi^2$ have only one minimum between the models. This is, of course, a very naive approach as the evolutionary calculations are an extremely degenerate problem!
+<!-- #### Hint -->
+
+<!-- For simplicity, we can assume that the $\chi^2$ have only one minimum between the models. This is, of course, a very naive approach as the evolutionary calculations are an extremely degenerate problem!
 
 To be able to compare the value of the $\chi^2$ between the models we need to store them across the calculations. The best (not the easiest, though) way would bo to construct a table and to store the values of $\chi^2$ in it. However, the assumption that $\chi^2$ has only one minimum allows us to store the $\chi^2$ from only the previous step and to compare it with the current-step value. If $\chi^2_{\rm old} > \chi^2_{\rm new}$ then we have yet to reach the minimum, and there is still place for improving the fit between the observation and the model. Once we find the first model with $\chi^2_{\rm old} < \chi^2_{\rm new}$ we are in the minimum! 
 
-This approach requires us to compute two values of $\chi^2$ at every step: the value for the previous step and for the current one. Here, the structure of the `run_binary_extras.f90` comes extremely helpful, as it contains two functions, `extras_binary_start_step` and `extras_binary_finish_step`. The latter updates the parameters of the system evolution after the calculations are done, while the former allows us to access the parameters before them being updated, thus from the previous step. This is the place to call the `chi2` function for the first time!
+This approach requires us to compute two values of $\chi^2$ at every step: the value for the previous step and for the current one. Here, the structure of the `run_binary_extras.f90` comes extremely helpful, as it contains two functions, `extras_binary_start_step` and `extras_binary_finish_step`. The latter updates the parameters of the system evolution after the calculations are done, while the former allows us to access the parameters before them being updated, thus from the previous step. This is the place to call the `chi2` function for the first time! -->
 
 #### The $\chi^2$ statiscics formula
 
@@ -277,23 +329,25 @@ Here is the solution to the bonus task.
 {{< /details >}}
 
 <br><br><br>
-{{< details title="**Extra bonus task**" closed="false" >}}
+<!-- {{< details title="**Extra bonus task**" closed="false" >}} -->
 
-**Extra bonus task!:**
+<!-- **Extra bonus task!:**
 We have an extra bonus task for you that explores stopping criteria and fitting a model for yet another observed system! You can find it at the end of this lab. 
 
-**Disclaimer:** Take a look at this excercise **only** once you have finished all the parts below!
+**Disclaimer:** Take a look at this excercise **only** once you have finished all the parts below! -->
+<!-- {{< /details >}} -->
 
-{{< /details >}}
+> [!Important]
+> **Extra bonus task!:**
+> We have an extra bonus task for you that explores stopping criteria and fitting a model for yet another observed system! You can find it at the end of this lab.
+>
+> > [!WARNING]
+> > Take a look at this excercise **only** once you have finished all the parts below!
 
 <br><br><br>
 
-{{< details title="**Got stuck?**" closed="false" >}}
-
-Got stuct during the lab? Do not worry! You can always download solution from here **[⬇ Download](/mesa-school-labs-2025/wednesday/lab2_solutions.zip)** to catch up!
-
-{{< /details >}}
-
+> [!CAUTION]
+> **Got stuck** during the lab? Do not worry! You can always download solution from here **[⬇ Download](/mesa-school-labs-2025/wednesday/lab2_solutions.zip)** to catch up!
 
 ### Gravitational waves radiation and merge time
 
@@ -305,7 +359,9 @@ $$t_{\mathrm{merge}} = \frac{5}{256} \cdot \frac{c^5 a^4}{G^3 m_1 m_2 (m_1 + m_2
 
 Alternatively, using orbital period $P$ instead of orbital separation:
 
-$$t_{\mathrm{merge}} = \frac{5}{256} \cdot \frac{(G M_{\mathrm{chirp}})^{-5/3}}{c^5} \cdot \left( \frac{P}{2\pi} \right)^{8/3},$$
+<!-- $$t_{\mathrm{merge}} = \frac{5}{256} \cdot \frac{(G M_{\mathrm{chirp}})^{-5/3}}{c^5} \cdot \left( \frac{P}{2\pi} \right)^{8/3},$$ -->
+
+$$t_{\mathrm{merge}} = \frac{5}{256} \cdot \frac{c^5}{(G M_{\mathrm{chirp}})^{5/3}} \left( \frac{P}{2\pi} \right)^{8/3},$$
 
 where $M_{\mathrm{chirp}}$ is the chirp mass:
 
@@ -313,17 +369,14 @@ $$M_{\mathrm{chirp}} = \frac{(m_1 m_2)^{3/5}}{(m_1 + m_2)^{1/5}}$$
 
 We need to do this once MESA has updated all the system parameters, thus in the `extras_binary_finish_step` fuction. We have two choices: we can force MESA to compute the merge time on a fly at every step, to be able to see how the merge time depends on the orbital period and the distribution of masses between the components, or we can implement this chunk of code inside the `if` statement of the previously implememnted stopping criterion. As we are primarily interested to know the merge time at the current phase of the evolution, we can chose the second option.
 
-{{< details title="Hint" closed="true" >}}
 
-MESA computes all we need under the hood. All we need to do is to capture all required quantities from MESA and to compute $t_{\mathrm{merge}}$. 
+> [!NOTE]
+> MESA computes all we need under the hood. All we need to do is to capture all required quantities from MESA and to compute $t_{\mathrm{merge}}$. 
 
-{{< /details >}}
+> [!TIP]
+>You can capture the required masses and orbital period using pointers, with `b% m(1)`, `b% m(2)` and `b% period`. The constants, as the speed of light $c$, the gravitational constant $G$ or the approximate value of $\pi$ can be accesed from the `const_def` module (inside `const/public/const_def.f90` file). 
 
-{{< details title="Hint" closed="true" >}}
 
-You can capture the required masses and orbital period using pointers, with `b% m(1)`, `b% m(2)` and `b% period`. The constants, as the speed of light $c$, the gravitational constant $G$ or the approximate value of $pi$ can be accesed from the `const_def` module (inside `const/public/const_def.f90` file). 
-
-{{< /details >}}
 
 {{< details title="Hint" closed="true" >}}
 
@@ -369,6 +422,7 @@ The scaffolding of where the gravitational wave calculations should be done
 ```
 {{< /details >}}
 
+> [!IMPORTANT]
 > **Remember** that MESA lib (i.e. the internal library of MESA that allows direct access to stellar and binary model data during runtime) gives b% m(1) and b% m(2) in grams and b% period in seconds. Constants, such as $G \equiv $ `standard_cgrav` are in cgs. If you want to use the MESA-computed constants, remember that the `const_def` module needs to be imported (it is by default) at the beginning of the `run_binary_extras.f90`.
 
 {{< details title="Solution" closed="true" >}}
@@ -507,14 +561,12 @@ To apply all the changes you have made in your `run_binary_extras.f90` you need 
 ``` -->
 
 
-
 <br><br><br>
 
-{{< details title="**Got stuck?**" closed="false" >}}
+> [!CAUTION]
+> **Got stuck** during the lab? Do not worry! You can always download solution from here **[⬇ Download](/mesa-school-labs-2025/wednesday/lab2_solutions.zip)** to catch up!
 
-Got stuct during the lab? Do not worry! You can always download solution from here **[⬇ Download](/mesa-school-labs-2025/wednesday/lab2_solutions.zip)** to catch up!
 
-{{< /details >}}
 
 ## Task 2. The efficiency of mass transfer and it's impact on the evolution of Cyg X-1
 
@@ -554,7 +606,7 @@ To explore the effect of mass trasnfer efficiency on future evolution of Cyg X-1
 
 The participants should split into gropus that will be assigned different values of `mass_transfer_beta` and `limit_retention_by_mdot_edd`, which is a control for the Eddington limited mass-accretion rate. To do so, please write your name in the following [**Google Spreadsheet**](https://docs.google.com/spreadsheets/d/1HLwsGPu6w3t2NMUcdVYvkHFvqgIOUDkigfrZruN6Uo8/edit?gid=1375531873#gid=1375531873) (navigate to *Lab2 Mass Transfer Efficiency* tab in the lower-left corner if needed) to select a $\beta$ value, from **0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9**, corresponding to accretion efficiencies from 100% up to 10%, respectively. These values come either without Eddington limit (by default) or with Eddington limited mass-accretion rate. If you choose the latter, remember to include `limit_retention_by_mdot_edd = .true.` in your `binary_controls` section!
 
-> **Note:**  
+> [!NOTE]
 >Do not change the initial masses or period. Focus only on the effect of beta. If you have a slower machine (with lower number of cores), choose lower $\beta$ as these runs tend to be faster. Faster machines can attempt higher beta values, which lead to more computationally demanding models. The $\beta=0.0$ run should take approximately 5 minutes on 2-core machines, while the $\beta~=~0.9$ run needs around 10 minutes.
 
 As the model fitting within Cyg X-1 determined parameters is right on the onset of mass transfer, let us comment out the previously applied stopping criterion from the `run_binary_extras.f90` to let the system evolve a bit further. This time, let us choose the stopping criterion based on the minimum mass of the donor set to $23\,\mathrm{M_\odot}$. As MESA already has a command telling it to finish a run after such a condition is met, we do not need it to be implemented inside the `run_binary_extras.f90`. Instead, as the limit of mass applies only to one of the components, we need to include this condition in the `inlist1` file. Explore [stopping conditions](https://docs.mesastar.org/en/latest/reference/controls.html#when-to-stop) in the MESA docs to find the right command.
@@ -580,19 +632,17 @@ As the last thing we would like to do is to compare the merge time with the one 
 
 Next, compile (`./clean && ./mk`) and run the models (`./rn`) with a fixed set of initial parameters (donor and black hole masses, and orbital period), while exploring different values of mass_transfer_beta. This isolates the role of accretion efficiency in shaping the orbital evolution, mass growth, and observable properties of the system.
 
+> [!IMPORTANT]
 > **As a group effort:**  
 >What can we say about the future evolution of Cyg X-1 system from shuffling the `mass_transfer_beta` alone? How does the orbit react and why? 
 >
 >Should the merge time differ from the previous step, try to anwer why is that so? 
-
+>
 > **To think about:**  
 > Is `mass_transfer_beta` the only way to control the accretor mass outcome? Can we substitute this parameter with other quantity that MESA provides, e.g. lowering the initial mass of the donor component? Why?
 
 
 <br><br><br>
 
-{{< details title="**Got stuck?**" closed="false" >}}
-
-Got stuct during the lab? Do not worry! You can always download solution from here **[⬇ Download](/mesa-school-labs-2025/wednesday/lab2_solutions.zip)** to catch up!
-
-{{< /details >}}
+> [!CAUTION]
+> **Got stuck** during the lab? Do not worry! You can always download solution from here **[⬇ Download](/mesa-school-labs-2025/wednesday/lab2_solutions.zip)** to catch up!
