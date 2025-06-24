@@ -148,6 +148,10 @@ Write a `subroutine` in `run_star_extras.f90` that computes the merger time (in 
 > ```
 > This executes the subroutine and prints the merger timescale to the terminal.
 
+> [!IMPORTANT]
+> For this task, it is fine to assume that $M_1$ is constant. For a real CE event, $M_1$ can reduce over time because of envelope ejection.
+
+
 > [!CAUTION]
 > And don't forget for run `./clean` and `./mk` after modifying the `run_star_extras.f90` file.
 
