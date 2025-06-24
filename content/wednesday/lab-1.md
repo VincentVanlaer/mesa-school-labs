@@ -300,7 +300,7 @@ You may also choose an initial mass ratio and an initial orbital period differen
 > 
 > Discuss these questions with your group members.
 
-# Task 4 (optional): Visualizing the effect of binary evolution with TULIPS
+# Task 4 (Bonus): Visualizing the effect of binary evolution with TULIPS
 ![Example TULIPS visualization](https://astro-tulips.readthedocs.io/en/latest/_images/first_animation.gif "TULIPS visualization of the apparent size and color evolution of a massive star")
 
 We can look at the outcome of binary evolution in more detail by visualizing our simulation results with [TULIPS](https://astro-tulips.readthedocs.io/), a Python package for stellar evolution visualization. We will create movies of the changes in the properties of a donor and accretor in a binary system pre-computed with MESA. For this exercise, you will need to upload the contents of the `LOGS1` and `LOGS2` output directories found [⬇ here](https://drive.google.com/drive/folders/1n_KliN8Jfmy0VXGFLE2o57U5_cy_oj0N?usp=sharing) into this [Google Collab notebook](https://colab.research.google.com/drive/1tkEXYIyOM7sWmnKZu4Ds1I235lnZHD7i?usp=sharing).
