@@ -136,7 +136,7 @@ Since our star is rotating, we can calculate analytically the effect of rotation
 
 In the JWKB approximation, we have the following estimators for p-modes and g-modes, respectively:
 
-$$\delta \Omega_p = \frac{\int_0^R \Omega(r){\mathrm d r \over c_s}}{\int_0^R \mathrm c_s d r}$$
+$$\delta \Omega_p = \frac{\int_0^R \Omega(r){\mathrm d r \over c_s}}{\int_0^R \mathrm 1/c_s \mathrm d r}$$
 
 $$\delta \Omega_g = 0.5 \frac{\int_{N^2>0} \Omega(r){N \over r}\mathrm d r}{\int_{N^2>0}\frac{N}{r} {\mathrm d r}}$$
 
