@@ -2,7 +2,7 @@
 
 ## Introduction
 
-In this part of the lab, we explore how we can model the common envelope (CE) phase of binary stars using MESA. We use MESA's single star module `star` to evolve the donor star. The effect of the companion star is modeled on top of that in the `run-star-extras.f90` file.
+In this part of the lab, we explore how we can model the common envelope (CE) phase of binary stars using MESA. We use MESA's single star module `star` to evolve the donor star. The effect of the companion star is modeled on top of that in the `run_star_extras.f90` file.
 
 ![CE cartoon](/wednesday/CE_cartoon.png)
 
@@ -31,7 +31,7 @@ $$
 $$
 The change in orbital energy can be related to the change in orbital separation by
 $$
-\Delta E_\mathrm{orb} = -\frac{G M_{1,a} M_2}{2 a} + \frac{G M_{1,a} M_2}{2 a^\prime} = -\frac{G M_1 M_2}{2} \left( \frac{1}{a} - \frac{1}{a^\prime} \right),
+\Delta E_\mathrm{orb} = -\frac{G M_{1,a} M_2}{2 a} + \frac{G M_{1,a^\prime} M_2}{2 a^\prime} = -\frac{G M_1 M_2}{2} \left( \frac{1}{a} - \frac{1}{a^\prime} \right),
 $$
 where $a^\prime$ is the new orbital separation, assuming that $M_{1,a}$ is roughly constant and that the orbit stays circular. Thus, we can model the evolution of the orbital separation.
 
@@ -44,8 +44,8 @@ Additionally, we use a Gaussian weighting kernel $\propto \exp[-(\Delta r/R_\mat
 
 ## Tasks for students
 
-### 1. Check out the `run-star-extras.f90` file
-Please download the provided MESA directory from [here](https://heibox.uni-heidelberg.de/f/7ca116519fe14d5fa929/?dl=1). This includes many files, most of which you can ignore for now. Have a close look at the `src/run-star-extras.f90` file, especially the `other_energy` hook and the `extras_finish_step` function. Try to understand how the drag force is calculated and how it is used to update the orbital separation.
+### 1. Check out the `run_star_extras.f90` file
+Please download the provided MESA directory from [here](https://heibox.uni-heidelberg.de/f/7ca116519fe14d5fa929/?dl=1). This includes many files, most of which you can ignore for now. Have a close look at the `src/run_star_extras.f90` file, especially the `other_energy` hook and the `extras_finish_step` function. Try to understand how the drag force is calculated and how it is used to update the orbital separation.
 
 {{< details title="Solution" closed="true" >}}
 The drag force is calculated in line 352 and the orbital separation is updated in line 358. We are making use of the `xtra(i)` variables in the `star_info` structure. These are particularly handy as we do not have to worry about things going wrong, if MESA decides to do a `retry`.
@@ -55,7 +55,7 @@ All the heating is done in the `CE_heating` function at the end of the file.
 
 
 ### 2. Run the CE model
-Run the CE model with the provided `inlist*` files. You are provided with a $12\,\mathrm{M}_\odot$ red supergiant model (take after core helium exhaustion from the `12M_pre_ms_to_core_collapse` test suite) and a $1.4\,\mathrm{M}_\odot$ companion star (could be a neutron star). Everything is already implemented as described above. You only need to focus on `inlist_CE`. The other inlists are taken from the test suite and not modified. So you really just have to do `./mk && ./rn`. Have a look at how the orbital separation changes over time and try to identify the different phases of CE evolution. The orbital separation is directly printed to the terminal but also saved to the `history.log` as `separation`. You can use the [MESA explorer](https://billwolf.space/mesa-explorer/) to visualize `separation` vs `star_age` (you need to upload your `history.log`file).
+Run the CE model with the provided `inlist*` files. You are provided with a $12\,\mathrm{M}_\odot$ red supergiant model (taken after core helium exhaustion from the `12M_pre_ms_to_core_collapse` test suite) and a $1.4\,\mathrm{M}_\odot$ companion star (could be a neutron star). Everything is already implemented as described above. You only need to focus on `inlist_CE`. The other inlists are taken from the test suite and not modified. So you really just have to do `./mk && ./rn`. Have a look at how the orbital separation changes over time and try to identify the different phases of CE evolution. The orbital separation is directly printed to the terminal but also saved to the `history.log` as `separation`. You can use the [MESA explorer](https://billwolf.space/mesa-explorer/) to visualize `separation` vs `star_age` (you need to upload your `history.log`file).
 
 {{< details title="Solution" closed="true" >}}
 The orbital separation is $\sim 41.1 \, {\rm R}_\odot$ after 2 years of CE evolution.
@@ -125,7 +125,7 @@ Write a `subroutine` in `run_star_extras.f90` that computes the merger time (in 
 > [!TIP]
 > Use this structure for the new subroutine. Add it to the end of the `run_star_extras.f90` file (in between `end subroutine extras_after_evolve` and `end module run_star_extras`).
 > ```fortran
->      subroutine GW_merge_time(id)
+>      subroutine GW_merger_time(id)
 >         integer, intent(in) :: id
 >         integer :: ierr
 >         type (star_info), pointer :: s
@@ -133,11 +133,13 @@ Write a `subroutine` in `run_star_extras.f90` that computes the merger time (in 
 >         call star_ptr(id, s, ierr)
 >         if (ierr /= 0) return
 >
->         ! ADD YOUR CODE HERE
+>         ! ADD YOUR CODE HERE:
+>         ! don't forget to declare any variables before use 
+>         ! at the beginning of this subrouinte
 >         ! ...
 >         ! write(*,*) "GW merger time", <the GW merger time you computed above>
 >
->      end subroutine GE_merger_time
+>      end subroutine GW_merger_time
 > ```
 >
 > Later, you can call this subroutine with the following syntax:
@@ -237,14 +239,14 @@ For the fiducial model ($M_2=1.4\,\mathrm{M}_\odot$ and $C_\mathrm{drag} = 1.0$)
 
 
 ### 6. (Bonus task) Modify the drag force prescription
-Let's extend the drag force prescription to include the density gradient of the envelope. Implement the drag force prescription from [MacLeod & Ramirez-Ruiz (2015)](https://doi.org/10.1088/0004-637X/803/1/41) in the `run-star-extras.f90` file. The drag force is given by
+Let's extend the drag force prescription to include the density gradient of the envelope. Implement the drag force prescription from [MacLeod & Ramirez-Ruiz (2015)](https://doi.org/10.1088/0004-637X/803/1/41) in the `run_star_extras.f90` file. The drag force is given by
 $$
  F_\mathrm{drag} = \pi R_\mathrm{a}^2 v_\mathrm{rel}^2\rho(c_1 + c_2 \epsilon_\rho + c_3 \epsilon_\rho^2)
 $$
-with $\epsilon_\rho = H_P/R_\mathrm{a}$ the ratio of the local pressure scale height and the accretion radius. The pre-factors are $c_i = (1.91791946, −1.52814698, 0.75992092)$. This prescription is only valid for supersonic motion. For subsonic motion, we will continue using to the current implementation. Try to implement it such that there is a smooth transition for $0.9 < \mathcal{M} < 1.1$ between the two prescriptions.
+with $\epsilon_\rho = H_P/R_\mathrm{a}$ the ratio of the local pressure scale height and the accretion radius. The pre-factors are $(c_1, c_2, c_3) = (1.91791946, −1.52814698, 0.75992092)$. This prescription is only valid for supersonic motion. For subsonic motion, we will continue using to the current implementation. Try to implement it such that there is a smooth transition for $0.9 < \mathcal{M} < 1.1$ between the two prescriptions.
 
 {{< details title="Hint 1" closed="true" >}}
-You need to get the local pressure scale height. This is stored in the `star-info` structure. Have a look at `$MESA_DIR/star_data/public/star_data_step_work.inc` and try to find the correct name for it. If you cannot find it, have a look at hint 2.
+You need to get the local pressure scale height. This is stored in the `star_info` structure. Have a look at `$MESA_DIR/star_data/public/star_data_step_work.inc` and try to find the correct name for it. If you cannot find it, have a look at hint 2.
 {{< /details >}}
 
 {{< details title="Hint 2" closed="true" >}}
