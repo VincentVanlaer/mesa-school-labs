@@ -260,8 +260,7 @@ You can instruct MESA to stop computations by using `extras_binary_finish_step =
 
 ## Task 3. Run a model with random initial binary parameters
 Now, we will explore different mass transfer cases and their stability across the initial binary parameter space. We will fix an initial primary mass to 20 Msun. Choose a random pair of initial mass ratio and an initial orbital period from the "P-q diagram" sheet in the following Google Spreadsheet, and put your name in the corresponding column of [this Google spreadsheet](
-https://docs.google.com/spreadsheets/d/1HLwsGPu6w3t2NMUcdVYvkHFvqgIOUDkigfrZruN6Uo8/edit?usp=sharing)
-**And perform MESA run with the corresponding initial parameters.** If you have many cores (more than approx. 6), you can choose the ones with high initial orbital periods (>2000 days). You need to modify "inlist_extra" to use new initial binary parameters.
+https://docs.google.com/spreadsheets/d/1HLwsGPu6w3t2NMUcdVYvkHFvqgIOUDkigfrZruN6Uo8/edit?usp=sharing), **and perform MESA run with the corresponding initial parameters.** If you have many cores (more than approx. 6), you can choose the ones with high initial orbital periods (>2000 days). You need to modify "inlist_extra" to use new initial binary parameters.
 
 > [!TIP]
 > You can check the number of cores via:
@@ -306,7 +305,7 @@ You may also choose an initial mass ratio and an initial orbital period differen
 
 We can look at the outcome of binary evolution in more detail by visualizing our simulation results with [TULIPS](https://astro-tulips.readthedocs.io/), a Python package for stellar evolution visualization. We will create movies of the changes in the properties of a donor and accretor in a binary system pre-computed with MESA. For this exercise, you will need to upload the contents of the `LOGS1` and `LOGS2` output directories found [⬇ here](https://drive.google.com/drive/folders/1n_KliN8Jfmy0VXGFLE2o57U5_cy_oj0N?usp=sharing) into this [Google Collab notebook](https://colab.research.google.com/drive/1tkEXYIyOM7sWmnKZu4Ds1I235lnZHD7i?usp=sharing).
 
-Solutions can be found [in this Google collab notebook](https://colab.research.google.com/drive/1SzbHAYd5nmnQsBCMpuESwpRVTS1o9X6j?usp=sharing).
+Solutions can be found in [this Google collab notebook](https://colab.research.google.com/drive/1SzbHAYd5nmnQsBCMpuESwpRVTS1o9X6j?usp=sharing).
 
 
 ### Acknowledgement
