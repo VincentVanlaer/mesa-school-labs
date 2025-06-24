@@ -41,6 +41,7 @@ R_\mathrm{a} = \frac{2 G M_2}{v_\mathrm{rel}^2}.
 $$
 Additionally, we use a Gaussian weighting kernel $\propto \exp[-(\Delta r/R_\mathrm{a})]$ to have a smooth heating profile, where $\Delta r = |r - a|$.
 
+# Tasks to complete
 
 ## Task 1. Check out the `run_star_extras.f90` file
 Please download the provided MESA directory from [here](https://heibox.uni-heidelberg.de/f/7ca116519fe14d5fa929/?dl=1). This includes many files, most of which you can ignore for now. Have a close look at the `src/run_star_extras.f90` file, especially the `other_energy` hook and the `extras_finish_step` function. Try to understand how the drag force is calculated and how it is used to update the orbital separation.
