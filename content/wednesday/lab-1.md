@@ -1,8 +1,8 @@
 ## Introduction
-Over the past decade, it has become clear that most massive stars are born in binary or multiple-star systems. Throughout their evolution, these stars undergo various interactions that can significantly alter their properties. One such interaction is **mass transfer**, where stars exchange mass and angular momentum. Mass transfer plays a crucial role in producing various stellar phenomena, such as different types of core-collapse supernovae, magnetic stars, X-ray sources, and gravitational wave sources. The nature of these phenomena depends on **when the mass transfer occurs** and whether it is **stable or unstable**. In this lab, we will explore mass transfer across the initial binary parameter space.
+Over the past decade, it has become clear that most massive stars are born in binary or multiple-star systems that are close enough to one another to interact. One such interaction is **mass transfer**, where stars exchange mass and angular momentum. Mass transfer plays a crucial role in producing various stellar phenomena, such as different types of core-collapse supernovae, magnetic stars, X-ray sources, and gravitational wave sources. The nature of these phenomena depends on **when the mass transfer occurs** and whether it is **stable or unstable**. In this lab, we will explore mass transfer across the initial binary parameter space.
 
 > [!NOTE]
-> In this lab, we only evolve the primary star (the initially more massive star) in detail, assuming the secondary star (the initially less massive star) as a point mass to reduce computation time. This is done via `evolve_both_stars = .false.` in `binary_job`, which is the default setting.  
+> In this lab, we only evolve the primary star (the initially more massive star) in detail, assuming the secondary star (the initially less massive star) as a point mass to reduce computation time. This is done via `evolve_both_stars = .false.` in `binary_job`, the default setting.  
 
 ## Task 1. Identifying different mass transfer cases
 Mass transfer can be divided into three cases based on the evolutionary phase of the primary star when the transfer occurs. The primary star evolves faster, fills its Roche lobe, and begins transferring mass to the secondary star. The three cases are:  
@@ -259,8 +259,8 @@ You can instruct MESA to stop computations by using `extras_binary_finish_step =
 > **Got stuck** during the lab? Do not worry! You can always download solution from here **[⬇ Download](/mesa-school-labs-2025/wednesday/solution_run_binary_extras.f90)** to catch up!
 
 ## Task 3. Run a model with random initial binary parameters
-Now, we will explore different mass transfer cases and their stability across the initial binary parameter space. We will fix an initial primary mass to 20 Msun. Choose a random pair of initial mass ratio and an initial orbital period from the "P-q diagram" sheet in the following Google Spreadsheet, and put your name in the corresponding column:
-https://docs.google.com/spreadsheets/d/1HLwsGPu6w3t2NMUcdVYvkHFvqgIOUDkigfrZruN6Uo8/edit?usp=sharing  
+Now, we will explore different mass transfer cases and their stability across the initial binary parameter space. We will fix an initial primary mass to 20 Msun. Choose a random pair of initial mass ratio and an initial orbital period from the "P-q diagram" sheet in the following Google Spreadsheet, and put your name in the corresponding column of [this Google spreadsheet](
+https://docs.google.com/spreadsheets/d/1HLwsGPu6w3t2NMUcdVYvkHFvqgIOUDkigfrZruN6Uo8/edit?usp=sharing)
 **And perform MESA run with the corresponding initial parameters.** If you have many cores (more than approx. 6), you can choose the ones with high initial orbital periods (>2000 days). You need to modify "inlist_extra" to use new initial binary parameters.
 
 > [!TIP]
@@ -304,9 +304,9 @@ You may also choose an initial mass ratio and an initial orbital period differen
 # Task 4 (optional): Visualizing the effect of binary evolution with TULIPS
 ![Example TULIPS visualization](https://astro-tulips.readthedocs.io/en/latest/_images/first_animation.gif "TULIPS visualization of the apparent size and color evolution of a massive star")
 
-We can look at the outcome of binary evolution in more detail by visualizing our simulation results with [TULIPS](https://astro-tulips.readthedocs.io/), a Python package for stellar evolution visualization. We will create movies of the changes in the properties of a donor and accretor in a binary system pre-computed with MESA. For this exercise, you will need to upload the contents of the `LOGS1` and `LOGS2` output directories found [here](https://drive.google.com/drive/folders/1n_KliN8Jfmy0VXGFLE2o57U5_cy_oj0N?usp=sharing) into this [Google Collab notebook](https://colab.research.google.com/drive/1tkEXYIyOM7sWmnKZu4Ds1I235lnZHD7i?usp=sharing).
+We can look at the outcome of binary evolution in more detail by visualizing our simulation results with [TULIPS](https://astro-tulips.readthedocs.io/), a Python package for stellar evolution visualization. We will create movies of the changes in the properties of a donor and accretor in a binary system pre-computed with MESA. For this exercise, you will need to upload the contents of the `LOGS1` and `LOGS2` output directories found [⬇ here](https://drive.google.com/drive/folders/1n_KliN8Jfmy0VXGFLE2o57U5_cy_oj0N?usp=sharing) into this [Google Collab notebook](https://colab.research.google.com/drive/1tkEXYIyOM7sWmnKZu4Ds1I235lnZHD7i?usp=sharing).
 
-Solutions can be found [here](https://colab.research.google.com/drive/1SzbHAYd5nmnQsBCMpuESwpRVTS1o9X6j?usp=sharing).
+Solutions can be found [in this Google collab notebook](https://colab.research.google.com/drive/1SzbHAYd5nmnQsBCMpuESwpRVTS1o9X6j?usp=sharing).
 
 
 ### Acknowledgement
