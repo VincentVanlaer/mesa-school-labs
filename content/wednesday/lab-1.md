@@ -1,14 +1,18 @@
 ## Introduction
 Over the past decade, it has become clear that most massive stars are born in binary or multiple-star systems that are close enough to one another to interact. One such interaction is **mass transfer**, where stars exchange mass and angular momentum. Mass transfer plays a crucial role in producing various stellar phenomena, such as different types of core-collapse supernovae, magnetic stars, X-ray sources, and gravitational wave sources. The nature of these phenomena depends on **when the mass transfer occurs** and whether it is **stable or unstable**. In this lab, we will explore mass transfer across the initial binary parameter space.
 
+![Binary_MT](/wednesday/Binary_MT.jpg)
+
+**Fig. 1**: Artist's impression depicting a mass transferring system (Credit: ESO/L. Calçada/M.Kornmesser). 
+
 > [!NOTE]
 > In this lab, we only evolve the primary star (the initially more massive star) in detail, assuming the secondary star (the initially less massive star) as a point mass to reduce computation time. This is done via `evolve_both_stars = .false.` in `binary_job`, the default setting.  
 
 ## Task 1. Identifying different mass transfer cases
 Mass transfer can be divided into three cases based on the evolutionary phase of the primary star when the transfer occurs. The primary star evolves faster, fills its Roche lobe, and begins transferring mass to the secondary star. The three cases are:  
-**Case A**: The primary transfers mass while core hydrogen burning.  
-**Case B**: The primary transfers mass while core helium burning.  
-**Case C**: The primary transfers mass after the end of core helium burning.
+**Case A**: The primary transfers mass before core hydrogen depletion (core hydrogen burning phase).  
+**Case B**: The primary transfers mass after core hydrogen depletion and before core helium depletion (past core hydrogen burning phase and/or during core helium burning phase).  
+**Case C**: The primary transfers mass after core helium depletion (past core helium burning phase).
 
 Now, let's download the MESA work directory from **[⬇ here](/mesa-school-labs-2025/wednesday/BinaryEvolution_Lab1.tar)**.
 
@@ -41,25 +45,25 @@ Initial orbital period: 100 days
 > 
 > We will use these parameters in the `extras_binary_finish_step` hook in `run_binary_extras.f90`
 
-### Task 1-1. Is the primary undergoing mass transfer?
+### Task 1.1. Is the primary undergoing mass transfer?
 **As a first step, within the !!! TASK 1 block !!! of `run_binary_extras.f90`, add an if condition to check whether the primary star is undergoing mass transfer. A good threshold to determine this is a mass transfer rate greater than $10^{-10}$ Msun/yr. If this condition is met, make MESA print "Undergoing mass transfer".**
 
 > [!WARNING]
 > Don't forget to do `./clean` and `./mk` after modifying the `run_star_extras.f90` file.
 
-{{< details title="Hint 1-1 (1)" closed="true" >}}
+{{< details title="Hint 1.1 (1)" closed="true" >}}
 Check how to make MESA print a message in the terminal in the `!!! HINT block !!!` in `run_star_extras.f90`. It is: 
 ```
 write(*,*) ' ... '
 ```
 {{< /details >}}
 
-{{< details title="Hint 1-1 (2)" closed="true" >}}
+{{< details title="Hint 1.1 (2)" closed="true" >}}
 It is important to check the units of the parameters in MESA. In many cases, it is in cgs units. For example, mass transfer rate, ```b% mtransfer_rate```, is in g/s. Use the constants secyer (seconds in a year) and Msun (solar mass in grams) to convert g/s into Msun/yr. (You can use these in ```run_binary_extras.f90``` thanks to `use const_def`).
 {{< /details >}}
 
 
-{{< details title="Hint 1-1 (3)" closed="true" >}}
+{{< details title="Hint 1.1 (3)" closed="true" >}}
 Convert mass transfer rate from g/s to Msun/yr  
 1 year = 3.15576e7 s, 1 Msun = 1.989e33 g  
 ```
@@ -68,7 +72,7 @@ abs(b% mtransfer_rate)/Msun*secyer
 {{< /details >}}
 
 
-{{< details title="Solution 1-1" closed="true" >}}
+{{< details title="Solution 1.1" closed="true" >}}
 ```fortran
          !!! TASK 1 block begins !!!
          if (abs(b% mtransfer_rate)/Msun*secyer > 1d-10) then
@@ -98,7 +102,7 @@ Please make sure that your implementation is working correctly by running a mode
  *********************************************
 ```
 
-### Task 1-2. Which evolutionary phase is the primary in?
+### Task 1.2. Which evolutionary phase is the primary in?
 As a next step, we want to determine the current evolutionary phase of the primary star. Typically, core hydrogen burning is considered complete when the central hydrogen abundance drops below 1e-6, and core helium burning ends when the central helium abundance drops below 1e-6. **Now, add conditions to !!! TASK 1 block !!! to identify which evolutionary state the primary star is in from the following list, and print it out:**  
 1. Core hydrogen burning  
 2. Core helium burning  
@@ -109,12 +113,12 @@ Run the model and verify that the terminal output aligns with the results shown 
 > [!WARNING]
 > Don't forget to do `./clean` and `./mk` after modifying the `run_star_extras.f90` file.
 
-{{< details title="Hint 1-2" closed="true" >}}
+{{< details title="Hint 1.2" closed="true" >}}
 Use the mass fractions of hydrogen (```b% s1% center_h1```) and helium (```b% s1% center_he4```) to determine the current evolutionary phase. The conditions should involve checking whether the hydrogen/helium mass fractions are above or below 1e-6. Check how core carbon depletion is captured in the `!!! HINT block !!!` in `run_star_extras.f90`. 
 {{< /details >}}
 
 
-{{< details title="Solution 1-2" closed="true" >}}
+{{< details title="Solution 1.2" closed="true" >}}
 ```fortran
          !!! TASK 1 block begins !!!
          if (abs(b% mtransfer_rate)/Msun*secyer > 1d-10) then
@@ -132,14 +136,14 @@ Use the mass fractions of hydrogen (```b% s1% center_h1```) and helium (```b% s1
 ```
 {{< /details >}}
 
-### Task 1-3. Print out Case A / B / C
+### Task 1.3. Print out Case A / B / C
 As a last step, we want to print out in the terminal which mass transfer case is occurring whenever mass transfer takes place. **Comment out the previous code in the !!! TASK 1 block !!! and implement new if-else statements that print “Case A,” “Case B,” or “Case C” depending on the evolutionary phase of the primary.** After making changes, run your model. Can you determine which mass transfer case your model undergoes? If you miss the terminal output during the run, you can review the `out.txt` file to see the printed messages.
 
 > [!WARNING]
 > Don't forget to do `./clean` and `./mk` after modifying the `run_star_extras.f90` file.
 
 If-else statements to print out Case A/B/C?
-{{< details title="Hint 1-3 (1)" closed="true" >}}
+{{< details title="Hint 1.3 (1)" closed="true" >}}
 ```fortran
          !!! TASK 1 block begins !!!
 !         if (abs(b% mtransfer_rate)/Msun*secyer > 1d-10) then
@@ -166,28 +170,28 @@ If-else statements to print out Case A/B/C?
 {{< /details >}}
 
 Condition for Case A event?
-{{< details title="Hint 1-3 (2)" closed="true" >}}
+{{< details title="Hint 1.3 (2)" closed="true" >}}
 ```fortran
 (b% s1% center_h1 > 1d-6) .and. (abs(b% mtransfer_rate)/Msun*secyer > 1d-10)
 ```
 {{< /details >}}
 
 Condition for Case B event?
-{{< details title="Hint 1-3 (3)" closed="true" >}}
+{{< details title="Hint 1.3 (3)" closed="true" >}}
 ```fortran
 (b% s1% center_h1 < 1d-6) .and. (b% s1% center_he4 > 1d-6) .and. (abs(b% mtransfer_rate)/Msun*secyer > 1d-10)
 ```
 {{< /details >}}
 
 Condition for Case C event?
-{{< details title="Hint 1-3 (4)" closed="true" >}}
+{{< details title="Hint 1.3 (4)" closed="true" >}}
 ```fortran
 (b% s1% center_he4 < 1d-6) .and. (abs(b% mtransfer_rate)/Msun*secyer > 1d-10)
 ```
 {{< /details >}}
 
 
-{{< details title="Solution 1-3" closed="true" >}}
+{{< details title="Solution 1.3" closed="true" >}}
 ```fortran
          !!! TASK 1 block begins !!!
 !         if (abs(b% mtransfer_rate)/Msun*secyer > 1d-10) then
@@ -307,6 +311,8 @@ We can look at the outcome of binary evolution in more detail by visualizing our
 
 Solutions can be found in [this Google collab notebook](https://colab.research.google.com/drive/1SzbHAYd5nmnQsBCMpuESwpRVTS1o9X6j?usp=sharing).
 
+> [!WARNING]
+> The settings used in this lab are intended for educational purposes and are not suitable for scientific research. To reduce computation time, we use very coarse spatial and temporal resolutions. Scientific research requires much higher resolutions, and they should be tested.
 
 ### Acknowledgement
 The MESA input files were built upon the following resource:  
