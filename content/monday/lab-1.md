@@ -580,8 +580,9 @@ and the [completed profile columns list here](https://github.com/Mathijs-Vanresp
 
 
 
+{{< details title="**Bonus Task -- Movies**" closed="true" >}}
 
-**Bonus Task -- Movies**:
+Making an animation with the png/ folder:
 
 Students who finish early can create an animation with the images in the png folder:
 - Ensure `Grid1_file_flag = .true.` is set (it already is in the completed inlist)
@@ -601,6 +602,7 @@ and then we can use one of the following to create a video:
 ffmpeg -r 10 -i %06d.png -c:v libx264 evolution.mp4
 convert *.png evolution.gif
 ```
+{{< /details >}}
 
 
 
