@@ -14,7 +14,7 @@ TEMPLATES FOR COPY-PASTE:
 ANSWER:
 <details class="hx-border hx-border-green-200 dark:hx-border-green-200 hx-rounded-md hx-my-2">
 <summary class="hx-bg-green-100 dark:hx-bg-neutral-800 hx-text-green-900 dark:hx-text-green-200 hx-p-2 hx-m-0 hx-cursor-pointer">
-<em>Answer</em>
+<em><strong>Answer</strong></em>
 </summary>
 <div class="hx-p-2">
 
@@ -26,7 +26,7 @@ ANSWER:
 HINT:
 <details class="hx-border hx-border-blue-200 dark:hx-border-blue-200 hx-rounded-md hx-my-2">
 <summary class="hx-bg-blue-100 dark:hx-bg-neutral-800 hx-text-blue-900 dark:hx-text-blue-200 hx-p-2 hx-m-0 hx-cursor-pointer">
-<em>Hint: Troubleshooting</em>
+<em><strong>Hint:</strong> Troubleshooting</em>
 </summary>
 <div class="hx-p-2">
 
@@ -39,7 +39,7 @@ HINT:
 Inlists, models, and photos are the core of MESA, and you can do a lot of great science without even knowing how to write a line of Fortran code. But fairly soon in your MESA journey, you will run into limits of what you can do with inlists alone. This is where `run_star_extras.f90` comes in. It allows you to extend MESA's capabilities by writing your own Fortran code that can interact with the star model. A few examples of things you can do with `run_star_extras.f90` include:
 
 - creating a custom stopping condition
-- changing control parametrs during a run without restarting
+- changing control parameters during a run without restarting
 - adding custom data to profile or history files
 - implementing custom physics, like energy sources or mass loss prescriptions
 
@@ -176,7 +176,7 @@ enddo
 
 ## Part 1: Setting Up Your Project
 {{< callout type="warning" >}}
-  These next two code blocks show how you **might** set up a MESA project, but don't actually execute them. In Task 1.1, you'll actually get your project set up.
+  These next two code blocks show how you **might** set up a MESA project, but don't actually execute them! In Task 1.1, you'll actually get your project set up.
 {{</ callout >}}
 
 When starting a new MESA project, you will often start with the default work directory:
@@ -185,7 +185,7 @@ When starting a new MESA project, you will often start with the default work dir
 cp -r $MESA_DIR/star/work my_new_project
 cd my_new_project
 ```
-This will create a new directory called `my_new_project` with the default MESA work directory structure. You can then edit the inlist files to set up your star model.
+This will create a new directory called `my_new_project` with the default MESA work directory structure. You can then edit the inlist files to set up your model.
 
 In other cases, you might start with an existing test case that is close to the science you are interested in. For instance, I study novae, so I might start with the `wd_nova_burst` test case:
 
@@ -204,7 +204,7 @@ For this tutorial, I am providing a work directory that is already set up for yo
 
 <details class="hx-border hx-border-green-200 dark:hx-border-green-200 hx-rounded-md hx-my-2">
 <summary class="hx-bg-green-100 dark:hx-bg-neutral-800 hx-text-green-900 dark:hx-text-green-200 hx-p-2 hx-m-0 hx-cursor-pointer">
-    <em>Click here for hints or answers</em>
+    <em>Click here for <strong>hints</strong> or <strong>answers</strong></em>
 </summary>
 
 <div class="hx-p-2">
@@ -244,7 +244,7 @@ If things are set up properly, you should see a pgstar window open up, and the p
 
 <details class="hx-border hx-border-green-200 dark:hx-border-green-200 hx-rounded-md hx-my-2">
 <summary class="hx-bg-green-100 dark:hx-bg-neutral-800 hx-text-green-900 dark:hx-text-green-200 hx-p-2 hx-m-0 hx-cursor-pointer">
-<em>Answer</em>
+<em><strong>Answer</strong></em>
 </summary>
 <div class="hx-p-2">
 
@@ -261,7 +261,7 @@ Note that putting `&&` between two commands means that the second command will o
 
 <details class="hx-border hx-border-blue-200 dark:hx-border-blue-200 hx-rounded-md hx-my-2">
 <summary class="hx-bg-blue-100 dark:hx-bg-neutral-800 hx-text-blue-900 dark:hx-text-blue-200 hx-p-2 hx-m-0 hx-cursor-pointer">
-<em>Hint: Troubleshooting</em>
+<em><strong>Hint:</strong> Troubleshooting</em>
 </summary>
 <div class="hx-p-2">
 
@@ -320,7 +320,7 @@ The actual "body" of the module is then delegated to the file `standard_run_star
 
 <details class="hx-border hx-border-blue-200 dark:hx-border-blue-200 hx-rounded-md hx-my-2">
 <summary class="hx-bg-blue-100 dark:hx-bg-neutral-800 hx-text-blue-900 dark:hx-text-blue-200 hx-p-2 hx-m-0 hx-cursor-pointer">
-<em>Hint</em>
+<em><strong>Hint</strong></em>
 </summary>
 <div class="hx-p-2">
 
@@ -348,7 +348,7 @@ The newly-pasted content should start with the subroutine `extras_controls` and 
 
 <details class="hx-border hx-border-green-200 dark:hx-border-green-200 hx-rounded-md hx-my-2">
 <summary class="hx-bg-green-100 dark:hx-bg-neutral-800 hx-text-green-900 dark:hx-text-green-200 hx-p-2 hx-m-0 hx-cursor-pointer">
-<em>Answer</em>
+<em><strong>Answer</strong></em>
 </summary>
 <div class="hx-p-2">
 
@@ -644,7 +644,7 @@ Whenever you change the `run_star_extras.f90` file, you will need to recompile y
 
 <details class="hx-border hx-border-green-200 dark:hx-border-green-200 hx-rounded-md hx-my-2">
 <summary class="hx-bg-green-100 dark:hx-bg-neutral-800 hx-text-green-900 dark:hx-text-green-200 hx-p-2 hx-m-0 hx-cursor-pointer">
-<em>Answer</em>
+<em><strong>Answer</strong></em>
 </summary>
 <div class="hx-p-2">
 
@@ -685,7 +685,7 @@ write(*,*) 'Hello, MESA!'
 
 <details class="hx-border hx-border-blue-200 dark:hx-border-blue-200 hx-rounded-md hx-my-2">
 <summary class="hx-bg-blue-100 dark:hx-bg-neutral-800 hx-text-blue-900 dark:hx-text-blue-200 hx-px-4 hx-py-2 hx-m-0 hx-cursor-pointer">
-<em>Hint: Wait, this thing isn't empty!</em>
+<em><strong>Hint:</strong> Wait, this thing isn't empty!</em>
 </summary>
 <div class="hx-p-4">
 
@@ -733,7 +733,7 @@ So where does your code go? I recommend putting it right after the `extras_check
 
 <details class="hx-border hx-border-green-200 dark:hx-border-green-200 hx-rounded-md hx-my-2">
 <summary class="hx-bg-green-100 dark:hx-bg-neutral-800 hx-text-green-900 dark:hx-text-green-200 hx-px-4 hx-py-2 hx-m-0 hx-cursor-pointer">
-<em>Answer</em>
+<em><strong>Answer</strong></em>
 </summary>
 <div class="hx-p-4">
 
@@ -769,7 +769,7 @@ Now that you've got some working code, let's break it! We're going to intentiona
 
 <details class="hx-border hx-border-green-200 dark:hx-border-green-200 hx-rounded-md hx-my-2">
 <summary class="hx-bg-green-100 dark:hx-bg-neutral-800 hx-text-green-900 dark:hx-text-green-200 hx-py-2 hx-px-4 hx-m-0 hx-cursor-pointer">
-<em>Answer</em>
+<em><strong>Answer</strong></em>
 </summary>
 <div class="hx-p-4">
 
@@ -868,13 +868,13 @@ where $T_\odot$ is the effective temperature of the star and $R_\odot$ is the ph
 
 <details class="hx-border hx-border-green-200 dark:hx-border-green-200 hx-rounded-md hx-my-2">
 <summary class="hx-bg-green-100 dark:hx-bg-neutral-800 hx-text-green-900 dark:hx-text-green-200 hx-py-2 hx-px-4 hx-m-0 hx-cursor-pointer">
-<em>Answer</em>
+<em><strong>Answer</strong></em>
 </summary>
 <div class="hx-p-4">
 
 They are `Teff` (in `star_data_step_input`) or `photosphere_black_body_T` (in `star_data_step_work`) and `photosphere_R` (in `star_data_step_work`). Notably, **`photosphere_R` is in solar units**, so we will need to convert it to centimeters before using it in our calculation. The effective temperature is already in cgs units, so we can use it directly.
 
-I'll give an honorable mentions for `photosphere_T` (in `star_data_step_work`), but then we might get into a tough conversation about the precise definition of the effective temperature. Since it's the *power* coming from the sun that matters, the thing called effective temperature is what we want to use.
+I'll give an honorable mention for `photosphere_T` (in `star_data_step_work`), but then we might get into a tough conversation about the precise definition of the effective temperature. Since it's the *power* coming from the sun that matters, the thing called effective temperature is what we want to use.
 
 There are a couple of other radii to look at (for instance, `s% r(1)` is the radius at the first zone, but this may not be the photosphere depending on how the outer boundary condition is set up). My guess is that it wouldn't matter too much if you used something similar, but these are exactly the sorts of questions you should ask when you're writing your own extensions to MESA!
 
@@ -888,7 +888,7 @@ Now that we have the star info structure members rounded up, there's another wri
 
 <details class="hx-border hx-border-green-200 dark:hx-border-green-200 hx-rounded-md hx-my-2">
 <summary class="hx-bg-green-100 dark:hx-bg-neutral-800 hx-text-green-900 dark:hx-text-green-200 hx-py-2 hx-px-4 hx-m-0 hx-cursor-pointer">
-<em>Answer</em>
+<em><strong>Answer</strong></em>
 </summary>
 <div class="hx-p-4">
 
@@ -906,11 +906,11 @@ And the solar radius is called `Rsun`. You can find it on line 129 of the same f
 ### Putting It All Together
 Now that we have all the pieces, we can put them together to create a custom stopping condition. We'll add this code to the `extras_finish_step` function, which is called after each timestep is completed.
 
-**Task 3.3:** Edit `extras_finish_step` in your `run_star_extras.f90` file to compute the temperature at Earth and print it to the screen. You'll need to use the members we found earlier as well as the constants for an AU and $R_\odot$. Compile and run the project to make sure it works. You should see temperatures that start around 250 K and continuously rise to around 300 K by the end of the run.
+**Task 3.3:** Edit `extras_finish_step` in your `run_star_extras.f90` file to compute the temperature at Earth and print it to the screen. You'll need to use the members we found earlier as well as the constants for an AU and $R_\odot$. Compile and run the project to make sure it works. You should see temperatures that start around 250 K and continuously rise to around 300 K by the end of the run (but you don't need to run to completion).
 
 <details class="hx-border hx-border-blue-200 dark:hx-border-blue-200 hx-rounded-md hx-my-2">
 <summary class="hx-bg-blue-100 dark:hx-bg-neutral-800 hx-text-blue-900 dark:hx-text-blue-200 hx-p-2 hx-m-0 hx-cursor-pointer">
-<em>Hint: Defining a New Variable</em>
+<em><strong>Hint:</strong> Defining a New Variable</em>
 </summary>
 <div class="hx-p-2">
 
@@ -925,7 +925,7 @@ Then later on in the function, you can compute the equilibrium temperature of th
 
 <details class="hx-border hx-border-green-200 dark:hx-border-green-200 hx-rounded-md hx-my-2">
 <summary class="hx-bg-green-100 dark:hx-bg-neutral-800 hx-text-green-900 dark:hx-text-green-200 hx-p-2 hx-m-0 hx-cursor-pointer">
-<em>Answer</em>
+<em><strong>Answer</strong></em>
 </summary>
 <div class="hx-p-4">
 
@@ -959,7 +959,7 @@ As usual, compile and run the project again with `./mk && ./rn`.
 
 <details class="hx-border hx-border-blue-200 dark:hx-border-blue-200 hx-rounded-md hx-my-2">
 <summary class="hx-bg-blue-100 dark:hx-bg-neutral-800 hx-text-blue-900 dark:hx-text-blue-200 hx-px-4 hx-py-2 hx-m-0 hx-cursor-pointer">
-<em>Hint: Conditionally Terminating the Run</em>
+<em><strong>Hint:</strong> Conditionally Terminating the Run</em>
 </summary>
 <div class="hx-p-4">
 
@@ -980,7 +980,7 @@ Note that we can print multiple things in the same `write` statement by separati
 
 <details class="hx-border hx-border-green-200 dark:hx-border-green-200 hx-rounded-md hx-my-2">
 <summary class="hx-bg-green-100 dark:hx-bg-neutral-800 hx-text-green-900 dark:hx-text-green-200 hx-py-2 hx-px-4 hx-m-0 hx-cursor-pointer">
-<em>Answer</em>
+<em><strong>Answer</strong></em>
 </summary>
 <div class="hx-p-4">
 
@@ -1016,11 +1016,16 @@ Highlighted are the new lines, namely the `if` block that checks the equilibrium
 
 Now let's test our new stopping condition. We'll need to set the value of `x_ctrl(1)` in the inlist. We'll set it to a pretty high value of 310 K, but this is too high to reach in the current model since it stops at core hydrogen depletion.
 
+{{< callout type="warning" >}}
+  Note that within an inlist, the star info structure is nowhere to be found. **You should not use `s%` withn an inlist, EVER.**. When *accessing inlist values in `run_star_extras.f90`*, you are querying the star info structure, so you *do* need to use `s%`. In short, you'll just use `x_ctrl(1)` in the inlist, but `s% x_ctrl(1)` in your Fortran code.
+{{</ callout >}}
+
+
 **Task 3.5:** Edit your `inlist` to set `x_ctrl(1)` to 310 K (these go in the `controls` namelist), and prevent the old stopping condition from functioning. Then compile and run the project again. It should run for about 126 timesteps before stopping if everything is working correctly.
 
 <details class="hx-border hx-border-green-200 dark:hx-border-green-200 hx-rounded-md hx-my-2">
 <summary class="hx-bg-green-100 dark:hx-bg-neutral-800 hx-text-green-900 dark:hx-text-green-200 hx-py-2 hx-px-4 hx-m-0 hx-cursor-pointer">
-<em>Answer</em>
+<em><strong>Answer</strong></em>
 </summary>
 <div class="hx-p-4">
 
@@ -1072,7 +1077,7 @@ As a toy model, we'll use the `other_energy` hook to add some mysterious new ene
 
 <details class="hx-border hx-border-blue-200 dark:hx-border-blue-200 hx-rounded-md hx-my-2">
 <summary class="hx-bg-blue-100 dark:hx-bg-neutral-800 hx-text-blue-900 dark:hx-text-blue-200 hx-px-4 hx-py-2 hx-m-0 hx-cursor-pointer">
-<em>Hint: What all am I copying?</em>
+<em><strong>Hint:</strong> What all am I copying?</em>
 </summary>
 <div class="hx-p-4">
 
@@ -1101,7 +1106,7 @@ end subroutine default_other_energy
 
 <details class="hx-border hx-border-blue-200 dark:hx-border-blue-200 hx-rounded-md hx-my-2">
 <summary class="hx-bg-blue-100 dark:hx-bg-neutral-800 hx-text-blue-900 dark:hx-text-blue-200 hx-px-4 hx-py-2 hx-m-0 hx-cursor-pointer">
-<em>Hint: Where should I paste this?</em>
+<em><strong>Hint:</strong> Where should I paste this?</em>
 </summary>
 <div class="hx-p-4">
 
@@ -1140,7 +1145,7 @@ We won't be doing that here, though, as we'll want to set the value of `extra_he
 
 <details class="hx-border hx-border-green-200 dark:hx-border-green-200 hx-rounded-md hx-my-2">
 <summary class="hx-bg-green-100 dark:hx-bg-neutral-800 hx-text-green-900 dark:hx-text-green-200 hx-py-2 hx-px-4 hx-m-0 hx-cursor-pointer">
-<em>Answer</em>
+<em><strong>Answer</strong></em>
 </summary>
 <div class="hx-p-4">
 
@@ -1172,7 +1177,7 @@ We have another step to complete before MESA will even call our new subroutine. 
 
 <details class="hx-border hx-border-blue-200 dark:hx-border-blue-200 hx-rounded-md hx-my-2">
 <summary class="hx-bg-blue-100 dark:hx-bg-neutral-800 hx-text-blue-900 dark:hx-text-blue-200 hx-px-4 hx-py-2 hx-m-0 hx-cursor-pointer">
-<em>Hint: What Comments?</em>
+<em><strong>Hint:</strong> What Comments?</em>
 </summary>
 <div class="hx-p-4">
 
@@ -1192,7 +1197,7 @@ If you then read the `README` file in `$MESA_DIR/star/other`, you'll see that th
 
 <details class="hx-border hx-border-green-200 dark:hx-border-green-200 hx-rounded-md hx-my-2">
 <summary class="hx-bg-green-100 dark:hx-bg-neutral-800 hx-text-green-900 dark:hx-text-green-200 hx-py-2 hx-px-4 hx-m-0 hx-cursor-pointer">
-<em>Answer</em>
+<em><strong>Answer</strong></em>
 </summary>
 <div class="hx-p-4">
 
@@ -1204,7 +1209,7 @@ s% other_energy => day2_other_energy
 
 This sets the pointer `s% other_energy` to point to our new subroutine `day2_other_energy`. This is how MESA knows to call our subroutine when it reaches the `other_energy` hook in the flowchart. For me, the entirety of the `extras_controls` subroutine now looks like this:
 
-```fortran
+```fortran {hl_lines=[32]}
 subroutine extras_controls(id, ierr)
    integer, intent(in) :: id
    integer, intent(out) :: ierr
@@ -1239,7 +1244,7 @@ subroutine extras_controls(id, ierr)
    s% other_energy => day2_other_energy
 end subroutine extras_controls
 ```
-
+The highlighted line at the end is the only new addition.
 </div>
 </details>
 
@@ -1251,7 +1256,7 @@ You're probably getting the hang of this by now, so I'll let you try this one on
 
 <details class="hx-border hx-border-green-200 dark:hx-border-green-200 hx-rounded-md hx-my-2">
 <summary class="hx-bg-green-100 dark:hx-bg-neutral-800 hx-text-green-900 dark:hx-text-green-200 hx-py-2 hx-px-4 hx-m-0 hx-cursor-pointer">
-<em>Answer</em>
+<em><strong>Answer</strong></em>
 </summary>
 <div class="hx-p-4">
 
@@ -1263,7 +1268,7 @@ use_other_energy = .true.
 This should go in the `controls` namelist, and it will turn on the `other_energy` hook.
 
 Your `day2_other_energy` subroutine should now look like this:
-```fortran
+```fortran {hl_lines=[4]}
 subroutine day2_other_energy(id, ierr)
     ! BEGINNING OF SUBROUTINE OMITTED FOR BREVITY
     if (ierr /= 0) return
@@ -1286,13 +1291,13 @@ First off, let's do nothing again, but in a fancier way.
 
 <details class="hx-border hx-border-green-200 dark:hx-border-green-200 hx-rounded-md hx-my-2">
 <summary class="hx-bg-green-100 dark:hx-bg-neutral-800 hx-text-green-900 dark:hx-text-green-200 hx-py-2 hx-px-4 hx-m-0 hx-cursor-pointer">
-<em>Answer</em>
+<em><strong>Answer</strong></em>
 </summary>
 <div class="hx-p-4">
 
 The `day2_other_energy` subroutine should now look like this:
 
-```fortran
+```fortran {hl_lines=[13,14,15,16]}
 subroutine day2_other_energy(id, ierr)
     use star_def
     use auto_diff
@@ -1330,7 +1335,7 @@ While it may take more timesteps than before, the actual evolutionary time of th
 
 <details class="hx-border hx-border-blue-200 dark:hx-border-blue-200 hx-rounded-md hx-my-2">
 <summary class="hx-bg-blue-100 dark:hx-bg-neutral-800 hx-text-blue-900 dark:hx-text-blue-200 hx-px-4 hx-py-2 hx-m-0 hx-cursor-pointer">
-<em>Hint: Unit Trickery?</em>
+<em><strong>Hint:</strong> Unit Trickery?</em>
 </summary>
 <div class="hx-p-4">
 
@@ -1341,7 +1346,7 @@ Okay, it's not "trickery" per se, but `s% extra_heat` is in erg/g/s, and we tend
 
 <details class="hx-border hx-border-blue-200 dark:hx-border-blue-200 hx-rounded-md hx-my-2">
 <summary class="hx-bg-blue-100 dark:hx-bg-neutral-800 hx-text-blue-900 dark:hx-text-blue-200 hx-px-4 hx-py-2 hx-m-0 hx-cursor-pointer">
-<em>Hint: The Mass Coordinate</em>
+<em><strong>Hint:</strong> The Mass Coordinate</em>
 </summary>
 <div class="hx-p-4">
 
@@ -1352,13 +1357,13 @@ The "mass coordinate" is the mass of the star enclosed within a zone. So at the 
 
 <details class="hx-border hx-border-green-200 dark:hx-border-green-200 hx-rounded-md hx-my-2">
 <summary class="hx-bg-green-100 dark:hx-bg-neutral-800 hx-text-green-900 dark:hx-text-green-200 hx-py-2 hx-px-4 hx-m-0 hx-cursor-pointer">
-<em>Answer</em>
+<em><strong>Answer</strong></em>
 </summary>
 <div class="hx-p-4">
 
 The final routine should look something like this
 
-```fortran
+```fortran {hl_lines=[14, 15, 17, 18, 19]}
 subroutine day2_other_energy(id, ierr)
     use star_def
     use auto_diff
@@ -1371,7 +1376,7 @@ subroutine day2_other_energy(id, ierr)
     ierr = 0
     call star_ptr(id, s, ierr)
     if (ierr /= 0) return
-    ! Set extra_heat to 0 at all zones
+    
     delta_M = s% x_ctrl(2) * Msun
     L_extra = s% x_ctrl(3) * Lsun
 
@@ -1403,7 +1408,7 @@ If you got this far, you've done a great job! As a bonus exercise, let's compare
 
 <details class="hx-border hx-border-blue-200 dark:hx-border-blue-200 hx-rounded-md hx-my-2">
 <summary class="hx-bg-blue-100 dark:hx-bg-neutral-800 hx-text-blue-900 dark:hx-text-blue-200 hx-px-4 hx-py-2 hx-m-0 hx-cursor-pointer">
-<em>Hint: star info structure members</em>
+<em><strong>Hint:</strong> star info structure members</em>
 </summary>
 <div class="hx-p-4">
 
@@ -1413,18 +1418,18 @@ You'll want to use the following member of the star info structure:
 - `extra_heat`
 - `eps_nuc`
 
-Beware; `extra_heat` is of type `auto_diff_real_star_order1`, so you'll need to use the `val` member to get the actual value of the extra heating at each zone. `auto_diff` is a great tool, but sometimes these gotchas can trip you up if you're not careful (I wasn't at first!).
+Beware; `extra_heat` is of type `auto_diff_real_star_order1`, so you'll need to use the `val` member (`extra_heat(k)% val`) to get the actual value of the extra heating at each zone. `auto_diff` is a great tool, but sometimes these gotchas can trip you up if you're not careful (I wasn't at first!).
 </div>
 </details>
 
 <details class="hx-border hx-border-green-200 dark:hx-border-green-200 hx-rounded-md hx-my-2">
 <summary class="hx-bg-green-100 dark:hx-bg-neutral-800 hx-text-green-900 dark:hx-text-green-200 hx-py-2 hx-px-4 hx-m-0 hx-cursor-pointer">
-<em>Answer</em>
+<em><strong>Answer</strong></em>
 </summary>
 <div class="hx-p-4">
 
 The four functions and subroutines you need to implement are:
-```fortran
+```fortran {hl_lines=[8, 25, 26, 38, 57, 58, 59, 60]}
 integer function how_many_extra_history_columns(id)
    integer, intent(in) :: id
    integer :: ierr
