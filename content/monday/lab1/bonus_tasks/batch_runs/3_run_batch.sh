@@ -18,9 +18,9 @@ if [ ! -f "inlist" ] || [ ! -f "star" ]; then
     exit 1
 fi
 
-BATCH_DIR="../batch_inlists"
-OUTPUT_DIR="../runs"
-TIMING_FILE="../run_timings.csv"
+BATCH_DIR="bonus_tasks/batch_inlists"
+OUTPUT_DIR="bonus_tasks/runs"
+TIMING_FILE="bonus_tasks/run_timings.csv"
 
 # Check if batch inlists exist
 if [ ! -d "$BATCH_DIR" ]; then

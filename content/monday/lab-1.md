@@ -266,9 +266,17 @@ of `&controls` to see what the default wind mass loss is. You could also look th
 the default values in the MESA code inside `$MESA_DIR/star/defaults/`, though the website
 documentation is easier to navigate if you don't know the name of the relevant fields yet.
 
+
+
 {{< details title="Click here to show a hint" closed="true" >}}
 
 In the panel on the left of the website, navigate to *Reference and Defaults > controls*. On the right, you can now see the contents of this page. Mass loss by winds is found under *mass gain and loss*.
+
+> [!TIP]
+>All apart from the most recent MESA build, this is the the path to controls: "Reference > star defaults > controls"
+>If you are using the most recent MESA build then the path is "Reference and Defaults > controls"
+
+
 
 {{< /details >}}
 
@@ -356,6 +364,10 @@ If you got stuck and cannot get your inlist to run, you can find
 
 ### C :  Customising output
 
+<p align="center">
+  <img src="lab1/bonus_tasks/python_analysis/plots/pgstar_example.png" alt="pgstar" height="300">
+</p>
+
 11. Now let's turn to these animated plots, often called
 the pgstar plots. These are incredible useful in understanding what
 is going on in your model while its running, helping you spot
@@ -372,6 +384,8 @@ For this lab, we have prepared a specialized
 and move it into your MESA work directory. Make sure to name the file `inlist_pgstar`!
 
 Run your model again to see what the new pgstar plots look like.
+
+
 
 > [!TIP]
 > You don't have to wait for the run to be finished. Remember that you can interrupt it using ctrl+C if you're on Linux and Cmd+C if you're on Mac.
@@ -560,6 +574,36 @@ the [completed history columns list here](https://github.com/Mathijs-Vanrespaill
 and the [completed profile columns list here](https://github.com/Mathijs-Vanrespaille/mesa-school-labs/blob/main/content/monday/lab1/completed_inlists/my_profile_columns.list).
 
 
+
+
+
+
+
+
+
+**Bonus Task -- Movies**:
+
+Students who finish early can create an animation with the images in the png folder:
+- Ensure `Grid1_file_flag = .true.` is set (it already is in the completed inlist)
+- Run a quick model to generate PNGs
+- Verify the outputs 
+```bash
+ls -lh png/
+```
+You should see quite a few png images.
+- Now we can create the video:
+Move to the directory
+```bash
+cd png
+```
+and then we can use one of the following to create a video with one of the following:
+```bash
+ffmpeg -r 10 -i %06d.png -c:v libx264 evolution.mp4
+convert *.png evolution.gif
+```
+
+
+
 ---
 
 ## SESSION 2
@@ -588,6 +632,15 @@ of these parameter settings to the model you produced in
 lab 1. Meanwhile, we will collect some basic results from
 everyone's model and examine the correlations between
 different parameters together.
+
+
+Bonus Question: Overshooting in MESA starts overshoot_f0 scale heights into the convection zone. If you use step overshooting, the overshooting ends overshoot_f scale heights above the start of overshooting, after which the overshoot mixing goes to zero. But how does MESA define where the overshooting stops when you use exponential overshooting, which never goes all the way to zero?
+
+{{< details title="Click here to show the answer" closed="true" >}}
+
+By default, MESA kills the exponential overshoot beyond the point where it drops to 100 cm$^2$/s. This is actually a rather high lower limit and can significantly diminish the impact of the overshooting. Using the overshoot_D_min field, you can alter this lower limit.
+
+{{< /details >}}
 
 
 16. Go into
@@ -642,7 +695,7 @@ particularly the mixing panel. Compare it with those of the
 other people at your table. 
 
 
-20. After your model finishes running, we'll extract key parameters at the Terminal Age Main Sequence (TAMS).
+19. After your model finishes running, we'll extract key parameters at the Terminal Age Main Sequence (TAMS).
 
 Open the final history.data file in your new LOGS directory with a text editor. The TAMS is represented by the final line in this file - this is where the central hydrogen has been depleted to the threshold we set (1d-6) and the run was ended.
 
@@ -672,6 +725,8 @@ and making some custom plots.
 
 ### F :  BONUS: Batch Parameter Studies with MESA
 
-If you've completed the main lab activities and have time remaining, explore the automated parameter study framework in the [`bonus_tasks/`](./lab1/bonus_tasks/batch_runs/) directory. This framework enables systematic exploration of overshooting effects across a grid of stellar model parameters.
 
-For complete documentation and additional analysis tools, see [`bonus_tasks/README.md`](./lab1/bonus_tasks/README.md).
+
+If you've completed the main lab activities and have time remaining, explore the automated parameter study framework in the [`bonus_tasks/`](https://github.com/nialljmiller/mesa-school-labs/tree/main/content/monday/lab1/bonus_tasks) directory. This framework enables systematic exploration of overshooting effects across a grid of stellar model parameters.
+
+For complete documentation and additional analysis tools, see [`bonus_tasks/README.md`](https://github.com/nialljmiller/mesa-school-labs/tree/main/content/monday/lab1/bonus_tasks/README.md).

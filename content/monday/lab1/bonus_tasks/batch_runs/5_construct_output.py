@@ -87,7 +87,7 @@ def load_runtime_data(timings_file="run_timings.csv"):
     
     return runtimes
 
-def write_summary_csv(output_csv="../filled_MESA_Lab.csv", base_dir="../runs", timings_file="../run_timings.csv"):
+def write_summary_csv(output_csv="../filled_Lab1.csv", base_dir="../runs", timings_file="../run_timings.csv"):
     # Load runtime data
     runtimes = load_runtime_data(timings_file)
     
