@@ -44,7 +44,7 @@ Additionally, we use a Gaussian weighting kernel $\propto \exp[-(\Delta r/R_\mat
 # Tasks to complete
 
 ## Task 1. Check out the `run_star_extras.f90` file
-Please download the provided MESA directory from **[⬇ here](mesa-school-labs-2025/wednesday/lab3_base_dir.zip)**. This includes many files, most of which you can ignore for now. Have a close look at the `src/run_star_extras.f90` file, especially the `other_energy` hook and the `extras_finish_step` function. Try to understand how the drag force is calculated and how it is used to update the orbital separation.
+Please download the provided MESA directory from **[⬇ here](/mesa-school-labs-2025/wednesday/lab3_base_dir.zip)**. This includes many files, most of which you can ignore for now. Have a close look at the `src/run_star_extras.f90` file, especially the `other_energy` hook and the `extras_finish_step` function. Try to understand how the drag force is calculated and how it is used to update the orbital separation.
 
 {{< details title="Solution" closed="true" >}}
 The drag force is calculated in line 352 and the orbital separation is updated in line 358. We are making use of the `xtra(i)` variables in the `star_info` structure. These are particularly handy as we do not have to worry about things going wrong, if MESA decides to do a `retry`.
@@ -110,7 +110,7 @@ Then update the `run_star_extras.f90` as follows:
 ```fortran
 Fdrag = s% x_ctrl(5) *  4*pi*rho_r*(G * M2 / vrel)**2 * I
 ```
-You can find a full implementation **[⬇ here](mesa-school-labs-2025/wednesday/lab3_task4_solution.zip)**.
+You can find a full implementation **[⬇ here](/mesa-school-labs-2025/wednesday/lab3_task4_solution.zip)**.
 
 For $C_\mathrm{d}<1$ the plunge-in takes longer and the separation afterwards is a little larger. This is expected as the drag force is generally weaker. For $C_\mathrm{d} = 0.5$, the orbital separation after two years of CE evolution is $\sim 57.2\,\mathrm{R}_\odot$.
 {{< /details >}}
@@ -144,7 +144,7 @@ $$
 
 {{< details title="Solution" closed="true" >}}
 Now, the drag force in the supersonic regime is a bit weaker. Therefore, the plunge-in takes longer. The orbital separation after 2 years of CE is $\sim 74.1~\mathrm{R}_\odot$.
-For the full implementation, see **[⬇ here](mesa-school-labs-2025/wednesday/lab3_task5_solution.zip)**.
+For the full implementation, see **[⬇ here](/mesa-school-labs-2025/wednesday/lab3_task5_solution.zip)**.
 {{< /details >}}
 
 
@@ -270,7 +270,7 @@ The modified `extras_startup` and `extras_after_evolve` could look like this:
 ```
 
 For the fiducial model ($M_2=1.4\,\mathrm{M}_\odot$ and $C_\mathrm{drag} = 1.0$), the initial merger time is $2\times 10^8$ Gyr, and the final merger time is $2\times 10^{3}$ Gyr. The merger time is reduced by a factor of $10^5$ during CE, increasing the strength of GWs and speeding up the merger. However, even the final merger time is much longer than the age of the Universe ($~14$ Gyr). But further mass transfer episodes may bring the binary even closer and reduce the GW merger time.
-For the full implementation, see **[⬇ here](mesa-school-labs-2025/wednesday/lab3_bonus_solution.zip)**.
+For the full implementation, see **[⬇ here](/mesa-school-labs-2025/wednesday/lab3_bonus_solution.zip)**.
 
 {{< /details >}}
 
