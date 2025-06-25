@@ -596,7 +596,7 @@ Move to the directory
 ```bash
 cd png
 ```
-and then we can use one of the following to create a video with one of the following:
+and then we can use one of the following to create a video:
 ```bash
 ffmpeg -r 10 -i %06d.png -c:v libx264 evolution.mp4
 convert *.png evolution.gif
