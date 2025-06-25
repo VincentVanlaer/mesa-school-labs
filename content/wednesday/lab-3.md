@@ -44,7 +44,7 @@ Additionally, we use a Gaussian weighting kernel $\propto \exp[-(\Delta r/R_\mat
 # Tasks to complete
 
 ## Task 1. Check out the `run_star_extras.f90` file
-Please download the provided MESA directory from [here](https://heibox.uni-heidelberg.de/f/7ca116519fe14d5fa929/?dl=1). This includes many files, most of which you can ignore for now. Have a close look at the `src/run_star_extras.f90` file, especially the `other_energy` hook and the `extras_finish_step` function. Try to understand how the drag force is calculated and how it is used to update the orbital separation.
+Please download the provided MESA directory from **[⬇ here](wednesday/lab3_base_dir.zip)**. This includes many files, most of which you can ignore for now. Have a close look at the `src/run_star_extras.f90` file, especially the `other_energy` hook and the `extras_finish_step` function. Try to understand how the drag force is calculated and how it is used to update the orbital separation.
 
 {{< details title="Solution" closed="true" >}}
 The drag force is calculated in line 352 and the orbital separation is updated in line 358. We are making use of the `xtra(i)` variables in the `star_info` structure. These are particularly handy as we do not have to worry about things going wrong, if MESA decides to do a `retry`.
@@ -110,12 +110,45 @@ Then update the `run_star_extras.f90` as follows:
 ```fortran
 Fdrag = s% x_ctrl(5) *  4*pi*rho_r*(G * M2 / vrel)**2 * I
 ```
-You can find a full implementation [here](https://heibox.uni-heidelberg.de/f/e47fa6a418cb4129a11b/?dl=1).
+You can find a full implementation **[⬇ here](wednesday/lab3_task4_solution.zip)**.
 
 For $C_\mathrm{d}<1$ the plunge-in takes longer and the separation afterwards is a little larger. This is expected as the drag force is generally weaker. For $C_\mathrm{d} = 0.5$, the orbital separation after two years of CE evolution is $\sim 57.2\,\mathrm{R}_\odot$.
 {{< /details >}}
 
-## Task 5. Compute the gravitational-wave merger time
+## Task 5. Modify the drag force prescription
+Let's extend the drag force prescription to include the density gradient of the envelope. Implement the drag force prescription from [MacLeod & Ramirez-Ruiz (2015)](https://doi.org/10.1088/0004-637X/803/1/41) in the `run_star_extras.f90` file. The drag force is given by
+$$
+ F_\mathrm{drag} = \pi R_\mathrm{a}^2 v_\mathrm{rel}^2\rho(c_1 + c_2 \epsilon_\rho + c_3 \epsilon_\rho^2)
+$$
+with $\epsilon_\rho = H_P/R_\mathrm{a}$ the ratio of the local pressure scale height and the accretion radius. The pre-factors are $(c_1, c_2, c_3) = (1.91791946, −1.52814698, 0.75992092)$. This prescription is only valid for supersonic motion. For subsonic motion, we will continue using to the current implementation. Try to implement it such that there is a smooth transition for $0.9 < \mathcal{M} < 1.1$ between the two prescriptions.
+
+{{< details title="Hint 1 (Where to start)" closed="true" >}}
+You can take the current implementation of the drag force as a starting point for this task. Try to locate in the `run_star_extras.f90` where the drag force is computed. Take this as the starting point and modify the old calculation of the drag force to the new prescription. 
+{{< /details >}}
+
+{{< details title="Hint 2" closed="true" >}}
+You need to get the local pressure scale height. This is stored in the `star_info` structure. Have a look at `$MESA_DIR/star_data/public/star_data_step_work.inc` and try to find the correct name for it. If you cannot find it, have a look at hint 2.
+{{< /details >}}
+
+{{< details title="Hint 3" closed="true" >}}
+The pressure scale height is called `scale_height` and can be accessed via `s% scale_height(k)` for zone `k`.
+{{< /details >}}
+
+{{< details title="Hint 4" closed="true" >}}
+For a smooth transition for $0.9 < \mathcal{M} < 1.1$ you can define an auxiliary variable $\alpha = \frac{\mathcal{M} - 0.9}{1.1-0.9}$. Then the drag force in the transition region is given by
+$$
+F_\mathrm{drag} = \alpha F_\mathrm{drag}^\mathrm{MacLeod} + (1 - \alpha)F_\mathrm{drag}^\mathrm{Ostriker}
+$$
+{{< /details >}}
+
+
+{{< details title="Solution" closed="true" >}}
+Now, the drag force in the supersonic regime is a bit weaker. Therefore, the plunge-in takes longer. The orbital separation after 2 years of CE is $\sim 74.1~\mathrm{R}_\odot$.
+For the full implementation, see **[⬇ here](wednesday/lab3_task5_solution.zip)**.
+{{< /details >}}
+
+
+## Task 6. (Bonus) Compute the gravitational-wave merger time
 Now, we want to explore the effect of CE evolution on the gravitational wave (GW) inpiral time. The formula for the GW merger time was already introduced in the previous lab:
 $$t_{\mathrm{merge}} = \frac{5}{256} \cdot \frac{c^5 a^4}{G^3 M_1 M_2 (M_1 + M_2)}.$$
 
@@ -237,89 +270,8 @@ The modified `extras_startup` and `extras_after_evolve` could look like this:
 ```
 
 For the fiducial model ($M_2=1.4\,\mathrm{M}_\odot$ and $C_\mathrm{drag} = 1.0$), the initial merger time is $2\times 10^8$ Gyr, and the final merger time is $2\times 10^{3}$ Gyr. The merger time is reduced by a factor of $10^5$ during CE, increasing the strength of GWs and speeding up the merger. However, even the final merger time is much longer than the age of the Universe ($~14$ Gyr). But further mass transfer episodes may bring the binary even closer and reduce the GW merger time.
+For the full implementation, see **[⬇ here](wednesday/lab3_bonus_solution.zip)**.
 
-{{< /details >}}
-
-
-## Task 6. (Bonus) Modify the drag force prescription
-Let's extend the drag force prescription to include the density gradient of the envelope. Implement the drag force prescription from [MacLeod & Ramirez-Ruiz (2015)](https://doi.org/10.1088/0004-637X/803/1/41) in the `run_star_extras.f90` file. The drag force is given by
-$$
- F_\mathrm{drag} = \pi R_\mathrm{a}^2 v_\mathrm{rel}^2\rho(c_1 + c_2 \epsilon_\rho + c_3 \epsilon_\rho^2)
-$$
-with $\epsilon_\rho = H_P/R_\mathrm{a}$ the ratio of the local pressure scale height and the accretion radius. The pre-factors are $(c_1, c_2, c_3) = (1.91791946, −1.52814698, 0.75992092)$. This prescription is only valid for supersonic motion. For subsonic motion, we will continue using to the current implementation. Try to implement it such that there is a smooth transition for $0.9 < \mathcal{M} < 1.1$ between the two prescriptions.
-
-{{< details title="Hint 1" closed="true" >}}
-You need to get the local pressure scale height. This is stored in the `star_info` structure. Have a look at `$MESA_DIR/star_data/public/star_data_step_work.inc` and try to find the correct name for it. If you cannot find it, have a look at hint 2.
-{{< /details >}}
-
-{{< details title="Hint 2" closed="true" >}}
-The pressure scale height is called `scale_height` and can be accessed via `s% scale_height(k)` for zone `k`.
-{{< /details >}}
-
-{{< details title="Hint 3" closed="true" >}}
-For a smooth transition for $0.9 < \mathcal{M} < 1.1$ you can define an auxiliary variable $\alpha = \frac{\mathcal{M} - 0.9}{1.1-0.9}$. Then the drag force in the transition region is given by
-$$
-F_\mathrm{drag} = \alpha F_\mathrm{drag}^\mathrm{MacLeod} + (1 - \alpha)F_\mathrm{drag}^\mathrm{Ostriker}
-$$
-{{< /details >}}
-
-
-{{< details title="Solution" closed="true" >}}
-One possible implementation could look like this
-```fortran
-         G = standard_cgrav
-         M2 = s% xtra(1)  
-         a = s% xtra(2)
-         r_min = s% xtra(3)
-         do k=1, s% nz
-            if (s% r(k) < a) then
-               M_r = s% m(k)
-               rho_r = s% rho(k)
-               cs_r = s% csound(k)
-               omega_r = s% omega(k)
-               H_P_r = s% scale_height(k)
-               exit
-            end if
-         end do
-         vorb = sqrt(G*(M_r + M2)/a)
-         vrel = vorb - omega_r * a
-         Eorb = -G*M_r*M2/(2*a)
-         Mach_r = vrel / cs_r
-         Ra = 2.0d0 * G * M2 / vrel**2
-
-         ! compute the drag force
-         ! first, get Ostriker (1999) because needed for both implementations
-         if (Mach_r < 1.0d0) then
-            I = 0.5d0 * log((1.0d0 + Mach_r) / (1.d0 - Mach_r)) - Mach_r
-         else
-            I = 0.5d0 * log( 1.0d0 - 1.0d0/Mach_r**2) + log(2*a / r_min)
-         end if
-         Fdrag_Ost = 4*pi*rho_r*(G * M2 / vrel)**2 * I
-
-         if (s% x_logical_ctrl(1)) then
-            ! use  MacLeod & Ramirez-Ruiz (2015)
-            eps_rho = H_P_r / Ra 
-            f_mod = 1.91791946 - 1.52814698 * eps_rho + 0.75992092 * eps_rho**2
-            Fdrag_Mac = pi * Ra**2 * vrel**2 * rho_r * f_mod
-
-            ! do smooth transition between the two
-            if (Mach_r < 0.9d0) then
-               Fdrag = Fdrag_Ost
-            else if (Mach_r > 1.1d0) then
-               Fdrag = Fdrag_Mac
-            else
-               alpha = (Mach_r - 0.9d0) / (1.1d0 - 0.9d0)
-               Fdrag = (1.0d0 - alpha) * Fdrag_Ost + alpha * Fdrag_Mac
-            end if
-         else
-            ! use Ostriker (1999) only
-            Fdrag = Fdrag_Ost
-         end if
-
-         Fdrag = Fdrag * s% x_ctrl(5)  ! scale by the user-defined factor
-```
-For the full implementation, see [here](https://heibox.uni-heidelberg.de/f/d79187f0f7494dfa91e4/?dl=1).
-Now, the drag force in the supersonic regime is a bit weaker. Therefore, the plunge-in takes longer. The orbital separation after 2 years of CE is $\sim 74.1~\mathrm{R}_\odot$.
 {{< /details >}}
 
 
