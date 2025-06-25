@@ -175,9 +175,9 @@ enddo
 ```
 
 ## Part 1: Setting Up Your Project
-{{< callout type="warning" >}}
-  These next two code blocks show how you **might** set up a MESA project, but don't actually execute them! In Task 1.1, you'll actually get your project set up.
-{{</ callout >}}
+> [!WARNING]
+>  These next two code blocks show how you **might** set up a MESA project, but don't actually execute them! In Task 1.1, you'll actually get your project set up.
+
 
 When starting a new MESA project, you will often start with the default work directory:
 
@@ -196,9 +196,8 @@ cd my_new_project
 
 For this tutorial, I am providing a work directory that is already set up for you. It's pretty simple; it evolves a 1.0 solar mass star from near the zero-age main sequence to core hydrogen exhaustion, and then pauses before exiting.
 
-{{< callout type=info >}}
-   This work directory is designed to run pretty quickly. For parts 1 through 3, no simulations should take more than about a minute to run. They make take a bit longer in part 4, but still should finishin within a few minutes.
-{{</ callout >}}
+> [!NOTE]
+>  This work directory is designed to run pretty quickly. For parts 1 through 3, no simulations should take more than about a minute to run. They make take a bit longer in part 4, but still should finishin within a few minutes.
 
 **Task 1.1:** [Download the work directory](../day2-dev_mesa.zip), move it somewhere sensible, unzip it, and change into the directory.
 
@@ -277,9 +276,8 @@ The file `run_star_extras.f90` lives in the `src` directory of your work directo
 
 ### Creating a boilerplate `run_star_extras.f90`
 
-{{< callout type="info" >}}
-We'll be opening and editing files a lot for the rest of this tutorial. For simplicity, I'm assuming you're using VS Code and its associated `code` command to open and edit files. But if you're using, say, Emacs, you can substitute `code` with `emacs` (or whatever command you use to open files in your text editor of choice).
-{{</ callout >}}
+> [!NOTE]
+> We'll be opening and editing files a lot for the rest of this tutorial. For simplicity, I'm assuming you're using VS Code and its associated `code` command to open and edit files. But if you're using, say, Emacs, you can substitute `code` with `emacs` (or whatever command you use to open files in your text editor of choice).
 
 **Task 2.1:** Open the file `run_star_extras.f90` in your favorite text editor. You can change into the `src` directory and then open the file (e.g. `cd src && code run_star_extras.f90`, but remember to `cd ..` to return to the work directory when you are done with the `src` directory) or open it directly (e.g. `code src/run_star_extras.f90`) You should see a file that looks like this:
 
@@ -634,9 +632,8 @@ Below is the complete contents of what your edited `run_star_extras.f90` file sh
 </div>
 </details>
 
-{{< callout type="warning" >}}
-**NEVER** edit the `$MESA_DIR/include/standard_run_star_extras.inc` file directly, as it is part of the MESA source code and is read by any MESA project that uses the stock `run_star_extras.f90`. Instead, you should always copy the contents of this file into your own `run_star_extras.f90` and edit *that* file.
-{{</ callout >}}
+> [!WARNING]
+> **NEVER** edit the `$MESA_DIR/include/standard_run_star_extras.inc` file directly, as it is part of the MESA source code and is read by any MESA project that uses the stock `run_star_extras.f90`. Instead, you should always copy the contents of this file into your own `run_star_extras.f90` and edit *that* file.
 
 Whenever you change the `run_star_extras.f90` file, you will need to recompile your project for the changes to take effect. You do *not* need to recompile your project if you only change the inlists or other files that are not part of the `src` directory. Usually a simple `./mk` will suffice, but if things are wonky, you can try `./clean && ./mk` to clean the project and recompile from scratch. 
 
@@ -1016,10 +1013,8 @@ Highlighted are the new lines, namely the `if` block that checks the equilibrium
 
 Now let's test our new stopping condition. We'll need to set the value of `x_ctrl(1)` in the inlist. We'll set it to a pretty high value of 310 K, but this is too high to reach in the current model since it stops at core hydrogen depletion.
 
-{{< callout type="warning" >}}
-  Note that within an inlist, the star info structure is nowhere to be found. **You should not use `s%` withn an inlist, EVER.**. When *accessing inlist values in `run_star_extras.f90`*, you are querying the star info structure, so you *do* need to use `s%`. In short, you'll just use `x_ctrl(1)` in the inlist, but `s% x_ctrl(1)` in your Fortran code.
-{{</ callout >}}
-
+> [!CAUTION]
+> Note that within an inlist, the star info structure is nowhere to be found. **You should not use `s%` within an inlist, EVER.**. When *accessing inlist values in `run_star_extras.f90`*, you are querying the star info structure, so you *do* need to use `s%`. In short, you'll just use `x_ctrl(1)` in the inlist, but `s% x_ctrl(1)` in your Fortran code.
 
 **Task 3.5:** Edit your `inlist` to set `x_ctrl(1)` to 310 K (these go in the `controls` namelist), and prevent the old stopping condition from functioning. Then compile and run the project again. It should run for about 126 timesteps before stopping if everything is working correctly.
 
