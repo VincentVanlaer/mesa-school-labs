@@ -25,11 +25,7 @@ The following exercises will focus on reconstructing the evolutionary history of
 
 ![CygX1](/wednesday/CygX1.png)
 
-<<<<<<< HEAD
 **Fig. 1**: The HR diagram illustrating the potential evolution of the Cyg X-1 donor star as a product of a $17.4\,\rm M_{\odot}$ black hole (point mass) and a $34\,\rm M_{\odot}$ O-type star on the $5.5$ days orbit overlaid on the observed position of the Cyg X-1 donor. The plot displays three models with different mass-loss scaling factors of $1, 0.5$, and $0.2$ to demonstrate the effect of wind mass loss on evolution (taken from [Ramachandran et al., (2025)](https://arxiv.org/pdf/2504.05885))
-=======
-**Fig. 1**: The HR diagram illustrating the potential evolution of the Cyg X-1 donor star as a product of a $17.4\,\rm M_{\odot}$ black hole (point mass) and a $34\,\rm M_{\odot}$ O-type star on the $5.5$ days orbit overlaid on the observed position of the Cyg X-1 primary. The plot displays three models with different mass-loss scaling factors of $1, 0.5$, and $0.2$ to demonstrate the effect of wind mass loss on evolution (taken from [Ramachandran et al. (2025)](https://arxiv.org/pdf/2504.05885))
->>>>>>> ef2b5cd90adf3cd415585278a8ffe5ca45332fc5
 
 ## Task 1. Simulating the Evolution of Cygnus X-1
 
@@ -105,11 +101,8 @@ To see if all runs well, compile (`./clean && ./mk`) and run your new model! (`.
 
 ### Finding the model that fits the observations
 
-<<<<<<< HEAD
 Based on the parameters obtained by [Ramachandran et al., (2025)](https://arxiv.org/pdf/2504.05885) (see the introductory part of this lab), we can try and find the model that fits within the measured stellar parameters, like $T_{\rm eff}$, $\log L$ and $\log g$, and terminate the computations after doing so.
-=======
-Based on the parameters obtained by [Ramachandran et al. (2025)](https://arxiv.org/pdf/2504.05885) (see the introductory part of this lab), we can try and find the model that fits within the measured spectroscopic parameters, like $T_{\rm eff}$, $\log L$ and $\log g$, and terminate the computations after doing so.
->>>>>>> ef2b5cd90adf3cd415585278a8ffe5ca45332fc5
+
 
 To force MESA to stop after finding a fitting model to the observations we need to modify the `run_binary_extras.f90` file. You can find it in the `src/` in working directory. We have already prepared the file, so all you need to do is to capture the MESA quantities and to compare them with observed parameters. One of the way is to use the observed uncertainities and to comare them with the MESA parameters as: 
 
@@ -645,8 +638,5 @@ Next, compile (`./clean && ./mk`) and run the models (`./rn`) with a fixed set o
 <br><br><br>
 
 > [!CAUTION]
-<<<<<<< HEAD
 > **Got stuck** during the lab? Do not worry! You can always download solution from here **[⬇ Download](/mesa-school-labs-2025/wednesday/BinaryEvolution_Lab2_solutions.zip)** to catch up!
-=======
-> **Got stuck** during the lab? Do not worry! You can always download solution from here **[⬇ Download](/mesa-school-labs-2025/wednesday/lab2_solutions.zip)** to catch up!
->>>>>>> ef2b5cd90adf3cd415585278a8ffe5ca45332fc5
+
