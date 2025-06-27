@@ -9,14 +9,14 @@ As a low-mass star continues to evolve beyond the Red Giant Branch, it passes th
 
 ![mesa output](/thursday/gradT_RCstar_Noll2024.png "Fig. 1: Central structure of a 1 M⊙ core helium burning star in terms of radiative and adiabatic temperature gradients vs. the fractional mass. The radiative and adiabatic gradients are shown in solid blue and dashed black lines, respectively.We also show the convective core and partially mixed regions in pale pink and green. Figure from Noll et al. (2024)")
 
-Nevertheless, one thing we know is that the properties of the PM region have a significant effect on the Brunt-Väisälä frequency $N$ profile, i.e. on the stratification inside the star. Thanks to asteroseismology, there is one observable quantity, called the period spacing $\Delta \Pi_{\ell}$, that can be used to probe the stratification inside a star thanks to its global oscillation modes. Don't worry if you don't know anything about asteroseismology, you will learn more about it on Friday. The only thing you need to know for now is that we can measure this period spacing for stars observed by photometry and thanks to the equation below we can infer information about the stratification in the near core region.
+Nevertheless, one thing we know is that the properties of the PM region have a significant effect on the Brunt-Väisälä frequency $N$ profile, i.e. on the stratification inside the star. Thanks to asteroseismology, there is one observable quantity, called the period spacing $\Delta \Pi_{\ell}$, that can be used to probe the stratification inside a star thanks to its global oscillation modes. Don't worry if you don't know anything about asteroseismology, you will learn more about it on Friday. The only thing you need to know for now is that we can measure this period spacing for stars observed by photometry and thanks to the equation below we can infer information about the stratification in the near core region. Just for information the period spacing is defined as:
 
 $$ \Delta \Pi_{\ell} = \frac{2 \pi^2}{\sqrt{\ell{\ell+1}}} \left( \int \frac{N}{r} \mathrm{d}r \right)^{-1}  $$
-where the integral is over the region with $N^2 > 0$, i.e. the radiative region.
+where the integral is over the region with $N^2 > 0$, i.e. the radiative region. In the above equation, $\ell$ is the angular degree from the spherical harmonics basis.
 
 To illustrate more intuitively the physics probed by the period spacing, we will show that its variations are linked to the size of the radiative region in a star. As such, the period spacing can also be used as a proxy size of the helium core in some cases ([Montalbán et al. 2013](https://ui.adsabs.harvard.edu/abs/2013ApJ...766..118M/abstract)).
 
-Measured values of $\Delta \Pi_{\ell}$ for stars observed by the *Kepler* telescope range between 250 and 340 s (Mosser et al. 2012, 2014, Vrard et al. 2016), which is on average larger than the values infered from standard stellar models ([Constantino et al. 2015](https://ui.adsabs.harvard.edu/abs/2015MNRAS.452..123C/abstract)). In order to explain measured values of the period spacing, several mechanisms have been proposed over the last decades:
+Measured values of $\Delta \Pi_{\ell}$ for stars observed by the *Kepler* telescope range between 250 and 340 s ([Mosser et al. 2012](https://ui.adsabs.harvard.edu/abs/2012A%26A...540A.143M/abstract), [2014](https://ui.adsabs.harvard.edu/abs/2014A%26A...572L...5M/abstract), [Vrard et al. 2016](https://ui.adsabs.harvard.edu/abs/2016A%26A...588A..87V/abstract)), which is on average larger than the values infered from standard stellar models ([Constantino et al. 2015](https://ui.adsabs.harvard.edu/abs/2015MNRAS.452..123C/abstract)). In order to explain measured values of the period spacing, several mechanisms have been proposed over the last decades:
 1. Overshooting and penetrative convection.
 2. Semiconvection (Schwarzschild & Härm 1969, [Castelani et al. 1971b](https://link.springer.com/article/10.1007/BF00649680)).
 3. Maximal overshoot ([Constantino et al. 2015](https://ui.adsabs.harvard.edu/abs/2015MNRAS.452..123C/abstract)).
@@ -66,6 +66,13 @@ and then try to run the model:
 
 Make sure that you manage to start the run without any issues and break the run after a few steps using the keyboard shortcut `Ctrl + C`.
 
+>[!NOTE]
+> You might see a warning message from MESA saying something like
+>```linux
+>WARNING: rel_run_E_err       13941    3.6538389571733347D+00
+>```
+>Don't worry, this is because the model is not very realistic (low resolution, simplified physics) in order to make it run faster.
+
 First, let's look at the `inlist_project`. As you can see the run starts by loading a model `RC_start_noMloss.mod`.
 ```linux
 &star_job
@@ -76,7 +83,7 @@ First, let's look at the `inlist_project`. As you can see the run starts by load
 / ! end of star_job namelist
 ```
 
-The run will stop when the central helium mass fraction is less than 0.01 in terms of mass fraction. This is done by adding the stopping condition:
+The run will stop when the central helium mass fraction is less than `0.01` in terms of mass fraction. This is done by adding the stopping condition:
 ```linux
 &controls      
 
@@ -115,6 +122,7 @@ The next step is to customize the `pgstar` window to plot quantities relevant fo
   ! Set up grid layout
 
   file_white_on_black_flag = .false.
+  Grid1_file_flag = .true.
 
   Grid1_win_flag = .true.
 
@@ -171,8 +179,6 @@ The first part of the answer below give the solution for the Kippenhahn diagram.
 This is an example but you are free to customize your window set up as you wish.
 
 ```linux
-&pgstar
-
 ! Add Kippenhahn plot
 
 Grid1_plot_name(1) = 'Kipp'
@@ -206,8 +212,6 @@ The second part of the answer gives the rest of the solution for the 3 other plo
 This is an example but you are free to customize your window set up as you wish.
 
 ```linux
-&pgstar
-
   ! Add HR diagram
 
 Grid1_plot_name(2) = 'HR'
@@ -250,8 +254,6 @@ Grid1_plot_pad_right(5) = 0.05
 Grid1_plot_pad_top(5) = 0.04
 Grid1_plot_pad_bot(5) = 0.07
 Grid1_txt_scale_factor(5) = 0.5
-
-/ ! end of pgstar namelist
 ```
 </details>
 
@@ -275,7 +277,6 @@ This solution adds information for a few other variables, such as centre tempera
 As you can see there are still some empty spots, feel free to add any variable you find interesting!
 
 ```linux
-&pgstar
   ! Add text panel
 
   Grid1_plot_name(4) = 'Text_Summary1'
@@ -317,7 +318,6 @@ As you can see there are still some empty spots, feel free to add any variable y
   Text_Summary1_name(7,3) = ''
   Text_Summary1_name(8,3) = ''
 
-  / ! end of pgstar namelist
 ```
 
 </details>
@@ -333,8 +333,6 @@ Last task for the `pgstar` window customization, we want to add a panel displayi
 </summary>
 
 ```linux
-  &pgstar
-
   ! Add mode history panel
 
   Grid1_plot_name(6) = 'History_Panels1' !
@@ -356,18 +354,22 @@ Last task for the `pgstar` window customization, we want to add a panel displayi
   Grid1_plot_pad_top(6) = 0.04
   Grid1_plot_pad_bot(6) = 0.07
   Grid1_txt_scale_factor(6) = 0.5
+```
+</details>
 
-  / ! end of pgstar namelist
+Before going to the next section, try to run the model:
+```linux
+./rn
 ```
 
-</details>
+Make sure that you manage to start the run without any issues and break the run after a few steps using the keyboard shortcut `Ctrl + C`.
 
 Your `pgstar` window is now ready, it should like the example in Fig. 3.
 
 ![mesa output](/thursday/example_pgplot_lab2.png "Fig. 3: Screenshot of a pgstar window")
 
 ## Section 4: Convective Boundary Mixing
-Now, you are ready to focus on the physics of the problem! Convective boundary mixing refers to any mixing happening just outside a convective region, in the adjascent stably stratified radiative region.
+Now, you are ready to focus on the physics of the problem! Convective boundary mixing refers to any mixing due to convective motions, happening just outside a convective region, in the adjascent stably stratified radiative region.
 In this section, we will implement different scheme to model the PM region. The comparison between their impact on the period spacing, and size of the helium core, will be done in Section 5.
 
 ### Overshooting
@@ -399,7 +401,7 @@ In addition, we can also change the name of the output file `history.data` that 
 star_history_name = 'history_1M_OV.data'
 ```
 
-This scheme is already implemented in MESA, it is called the `overshoot_scheme(:)`. For this task, the aim is to add overshooting just above the helium burning convective core. What you have to do is to use the step overshoot scheme, over a distance of one pressure scale height, `1 Hp`. Parameters of the overshooting scheme should added to the `inlist_project`.
+The overshooting scheme is already implemented in MESA, it is called the `overshoot_scheme(:)`. For this task, the aim is to add overshooting just above the helium burning convective core. What you have to do is to use the step overshoot scheme, over a distance of one pressure scale height, `1 Hp`. Parameters of the overshooting scheme should added to the `inlist_project`.
 
 >[!TIP]
 > Information on the overshooting scheme can be found on [this page](https://docs.mesastar.org/en/latest/reference/controls.html#overshooting).
@@ -418,7 +420,7 @@ This scheme is already implemented in MESA, it is called the `overshoot_scheme(:
 <em>Show answer </em>
 </summary>
 
-Add the core below in the `&controls` of the `inlist_project`.
+Add the code below in the `&controls` of the `inlist_project`.
 
 ```linux
     overshoot_scheme(1) = 'step'
@@ -446,7 +448,7 @@ Then, run the model with
 ./rn
 ```
 
-The pgplot window will appear. On the top right, in the mixing panel, you can see the two convective zones (in blue), which are the convective core and the envelope. Once helium starts burning, overshooting is taken into account (in white). As you can see, the size of these regions change with time.
+The pgplot window will appear. On the top right, in the mixing panel, you can see the two convective zones (in blue), which are the convective core and the envelope. Once helium starts burning (after a few time steps), overshooting is taken into account (in white). As you can see, the size of these regions change with time.
 
 You will probably see additional convective zones appearing times to times, those are numerical artefacts that should not exist in a real star. However, this is a well know issue which is amplified by the lack of accuracy of the model (physical and numerical resolution). You can just ignore them for the purpose of this lab. The only impact will be that the period spacing evolution with time will be a bit noisy and differ from monotonic variations. However, the global trend observed is still realistic.
 
@@ -490,11 +492,7 @@ To help you with this task, there are already two extra subroutines that have be
 
 In the ``%controls`` section of ``inlist_project``:
 ```linux
-    &controls
-
     x_logical_ctrl(1) = .true.
-
-    / ! end of controls namelist
 ```
 
 In ``run_star_extras.f90``:
@@ -585,7 +583,7 @@ Do you observe any difference with the previous case ?
 <em>Show answer </em>
 </summary>
 
-The temperature gradient is now adiabatic in the overshooting region, therefore the values of the Brunt-Väisälä frequency in that region is reduced.
+The temperature gradient is now adiabatic in the overshooting region (see Fig. 2), therefore the values of the Brunt-Väisälä frequency in that region is reduced.
 This results in larger values of period spacing.
 
 </details>
@@ -595,10 +593,10 @@ Convective Premixing has been proposed by Schwarzschild & Härm (1969) and [Cast
 
 >[!WARNING]
 > In the context of this work, Convective Premixing and overshooting should not be used at the same time! However, in other contexts nothing prevent to use both at the same time, here we want to isolate the two mechanisms to compare their impacts on the model.
-> Therefore, start by deleting all the commands related to overshooting and penetrative convection in `inlist_project`.
+> Therefore, start by deleting (or comment) all the commands related to overshooting and penetrative convection in `inlist_project`.
 >Alternatively, you can download a fresh `inlist_project` here, that can be used for this section.
 
-This mechanism is already implemented in MESA as Convective Premixing (see Paxton et al. 2019 for details).
+This mechanism is already implemented in MESA as Convective Premixing (see [Paxton et al. 2019](https://ui.adsabs.harvard.edu/abs/2019ApJS..243...10P/abstract) for details).
 
 >[!TIP]
 > Information on the convective premixing scheme can be found on ([this page](https://docs.mesastar.org/en/latest/reference/controls.html#do-conv-premix)).
@@ -666,9 +664,9 @@ Then, run the model with
 ./rn
 ```
 
-In this run, there is no overshooting so the only mixing type appearing on the mixing panel will be convection (the blue one).
+In this run, there is no overshooting so the only mixing type appearing on the mixing panel will be convection (the blue one). Also, this run will take a little bit longer than the other two.
 
-Compare the age of the star at the end of the run. Is there any difference with the previous cases?
+Compare the age of the star at the end of the run. For this you can look at the terminal window or at the saved png file from the `pgstar` window. Is there any difference with the previous cases?
 
 <details class="hx-border hx-border-green-200 dark:hx-border-green-200 hx-rounded-md hx-my-2">
 <summary class="hx-bg-green-100 dark:hx-bg-neutral-800 hx-text-green-900 dark:hx-text-green-200 hx-p-2 hx-m-0 hx-cursor-pointer">
@@ -719,21 +717,21 @@ Now, rename the ``LOGS`` and ``pgplot`` folders to save the outputs in a differe
 To do so, you need to add the following lines in the `&controls` section of `inlist_project`
 ```linux
   ! change the LOGS directory
-  log_directory = 'semiconvection/LOGS'
+  log_directory = 'max_overshoot/LOGS'
 ```
 
 and the ones below in `inlist_pgstar`
 
 ```linux
   ! change the pgplot directory
-  Grid1_file_dir = 'semiconvection/pgplot'
+  Grid1_file_dir = 'max_overshoot/pgplot'
 ```
 
 In addition, we can also change the name of the output file `history.data` that we will use to compare the model, by adding this in the `&controls` section of `inlist_project`
 
 ```linux
 ! change the LOGS directory
-star_history_name = 'history_1M_SC.data'
+star_history_name = 'history_1M_MAXOV.data'
 ```
 
 </details>
@@ -747,7 +745,7 @@ Then, run the model with
 As for the semiconvection case, there is no overshooting so the only mixing type appearing on the mixing panel will be convection (the blue one). And similarly the star runs out faster of helium to burn.
 
 ## Section 5: Plotting the results
-In the end, the aim is to compare the period spacing evolution for each model using different convective boundary mixing prescription. You can of course do it yourself, but the TAs will also do it using a Python script.
+In the end, the aim is to compare the period spacing evolution for each model using different convective boundary mixing prescription. You can of course do it yourself, but the TAs will also do it using a Python script. For this, you can upload your `history.data` on this google file here.
 
 The quantities to plot are in the `history.data` files.
 
@@ -862,3 +860,4 @@ plt.show()
 </details>
 
 How does your results compare to the Fig. 4 of Noll et al. (2024)? Which model presents the highest values of period spacing? Any idea why?
+To compare the maximal values of period spacing, and therefore of core radius, you can have a look a the saved png files from the `pgstar` window.
