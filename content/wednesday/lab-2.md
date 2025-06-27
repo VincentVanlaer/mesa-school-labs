@@ -99,7 +99,7 @@ Explore the `do_jdot_*` controls in the MESA docs to find the relevant controls.
 
 To see if all runs well, compile (`./clean && ./mk`) and run your new model! (`./rn`). This is only to check if we set all the controls correctly, so kill the run after a few timesteps using `Ctrl C`.
 
-### Finding the model that fits the observations
+### Task 1.1. Finding the model that fits the observations
 
 Based on the parameters obtained by [Ramachandran et al., (2025)](https://arxiv.org/pdf/2504.05885) (see the introductory part of this lab), we can try and find the model that fits within the measured stellar parameters, like $T_{\rm eff}$, $\log L$ and $\log g$, and terminate the computations after doing so.
 
@@ -335,7 +335,11 @@ We have an extra bonus task for you that explores stopping criteria and fitting 
 > [!CAUTION]
 > **Got stuck** during the lab? Do not worry! You can always download solution from here **[⬇ Download](/mesa-school-labs-2025/wednesday/BinaryEvolution_Lab2_solutions.zip)** to catch up!
 
-### Gravitational waves radiation and merge time
+### Task 1.2. Gravitational waves radiation and merge time
+
+![GravitationalWave](/wednesday/GravitationalWave.jpg.webp)
+
+**Fig. 2**: An artist’s impression of gravitational waves in an inspiralling binary system (Credit: Caltech-JPL. R. Hurt). 
 
 Once we are all set to run our model, we can add one extra tweak to our computations. As we already assumed and implemented the loss of angular momentum via gravitational waves radiation in our model (the `do_jdot_gr` control in the `inlist_project` file), we can compute the approximate time our binary will take to merge. 
 
@@ -586,7 +590,7 @@ $$
 
 In this minilab, we will investigate how the choice of these parameters — particularly beta, which reflects wind loss near the black hole — influences the binary’s orbital and stellar evolution. We will adopt the default values of `mass_transfer_alpha = 0d0`, `mass_transfer_delta = 0d0` and `mass_transfer_gamma = 0d0` throughout, and explore a range of values for `mass_transfer_beta` to assess the impact of inefficient accretion in systems like Cygnus X-1. This will allow us to test how different mass loss scenarios shape the long-term configuration of the system.
 
-### Varying the Mass Transfer Efficiency
+### Task 2.1. Varying the Mass Transfer Efficiency
 
 To explore the effect of mass trasnfer efficiency on future evolution of Cyg X-1, we will vary the efficiency of mass transfer by changing the `mass_transfer_beta` parameter while keeping the initial primary masses and orbital period fixed, as were before. As each run may take a while, we will crowd-source this!
 
