@@ -594,7 +594,7 @@ Convective Premixing has been proposed by Schwarzschild & Härm (1969) and [Cast
 >[!WARNING]
 > In the context of this work, Convective Premixing and overshooting should not be used at the same time! However, in other contexts nothing prevent to use both at the same time, here we want to isolate the two mechanisms to compare their impacts on the model.
 > Therefore, start by deleting (or comment) all the commands related to overshooting and penetrative convection in `inlist_project`.
->Alternatively, you can download a fresh `inlist_project` here, that can be used for this section.
+>Alternatively, you can download a fresh `inlist_project` [here](https://github.com/arthurlesaux/mesasummerschool2025-day4-maxilab1/blob/62548211f3ca412d5da126f0adfca0bf06af93b9/inlist_project), that can be used for this section.
 
 This mechanism is already implemented in MESA as Convective Premixing (see [Paxton et al. 2019](https://ui.adsabs.harvard.edu/abs/2019ApJS..243...10P/abstract) for details).
 
@@ -684,7 +684,7 @@ The maximal overshoot scheme is not implemented in MESA, but we can use the ``pr
 
 >[!WARNING]
 > As in the previous section, we want to isolate the impact of the Maximal overshoot scheme from other CBM prescriptions. Therefore, start be deleting all the commands related to , semiconvection, overshooting and penetrative convection the in `inlist_project`.
->Alternatively, you can download a fresh `inlist_project` here, that can be used for this section.
+>Alternatively, you can download a fresh `inlist_project` [here](https://github.com/arthurlesaux/mesasummerschool2025-day4-maxilab1/blob/62548211f3ca412d5da126f0adfca0bf06af93b9/inlist_project), that can be used for this section.
 
 >[!TIP]
 > Information on the predictive mixing scheme can be found on ([this page]( https://docs.mesastar.org/en/latest/reference/controls.html#predictive-mix))
