@@ -63,8 +63,8 @@ T2) We can tell MESA to increase or decrease the tolerance for various physical 
    ! timestep controls
    ! =================
 ```
-A broad control that's often used is `varcontrol_target` which specifies how much the model should deviate (defined with a broad metric encompassing a handful of physical quantities) from timestep to timestep. 
-A summary of these may also be found [on the MESA documentation website](https://docs.mesastar.org/en/latest/reference/controls.html#timestep-controls)
+A broad control that's often used is `varcontrol_target` which specifies how much the model should deviate (defined with a broad metric encompassing a handful of physical quantities) from timestep to timestep. However, `varcontrol_target` is not always the best choice, as it is an unweighted average of many individual tolerances which are better treated independently ([see this description in the MESA changelog](https://docs.mesastar.org/en/latest/changelog.html#limitations-on-use-of-varcontrol-target)). 
+A summary of individual timestep control options may also be found [on the MESA documentation website](https://docs.mesastar.org/en/latest/reference/controls.html#timestep-controls). 
 
 T3) We can also tell MESA to cut or increase the timestep in `src/run_star_extras.f90` via user-defined criteria, especially in the `extras_check_model` routine, by directly manipulating the `s% dt` in the star info structure. 
 
@@ -88,7 +88,7 @@ First, so that everyone can easily share their last HR diagram with eachother at
 pause_before_terminate = .true.
 ```
 
-Let's also start on the main sequence, to save us a minute or two of runtime. Add the following to the `&star_job` section of `inlist_project`: 
+Let's also start on the main sequence, to save us a minute or two of runtime. In the `&star_job` section of `inlist_project`, make the following replacement: 
 ```fortran
 create_pre_main_sequence_model = .false. ! previously .true. 
 ```
@@ -127,10 +127,24 @@ max_allowed_nz = 16000 ! default 8000
 ```
 
 Finally, it will be helpful to see what's actually going on in the model as timesteps are taken. 
-In inlist_pgstar, add the following line to produce a Kippenhahn Diagram: 
+In inlist_pgstar, add the following line to produce a Kippenhahn Diagram and an abundances plot: 
 
 ```fortran 
 kipp_win_flag = .true.
+abundance_win_flag = .true.
+```
+
+To make the Kippenhahn diagram work properly, you will need to modify the history columns. Copy the default into your current working directory
+
+```bash
+cp $MESA_DIR/star/defaults/history_columns.list .
+```
+
+and edit the local history_columns.list file to tell MESA to output the mixing and burning regions:
+
+```fortran 
+burning_regions 20
+mixing_regions 20
 ```
 
 With that, you're ready to run! In the terminal, from your working directory, clean make and run! 
@@ -139,7 +153,9 @@ With that, you're ready to run! In the terminal, from your working directory, cl
 ./clean && ./mk && ./rn 
 ```
 
-Watch the run evolve, and watch the runs of others at your table. Compare the HR diagram that pops up with those produced by people at your table with a different mesh_delta_coeff / time_delta_coeff. Do your diagrams agree? Disagree? Which agree better? 
+Watch the run evolve, and watch the runs of others at your table. In general, it's good practice to look at the terminal output when running MESA and be aware of what limits your timesteps.
+
+Compare the HR diagram that pops up with those produced by people at your table with a different mesh_delta_coeff / time_delta_coeff. Do your diagrams agree? Disagree? Which agree better? 
 
 For comparison to others at the table and to other runs you do in subsequent Mini-mini-labs, record the final **Mass**, **Radus**, **$T_\mathrm{eff}$**, **Luminosity**, and **star age**.  If you want to do other runs yourself, or if you are doing this lab asynchronously outside of the MESA@Leuven school, you can also save your LOGS folder to a safe location where it won't be overwritten. 
 
