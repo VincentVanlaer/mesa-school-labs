@@ -164,7 +164,7 @@ Compare the HR diagram that pops up with those produced by people at your table 
 
 For comparison to others at the table and to other runs you do in subsequent Mini-mini-labs, record the final **Mass**, **Radus**, **$T_\mathrm{eff}$**, **Luminosity**, and **star age**.  If you want to do other runs yourself, or if you are doing this lab asynchronously outside of the MESA@Leuven school, you can also save your LOGS folder to a safe location where it won't be overwritten. 
 
-If something looks funky, maybe inspect the Kippenhahn diagram...
+If something looks funky, maybe inspect the Kippenhahn diagram... 
 
 ==KEY TAKEAWAY: DO NOT USE DEFAULTS AS A STARTING POINT FOR SCIENCE RUNS UNLESS YOU HAVE DONE ROBUST RESOLUTION TESTING!==
 
