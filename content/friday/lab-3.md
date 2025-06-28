@@ -1,4 +1,4 @@
-# Lab 3: Mode Frequencies of Rotating Stars
+# Lab 3: Rotational Splitting of Stellar Oscillation Modes
 
 In this lab, you will explore how **rotation** affects the frequencies of stellar oscillation modes. You will compute mode frequencies for **rotating stellar models** using GYRE, visualize the results with **echelle diagrams**, and compare your findings to the rotational splitting you estimated in **Lab 1**.
 
@@ -85,12 +85,15 @@ Make sure you also include a `&scan` block that pairs with `tag_list = 'non-radi
 
 ## 4. Output Format
 
+Before running GYRE, make sure to create a folder called lab3_details `mkdir -p lab3_details`, where your output files will be saved. 
+
 Save the summary and detail files in human-readable format. For example:
 
 ```fortran
 &ad_output
   summary_file = 'lab3_details/summary.txt'
   summary_file_format = 'TXT'
+  freq_units = 'UHZ'
   summary_item_list = 'l,m,n_pg,n_p,n_g,freq,freq_units,E_norm,E_p,E_g'
   detail_template = 'lab3_details/detail.l%l.n%n.txt'
   detail_item_list = 'l,n_pg,omega,rho,x,xi_r,xi_h,c_1,As,V_2,Gamma_1'
@@ -120,6 +123,7 @@ The animation below compares the echelle diagrams from **Lab 2 (no rotation)** a
 Notice how the `l = 1` ridge clearly splits in the rotating case:
 
 ![Echelle comparison](img/echelle_comparison.gif)
+
 
 Once your GYRE run is complete:
 
@@ -216,16 +220,16 @@ K(r) = \rho r^2 \cdot \left[ 2m \cdot \left( |\xi_r|^2 + (\ell^2 + \ell - 1) |\x
 ```text
     n     β (1-C)    δω (μHz)
 ------------------------------
-  -28  0.8265+0.0000j  1.3355+0.0000j
-  -29  0.5832+0.0000j  3.6090+0.0000j
+  -29  0.7242+0.0000j  2.5840+0.0000j
+  -30  0.8121+0.0000j  1.7557+0.0000j
 ...
-  -38  0.7135+0.0000j  2.3909+0.0000j
-  -39  0.5326+0.0000j  4.0769+0.0000j
+  -38  0.7199+0.0000j  2.6305+0.0000j
+  -39  0.6895+0.0000j  3.0290+0.0000j
 ...
-  -89  0.5061+0.0000j  4.2222+0.0000j
+  -65  0.5325+0.0000j  4.6219+0.0000j
 ```
 
-In this example, lower-order \( g \)-modes (e.g., \( n = -28 \)) exhibit smaller δω and larger β, while higher-order modes are more sensitive to the inner rotation rate.
+In this example, lower-order \( g \)-modes (e.g., \( n = -30 \)) exhibit smaller δω and larger β, while higher-order modes are more sensitive to the inner rotation rate.
 
 ### Coding Notes
 
