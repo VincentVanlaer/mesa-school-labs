@@ -110,7 +110,7 @@ history_interval = 1
 
 Now we are ready for the resolution test. It is often good practice to change your time and mesh resoltion together, though in principle these can be varied independently. Today we will use methods S1/T1. We mention the other methods above in order to remind the user that there are lots of good ways to do things in MESA depending on your problem. 
 
-Have each member of your table select a unique `*_delta_coeff` from the set `[0.3, 0.5, 1, 2]`. Make sure everyone at your table chooses a different value. 
+Have each member of your table select a unique `*_delta_coeff` from the set `[0.5, 0.75, 1, 2]`. Make sure everyone at your table chooses a different value. 
 
 **NOTE: For those with slower computers, you should choose larger values of `*_delta_coeff`. ** If you have a very fast computer, feel free to try other values, but it's recommended not to go below 0.2 for the sake of time in this lab block (or, if you do, be prepared to kill the run). 
 
