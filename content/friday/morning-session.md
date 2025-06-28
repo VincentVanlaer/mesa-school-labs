@@ -1,4 +1,3 @@
-
 # MESA@Leuven Best Practices Lab — Convergence Testing
 
 In this brief morning lab session, we will go over best practices for solving partial differential equations numerically, specifically in the context of the MESA Stellar Evolution Code.
@@ -140,13 +139,13 @@ kipp_win_flag = .true.
 abundance_win_flag = .true.
 ```
 
-To make the Kippenhahn diagram work properly, you will need to modify the history columns. Copy the default into your current working directory
+To make the Kippenhahn diagram work properly, you will need to add some history columns to your output. Copy the default `history_columns.list` into your current working directory
 
 ```bash
 cp $MESA_DIR/star/defaults/history_columns.list .
 ```
 
-and edit the local history_columns.list file to tell MESA to output the mixing and burning regions:
+and edit the local copy of history_columns.list file to tell MESA to output some mixing and burning regions:
 
 ```fortran 
 burning_regions 20
@@ -159,7 +158,7 @@ With that, you're ready to run! In the terminal, from your working directory, cl
 ./clean && ./mk && ./rn 
 ```
 
-Watch the run evolve, and watch the runs of others at your table. In general, it's good practice to look at the terminal output when running MESA and be aware of what limits your timesteps.
+Watch the run evolve, **and** watch the runs of others at your table. Pay attention to the pgstar plots. Likewise, it's generally useful to look at the terminal output when running MESA and be aware of what limits your timesteps (listed under `dt_limit`).
 
 Compare the HR diagram that pops up with those produced by people at your table with a different mesh_delta_coeff / time_delta_coeff. Do your diagrams agree? Disagree? Which agree better? 
 
