@@ -1,6 +1,6 @@
 ---
 weight: 1
-author: Beatriz Bordadágua, Joey Mombarg, Philip Mocz, Tryston Raecke
+author: Tryston Raecke (Lead TA), Beatriz Bordadágua, Joey Mombarg, Philip Mocz
 math: true
 ---
 # Minilab 3: Meridional Circulation
@@ -32,9 +32,9 @@ Of course, there is additional physics in both of these prior examples that I ha
 
 ### Helpful Links
 
-The general Lab 3 Google Drive can be found [here](https://drive.google.com/drive/folders/13a2fdxeXzITIJgJWkmvUShg0fPrFs9UX?usp=sharing).  This folder contains solutions (separated by task), the starting point for the lab, pre-made ZAMS models, and a series of pre-computed runs with no meridional circulation (called `no_extra_jdot`). 
+The general Lab 3 Google Drive can be found [here](https://drive.google.com/drive/folders/13a2fdxeXzITIJgJWkmvUShg0fPrFs9UX?usp=sharing).  This folder contains partial solutions (separated by task), full solutions for each test case, the starting point for the lab, pre-made ZAMS models, and a series of pre-computed runs with no meridional circulation (called `no_extra_jdot`). The specific portions that you need to download (aside from the solutions) will be explicitly stated in the tasks, so you **do not** need to download everything on this drive. 
   
-The Google Colab script to make your plots can be found [here](https://colab.research.google.com/drive/1fB8YwH5e_XjZFDh-UGDrcjZefHOBE4Rq?usp=sharing).  
+The Google Colab script to make the bonus plots can be found [here](https://colab.research.google.com/drive/1fB8YwH5e_XjZFDh-UGDrcjZefHOBE4Rq?usp=sharing).  
   
   
 ## Instructions
@@ -55,17 +55,14 @@ The Google Colab script to make your plots can be found [here](https://colab.res
 
 | 📋 TASK 1 |
 |:--------|
-| **Claim** a mass and initial rotation from the table above. Coordinate with others at your table to ensure that no two people choose the same test case. |
-
-| 📋 TASK 2 |
-|:--------|
-| **Copy** the starting point from the Google Drive to a local working directory |
+| **Claim** a mass and initial rotation from the table above. Coordinate with others at your table to ensure that no two people choose the same test case. 
+**Download** the starting point from the Google Drive to a local working directory |
 
 This starting point should be a fairly familiar set of files. Each of these files has been -mostly- pre-prepared with the structure we will need to get going. Additionally, throughout each of these starting point files, variables that need to be changed are explicitly marked with "`!!!! !!!!`". This is also true if there is some particular section that needs your input. If you have trouble finding a value, feel free to ctrl+f your way around. 
 
-| 📋 TASK 3 |
+| 📋 TASK 2 |
 |:--------|
-| Given the star value you selected, **Copy** the relevant ZAMS model into your working directory from the Google Drive |
+| Given the star value you selected, **Download** the relevant ZAMS model from the Google Drive and place it into your working directory |
 
 The working directory should now be:
 
@@ -97,7 +94,7 @@ Let's start by looking over `inlist_project`.
 
 This file should be generally quite familiar from Minilabs 1 & 2. Starting from the top of the file in `&star_jobs`, you will need to turn on pgstar, load from the saved ZAMS model, and set the initial rotation rate. It is also *recommended* that you turn on the `pause_before_terminate` flag to ensure that you can view the pgstar plots before the script exits. 
 
-| 📋 TASK 4 |
+| 📋 TASK 3 |
 |:--------|
 | In `&star_jobs`, **update `inlist_project`** to turn on pgstar, load from the saved ZAMS model, and set the initial rotation rate. |
 
@@ -115,7 +112,7 @@ The parameters that should be updated/added are:
 
 Next, in `&controls`, set the output directory for the logs, set the initial mass, turn on the other angular momentum flag, and turn on the other torque flag. For the log directory, use a standard naming convention. It is recommended that this be something like `M<mass>_Omega<initial rotation>` (ie. `M05_Omega0p60`), but generally this is up to you. The `use_other_torque` and `use_other_am_mixing` flags are used to provide MESA with a custom subroutine that steps into the execution process and changes key behavior about how the torque and angular momentum mixing are calculated. You can explore all the available `use_other_<hook>` in the MESA docs [here](https://docs.mesastar.org/en/latest/reference/controls.html#use-other-hook).
 
-| 📋 TASK 5 |
+| 📋 TASK 4 |
 |:--------|
 | In `&controls`, **update `inlist_project`** to set the output directory for the logs, set the initial mass, turn on other angular momentum and turn on other torque. |
 
@@ -142,22 +139,19 @@ We have now set the general starting conditions for the MESA model (from ZAMS). 
 
 The provided `inlist_pgstar` is the same as the earlier labs for the day with two modifications. First, the bottom left plot (previously showing gravitational darkening) has been updated to plot `star_age` on the X-axis and `log_total_angular_momentum` on the Y-axis. Second, the top right plot (previously the mixing profile) has been updated to plot `radius` on the X-axis and `log_dJ_over_J` on the Y-axis. `log_dJ_over_J` is a new variable that we will define later that can be thought of as the contribution of our planned additional torque on the rotation profile of the star.
 
+> [!NOTE]
+> There is no task for this step! All the relevant updates have already been made to the pgstar file. 
 
 ### Step 3: History/Profile Columns List
 
 Now, we need to add some more information to the history and profile outputs of our model. Most of the values have already been added. 
 
-`Surf_avg_omega`, `surf_avg_omega_div_omega_crit`, `surf_avg_v_rot`, and `center_omega` have already been uncommented in `history_columns.list`. 
+`Surf_avg_omega`, `surf_avg_omega_div_omega_crit`, `surf_avg_v_rot`, and `center_omega` have already been uncommented in `history_columns.list`. `Radius`, `omega`, `r_polar`, and `omega_crit` have already been uncommented in `profile_columns.list`. 
 
-| 📋 TASK 6 |
+| 📋 TASK 5 |
 |:--------|
-| **Uncomment** `log_total_angular_momentum` in `history_columns.list`. |
-
-`Radius`, `omega`, `r_polar`, and `omega_crit` have already been uncommented in `profile_columns.list`. 
-
-| 📋 TASK 7 |
-|:--------|
-| **Uncomment** `omega_div_omega_crit` in `profile_columns.list`. |
+| **Uncomment** `log_total_angular_momentum` in `history_columns.list`. 
+ **Uncomment** `omega_div_omega_crit` in `profile_columns.list`. |
 
 > [!WARNING]
 > Don't forget to save your changes to the inlists!
@@ -184,7 +178,7 @@ These same structures exist across languages, but are not always explicitly dist
 
 In [`Step 1`](#step-1-inlist-project), we turned on two flags to use `other_torque` and `other_am_mixing`. Since we have not reached an AI Singularity (yet), MESA cannot intuit what these custom subroutines are or where they will be. Hence, we need to provide a pointer that says "*This* new procedure is defined by *this* other piece of code" in the subroutine `extras_controls`. The form of this pointer can be seen elsewhere in `extras_controls` or in the MESA docs [here](https://docs.mesastar.org/en/latest/using_mesa/extending_mesa.html#instruct-mesa-to-use-your-routine). Do not worry about what these custom subroutines *are* yet, we will cover that in the next step. 
 
-| 📋 TASK 8 |
+| 📋 TASK 6 |
 |:--------|
 | **Add** in a pointer to our new custom subroutines, `meridional_circulation` and `additional_nu`. |
 
@@ -212,7 +206,7 @@ Now that MESA knows where to look, what exactly is going on in these new subrout
 
 Next, we have variable declarations. In Fortran, ALL variables must be declared before they are used. This includes arrays, which have the added complication of needing to be allocated as well! The types of these variables should be explicitly provided as well. In fact, because `run_star_extras.f90` contains the `implicit none` statement at the beginning of the file, this explicit declaration is not optional. We will need three additional intergers for this subroutine: `k`, `k0`, and `nz`. `k` will be used as a counter value for the index within the model, `k0` will be the index where the radiative envelope starts, and `nz` will hold onto the total number of zones in the model. These values will be described in more detail later.
 
-| 📋 TASK 9 |
+| 📋 TASK 7 |
 |:--------|
 | **Declare** the integers `k`, `k0`, and `nz`. |
 
@@ -255,7 +249,7 @@ The next two sections set up some important constants for subsequent calculation
 > [!NOTE]
 > The criteria for what defines minimum mixing is driven by our use of `set_min_D_mix` and `min_D_mix` in `inlist_project`. This will not be explored further in this lab, but if you are interested in the backend operation, take a look at `set_mixing_info` in `$MESA_DIR/star/private/mix_info.f90`. Beware, the code can look a little intimidating. The relevant piece here is contained by lines 239 -> 247.  
 
-Next, we allocate and calculate three arrays: `U_r`, `mer_comp`, and `dmer_comp_dr`. `U_r` will be a simple velocity field that should improve the comparison to the 2D ESTER models. Note, `U_r` is a by-eye linear fit to the 2D runs and **NOT** an actual, physical relation. The equation we will use for this field is: 
+Next, we allocate and calculate three arrays: `U_r`, `mer_comp`, and `dmer_comp_dr`. `U_r` will be a simple velocity field with a constant scale factor, `C`, that should improve the comparison to the 2D ESTER models. Note, `U_r` is a by-eye linear fit to the 2D runs and **NOT** an actual, physical relation. The equation we will use for this field is: 
 
 $$U_{r} = C \frac{r}{R}\;\;\; \mathrm{cm\cdot s^{-1}} $$  
 
@@ -267,7 +261,7 @@ $$mer _\ comp = \rho \Omega r^4 * U_{r} = \frac{\rho \Omega r^5 C}{R}\;\;\;\math
 
 $$\frac{\partial mer _\ comp}{\partial r}(k) = \frac{mer _\ comp(k) - mer _\ comp(k+1)}{r(k) - r(k+1)} \;\;\;\mathrm{cm\cdot g\cdot s^{-2}} $$  
 
-| 📋 TASK 10 |
+| 📋 TASK 8 |
 |:--------|
 | **Add** the equation for `U_r` and `mer_comp`, assuming `C = 1e-3`. A reference for variable correspondance is below.|
 
@@ -275,7 +269,7 @@ $$\frac{\partial mer _\ comp}{\partial r}(k) = \frac{mer _\ comp(k) - mer _\ com
 |-------------------------------|---------------------------|
 | $r$                           | s% r(i)                   |
 | $\rho$                        | s% rho(i)                 |
-| $\omega$                      | s% omega(i)               |
+| $\Omega$                      | s% omega(i)               |
 
 > [!NOTE]
 > When taking the power of a value in MESA, it is recommended that you use a power function (ie. `pow2(X)`, `pow3(X)`, `pow4(X)`) as opposed to the power operator (`**`)
@@ -314,7 +308,7 @@ You may remember that we also pointed to another subroutine, `additional_nu`. We
 
 Before we continue, we need to check that all the updates made thus far are working as expected. 
 
-| 📋 TASK 11 |
+| 📋 TASK 9 |
 |:--------|
 | **Clean, compile, and run your model**. Once you see timestep outputs in the terminal, stop the run. You will likely see a few initial retry messages (`retry: max residual jumped -- give up in solver`). These are expected as the model tries to add the new rotation rate to the ZAMS model. |
 
@@ -326,7 +320,7 @@ Before we continue, we need to check that all the updates made thus far are work
 
 So, we have made the necessary calculations and saved off some variables into the star pointer. Now, we need to make those values presentable in the history and profile columns. 
 
-| 📋 TASK 12 |
+| 📋 TASK 10 |
 |:--------|
 | **Add** one (1) extra history column and two (2) extra profile columns. |
 
@@ -340,7 +334,7 @@ To increase the number of extra profile columns, modify the variable `how_many_e
 
 Now that MESA expects some additional values, lets add the history data first. 
 
-| 📋 TASK 13 |
+| 📋 TASK 11 |
 |:--------|
 | **Add** our `total_torque_envelope` value from [Step 4.2](#step-42-fortran-strikes-back) to a column named `total_torque_envelope` in the `data_for_extra_history_columns` subroutine. |
 
@@ -370,13 +364,13 @@ vals(1) = s% xtra(1)
 
 Now, we will need to do some calculations to get the data for the profile columns. Remember, since these are profiles, they are arrays with entries at each zone k. We will be adding two columns called `extra_jdot` and `log_dJ_over_J`. `extra_jdot` is the same value we encountered in `meridional_circulation`.  `log_dJ_over_J` is an account of how much of the specific angular momentum was due to our additional velocity field. value can be calculated as, 
 
-$$\log(\left|\frac{\dot{J_{extra}} * dt}{J}  \right|)$$
+$$\log(\left|\frac{\dot{J}_{\rm{extra}} * dt}{J}  \right|)$$
 
-where $\dot{J_{extra}}$ is `extra_jdot`.
+where $\dot{J}_{\rm{extra}}$ is `extra_jdot`.
 
 To put these values into columns, we need to make a DO loop across all the zones in the model, saving data in each one. An example of how to do this with a variable named `beta` is already given in the subroutine, `data_for_extra_profile_columns`. 
 
-| 📋 TASK 14 |
+| 📋 TASK 12 |
 |:--------|
 | **Add** our two new profile columns, `extra_jdot` and `log_dJ_over_J` |
 
@@ -429,7 +423,7 @@ end do
 
 Let's see MESA in action.
 
-| 📋 TASK 15 |
+| 📋 TASK 13 |
 |:--------|
 | **Compile and run** the model. The run should continue until the model hits 510 $\mathrm{\pm}$ 10 timesteps. On two threads, this should take at most 8 minutes. |
 
@@ -443,11 +437,14 @@ Once the model completes, take note of the following values as printed in the pg
 * `surf_avg_omega`
 * `star_age`
 
-You were also provided completed output logs & pgstar plots for each of the mass cases with `extra_jdot` set to a near-zero value, representing models with no meridional circulation. Importantly, in these runs `extra_jdot` was explicitly set to $1d-99$ at each zone, `k` , to avoid `log_dJ_over_J` from becoming undefined. 
+You were also provided completed output logs & pgstar plots for each of the mass cases with `extra_jdot` set to a near-zero value, representing models with no meridional circulation. Importantly, in these runs `extra_jdot` was explicitly set to `1d-99` at each zone, `k` , to avoid `log_dJ_over_J` from becoming undefined. 
 
-| 📋 TASK 17 |
+| 📋 TASK 14 |
 |:--------|
-| **Compare** the values of `center_omega`, `surf_avg_omega`, and `star_age` between the cases *with* and *without* meridional circulation. |
+| **Download** the directory for the `no_extra_jdot` case corresponding to your model from the Google Drive. 
+**Compare** the values of `center_omega`, `surf_avg_omega`, and `star_age` between the cases *with* and *without* meridional circulation. 
+**Compare** the pgstar plots between the cases *with* and *without* meridional circulation. 
+**Compare and discuss** your run with others at your table.|
 
 {{< details title="Pgstar Output with meridional circulation (M08, Omega 0.75)" closed="true" >}}
 ![landscape](/tuesday/M08_Omega0p75.gif)
@@ -459,35 +456,28 @@ You were also provided completed output logs & pgstar plots for each of the mass
 
 {{< /details >}}
 
-| 📋 TASK 18 |
-|:--------|
-| **Compare and discuss** your run with others at your table. |
-
 Congratulations, you have completed Lab 3! Feel free to pursue the following two bonus exercises if you have additional time.
 
 
-## BONUS: Recreate 2024 paper results
+## BONUS: Recreating the results from Mombarg et al., 2024[^2]
 
 | 📋 BONUS TASK 1|
 |:--------|
-| **Open** the provided Google Colab script. |
+| **Open** the provided Google Colab script. 
+ **Upload** the output log directory for your run and the associated `no_extra_jdot` directory into the provided Google Colab notebook. Follow the steps listed there to create plots similar to those in [Mombarg et al., 2024](https://www.aanda.org/articles/aa/pdf/2024/03/aa48466-23.pdf)[^2].  
+ How do the plots compare? Share the plots with others at your table. Do you notice any trends?|
+
+
+
+
+## BONUS: Exploring other velocity field scale factors
+
+So far we have been working through the models with an ad-hoc approximation of $U_{r}$ with `C = 1e-3`. 
 
 | 📋 BONUS TASK 2|
 |:--------|
-| **Upload** the output log directory for your run and the associated no `extra_jdot` directory into the provided Google Colab notebook. Follow the steps listed there to create plots similar to those in [Mombarg et al., 2024](https://www.aanda.org/articles/aa/pdf/2024/03/aa48466-23.pdf)[^2].  |
-
-How do the plots compare? Share the plots with others at your table. Do you notice any trends?
-
-
-## BONUS: 
-
-So far we have been working through the models with an ad hoc approximation of $U_{r}$ with `C = 1e-3`. 
-
-| 📋 BONUS TASK 3|
-|:--------|
-| **Explore** other ranges for the constant `C` in $U_{r}$. |
-
-How does this modify the output in pgstar? 
+| **Explore** other ranges for the constant, `C`, in $U_{r}$. 
+**Compare** against your original run. How does modifying `C` change the evolution of the star and the convergence of the model? Is this expected? Why? |
 
 
 ## Primary References
