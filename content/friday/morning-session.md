@@ -165,9 +165,9 @@ If something looks funky, maybe inspect the Kippenhahn diagram...
 
 # Mini-mini lab 2: Resolution test failed! What do we do?  
 
-There is no generalized procedure for a failed resolution test, but it is a sign that you need to change your setup. In the most extreme cases, you may need an entirely new set of inlist parameters that modify the MESA defaults quite heavily. It may be a good idea to post to the MESA users list, in case someone else has dealt with this before.  
+There is no generalized procedure for a failed resolution test, but it is a sign that you need to change your setup. In the most extreme cases, you may need an entirely new set of inlist parameters that modify the MESA defaults quite heavily. It may be a good idea to post to the MESA-users mailing list, in case someone else has dealt with this before.  
 
-In this case, inspecting the Kippenhahn diagram has shown that in some runs, especially at high resolution there are convective zones popping in and out of existence near the edge of the core which are a numerical artifact of the mixing length theory prescription. You can try to get rid of these by pruning the convective gaps, setting overshooting / core boundary mixing, or other techniques. The one we will try here is turning on `convective_pre_mixing`, which was introduced in MESA V  (Paxton et al 2019) in order to resolve discrepancies between gradients near convective boundaries especially in massive stars. (See also the `predictive_mixing` option introduced in MESA IV, Paxton et al 2018). 
+In this case, inspecting the Kippenhahn diagram and abundance plot has shown that in some runs, especially at high resolution, there are convective zones popping in and out of existence near the edge of the core. These are a numerical artifact of the mixing length theory prescription and the convective instability criterion in 1D. You can try to get rid of these by pruning the convective gaps (`prune_bad_cz_*`, `min_convective_gap`, etc.), setting overshooting / core boundary mixing (discussed in other labs in this summer school), or other techniques. The one we will try here is turning on `convective_pre_mixing`, which was introduced in MESA V  (Paxton et al 2019) in order to resolve discrepancies between gradients near convective boundaries especially in massive stars. (See also the `predictive_mixing` option introduced in MESA IV, Paxton et al 2018). 
 
 Using the same inlists as the end of your previous run, turn on convective pre-mixing by adding the following to the `&controls` section of `inlist project`: 
 
@@ -185,7 +185,7 @@ Run the model again, and watch the HR diagram and Kippenhahn diagram evolve this
 ./clean && ./mk && ./rn 
 ```
 
-Again, record the final **Mass**, **Radus**, **$T_\mathrm{eff}$**, **Luminosity**, and **star age**. Likewise, you can also save your LOGS folder to a safe location where it won't be overwritten. What has changed? Do the results look better? Discuss briefly at your table why this might be. 
+Again, record the final **Mass**, **Radus**, **$T_\mathrm{eff}$**, **Luminosity**, and **star age**. Likewise, you can also save your LOGS folder to a safe location where it won't be overwritten ([See e.g. the `log_directory` option](https://docs.mesastar.org/en/24.08.1/reference/controls.html#log-directory)). What has changed? Do the results look better? Discuss briefly at your table why this might be. 
 
 # Mini-mini lab 3: Varying 1D 'physics' prescriptions
 
