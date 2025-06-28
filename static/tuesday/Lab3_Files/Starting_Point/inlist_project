@@ -18,7 +18,7 @@
       change_net = .true.
       new_net_name = 'pp_cno_extras_o18_ne22.net'
 
-      new_omega_div_omega_crit = <>			!!!! !!!!
+      new_omega_div_omega_crit = <> 			!!!! !!!!
       set_near_zams_omega_div_omega_crit_steps = 20
       set_initial_omega_div_omega_crit = .false.	!!!! !!!!
 
@@ -97,7 +97,7 @@
 
       log_directory = <> 				!!!! !!!!
 
-      initial_mass = <> 				!!!! !!!!
+      initial_mass = <> ! In M_sun			!!!! !!!!
 
       set_min_D_mix = .true.
       min_D_mix = 1d3
@@ -163,7 +163,8 @@
       max_allowed_nz    = 2500
       time_delta_coeff = 0.5 ! Default (1.0) might be too high for the rotational evolution.
 
-
+      ! Solver Controls
+      max_tries1 = 10
 
       ! OVERSHOOTING AND CONVECTION CONTROLS.
       overshoot_D_min = 5d-2

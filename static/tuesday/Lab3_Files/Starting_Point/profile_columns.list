@@ -61,7 +61,7 @@
    !cgrav_factor ! = cgrav(k)/standard_cgrav
    !vel_km_per_s ! velocity at outer boundary of zone (km/s) -- 0 if no velocity variable
 
-   !radius ! radius at outer boundary of zone (in Rsun units) !!!! !!!!
+   radius ! radius at outer boundary of zone (in Rsun units)
    !radius_cm ! radius at outer boundary of zone (in centimeters)
    !radius_km ! radius at outer boundary of zone (in kilometers)
    !logR_cm ! log10 radius at outer boundary of zone (in centimeters)
@@ -549,7 +549,7 @@
 
 
 !# Rotation
-   !omega ! angular velocity = j_rot/i_rot !!!! !!!!
+   omega ! angular velocity = j_rot/i_rot
    !log_omega
    !log_j_rot
    !log_J_div_M53 ! J is j*1e-15 integrated from center; M53 is m^(5/3)
@@ -570,12 +570,12 @@
    !log_am_nu_rot ! log10(am_nu_rot)
    !log_am_nu ! log10(am_nu_non_rot + am_nu_rot)
       
-   !r_polar ! (Rsun) !!!! !!!!
+   r_polar ! (Rsun)
    !log_r_polar ! log10 (Rsun)
    !r_equatorial ! (Rsun)
    !log_r_equatorial ! log10 (Rsun)
    !r_e_div_r_p ! equatorial/r_polar
-   !omega_crit ! breakup angular velocity = sqrt(G M / equatorial^3) !!!! !!!!
+   omega_crit ! breakup angular velocity = sqrt(G M / equatorial^3)
    !omega_div_omega_crit !!!! !!!!
       
    !am_log_nu_omega ! for diffusion of omega

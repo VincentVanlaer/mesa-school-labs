@@ -78,14 +78,13 @@
          integer, intent(out) :: ierr
          type (star_info), pointer :: s
 
-         real(dp), allocatable :: Ur(:), mer_comp(:), dmer_comp_dr(:)
+         real(dp), allocatable :: U_r(:), mer_comp(:), dmer_comp_dr(:)
          real(dp) :: total_torque_envelope
 
          !!!! DECLARE THREE ADDITIONAL INTEGERS: k, k0, and nz !!!!
 
          !!!! !!!!
 
-         
          ! Error Check and Call Star Pointer
          ierr = 0
          call star_ptr(id, s, ierr)
@@ -104,16 +103,15 @@
          end do
 
          ! Allocate arrays
-         allocate(Ur(nz), mer_comp(nz), dmer_comp_dr(nz))
+         allocate(U_r(nz), mer_comp(nz), dmer_comp_dr(nz))
 
          ! Calculate
-         !!!! ADD IN THE EQUATION FOR Ur AND mer_comp !!!!
-         Ur =  ! cm s-1
+         !!!! ADD IN THE EQUATION FOR U_r AND mer_comp !!!!
+         U_r =  ! cm s-1
          mer_comp =  ! g cm2 s-2
          !!!! !!!!
          dmer_comp_dr = (mer_comp(1:nz-1)-mer_comp(2:nz)) / (s% r(1:nz-1) - s% r(2:nz)) ! g cm s-2
          s% xtra2_array(1:nz-1) = dmer_comp_dr
-
 
          ! Smooth dmer_comp_dr
          call smooth_dFdr(id, 1, nz-1, s% xtra2_array, s% xtra6_array, ierr)

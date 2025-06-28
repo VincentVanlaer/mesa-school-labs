@@ -28,10 +28,6 @@
   Grid1_plot_pad_bot(1) = -0.02      ! fraction of full window height for padding at bottom
   Grid1_txt_scale_factor(1) = 0.5    ! multiply txt_scale for subplot by this
   
-  HR_logT_min = 4.25
-  HR_logT_max = 4.42
-  HR_logL_min = 3.735
-  HR_logL_max = 4.2
   
   ! Omega History
   Grid1_plot_name(2) = 'History_Panels1'
@@ -74,22 +70,18 @@
   History_Panels2_num_panels = 1
   History_Panels2_xmin = 0d0
   History_Panels2_max_width = -101d0
-  History_Panels2_xaxis_name = 'grav_dark_Teff_equatorial'
-  History_Panels2_xaxis_log = .true.
-  History_Panels2_xaxis_reversed = .true.
-  History_Panels2_xmin = 4.25
-  History_Panels2_xmax = 4.42
-  History_Panels2_yaxis_name(1) = 'grav_dark_L_equatorial'
-  History_Panels2_yaxis_log(1) = .true.
-  History_Panels2_ymin(1) = 3.735
-  History_Panels2_ymax(1) = 4.2 
-  History_Panels2_other_yaxis_name(1) = 'grav_dark_L_polar'
-  History_Panels2_other_yaxis_log(1) = .true.
-  History_Panels2_other_ymin(1) = 3.735
-  History_Panels2_other_ymax(1) = 4.2
+  History_Panels2_xaxis_name = 'star_age'
+  History_Panels2_xmin = 0d0
+  History_Panels2_max_width = -101d0
+  History_Panels2_xaxis_log = .false.
+  History_Panels2_xaxis_reversed = .false.
+  History_Panels2_yaxis_name(1) = 'log_total_angular_momentum'
+  History_Panels2_yaxis_log(1) = .false.
+  History_Panels2_ymin(1) = 0
+  History_Panels2_ymax(1) = -101d0 
   
   ! Mixing window
-  Grid1_plot_name(3) = 'Mixing'
+  Grid1_plot_name(3) = 'Profile_Panels3'
   Grid1_plot_row(3) = 1
   Grid1_plot_rowspan(3) = 2
   Grid1_plot_col(3) = 5
@@ -101,6 +93,14 @@
   Grid1_plot_pad_bot(3) = 0.02      ! fraction of full window height for padding at bottom
   Grid1_txt_scale_factor(3) = 0.8   ! multiply txt_scale for subplot by this
 
+  Profile_Panels3_title = ''
+  Profile_Panels3_win_flag = .false.
+  Profile_Panels3_xaxis_name = 'radius'
+  Profile_Panels3_xaxis_reversed = .false.
+  Profile_Panels3_num_panels = 1
+  Profile_Panels3_yaxis_name(1) = 'log_dJ_over_J'
+  Profile_Panels3_xmin = 0d0
+  Profile_Panels3_show_mix_regions_on_xaxis = .true.
 
   ! Omega Profile vs radius
   Grid1_plot_name(4) = 'Profile_Panels1'

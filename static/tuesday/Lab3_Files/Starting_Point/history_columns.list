@@ -535,10 +535,10 @@
       !v_surf_div_v_kh ! v_surf/(photosphere_r/kh_timescale)
 
       !surf_avg_j_rot
-      !surf_avg_omega !!!! !!!!
+      surf_avg_omega
       !surf_avg_omega_crit
-      !surf_avg_omega_div_omega_crit !!!! !!!!
-      !surf_avg_v_rot ! km/sec rotational velocity at equator !!!! !!!!
+      surf_avg_omega_div_omega_crit
+      surf_avg_v_rot ! km/sec rotational velocity at equator
       !surf_avg_v_crit ! critical rotational velocity at equator
       !surf_avg_v_div_v_crit
       !surf_avg_Lrad_div_Ledd
@@ -550,10 +550,10 @@
       ! gravity darkening in rotating stars. Based on the model of Espinosa Lara & Rieutord (2011)
       ! 'polar' refers to the line of sight being directed along the rotation axis of the star
       ! 'equatorial' refers to the line of sight coincident with the stellar equator
-      !grav_dark_L_polar !Lsun !!!!
+      !grav_dark_L_polar !Lsun
       !grav_dark_Teff_polar !K
-      !grav_dark_L_equatorial !Lsun  !!!!
-      !grav_dark_Teff_equatorial !K !!!!
+      !grav_dark_L_equatorial !Lsun 
+      !grav_dark_Teff_equatorial !K
 
       !surf_escape_v ! cm/s
 
@@ -618,8 +618,8 @@
       !mu4 ! dM(Msun)/dr(1000km) where entropy=4
 
 
-      !center_omega !!!! !!!!
-      !center_omega_div_omega_crit
+      center_omega
+      center_omega_div_omega_crit
 
 !----------------------------------------------------------------------------------------------
 
