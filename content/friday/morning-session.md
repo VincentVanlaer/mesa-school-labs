@@ -190,7 +190,12 @@ Run the model again, and watch the HR diagram and Kippenhahn diagram evolve this
 ./clean && ./mk && ./rn 
 ```
 
-Again, record the final **Mass**, **Radus**, **$T_\mathrm{eff}$**, **Luminosity**, and **star age**. Likewise, you can also save your LOGS folder to a safe location where it won't be overwritten ([See e.g. the `log_directory` option](https://docs.mesastar.org/en/24.08.1/reference/controls.html#log-directory)). What has changed? Do the results look better? Discuss briefly at your table why this might be. 
+Again, record the final **Mass**, **Radus**, **$T_\mathrm{eff}$**, **Luminosity**, and **star age**. Likewise, you can also save your LOGS folder to a safe location where it won't be overwritten ([See e.g. the `log_directory` option](https://docs.mesastar.org/en/24.08.1/reference/controls.html#log-directory)). 
+
+What has changed? Do the results look better? Discuss briefly at your table why this might be. 
+
+You may notice that the star makes it much farther across the Hertzsprung gap and even begins to ascend the red supergiant branch before the stopping condition. It turns out that the onset of core Helium burning in massive stars is HIGHLY sensitive to mixing choices at the core boundary.  
+
 
 # Mini-mini lab 3: Varying 1D 'physics' prescriptions
 
@@ -208,19 +213,19 @@ $$
 
 where $\alpha_\mathrm{MLT}$ is the mixing length coefficient. Higher values of $\alpha_\mathrm{MLT}$ mean that your prescription for convection is more efficient at carrying flux, lower values correspond to lower efficiencies. 
 
-This is often calibrated to the sun, which depending on the stellar evolution code, atmosphere tables, and many many other factors often gives a values somewhere around $\alpha_\mathrm{MLT}=1.8$. However, this is a choice, and has systematic consequences which impact the stellar radius and other quantities of interest especially when the outer stellar envelope is convective. Evolved massive stars often show evidence of higher values of $\alpha_\mathrm{MLT}$ (really, the evidence is hotter $T_\mathrm{eff}$/smaller radii than most models with lower $\alpha_\mathrm{MLT}$ predict). 
+This is often calibrated to the sun, which depending on the stellar evolution code, atmosphere tables, and many many other factors often gives a values somewhere around $\alpha_\mathrm{MLT}=1.8$. However, this is a choice, and has systematic consequences which impact the stellar radius and other quantities of interest especially when the outer stellar envelope is convective. Evolved massive stars often show evidence of higher values of $\alpha_\mathrm{MLT}$ (really, the evidence is hotter $T_\mathrm{eff}$/smaller radii inferred from observations than most models with lower $\alpha_\mathrm{MLT}$ predict). 
 
 Let's leave the resolution testing directory, but copy your setup from minilab 2 to a new directory to play with the mixing length (and remove old logs files, photos, executables, etc):  
 ```bash
 cd .. 
 cp -r work_res work_alpha
 cd work_alpha
-rm -r LOGS
+rm -r LOGS*
 rm -r png
 rm -r photos/*
 ```
 
-Let's revert to the default resolution here, having decided that with CPM on it's "okay enough for our lab":  
+Let's revert to the default resolution here, having decided that with semiconvection on it's "okay enough for our lab":  
 
 ```fortran
 ! timesteps
