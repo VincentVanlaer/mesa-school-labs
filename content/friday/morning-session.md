@@ -51,7 +51,7 @@ S3) We can create our own custom mesh scheme in `src/run_star_extras.f90`. We ma
 
 ### Adaptive Timesteps
 
-MESA is an implicit code, meaning it chooses its timestep adaptively and iterates until it achieves a solution within specified tolerances (i.e. specified differences between the right-hand-side and left-hand-side of the equations it's solving, as other controls on how much one model can deviate from one timestep to another). If the errors are too large in a given timestep, then MESA will cut the timestep in an attempt to get closer to "the limit of small $h$" (where now $h$ represents an increment in time $dt$). 
+MESA is an implicit code, meaning it chooses its timestep adaptively and iterates until it achieves a solution within specified tolerances (i.e. specified differences between the right-hand-side and left-hand-side of the equations it's solving, and other controls on how much one model can deviate from one timestep to another). If the errors are too large in a given timestep, then MESA will cut the timestep in an attempt to get closer to "the limit of small $h$" (where now $h$ represents an increment in time $dt$). 
 
 However, like choosing a mesh, MESA is guessing at what consitutes "small $h$". To change how MESA selects its timestep, we can likewise have a few options: 
 
