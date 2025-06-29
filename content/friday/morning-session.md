@@ -174,7 +174,7 @@ There is no generalized procedure for a failed resolution test, but it is a sign
 
 In this case, inspecting the Kippenhahn diagram and abundance plot has shown that in some runs, especially at high resolution, there are convective zones popping in and out of existence near the edge of the core. These are a numerical artifact of the mixing length theory prescription and the 1D convective instability criterion. You can try to get rid of these by pruning the convective gaps (`prune_bad_cz_*`, `min_convective_gap`, etc.), setting overshooting / core boundary mixing (discussed in other labs in this summer school), or other techniques. Other controls which may help include `convective_pre_mixing`, which was introduced in MESA V  (Paxton et al 2019) in order to resolve discrepancies between gradients near convective boundaries especially in massive stars, and the `predictive_mixing` option introduced in MESA IV (Paxton et al 2018). These new options can add a bit of runtime. The fix we will try here is turning on semiconvection, where the thermally unstable convective regions are partially stabilized by composition gradients. This is useful particularly at sharp composition boundaries where heavy elements sit underneath lighter elements at the top of a convective core. The implementation is described in MESA Instrument Paper II (Paxton et al 2013). 
 
-Using the same inlists as the end of your previous run, turn on convective pre-mixing by adding the following to the `&controls` section of `inlist project`: 
+Using the same inlists as the end of your previous run, turn on semiconvection by adding the following to the `&controls` section of `inlist project`: 
 
 ```fortran
   ! mixing
