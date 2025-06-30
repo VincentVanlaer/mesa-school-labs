@@ -1,6 +1,6 @@
 ## Wednesday Extra Bonus Task Lab 2: Upsilon Sagittarii
 
-Upsilon Sagittarii is a binary system with a hydrogen primary star. It has has been suggested that this system is in  its second stage of mass transfer after the primary has expanded to become a helium supergiant following core helium exhaustion. [Gilkis & Shenar 2022](https://ui.adsabs.harvard.edu/abs/2023MNRAS.518.3541G/abstract) have identified the progenitor of this system to be a $5 M_{\odot}$ star with a $3.125 M_{\odot}$ companion and an initial orbital period of 8.4 days. The evolutionary track based on these parameters as well as the observations are shown in Figure 1. The observational parameters are given in Table 1, which has been adapted from [Gilkis & Shenar 2022](https://ui.adsabs.harvard.edu/abs/2023MNRAS.518.3541G/abstract).
+Upsilon Sagittarii is a binary system with a hydrogen depleted primary star. It has has been suggested that this system is in its second stage of mass transfer after the primary has expanded to become a helium supergiant following core helium exhaustion. [Gilkis & Shenar 2022](https://ui.adsabs.harvard.edu/abs/2023MNRAS.518.3541G/abstract) have identified the progenitor of this system to be a $5 M_{\odot}$ star with a $3.125 M_{\odot}$ companion and an initial orbital period of 8.4 days. The evolutionary track based on these parameters as well as the observations are shown in Figure 1. The observational parameters are given in Table 1, which has been adapted from [Gilkis & Shenar 2022](https://ui.adsabs.harvard.edu/abs/2023MNRAS.518.3541G/abstract).
 
 ![image](/wednesday/UpsSagHRD1.png)
 
@@ -17,7 +17,9 @@ Upsilon Sagittarii is a binary system with a hydrogen primary star. It has has b
 
 Like in Task 1.1 of Lab 2, the aim of this mini-lab is to capture the simulations as determined from the observations of the binary system by using the `src/run_binary_extras.f90`. Because the track is rather complicated, as can be seen in the figure below, we will slowly build up to finding the right combination of stopping criteria to match the models with the system. Remember to recompile the code every time you change something in the `src/run_binary_extras.f90` with (`./clean && ./mk`) and run your new model! (`./rn`).
 
-[Here are all the files needed for this lab](https://github.com/HEBrinkman/mesa-school-labs/tree/lab3/content/wednesday/BinaryEvolution_Lab3)
+Unlike in the previous task, we are not starting from the standard work-directory, but rather from a cleaned-up version of the published set of inlists connected to the paper mentioned earlier. You can download them here (fill in a link!)
+When working with many different settings within MESA, it is often beneficial to separate out the inlists into separate files. Lets have a look at the inlists in the work-directory. There are nine different files; `inlist`, `inlist1`, `inlist2`, `inlist_extra`, `inlist_other_winds`, `inlist_pgstar`, `inlist_project`, and `inlist_star`.
+
 
 #### Extra Bonus Task 1
 In this task, the aim is to capture the point where the simulation agrees with the observational data with only one stopping criterion, the effective temperature. Because the Roche-lobe overflow phase is computationally heavy for this particular system, the run will start shortly after the mass-transfer phase, which is indicated by the red dot in Figure 1 on the track of the primary star. The saved model files are available in 'Load'.
