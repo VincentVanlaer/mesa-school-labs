@@ -26,7 +26,7 @@ The file `inlist_extra` contains basic settings for the binary run; the masses o
 `inlist1` and `inlist2` are as good as identical. The only difference between the two files is that different models are loaded and a few timestep controls. Both these inlists refer to `inlist_star` for star_job and control-settings and to `inlist_pgstar`.
 `inlist_star` contains all the settings that are the same for the primary and the secondary, rather than putting them all in `inlist1` and `inlist2`. 
  `inlist_pgstar` is not used.
- The last inlist, `inlist_other_wind` is called via the 'run_star_extras.f90`, and contains the values used for the alternative wind-scheme that is used for this model.
+ The last inlist, `inlist_other_wind` is called via the `run_star_extras.f90`, and contains the values used for the alternative wind-scheme that is used for this model.
  
 
 #### Extra Bonus Task 1
