@@ -1,5 +1,9 @@
 ## Wednesday Extra Bonus Task Lab 2: Upsilon Sagittarii
 
+> > [!WARNING]
+> > Take a look at this excercise **only** once you have finished all of the parts of Lab 2!
+
+
 Upsilon Sagittarii is a binary system with a hydrogen depleted primary star. It has has been suggested that this system is in its second stage of mass transfer after the primary has expanded to become a helium supergiant following core helium exhaustion. [Gilkis & Shenar 2022](https://ui.adsabs.harvard.edu/abs/2023MNRAS.518.3541G/abstract) have identified the progenitor of this system to be a $5 M_{\odot}$ star with a $3.125 M_{\odot}$ companion and an initial orbital period of 8.4 days. The evolutionary track based on these parameters as well as the observations are shown in Figure 1. The observational parameters are given in Table 1, which has been adapted from [Gilkis & Shenar 2022](https://ui.adsabs.harvard.edu/abs/2023MNRAS.518.3541G/abstract).
 
 ![image](/wednesday/UpsSagHRD1.png)
