@@ -1,6 +1,6 @@
 ---
 weight: 1
-author: Beatriz Bordadágua
+author: Beatriz Bordadágua (Lead TA), Joey Mombarg, Philip Mocz, Tryston Raecke
 ---
 
 # Minilab 1: 1D rotating stellar models
