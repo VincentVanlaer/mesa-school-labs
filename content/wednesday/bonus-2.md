@@ -3,7 +3,6 @@
 > > [!WARNING]
 > > Take a look at this excercise **only** once you have finished all of the parts of Lab 2!
 
-
 Upsilon Sagittarii is a binary system with a hydrogen depleted primary star. It has has been suggested that this system is in its second stage of mass transfer after the primary has expanded to become a helium supergiant following core helium exhaustion. [Gilkis & Shenar 2022](https://ui.adsabs.harvard.edu/abs/2023MNRAS.518.3541G/abstract) have identified the progenitor of this system to be a $5 M_{\odot}$ star with a $3.125 M_{\odot}$ companion and an initial orbital period of 8.4 days. The evolutionary track based on these parameters as well as the observations are shown in Figure 1. The observational parameters are given in Table 1, which has been adapted from [Gilkis & Shenar 2022](https://ui.adsabs.harvard.edu/abs/2023MNRAS.518.3541G/abstract).
 
 ![image](/wednesday/UpsSagHRD1.png)
@@ -19,24 +18,18 @@ Upsilon Sagittarii is a binary system with a hydrogen depleted primary star. It 
 
 **Table 1**: The HR diagram of the best fitting model from the paper along with the data points from the observations.
 
-Like in Task 1.1 of Lab 2, the aim of this mini-lab is to capture the simulations as determined from the observations of the binary system by using the `src/run_binary_extras.f90`. Because the track is rather complicated, as can be seen in the figure below, we will slowly build up to finding the right combination of stopping criteria to match the models with the system. Remember to recompile the code every time you change something in the `src/run_binary_extras.f90` with (`./clean && ./mk`) and run your new model! (`./rn`).
+Like in Task 1.1 of Lab 2, the aim of this mini-lab is to capture the simulations as determined from the observations of the binary system by using the `src/run_binary_extras.f90`. We will also inspect how adding more terms to the $\chi^2$-formula will impact its value. Because the track is rather complicated, as can be seen in the figure below, we will slowly build up to finding the right combination of stopping criteria to match the models with the system. Remember to recompile the code every time you change something in the `src/run_binary_extras.f90` with (`./clean && ./mk`) and run your new model! (`./rn`).
 
-Unlike in the previous task, we are not starting from the standard work-directory, but rather from an adapted version of the published set of inlists connected to the paper mentioned earlier. You can download them here (fill in a link!).
-In this lab, the focus is on working with the `run_binary_extras.f90` and at the end some visualisation in TULIPS. However, because this work-directory is adapted from a scientific run, we'll have a quick look a the set-up of this directory. 
-When working with many different settings within MESA, it is often beneficial to split out the settings in the inlists into separate files. It might look confusing at first, so lets have a look at the inlists in this work-directory. There are nine different files; `inlist`, `inlist1`, `inlist2`, `inlist_extra`, `inlist_other_winds`, `inlist_pgstar`, `inlist_project`, and `inlist_star`. 
-Open the first file, `inlist`, with your favourite text editor. Like in most cases, this file only refers to other inlists which contain the parameters of the run.
-
-Next, open the file `inlist` refers to, the `inlist_project`. In previous labs, the `inlist_project` contained all paramters. In this case, it refers to two other inlists for the settings of the primary star (`inlist1`) and the settings of the secondary star (`inlist2`). The other information in `inlist_project` is related to the binary physics, and it refers to the file `inlist_extra`.
-
-The file `inlist_extra` contains basic settings for the binary run; the masses of the two stars and the initial period. Because these are the parameters changed in a grid-search as performed in the paper, it is easier to have them in a separate file.
-
-`inlist1` and `inlist2` are as good as identical. The only difference between the two files is that different models are loaded and a few timestep controls. Both these inlists refer to `inlist_star` for star_job and control-settings and to `inlist_pgstar`.
-
-`inlist_star` contains all the settings that are the same for the primary and the secondary, rather than putting them all in `inlist1` and `inlist2`.
-
- `inlist_pgstar` is not often used for science-runs, and therefore often a separate file so its contents are easily ignored.
- 
- The last inlist, `inlist_other_wind` is called via the `run_star_extras.f90`, and contains the values used for the alternative wind-scheme that is used for this model.
+ Unlike in the previous task, we are not starting from the standard work-directory, but rather from an adapted version of the published set of inlists connected to the paper mentioned earlier. You can download them here (fill in a link!).
+ In this lab, the focus is on working with the `run_binary_extras.f90` and at the end some visualisation in TULIPS. However, because this work-directory is adapted from a scientific run, we'll have a quick look a the set-up of this directory. 
+ When working with many different settings within MESA, it is often beneficial to split out the settings in the inlists into separate files. It might look confusing at first, so lets have a look at the inlists in this work-directory. There are nine different files; `inlist`, `inlist1`, `inlist2`, `inlist_extra`, `inlist_other_winds`, `inlist_pgstar`, `inlist_project`, and `inlist_star`. 
+ Open the first file, `inlist`, with your favourite text editor. Like in most cases, this file only refers to other inlists which contain the parameters of the run.
+ Next, open the file `inlist` refers to, the `inlist_project`. In previous labs, the `inlist_project` contained all paramters. In this case, it refers to two other inlists for the settings of the primary star (`inlist1`) and the settings of the secondary star (`inlist2`). The other information in `inlist_project` is related to the binary physics, and it refers to the file `inlist_extra`.
+ The file `inlist_extra` contains basic settings for the binary run; the masses of the two stars and the initial period. Because these are the parameters changed in a grid-search as performed in the paper, it is easier to have them in a separate file.
+ `inlist1` and `inlist2` are as good as identical. The only difference between the two files is that different models are loaded and a few timestep controls. Both these inlists refer to `inlist_star` for star_job and control-settings and to `inlist_pgstar`.
+ `inlist_star` contains all the settings that are the same for the primary and the secondary, rather than putting them all in `inlist1` and `inlist2`.
+  `inlist_pgstar` is not often used for science-runs, and therefore often a separate file so its contents are easily ignored.
+  The last inlist, `inlist_other_wind` is called via the `run_star_extras.f90`, and contains the values used for the alternative wind-scheme that is used for this model.
 
 #### Extra Bonus Task 1
 In this task, the aim is to capture the point where the simulation agrees with the observational data with only one stopping criterion, the effective temperature. Because the Roche-lobe overflow phase is computationally heavy for this particular system, the run will start shortly after the mass-transfer phase, which is indicated by the red dot in Figure 1 on the track of the primary star. The saved model files are available in 'Load'.
