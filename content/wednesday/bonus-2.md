@@ -18,9 +18,7 @@ Upsilon Sagittarii is a binary system with a hydrogen depleted primary star. It 
 Like in Task 1.1 of Lab 2, the aim of this mini-lab is to capture the simulations as determined from the observations of the binary system by using the `src/run_binary_extras.f90`. Because the track is rather complicated, as can be seen in the figure below, we will slowly build up to finding the right combination of stopping criteria to match the models with the system. Remember to recompile the code every time you change something in the `src/run_binary_extras.f90` with (`./clean && ./mk`) and run your new model! (`./rn`).
 
 Unlike in the previous task, we are not starting from the standard work-directory, but rather from an adapted version of the published set of inlists connected to the paper mentioned earlier. You can download them here (fill in a link!).
-
-In this lab, the focus is on working with the `run_binary_extras.f90` and at the end some visualisation in TULIPS. However, because this work-directory is adapted from a scientific run, we'll have a quick look a the set-up of this directory.
-
+In this lab, the focus is on working with the `run_binary_extras.f90` and at the end some visualisation in TULIPS. However, because this work-directory is adapted from a scientific run, we'll have a quick look a the set-up of this directory. 
 When working with many different settings within MESA, it is often beneficial to split out the settings in the inlists into separate files. It might look confusing at first, so lets have a look at the inlists in this work-directory. There are nine different files; `inlist`, `inlist1`, `inlist2`, `inlist_extra`, `inlist_other_winds`, `inlist_pgstar`, `inlist_project`, and `inlist_star`. 
 Open the first file, `inlist`, with your favourite text editor. Like in most cases, this file only refers to other inlists which contain the parameters of the run.
 
