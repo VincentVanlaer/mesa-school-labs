@@ -27,7 +27,7 @@ Throughout the minilab 1 you will find the specific tasks you need to execute in
 
 | 📋 TASK|
 |:--------|
-|1. Download the starting point working directory for minilab 1 and the solutions for each exercise [here](https://www.dropbox.com/scl/fi/bzc72qiqnmbaurt73knbc/minilab1.zip?rlkey=yxtb9hh5r3s2rt7zaby7wuo9v&st=lwvxqe6l&dl=0).
+|1. Download the starting point working directory for minilab 1 and the solutions for each exercise [here](https://www.dropbox.com/scl/fi/tdbslu5u1ovgoh67ajkxw/minilab1.zip?rlkey=rgh8j24feh7zlezehkl8gu7tf&st=1y6v6o53&dl=0).
 |2. Unpack the zip files using `unzip minilab1.zip` and move to the working directory `cd minilab1/starting_point`.|
 
 
@@ -62,7 +62,7 @@ load_model_filename = 'model_ZAMS'
 
 The degree of deformation from the spherical symmetry due to rotation depends on the ratio of the rotation rate and the critical rotation of the star ($\Omega /\Omega_{\mathrm{crit}}$). The critical rotation is reached when the centrifugal force equals the gravitational force in the equatorial plane. 
 
-For this run, we will create a slow rotating model with $(\Omega /\Omega_{\mathrm{crit}})_{\mathrm{initial}}$ = 0.2. Since our PMS model did not include rotation, you need to include to additional steps for the numerical scheme to relax when including rotation in the ZAMS.
+For this run, we will create a slow rotating model with $(\Omega /\Omega_{\mathrm{crit}})_{\mathrm{initial}}$ = 0.2. Since our PMS model did not include rotation, you need to include additional steps for the numerical scheme to relax to the set initial rotation rate when including rotation in the ZAMS.
 
 | 📋 TASK |
 |:--------|
@@ -103,7 +103,7 @@ For the purpose of this lab we will **include an arbitrary viscosity coefficient
 |1. Look for the **two parameters** you need to add to the `inlist_project` in the MESA `&controls` documentation [here](https://docs.mesastar.org/en/24.08.1/reference/controls.html#rotation-controls). The MESA parameter for the viscosity $\nu_{\mathrm{AM}}$ is `am_nu`.|
 
 {{< details title="Hint." closed="true" >}}
-Look in the rotation controls tab and search for the key-word `uniform_am_nu`. Since we are adding an ad-hoc value for the viscosity (not a viscosity value derived from hydrodynamic rotational instabilities) the parameters you are looking for contains `*_non_rot` in the name.
+Look in the rotation controls tab and search for the key-word `uniform_am_nu`. Since we are adding an ad-hoc value for the viscosity (not a viscosity value derived from hydrodynamic rotational instabilities) the parameters you are looking for contain `*_non_rot` in the name.
 {{< /details >}}
 
 {{< details title="Solution. Click on it to check your solution." closed="true" >}}
@@ -170,11 +170,11 @@ You should be looking at the following plots:
 - Top right: the mixing panel (already seen on Monday);
 - Two panels bottom right: the rotation rate against mass and radius.
 
-Don't worry if your run has finished before you grasped the content of the plots. The pgplot of the final model was saved in the `/png` folder under the name `grid1000495.png`.
+Don't worry if your run has finished before you grasped the content of the plots. The pgplot of the final model was saved in the `/png` folder under the name `grid1000200.png`.
 
 | 📋 TASK |
 |:--------|
-|1. Modify the name of this file in order to not be rewritten in the next runs, for e.g. `grid1000495_0.2_nuvisc1d5.png`.|
+|1. Modify the name of this file in order to not be rewritten in the next runs, for e.g. `grid1000200_0.2_nuvisc1d5.png`.|
 
 At the end of your run your pgstar plot should look like this.
 ![pgplot](/tuesday/lab1_grid1000495.png)
@@ -342,6 +342,12 @@ If you are running into problems with the jupyter notebook, you can send your tu
 
 Some of the runs in Exercise 2 may have led to rotation rates above critical rotation. In order to automatically stop a computation when this takes place you need to add a customized stopping criterion to the `run_star_extras.f90` file located in the `src` directory.
 
+### run_star_extras.f90
+
+You can find out which variables you need by searching around in the `$MESA_DIR/star_data/public/star_data_step_work.inc` file (in particular amongst the surface variables). 
+
+As our PMS model did not include rotation, the numerical scheme requires additional steps to relax to the chosen rotation rate (which you already set in the first tasks). During this relaxation process the initial rotation rate can reach above critical values for some models before it relaxes to the set initial rotation rate. Therefore, only check the stopping condition for models above model_number = 5 (e.g. `s% model_number > 5`).
+
 | 📋 TASK |
 |:--------|
 |1. Add the stopping condition to your `run_star_extras.f90` file.|
@@ -351,6 +357,7 @@ The function you need to modify is
 ```fortran
 integer function extras_check_model
 ```
+Look at the example code already included in that function.
 {{< /details >}}
 
 {{< details title="Hint 2: The MESA variables you can use" closed="true" >}}
@@ -364,21 +371,31 @@ If the rotation rate is above critical rotation then you need to stop the run us
 
 {{< details title="Check your code with the solution. Click on it to reveal it." closed="true" >}}
 ```fortran
-if (s% omega_avg_surf/s% omega_crit_avg_surf >= 1.1d0) then
-    extras_check_model = terminate
-    write(*, *) 'termination code: reached critical rotation'
-    return
+if (s% model_number > 5) then
+    if (s%omega_avg_surf/s%omega_crit_avg_surf >= 1d0) then
+        extras_check_model = terminate
+        write(*, *) 'termination code: reached critical rotation'
+        return
+        end if
 end if
 ```
 {{< /details >}}
 
 
+### MESA run
 
 | 📋 TASK |
 |:--------|
-|1. Modify the `inlist_project` to start the run with a high value of $(\Omega /\Omega_{\mathrm{crit}})_{\mathrm{initial}}$ = 0.85. |
-|2. Run MESA: `./clean` `./mk` `./rn`|
-|3. Check if the run stops once the rotation rate is above critical rotation (you can monitor the $(\Omega /\Omega_{\mathrm{crit}})$ evolution using the pgplot).|
+|1. Modify the `inlist_project` to start the run with a high value of $(\Omega /\Omega_{\mathrm{crit}})_{\mathrm{initial}}$ = 0.75. |
+|2. Modify the `inlist_project` to include the Spruit-Tayler dynamo.|
+|3. Run MESA: `./clean` `./mk` `./rn`|
+|4. Check if the run stops once the rotation rate is above critical rotation (you can monitor the $(\Omega /\Omega_{\mathrm{crit}})$ evolution using the pgplot).|
+
+
+> [!IMPORTANT]
+> Do not forget to save all the changes you made in the `inlist_project` and in the `run_star_extras.f90`.
+
+You can test if your stopping condition works for other combinations of initial rotation rate and instabilities. You might need to increase the minimum model number (`s% model_number > 5`) in some cases.
 
 ### Troubleshooting
 If you are running into solver problems due to the high rotation rates (e.g. a lot of retries or termination code message), try increasing the mesh size and decreasing the timestep. The values we provide in the `inlist_project` ensure a fast run but are not necessary the best to ones to ensure convergence of the numerical scheme. 
