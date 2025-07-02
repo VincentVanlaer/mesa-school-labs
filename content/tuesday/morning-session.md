@@ -825,14 +825,14 @@ Within most functions in `run_star_extras.f90`, you will see a line like this:
 ```fortran
 type (star_info), pointer :: s
 ```
-This declares a pointer to the star info structure, which we will use to access the data about the star. Simply declaring this variable doesn't set it up, though. We need to call the `star_ptr` function to set it up. This is done in the boilerplate code at the beginning of each function, like so:
+This declares a pointer to the star info structure, which we will use to access the data about the star. Simply declaring this variable doesn't set it up, though. We need to call the `star_ptr` subroutine to set it up. This is done in the boilerplate code at the beginning of each function, like so:
 
 ```fortran
 ierr = 0
 call star_ptr(id, s, ierr)
 if (ierr /= 0) return
 ```
-The `star_ptr` function takes the `id` of the star model (which is passed to the function) and sets the pointer `s` to point to the star info structure for that model. If there is an error, it sets `ierr` to a non-zero value, which we check for immediately after calling `star_ptr`. If there is an error, we return from the function early.
+The `star_ptr` subroutine takes the `id` of the star model (which is passed to the function) and sets the pointer `s` to point to the star info structure for that model. If there is an error, it sets `ierr` to a non-zero value, which we check for immediately after calling `star_ptr`. If there is an error, we return from the function early.
 This is a common pattern in MESA code, and you'll see it in many of the functions in `run_star_extras.f90`. The star info structure is a powerful tool that allows you to access all the data about your star model, and it's essential to understand how to use it.
 
 So what are all the "members" of the star info structure? Unfortunately, they're not as well documented as they could be, but here are a few guidlines for learning about different types of memebers.
