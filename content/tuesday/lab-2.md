@@ -182,6 +182,48 @@ and to declare a new integer, e.g. `m`, do:
 integer :: m
 ```
 
+At this point you can go ahead and implement the formula yourself, but below are a few more details fleshed-out if you are feeling stuck.
+
+Let’s start by computing $\delta$, i.e., the code variable `delta`.
+First, declare the variable as above at the indicated line in the run_star_extras.
+Then, in the do-loop, define `delta` as the ratio of `s% chiT(i)` and `s% chiRho(i)`.
+
+```fortran
+do i = 2, nz
+      delta = s% chiT(i) / s% chiRho(i)
+      ! rest of your solution here ...
+end do
+```
+
+Next, we define a `real(dp) :: denom` the same as `delta`, which will be everything in the dominator in the factor before the bracket term on the right-hand side of the expression of `v_e`. In the do-loop, define `denom`. Since the `star_info` contains 
+$\nabla-\nabla_{\rm ad}$ and not $\nabla_{\rm ad}-\nabla$ we have to take its negative value.
+To raise a quantity to an integer power, say square it, you can use `pow2(s% cgrav(i) * s% m(i)))`
+
+You should now have something like this
+
+```fortran
+do i = 2, nz
+      delta = s% chiT(i) / s% chiRho(i)
+      denom = (-s% gradT_sub_grada(i) * delta * pow2(s% cgrav(i) * s% m(i)))
+      ! rest of your solution here ...
+end do
+```
+
+
+Now, we compute the estimate for the circulation velocity $v_e$, i.e., a new intermediate code variable I've called `ve0` in the solution, which is $\nabla_{\rm ad}\Omega^2r^3 l$
+times the product of the denominator and the term in brackets.
+The term in brackets is already pre-defined in the `run_star_extras` for you as `bracket_term`. (Do not forget to declare `ve0`!)
+So `ve0 = ... * bracket_term/denom`.
+
+
+Now we are almost there. Lastly, set the value of the extra profile column equal to
+$v_{\mathrm{ES}} \equiv \max \left(\left|v_e\right|-\left|v_\mu\right|, 0\right)$
+
+
+The velocity $v_\mu$ is also already defined for you in the solution as `ve_mu.
+In the do-loop add, update the line `vals(i,1) = ...` with the correct final expression for the Eddington-Sweet velocity we want the function to return.
+
+
 {{< details title="Hint 1." closed="true" >}}
 Naming the new profile column should look like this, inside the `data_for_extra_profile_columns()` function:
 ```fortran

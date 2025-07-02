@@ -189,6 +189,7 @@
                ! we've done some of the work for you, so you can use the following variables :)
                t_kh = s% cgrav(i) * s% m(i) * s% m(i) / (s% r(i) * (s% L(i)))
                ve_mu = (s% scale_height(i)/t_kh) * (s% am_gradmu_factor * s% smoothed_brunt_B(i)) / (s% gradT_sub_grada(i))
+               bracket_term = 2.0d0 * s% r(i) * s% r(i) * (s% eps_nuc(i)/(s% L(i)) - 1.0d0/(s% m(i))) - 3.0d0 / (pi4 * s% rho(i) * (s% r(i)))
                !
                !
                vals(i,1) = ! TODO: store Eddington-Sweet velocity value
