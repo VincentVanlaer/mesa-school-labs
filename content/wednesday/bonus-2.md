@@ -15,6 +15,7 @@ Upsilon Sagittarii is a binary system with a hydrogen depleted primary star. It 
 | $T_{eff,2}[kK]$      | $23\pm2$        |
 | $logL_{1}[L_{\odot}]$    | $3.67\pm0.15$       |
 | $logL_{2}[L_{\odot}]$    | $3.1\pm0.2$        |
+| $P_{orb}$[days]            |$138\pm1$
 
 **Table 1**: The HR diagram of the best fitting model from the paper along with the data points from the observations.
 
@@ -69,17 +70,17 @@ end if
     
 {{< /details >}}
 
-Question: Do the effective temperature and the luminosity match with the data in Table 1?
+**Question** Do the written out effective temperature and the luminosity match with the data in Table 1?
 
 #### Extra Bonus Task 2
-In Extra Bonus Task 1 we have determined that working with just the effective temperature will not lead to a match between the simulation and the observations, as the luminosity is too low compared to the observations. In this next task, we will combine the luminosity and the effective temperature of the primary star to match the observations.
+In Extra Bonus Task 1 we have determined that working with just the effective temperature will not lead to a match between the simulation and the observations, as the luminosity is too low compared to the observations. In this next task, we will combine the luminosity and the effective temperature of the primary star to match the observations.  
 Use the following additional parameter in the `extras_binary_finish_step` hook in `run_binary_extras.f90`: 
 
 `b% s1% l_surf` ! The luminosity of the primary star of the binary system in solar luminosities
 
 {{< details title="Hint 1" closed="true" >}}
     
-As can be seen in the figure above, the stellar evolution track does not go through center of the data points. You will need to experiment with the error-margins to match the stellar track with the observations.
+As can be seen in Figure 1, the stellar evolution track does not go through center of the data points. You will need to experiment with the error-margins to match the stellar track with the observations.
    
 {{< /details >}}
 
@@ -98,7 +99,13 @@ end if
 {{< /details >}}
 
 #### Extra Bonus Task 3
-Because we are working with a binary system, it is not only important to match the primary star, but also the secondary. However, matching two stars simultaneously is not a trivial task, and rather than fitting by eye like we are doing here, it is done with statistical methods. The best fit model presented in [Gilkis & Shenar 2022](https://ui.adsabs.harvard.edu/abs/2023MNRAS.518.3541G/abstract) thus does not match the exact observational values. So, instead of working with the observational values for the secondary, the model values will be used with the error-bars as presented in the literature, which is represented by the cyan cross in the HRD. The new values for the effective temperature and the luminosity are in the table below and were taken from Table 3 of the previously mentioned paper.
+Because we are working with a binary system, it is not only important to match the primary star, but also the secondary component. However, matching two stars simultaneously is not a trivial task, and rather than fitting by eye like we are doing here, it is done with statistical methods, as was demonstrated in bonus part of Task 1.1 of Lab 2. Here, instead of monitoring $\chi^2$ for each timestep, only the final value at the end of the simulation will be determined.  
+As 
+
+
+
+
+The best fit model presented in [Gilkis & Shenar 2022](https://ui.adsabs.harvard.edu/abs/2023MNRAS.518.3541G/abstract) thus does not match the exact observational values. So, instead of working with the observational values for the secondary, the model values will be used with the error-bars as presented in the literature, which is represented by the cyan cross in the HRD. The new values for the effective temperature and the luminosity are in the table below and were taken from Table 3 of the previously mentioned paper.
 
 ![image](/wednesday/UpsSagHRD2.png)
 
@@ -144,7 +151,6 @@ If you have managed to get the double stopping criterion to work, you can experi
 `b% s1% photosphere_logg` !The surface gravity 
 
 As in the previous parts, there are multiple combinations possible to reach the observed values for the stellar parameters or the modelled parameters. Not all combinations might work.
-
 
 <br><br><br>
 ### Acknowledgement
