@@ -179,13 +179,13 @@ enddo
 >  These next two code blocks show how you **might** set up a MESA project, but don't actually execute them! In Task 1.1, you'll actually get your project set up.
 
 
-When starting a new MESA project, you will often start with the default work directory:
+When starting a new MESA project, you will often begin with the default work directory:
 
 ```bash
 cp -r $MESA_DIR/star/work my_new_project
 cd my_new_project
 ```
-This will create a new directory called `my_new_project` with the default MESA work directory structure. You can then edit the inlist files to set up your model.
+This would create a new directory called `my_new_project` with the default MESA work directory structure. You could then edit the inlist files to set up your model.
 
 In other cases, you might start with an existing test case that is close to the science you are interested in. For instance, I study novae, so I might start with the `wd_nova_burst` test case:
 
@@ -197,7 +197,7 @@ cd my_new_project
 For this tutorial, I am providing a work directory that is already set up for you. It's pretty simple; it evolves a 1.0 solar mass star from near the zero-age main sequence to core hydrogen exhaustion, and then pauses before exiting.
 
 > [!NOTE]
->  This work directory is designed to run pretty quickly. For parts 1 through 3, no simulations should take more than about a minute to run. They make take a bit longer in part 4, but still should finishin within a few minutes.
+>  This work directory is designed to run pretty quickly. For parts 1 through 3, no simulations should take more than about a minute to run. They may take a bit longer in part 4, but still should finish within a few minutes.
 
 **Task 1.1:** [Download the work directory](../day2-dev_mesa.zip), move it somewhere sensible, unzip it, and change into the directory.
 
@@ -208,7 +208,7 @@ For this tutorial, I am providing a work directory that is already set up for yo
 
 <div class="hx-p-2">
 
-After downloading the work directory, you can do everything else from the command line:
+After downloading the work directory linked in the task above, you can do everything else from the command line:
 
 Move the directory to your desktop (or wherever you want to work on it):
 
@@ -314,7 +314,7 @@ This file defines a module called `run_star_extras`, which itself loads four oth
 
 The actual "body" of the module is then delegated to the file `standard_run_star_extras.inc`, which is included at the end of the module. This file has the main boilerplate of most of the code you might want to edit, and it is by default set up to do nothing. To edit this text, though, we need to copy it into our `run_star_extras.f90`.
 
-**Task 2.2:** Copy the entire contents of `$MESA_DIR/include/standard_run_star_extras.inc` and paste it into your `run_star_extras.f90` file, replacing the `include 'standard_run_star_extras.inc'` line. Maintain the lines above and below the `include` line, as they are necessary for the module to work correctly.
+**Task 2.2:** Copy the *entire* contents of `$MESA_DIR/include/standard_run_star_extras.inc` and paste it into your `run_star_extras.f90` file, replacing the `include 'standard_run_star_extras.inc'` line. Maintain the lines above and below the `include` line, as they are necessary for the module to work correctly.
 
 <details class="hx-border hx-border-blue-200 dark:hx-border-blue-200 hx-rounded-md hx-my-2">
 <summary class="hx-bg-blue-100 dark:hx-bg-neutral-800 hx-text-blue-900 dark:hx-text-blue-200 hx-p-2 hx-m-0 hx-cursor-pointer">
