@@ -372,13 +372,13 @@ al. 2011](https://iopscience.iop.org/article/10.1088/0067-0049/192/1/3) Sec. 6.2
 
 Why this name then? In a star, the temperature gradient will adjust to
 carry the luminosity (leading to convection if the radiative gradient
-is insufficient). So we can use the luminosity to calculate the
-temperature gradient. However, it is numerically convenient to flip
-things, and use the temperature gradient equation to obtain the
-luminosity instead: ultimately `equL` is about the luminosity, but the
-equation it is the residual of is the temperature gradient equation.
+is insufficient). So we can use the temperature gradient to calculate
+luminosity. However, it is numerically convenient to flip things, and
+use the luminosity to calculate the temperature gradient instead:
+ultimately `equL` is about the luminosity, but the equation it is the
+residual of is the temperature gradient equation.
 
-##### **Optional**: confirming the bad derivative
+##### **Optional**: confirming the bad term
 
 To confirm that it is the derivative of the residual `equL` with respect to
 the density `lnd` is behaving bad, let's get some info about those
@@ -408,7 +408,8 @@ up (or re-run) to see the output:
 ![img](/thursday/2025-06-04_16-29-50_screenshot.png)
 
 which confirms that the suspected partial derivative is the culprit of
-the problem!
+the problem, specifically the line with `****` indicates the worse
+term.
 
 #### So this is the (first) problem!
 
