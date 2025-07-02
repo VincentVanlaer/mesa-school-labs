@@ -25,7 +25,7 @@ $$
 From [Kippenhahn (1974)](https://ui.adsabs.harvard.edu/abs/1974IAUS...66...20K/abstract), the estimate of the circulation velocity is:
 
 $$
-v_e \equiv \frac{\nabla_{\mathrm{ad}}}{\delta\left(\nabla_{\mathrm{ad}}-\nabla\right)} \frac{\omega^2 r^3 l}{(G m)^2}\left[\frac{2\left(\varepsilon_n+\varepsilon_v\right) r^2}{l}-\frac{2 r^2}{m}-\frac{3}{4 \pi \rho r}\right]
+v_e \equiv \frac{\nabla_{\mathrm{ad}}}{\delta\left(\nabla_{\mathrm{ad}}-\nabla\right)} \frac{\Omega^2 r^3 l}{(G m)^2}\left[\frac{2\left(\varepsilon_n+\varepsilon_v\right) r^2}{l}-\frac{2 r^2}{m}-\frac{3}{4 \pi \rho r}\right]
 $$
 
 In the presence of $\mu$-gradients, meridional circulation has to work against the potential and thus might be inhibited or suppressed ([Mestel 1952](https://ui.adsabs.harvard.edu/abs/1952MNRAS.112..598M/abstract), [1953](https://ui.adsabs.harvard.edu/abs/1953MNRAS.113..716M/abstract)). Formally, this can be written as a "stabilizing" circulation velocity,
@@ -161,7 +161,7 @@ To calculate the Eddington-Sweet velocity, we will need to know the variable nam
 | $\varepsilon_n$               | s% eps_nuc(i)             | total energy (erg/g/s) from nuclear reactions |
 | $\nabla-\nabla_{\mathrm{ad}}$ | s% gradT_sub_grada(i)     | difference between temperature gradient and adiabatic temperature gradient. (recall: $\nabla>\nabla_{\rm ad}$ means convectively unstable) |
 | $G$                           | s% cgrav(i)               | gravitational constant (note: MESA let's you modify the graviational strength, hence a zone-wise value) |
-| $\omega$                      | s% omega(i)               | rotation frequency     |
+| $\Omega$                      | s% omega(i)               | rotation frequency     |
 | $H_P$                         | s% scale_height(i)        | scale height           |
 | $\nabla_\mu$                  | s% am_gradmu_factor       | $d\ln{\mu}/d\ln{P}$    |
 | $\varphi$                     | s% smoothed_brunt_B(i)    | $\left(\frac{\partial \ln\rho}{\partial\ln\mu}\right)_{P,T}$ |
@@ -189,7 +189,7 @@ names(1) = 'v_ES'
 ```
 {{< /details >}}
 
-{{< details title="Hint 1." closed="true" >}}
+{{< details title="Hint 2." closed="true" >}}
 A few calculated terms may look like the following:
 ```fortran
 delta = s% chiT(i) / s% chiRho(i)
