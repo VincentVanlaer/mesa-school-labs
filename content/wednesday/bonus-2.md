@@ -24,7 +24,7 @@ Like in Task 1.1 of Lab 2, the aim of this mini-lab is to capture the simulation
  In this lab, the focus is on working with the `run_binary_extras.f90` and at the end some visualisation in TULIPS. However, because this work-directory is adapted from a scientific run, we'll have a quick look a the set-up of this directory. 
  When working with many different settings within MESA, it is often beneficial to split out the settings in the inlists into separate files. It might look confusing at first, so lets have a look at the inlists in this work-directory. There are nine different files; `inlist`, `inlist1`, `inlist2`, `inlist_extra`, `inlist_other_winds`, `inlist_pgstar`, `inlist_project`, and `inlist_star`. 
  Open the first file, `inlist`, with your favourite text editor. Like in most cases, this file only refers to other inlists which contain the parameters of the run.
- Next, open the file `inlist` refers to, the `inlist_project`. In previous labs, the `inlist_project` contained all paramters. In this case, it refers to two other inlists for the settings of the primary star (`inlist1`) and the settings of the secondary star (`inlist2`). The other information in `inlist_project` is related to the binary physics, and it refers to the file `inlist_extra`.
+ Next, open the file that `inlist` refers to, the `inlist_project`. In previous labs, the `inlist_project` contained all paramters. In this case, it refers to two other inlists for the settings of the primary star (`inlist1`) and the settings of the secondary star (`inlist2`). The other information in `inlist_project` is related to the binary physics, and it refers to the file `inlist_extra`.
  The file `inlist_extra` contains basic settings for the binary run; the masses of the two stars and the initial period. Because these are the parameters changed in a grid-search as performed in the paper, it is easier to have them in a separate file.
  `inlist1` and `inlist2` are as good as identical. The only difference between the two files is that different models are loaded and a few timestep controls. Both these inlists refer to `inlist_star` for star_job and control-settings and to `inlist_pgstar`.
  `inlist_star` contains all the settings that are the same for the primary and the secondary, rather than putting them all in `inlist1` and `inlist2`.
@@ -34,7 +34,7 @@ Like in Task 1.1 of Lab 2, the aim of this mini-lab is to capture the simulation
 #### Extra Bonus Task 1
 In this task, the aim is to capture the point where the simulation agrees with the observational data with only one stopping criterion, the effective temperature. Because the Roche-lobe overflow phase is computationally heavy for this particular system, the run will start shortly after the mass-transfer phase, which is indicated by the red dot in Figure 1 on the track of the primary star. The saved model files are available in 'Load'.
 
-To make sure the models do not run too long, there is a maximum amount of models implemented in the `inlist_star`. To see if all runs well, compile (`./clean && ./mk`) and run your new model (`./rn`)! This is only to check if we set all the controls correctly, so kill the run after a few timesteps using `Ctrl C`.
+To make sure the models do not run too long, there is a maximum amount of models implemented in the `inlist_star`. To see if all runs well, compile (`./clean && ./mk`) and run your new model (`./rn`)! This is only to check if we set all the controls correctly, so kill the run after a few timesteps using `Ctrl+C`.
 
 To find the stopping point, use the following parameter in the `extras_binary_finish_step` hook in `run_binary_extras.f90`: 
 
@@ -68,6 +68,8 @@ end if
 ```
     
 {{< /details >}}
+
+Question: Do the effective temperature and the luminosity match with the data in Table 1?
 
 #### Extra Bonus Task 2
 In Extra Bonus Task 1 we have determined that working with just the effective temperature will not lead to a match between the simulation and the observations, as the luminosity is too low compared to the observations. In this next task, we will combine the luminosity and the effective temperature of the primary star to match the observations.
