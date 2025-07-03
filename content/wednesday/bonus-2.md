@@ -33,15 +33,11 @@ The file `inlist_extra` contains basic settings for the binary run; the masses o
 The last inlist, `inlist_other_wind` is called via the `run_star_extras.f90`, and contains the values used for the alternative wind-scheme that is used for this model.  
 
 #### Extra Bonus Task 1
-In this task, the aim is to capture the point where the simulation agrees with the observational data with only one stopping criterion, the effective temperature. Because the Roche-lobe overflow phase is computationally heavy for this particular system, the run will start shortly after the mass-transfer phase, which is indicated by the red dot in Figure 1 on the track of the primary star. The saved model files are available in 'Load'.
-
-To make sure the models do not run too long, there is a maximum amount of models implemented in the `inlist_star`. To see if all runs well, compile (`./clean && ./mk`) and run your new model (`./rn`)! This is only to check if we set all the controls correctly, so kill the run after a few timesteps using `Ctrl+C`.
-
-To find the stopping point, use the following parameter in the `extras_binary_finish_step` hook in `run_binary_extras.f90`: 
-
-`b% s1% teff` ! Effective temperature of the primary star of the binary system in Kelvin
-
-Then, to compare with the observational data, add a write statement to your stopping criterion to print the effective temperature and the luminosity of the stopping point.
+In this task, the aim is to capture the point where the simulation agrees with the observational data with only one stopping criterion, the effective temperature. Because the Roche-lobe overflow phase is computationally heavy for this particular system, the run will start shortly after the mass-transfer phase, which is indicated by the red dot in Figure 1 on the track of the primary star. The saved model files are available in 'Load'.  
+To make sure the models do not run too long, there is a maximum amount of models implemented in the `inlist_star`. To see if all runs well, compile (`./clean && ./mk`) and run your new model (`./rn`)! This is only to check if we set all the controls correctly, so kill the run after a few timesteps using `Ctrl+C`.  
+To find the stopping point, use the following parameter in the `extras_binary_finish_step` hook in `run_binary_extras.f90`:  
+`b% s1% teff` ! Effective temperature of the primary star of the binary system in Kelvin  
+Then, to compare with the observational data, add a write statement to your stopping criterion to print the effective temperature and the luminosity of the stopping point.  
 
 {{< details title="Hint 1" closed="true" >}}
 
@@ -51,8 +47,7 @@ It is important to check the units of the parameters in MESA as compared to the 
        
 {{< details title="Hint 2" closed="true" >}}
 
-`write(*,*) "(your text)", (values)`
-    
+`write(*,*) "(your text)", (values)`  
 is used to print text to the terminal by calling the appropriate values.
 {{< /details >}}
 
@@ -99,10 +94,7 @@ end if
 {{< /details >}}
 
 #### Extra Bonus Task 3
-Because we are working with a binary system, it is not only important to match the primary star, but also the secondary component. However, matching two stars simultaneously is not a trivial task, and rather than fitting by eye like we are doing here, it is done with statistical methods, as was demonstrated in bonus part of Task 1.1 of Lab 2. Here, instead of monitoring $\chi^2$ for each timestep, only the final value at the end of the simulation will be determined.  
-As 
-
-
+Because we are working with a binary system, it is not only important to match the primary star, but also the secondary component. However, matching two stars simultaneously is not a trivial task, and rather than fitting by eye like we are doing here, it is done with statistical methods, as was demonstrated in bonus part of Task 1.1 of Lab 2. Here, instead of monitoring $\chi^2$ for each timestep, only the final value at the end of the simulation will be determined.
 
 
 The best fit model presented in [Gilkis & Shenar 2022](https://ui.adsabs.harvard.edu/abs/2023MNRAS.518.3541G/abstract) thus does not match the exact observational values. So, instead of working with the observational values for the secondary, the model values will be used with the error-bars as presented in the literature, which is represented by the cyan cross in the HRD. The new values for the effective temperature and the luminosity are in the table below and were taken from Table 3 of the previously mentioned paper.
