@@ -94,7 +94,11 @@ end if
 {{< /details >}}
 
 #### Extra Bonus Task 3
-Because we are working with a binary system, it is not only important to match the primary star, but also the secondary component. However, matching two stars simultaneously is not a trivial task, and rather than fitting by eye like we are doing here, it is done with statistical methods, as was demonstrated in bonus part of Task 1.1 of Lab 2. Here, instead of monitoring $\chi^2$ for each timestep, only the final value at the end of the simulation will be determined.
+Because we are working with a binary system, it is not only important to match the primary star, but also the secondary component. However, matching two stars simultaneously is not a trivial task, and rather than fitting by eye like we are doing here, it is done with statistical methods, as was demonstrated in bonus part of Task 1.1 of Lab 2. Here, instead of monitoring $\chi^2$ for each timestep, only the final value at the end of the simulation will be determined. Instead of setting the calculation in `extras_binary_finish_step`, it will be set at the final part of the run, in `extras_binary_after_evolve`. To gain insight in how the different parameters of the binary system affect the $\chi^2$-value, we will consider three variations;  
+
+- Only the effective temperature and luminosity of the primary
+- The effective temperature and luminosity of both components
+- The effective temperature and luminosity of both components as well as the period of the binary system
 
 
 The best fit model presented in [Gilkis & Shenar 2022](https://ui.adsabs.harvard.edu/abs/2023MNRAS.518.3541G/abstract) thus does not match the exact observational values. So, instead of working with the observational values for the secondary, the model values will be used with the error-bars as presented in the literature, which is represented by the cyan cross in the HRD. The new values for the effective temperature and the luminosity are in the table below and were taken from Table 3 of the previously mentioned paper.
