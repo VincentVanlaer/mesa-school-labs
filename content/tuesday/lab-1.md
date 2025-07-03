@@ -27,7 +27,8 @@ Throughout the minilab 1 you will find the specific tasks you need to execute in
 
 | 📋 TASK|
 |:--------|
-|1. Download the starting point working directory for minilab 1 and the solutions for each exercise [here](https://www.dropbox.com/scl/fi/tdbslu5u1ovgoh67ajkxw/minilab1.zip?rlkey=rgh8j24feh7zlezehkl8gu7tf&st=1y6v6o53&dl=0).
+|1. Download the starting point working directory for minilab 1 and the solutions for each exercise [here](https://www.dropbox.com/scl/fi/0o8k6fhku28l6s97hq4pi/minilab1.zip?rlkey=fqr5daq0zf558miuf7ght49vl&st=9nwwnj8p&dl=0).
+
 |2. Unpack the zip files using `unzip minilab1.zip` and move to the working directory `cd minilab1/starting_point`.|
 
 
@@ -150,7 +151,7 @@ Let's also add the rotation profile information to the `profile.data` files by m
 > Do not forget to save all the changes you made in the `inlist_project`, `history_columns.list` and `profile_columns.list`.
 
 > [!NOTE]
-> We remind you that you can consult the solutions of the tasks [here](https://www.dropbox.com/scl/fi/tdbslu5u1ovgoh67ajkxw/minilab1.zip?rlkey=rgh8j24feh7zlezehkl8gu7tf&st=1y6v6o53&dl=0).
+> We remind you that you can consult the solutions of the tasks [here](https://www.dropbox.com/scl/fi/0o8k6fhku28l6s97hq4pi/minilab1.zip?rlkey=fqr5daq0zf558miuf7ght49vl&st=9nwwnj8p&dl=0).
 
 ### MESA run
 Now that we have included the relevant physics in our inlist let's start the computation.
