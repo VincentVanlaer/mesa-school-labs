@@ -79,7 +79,7 @@ Next, in the `&controls` section add a stopping criterion when the central hydro
 
 | 📋 TASK |
 |:--------|
-|1. Look for the **two parameters** you need to add to the `&controls` section in the `inlist_project` to determine when to stop the run.|
+|1. Look for the **two parameters** you need to add to the `&controls` section in the `inlist_project` to determine when to stop the run. You find the MESA `&controls` documentation [here](https://docs.mesastar.org/en/24.08.1/reference/controls.html).|
 
 {{< details title="Hint." closed="true" >}}
 Look in the `when to stop` tab and search for the key-word `xa_central_lower_limit`.
@@ -148,6 +148,9 @@ Let's also add the rotation profile information to the `profile.data` files by m
 
 > [!IMPORTANT]
 > Do not forget to save all the changes you made in the `inlist_project`, `history_columns.list` and `profile_columns.list`.
+
+> [!NOTE]
+> We remind you that you can consult the solutions of the tasks [here](https://www.dropbox.com/scl/fi/tdbslu5u1ovgoh67ajkxw/minilab1.zip?rlkey=rgh8j24feh7zlezehkl8gu7tf&st=1y6v6o53&dl=0).
 
 ### MESA run
 Now that we have included the relevant physics in our inlist let's start the computation.
