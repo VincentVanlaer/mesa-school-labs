@@ -199,7 +199,10 @@ For this tutorial, I am providing a work directory that is already set up for yo
 > [!NOTE]
 >  This work directory is designed to run pretty quickly. For parts 1 through 3, no simulations should take more than about a minute to run. They may take a bit longer in part 4, but still should finish within a few minutes.
 
-**Task 1.1:** [Download the work directory](../day2-dev_mesa.zip), move it somewhere sensible, unzip it, and change into the directory.
+
+|📋 **Task 1.1**|
+|:---|
+|[Download the work directory](../day2-dev_mesa.zip), move it somewhere sensible, unzip it, and change into the directory.|
 
 <details class="hx-border hx-border-green-200 dark:hx-border-green-200 hx-rounded-md hx-my-2">
 <summary class="hx-bg-green-100 dark:hx-bg-neutral-800 hx-text-green-900 dark:hx-text-green-200 hx-p-2 hx-m-0 hx-cursor-pointer">
@@ -237,7 +240,9 @@ cd ~/Desktop/day2-dev
 
 Now let's make sure everything is working correctly.
 
-**Task 1.2:** Compile and run the project.
+|📋 **Task 1.2**|
+|:---|
+|Compile and run the project.|
 
 If things are set up properly, you should see a pgstar window open up, and the project should run for about 94 timesteps and pause before closing. If not, consult the hints and answer below, and reach out to tablemates or a TA for help if you can't get it working.
 
@@ -279,7 +284,12 @@ The file `run_star_extras.f90` lives in the `src` directory of your work directo
 > [!NOTE]
 > We'll be opening and editing files a lot for the rest of this tutorial. For simplicity, I'm assuming you're using VS Code and its associated `code` command to open and edit files. But if you're using, say, Emacs, you can substitute `code` with `emacs` (or whatever command you use to open files in your text editor of choice).
 
-**Task 2.1:** Open the file `run_star_extras.f90` in your favorite text editor. You can change into the `src` directory and then open the file (e.g. `cd src && code run_star_extras.f90`, but remember to `cd ..` to return to the work directory when you are done with the `src` directory) or open it directly (e.g. `code src/run_star_extras.f90`) You should see a file that looks like this:
+|📋 **Task 2.1**|
+|:---|
+| Open the file `run_star_extras.f90` in your favorite text editor.|
+|You can change into the `src` directory and then open the file (e.g. `cd src && code run_star_extras.f90`, but remember to `cd ..` to return to the work directory when you are done with the `src` directory) or open it directly (e.g. `code src/run_star_extras.f90`)|
+
+You should see a file that looks like this:
 
 ```fortran
 ! ***********************************************************************
@@ -314,7 +324,10 @@ This file defines a module called `run_star_extras`, which itself loads four oth
 
 The actual "body" of the module is then delegated to the file `standard_run_star_extras.inc`, which is included at the end of the module. This file has the main boilerplate of most of the code you might want to edit, and it is by default set up to do nothing. To edit this text, though, we need to copy it into our `run_star_extras.f90`.
 
-**Task 2.2:** Copy the *entire* contents of `$MESA_DIR/include/standard_run_star_extras.inc` and paste it into your `run_star_extras.f90` file, replacing the `include 'standard_run_star_extras.inc'` line. Maintain the lines above and below the `include` line, as they are necessary for the module to work correctly.
+|📋 **Task 2.2**|
+|:---|
+|Copy the *entire* contents of `$MESA_DIR/include/standard_run_star_extras.inc` and paste them into your `run_star_extras.f90` file, replacing the `include 'standard_run_star_extras.inc'` line.|
+|Maintain the lines above and below the `include` line, as they are necessary for the module to work correctly.|
 
 <details class="hx-border hx-border-blue-200 dark:hx-border-blue-200 hx-rounded-md hx-my-2">
 <summary class="hx-bg-blue-100 dark:hx-bg-neutral-800 hx-text-blue-900 dark:hx-text-blue-200 hx-p-2 hx-m-0 hx-cursor-pointer">
@@ -637,7 +650,9 @@ Below is the complete contents of what your edited `run_star_extras.f90` file sh
 
 Whenever you change the `run_star_extras.f90` file, you will need to recompile your project for the changes to take effect. You do *not* need to recompile your project if you only change the inlists or other files that are not part of the `src` directory. Usually a simple `./mk` will suffice, but if things are wonky, you can try `./clean && ./mk` to clean the project and recompile from scratch. 
 
-**Task 2.3:** Compile and run the project again.
+|📋 **Task 2.3**|
+|:---|
+|Compile and run the project again.|
 
 <details class="hx-border hx-border-green-200 dark:hx-border-green-200 hx-rounded-md hx-my-2">
 <summary class="hx-bg-green-100 dark:hx-bg-neutral-800 hx-text-green-900 dark:hx-text-green-200 hx-p-2 hx-m-0 hx-cursor-pointer">
@@ -670,14 +685,11 @@ Each of the `extras_*` functions and subroutines in `run_star_extras.f90` is cal
 
 `extras_check_model` is one of the more commonly used functions, as it is called at the end of each timestep. Let's use it to do the simplest thing we can: print a message to the terminal. This is a good first step to make sure we can compile and run our code without errors.
 
-**Task 2.4:** 
-
-- Add the following code to the `extras_check_model` function in your `run_star_extras.f90` file:
-```fortran
-write(*,*) 'Hello, MESA!'
-```
-- Compile and run the project again, confirming that you get a bunch of annoying messages printed to the terminal.
-- Once you confirm that the code works, you may cancel the run by pressing `Ctrl+C` in the terminal.
+|📋 **Task 2.4**|
+|:---|
+|Add the following code to the `extras_check_model` function in your `run_star_extras.f90` file: `write(*,*) 'Hello, MESA!'`|
+|Compile and run the project again, confirming that you get a bunch of annoying messages printed to the terminal.|
+|Once you confirm that the code works, you may cancel the run by pressing `Ctrl+C` in the terminal.|
 
 
 <details class="hx-border hx-border-blue-200 dark:hx-border-blue-200 hx-rounded-md hx-my-2">
@@ -762,7 +774,10 @@ You should see a bunch of messages printed to the terminal, including `Hello, ME
 
 Now that you've got some working code, let's break it! We're going to intentionally introduce a syntax error and see what happens.
 
-**Task 2.5:** Change the `write(*,*) 'Hello, MESA!'` line to `write(*,*) 'Hello, MESA!`. Notice the missing closing quote at the end of the string. Compile the project again and read the error message carefully. Could you figure out what went wrong without the benefit of knowing what the error was going to be?
+|📋 **Task 2.5**|
+|:---|
+|Change the `write(*,*) 'Hello, MESA!'` line to `write(*,*) 'Hello, MESA!`. Notice the missing closing quote at the end of the string.|
+|Compile the project again and read the error message carefully. Could you figure out what went wrong without the benefit of knowing what the error was going to be?|
 
 <details class="hx-border hx-border-green-200 dark:hx-border-green-200 hx-rounded-md hx-my-2">
 <summary class="hx-bg-green-100 dark:hx-bg-neutral-800 hx-text-green-900 dark:hx-text-green-200 hx-py-2 hx-px-4 hx-m-0 hx-cursor-pointer">
@@ -803,7 +818,10 @@ This indicates that the string beginning at the position marked by "1" (below th
 </div>
 </details>
 
-**Task 2.6:** "Fix" the error by deleting the entire `write(*,*) 'Hello, MESA!` line. Compile and run the project again. You should see no output from the `extras_check_model` function, as it is now empty.
+|📋 **Task 2.6**|
+|:---|
+|"Fix" the error by deleting the entire `write(*,*) 'Hello, MESA!` line.|
+|Compile and run the project again. You should see no output from the `extras_check_model` function, as it is now empty.|
 
 You've now made some edits to the `run_star_extras.f90` file, compiled it, and run it successfully. You've even seen what an error looks like. Now let's get to doing something more interesting.
 
@@ -861,7 +879,10 @@ $$T_\oplus = T_\odot \left(\frac{R_\odot}{2\,\mathrm{AU}}\right)^{1/2},$$
 
 where $T_\odot$ is the effective temperature of the star and $R_\odot$ is the photospheric radius of the star. We need to figure out how to access these values in the star info structure.
 
-**Task 3.1:** Look in `$MESA_DIR/star_data/public/star_data_step_work.inc` and `$MESA_DIR/star_data/public/star_data_step_input.inc` and find the members of the star info structure that correspond to the effective temperature and photospheric radius of the star. You might find a couple of promising candidates, so look at comments, and then check your answer below.
+|📋 **Task 3.1**|
+|:---|
+| Look in `$MESA_DIR/star_data/public/star_data_step_work.inc` and `$MESA_DIR/star_data/public/star_data_step_input.inc` and find the members of the star info structure that correspond to the effective temperature and photospheric radius of the star.|
+|You might find a couple of promising candidates, so look at comments, and then check your answer below.|
 
 <details class="hx-border hx-border-green-200 dark:hx-border-green-200 hx-rounded-md hx-my-2">
 <summary class="hx-bg-green-100 dark:hx-bg-neutral-800 hx-text-green-900 dark:hx-text-green-200 hx-py-2 hx-px-4 hx-m-0 hx-cursor-pointer">
@@ -881,7 +902,9 @@ If you're uncertain about the precise meaning of a member, your best bet now is 
 
 Now that we have the star info structure members rounded up, there's another wrinkle: the radius will be in solar units while the temperature will be in cgs units, so we'll also need to convert AU and $R_\odot$ to cm. We could look these up and hardcode them, but MESA has a `const` module that contains *many* useful constants, and it's included and ready to use.
 
-**Task 3.2:** Look in `$MESA_DIR/const/public/const_def.f90` and find the constants that corresponds to the number of centimeters in an astronomical unit (AU) and a solar radius $R_\odot$.
+|📋 **Task 3.2**|
+|:---|
+|Look in `$MESA_DIR/const/public/const_def.f90` and find the constants that corresponds to the number of centimeters in an astronomical unit (AU) and a solar radius $R_\odot$.|
 
 <details class="hx-border hx-border-green-200 dark:hx-border-green-200 hx-rounded-md hx-my-2">
 <summary class="hx-bg-green-100 dark:hx-bg-neutral-800 hx-text-green-900 dark:hx-text-green-200 hx-py-2 hx-px-4 hx-m-0 hx-cursor-pointer">
@@ -903,7 +926,10 @@ And the solar radius is called `Rsun`. You can find it on line 129 of the same f
 ### Putting It All Together
 Now that we have all the pieces, we can put them together to create a custom stopping condition. We'll add this code to the `extras_finish_step` function, which is called after each timestep is completed.
 
-**Task 3.3:** Edit `extras_finish_step` in your `run_star_extras.f90` file to compute the temperature at Earth and print it to the screen. You'll need to use the members we found earlier as well as the constants for an AU and $R_\odot$. Compile and run the project to make sure it works. You should see temperatures that start around 250 K and continuously rise to around 300 K by the end of the run (but you don't need to run to completion).
+|📋 **Task 3.3**|
+|:---|
+|Edit `extras_finish_step` in your `run_star_extras.f90` file to compute the temperature at Earth and print it to the screen. You'll need to use the members we found earlier as well as the constants for an AU and $R_\odot$.|
+|Compile and run the project to make sure it works. You should see temperatures that start around 250 K and continuously rise to around 300 K by the end of the run (but you don't need to run to completion).|
 
 <details class="hx-border hx-border-blue-200 dark:hx-border-blue-200 hx-rounded-md hx-my-2">
 <summary class="hx-bg-blue-100 dark:hx-bg-neutral-800 hx-text-blue-900 dark:hx-text-blue-200 hx-p-2 hx-m-0 hx-cursor-pointer">
@@ -952,7 +978,10 @@ As usual, compile and run the project again with `./mk && ./rn`.
 </div>
 </details>
 
-**Task 3.4:** Further edit your `extras_finish_step` function to check if the equilibrium temperature of the Earth exceeds the value set in `x_ctrl(1)`. If it does, print a message to the terminal and set `extras_finish_step = terminate` to stop the evolution. You'll need to use an `if` block, so review the Fortran syntax from the Fortran primer if you need a refresher. Finally, to actually tell MESA to stop the evolution, you'll need to set `extras_finish_step = terminate` in the `if` block. Try compiling to debug, but don't run the project yet.
+|📋 **Task 3.4**|
+|:---|
+|Further edit your `extras_finish_step` function to check if the equilibrium temperature of the Earth exceeds the value set in `x_ctrl(1)`. If it does, print a message to the terminal and set `extras_finish_step = terminate` to stop the evolution. You'll need to use an `if` block, so review the Fortran syntax from the Fortran primer if you need a refresher. Finally, to actually tell MESA to stop the evolution, you'll need to set `extras_finish_step = terminate` in the `if` block.|
+|Try compiling to debug, but don't run the project yet.|
 
 <details class="hx-border hx-border-blue-200 dark:hx-border-blue-200 hx-rounded-md hx-my-2">
 <summary class="hx-bg-blue-100 dark:hx-bg-neutral-800 hx-text-blue-900 dark:hx-text-blue-200 hx-px-4 hx-py-2 hx-m-0 hx-cursor-pointer">
@@ -1016,7 +1045,10 @@ Now let's test our new stopping condition. We'll need to set the value of `x_ctr
 > [!CAUTION]
 > Note that within an inlist, the star info structure is nowhere to be found. **You should not use `s%` within an inlist, EVER.**. When *accessing inlist values in `run_star_extras.f90`*, you are querying the star info structure, so you *do* need to use `s%`. In short, you'll just use `x_ctrl(1)` in the inlist, but `s% x_ctrl(1)` in your Fortran code.
 
-**Task 3.5:** Edit your `inlist` to set `x_ctrl(1)` to 310 K (these go in the `controls` namelist), and prevent the old stopping condition from functioning. Then compile and run the project again. It should run for about 126 timesteps before stopping if everything is working correctly.
+|📋 **Task 3.5**|
+|:---|
+|Edit your `inlist` to set `x_ctrl(1)` to 310 K (these go in the `controls` namelist), and prevent the old stopping condition from functioning.|
+|Then, compile and run the project again. It should run for about 126 timesteps before stopping if everything is working correctly.|
 
 <details class="hx-border hx-border-green-200 dark:hx-border-green-200 hx-rounded-md hx-my-2">
 <summary class="hx-bg-green-100 dark:hx-bg-neutral-800 hx-text-green-900 dark:hx-text-green-200 hx-py-2 hx-px-4 hx-m-0 hx-cursor-pointer">
@@ -1068,7 +1100,10 @@ As a toy model, we'll use the `other_energy` hook to add some mysterious new ene
 
 ### Step 1: Copy the Boilerplate
 
-**Task 4.1:** In your terminal, navigate to `$MESA_DIR/star/other`. Execute `ls` and peruse the various hooks available to you, then open `other_energy.f90` and copy *just* the subroutine `default_other_energy` into your `run_star_extras.f90` file.
+|📋 **Task 4.1**|
+|:---|
+|In your terminal, navigate to `$MESA_DIR/star/other`. Execute `ls` and peruse the various hooks available to you.|
+|Then, open `other_energy.f90` and copy *just* the subroutine `default_other_energy` into your `run_star_extras.f90` file.|
 
 <details class="hx-border hx-border-blue-200 dark:hx-border-blue-200 hx-rounded-md hx-my-2">
 <summary class="hx-bg-blue-100 dark:hx-bg-neutral-800 hx-text-blue-900 dark:hx-text-blue-200 hx-px-4 hx-py-2 hx-m-0 hx-cursor-pointer">
@@ -1136,7 +1171,10 @@ We see that it brings in a few other modules and defines some variables. There's
 
 We won't be doing that here, though, as we'll want to set the value of `extra_heat` to a different value at every zone in the model, so we can safely delete that line as well as the comment afterward.
 
-**Task 4.2:** Rename the subroutine to `day2_other_energy` and delete the two comments at the end of the subroutine. Remember, the name appears at the beginning *and* the end of the subroutine! Compile again to make sure you haven't introduced any syntax errors. If you have, fix them before proceeding.
+|📋 **Task 4.2**|
+|:---|
+|Rename the subroutine to `day2_other_energy` and delete the two comments at the end of the subroutine. Remember, the name appears at the beginning *and* the end of the subroutine!|
+|Compile again to make sure you haven't introduced any syntax errors. If you have, fix them before proceeding.|
 
 <details class="hx-border hx-border-green-200 dark:hx-border-green-200 hx-rounded-md hx-my-2">
 <summary class="hx-bg-green-100 dark:hx-bg-neutral-800 hx-text-green-900 dark:hx-text-green-200 hx-py-2 hx-px-4 hx-m-0 hx-cursor-pointer">
@@ -1168,7 +1206,9 @@ end subroutine day2_other_energy
 
 We have another step to complete before MESA will even call our new subroutine. Rather than spell it out for you, I'm going to lead you to some bread crumbs, but see the hints if you get stuck.
 
-**Task 4.3:** Back in the template file, `$MESA_DIR/star/other/other_energy.f90`, you'll notice some comments below the copyright and license information but above the subroutine itself. Use these and any resources within to figure out how to set the pointer to your new subroutine in `extras_controls`.
+|📋 **Task 4.3**|
+|:---|
+|Back in the template file, `$MESA_DIR/star/other/other_energy.f90`, you'll notice some comments below the copyright and license information but above the subroutine itself. Use these and any resources within to figure out how to set the pointer to your new subroutine in `extras_controls`.|
 
 <details class="hx-border hx-border-blue-200 dark:hx-border-blue-200 hx-rounded-md hx-my-2">
 <summary class="hx-bg-blue-100 dark:hx-bg-neutral-800 hx-text-blue-900 dark:hx-text-blue-200 hx-px-4 hx-py-2 hx-m-0 hx-cursor-pointer">
@@ -1247,7 +1287,11 @@ The highlighted line at the end is the only new addition.
 
 You're probably getting the hang of this by now, so I'll let you try this one on your own again.
 
-**Task 4.4:** Return to the README and comments of the previous task and add a line to `inlist_project` that will turn on the `other_energy` hook. To test to see if it's working, put a statement like `write(*,*) 'other_energy hook called'` in your `day2_other_energy` subroutine. Compile and run the project again, and you should see this message printed to the terminal at every timestep.
+|📋 **Task 4.4**|
+|:---|
+|Return to the README and comments of the previous task and add a line to `inlist_project` that will turn on the `other_energy` hook.|
+|To test to see if it's working, put a statement like `write(*,*) 'other_energy hook called'` in your `day2_other_energy` subroutine.|
+|Compile and run the project again, and you should see this message printed to the terminal at every timestep.|
 
 <details class="hx-border hx-border-green-200 dark:hx-border-green-200 hx-rounded-md hx-my-2">
 <summary class="hx-bg-green-100 dark:hx-bg-neutral-800 hx-text-green-900 dark:hx-text-green-200 hx-py-2 hx-px-4 hx-m-0 hx-cursor-pointer">
@@ -1282,7 +1326,11 @@ So far, we have a hook that is called, but does nothing. Now let's actually add 
 
 First off, let's do nothing again, but in a fancier way.
 
-**Task 4.5:** In your `day2_other_energy` subroutine, delete the `write(*,*)` statement we included earlier, and set the `extra_heat` array to a constant value of 0 by looping over all zones in the model. Fortran is 1-indexed, so your loop should start at 1 and go to `s% nz` (the number of zones in the model). You *could* use the nifty `(:)` syntax, but the point of this is to get a loop working that we can do more interesting things with later, so use a `do` loop instead. Compile and run the project again, and you should see no change in the model evolution, but you should see no errors either.
+|📋 **Task 4.5**|
+|:---|
+|In your `day2_other_energy` subroutine, delete the `write(*,*)` statement we included earlier, and set the `extra_heat` array to a constant value of 0 by looping over all zones in the model. Fortran is 1-indexed, so your loop should start at 1 and go to `s% nz` (the number of zones in the model).|
+|Note: you *could* use the nifty `(:)` syntax, but the point of this is to get a loop working that we can do more interesting things with later, so use a `do` loop instead.|
+|Compile and run the project again, and you should see no change in the model evolution, but you should see no errors either.|
 
 <details class="hx-border hx-border-green-200 dark:hx-border-green-200 hx-rounded-md hx-my-2">
 <summary class="hx-bg-green-100 dark:hx-bg-neutral-800 hx-text-green-900 dark:hx-text-green-200 hx-py-2 hx-px-4 hx-m-0 hx-cursor-pointer">
@@ -1324,7 +1372,11 @@ $$\epsilon_{\mathrm{extra}}(M_r) = L_{\mathrm{extra}}\frac{1}{\Delta M}\exp\left
 
 where $L_{\mathrm{extra}}$ is the total luminosity from this new energy source, $M_r$ is the mass coordinate of the zone, and $\Delta M$ is a characteristic mass scale that determines how quickly the energy source decreases with increasing mass coordinate. Well-behaved values for $\Delta M$ and $L_{\mathrm{extra}}$ are $0.05~M_\odot$ and $0.1~L_\odot$, respectively, but I encourage you to make these values user-accessible in the inlist so you can experiment with them later.
 
-**Task 4.6:** Implement the above energy source in your `day2_other_energy` subroutine. You should already have a loop ready to go, but now instead of setting each zone's `extra_heat` to zero, you should compute the value locally for each zone. Compile, run, and check the plot that shows `extra_energy` to confirm that it is behaving appropriately. As always, beware unit trickery!
+|📋 **Task 4.6**|
+|:---|
+|Implement the above energy source in your `day2_other_energy` subroutine. You should already have a loop ready to go, but now instead of setting each zone's `extra_heat` to zero, you should compute the value locally for each zone.|
+|As always, beware unit trickery!|
+|Compile, run, and check the plot that shows `extra_energy` to confirm that it is behaving appropriately.|
 
 While it may take more timesteps than before, the actual evolutionary time of the model should be lower, since the added energy source will cause Earth to heat up more quickly.
 
@@ -1399,7 +1451,10 @@ When all is done with $\Delta M = 0.05~M_\odot$, $L_{\mathrm{extra}} = 0.1~L_\od
 
 If you got this far, you've done a great job! As a bonus exercise, let's compare the extra heating to the nuclear energy generation rate in the star, both locally and globally.
 
-**Task 5.1:** Use the existing four functions and subroutines dealing with history and profile columns to add a new column to both history and profile outputs. The history column should be called `L_ratio`, and it should be the ratio of the total extra heating to the total nuclear power generation in the star. The profile column should be called `eps_ratio`, and it should be the ratio of the local extra heating to the local specific nuclear energy generation rate. When you have it working, load the last profile and history files in [MESA Explorer](https://billwolf.space/mesa-explorer/) and plot these new columns against model number (history) and mass coordinate (profile). You'll probably want to use a logarithmic scale for the y-axis of the profile plot.
+|📋 **Task 5.1**|
+|:---|
+|Use the existing four functions and subroutines dealing with history and profile columns to add a new column to both history and profile outputs. The history column should be called `L_ratio`, and it should be the ratio of the total extra heating to the total nuclear power generation in the star. The profile column should be called `eps_ratio`, and it should be the ratio of the local extra heating to the local specific nuclear energy generation rate.|
+|When you have it working, load the last profile and history files in [MESA Explorer](https://billwolf.space/mesa-explorer/) and plot these new columns against model number (history) and mass coordinate (profile). You'll probably want to use a logarithmic scale for the y-axis of the profile plot.|
 
 <details class="hx-border hx-border-blue-200 dark:hx-border-blue-200 hx-rounded-md hx-my-2">
 <summary class="hx-bg-blue-100 dark:hx-bg-neutral-800 hx-text-blue-900 dark:hx-text-blue-200 hx-px-4 hx-py-2 hx-m-0 hx-cursor-pointer">
