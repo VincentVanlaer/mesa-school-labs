@@ -16,7 +16,7 @@ Upsilon Sagittarii is a binary system with a hydrogen depleted primary star. It 
 | $logL_{1}[L_{\odot}]$    | $3.67\pm0.15$       |
 | $logL_{2}[L_{\odot}]$    | $3.1\pm0.2$        |
 | $logg_{1}[cms^-2]$       | $1.2\pm0.2$|
-| $P_{orb}$[days]            |$138\pm1$ |
+| $P_{orb}[days]$            |$138\pm1$ |
 
 **Table 1**: The HR diagram of the best fitting model from the paper along with the data points from the observations.
 
