@@ -100,6 +100,15 @@ Because we are working with a binary system, it is not only important to match t
 - The effective temperature and luminosity of both components
 - The effective temperature and luminosity of both components as well as the period of the binary system
 
+The values needed are given in Table 1. You can reuse the formula from Task 1.1 of the main lab.
+
+> > [!TIP]
+> > Just as a reminder, here is the formula:
+> > $$\chi^2 = \sum_{i=1}^n \left( \frac{O_i-E_i}{\sigma_i} \right)^2, $$
+where $O_i$ is the observed value, $E_i$ is the theoretical value (in our case returned by MESA) and $\sigma_i$ is the observed error.
+
+> > [!IMPORTANT]
+> > The units of the MESA output and those of the observations are not the same, make sure you have the same units in the calculation.
 
 The best fit model presented in [Gilkis & Shenar 2022](https://ui.adsabs.harvard.edu/abs/2023MNRAS.518.3541G/abstract) thus does not match the exact observational values. So, instead of working with the observational values for the secondary, the model values will be used with the error-bars as presented in the literature, which is represented by the cyan cross in the HRD. The new values for the effective temperature and the luminosity are in the table below and were taken from Table 3 of the previously mentioned paper.
 
