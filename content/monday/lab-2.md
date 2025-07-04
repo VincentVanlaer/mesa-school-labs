@@ -29,7 +29,7 @@ cp -r lab1 lab2
 ```
 
 Before we start modifying the inlists such that we can model the 
-further evolution of our 5 $M_\odot$ star, let us clean up the directory
+further evolution of our $5\,M_\odot$ star, let us clean up the directory
 and delete not needed files from our previous runs, such as the 
 directories LOGS, photos, and png:
 
@@ -41,7 +41,7 @@ rm -r LOGS photos png
 Alternatively, or if you want to be sure that everything is working properly,
 you can download a cleaned folder [here](https://github.com/Daniel-Pauli/mesa-school-labs/blob/patch-1/content/monday/lab2.zip).
 
-In lab1 we have calculated a 5 $M_\odot$ model with 
+In lab1 we have calculated a $5\,M_\odot$ model with 
 step overshooting having $f=0.030$ and $f_0=0.005$ until core-hydrogen
 depletion. The model should be saved as ``M5_Z0014_fov030_f0ov0005_TAMS.mod``
 and should still be in your lab2 folder. To save computation time, 
@@ -108,7 +108,7 @@ Can you find on the website any content that is related to **load** something?
 
 Add to your *star_job* section in the *inlist_project* the following lines:
 ```
-! loading the pre-saved 5$M_\odot$ model
+! loading the pre-saved 5 Msun model
     load_saved_model = .true.
     load_model_filename = 'M5_Z0014_fov030_f0ov0005_TAMS.mod'
 ```
@@ -128,7 +128,7 @@ the initial conditions at the beginning of the evolution:
 ```
   ! starting specifications
 
-    initial_mass = 5 ! in $M_\odot$ units
+    initial_mass = 5 ! in Msun units
 
     initial_z = 0.014 ! initial metal mass fraction
 
@@ -246,7 +246,7 @@ To stop your model, you can press in the terminal ctrl+c for a linux or cmd+c fo
 
 ### Core helium burning without core overshooting
 	
-As a first run, we want to calculate the 5 $M_\odot$ model until
+As a first run, we want to calculate the $5\,M_\odot$ model until
 core helium depletion without including core overshoot. To 
 be able to compare the output between the different models,
 let us create for each run a separate output folder for the 
@@ -289,7 +289,7 @@ figure out why the core behaves as it does?
 Now add some overshooting on top of the helium-burning
 core to see how it impacts the evolution. For core helium
 burning, use a moderate step overshooting,
-namely f_ov = 0.1 and f0_ov = 0.005. In lab1, we added
+namely $f_\text{ov} = 0.1$ and $f_{0,\,\text{ov}} = 0.005$. In lab1, we added
 overshooting on top of the hydrogen burning core by 
 using the following lines:
 
@@ -306,7 +306,7 @@ using the following lines:
 Let's add similar lines in the *controls* section 
 in *inlist_extra*. 
 Can you figure out how we need to modify
-them to tell MESA that we also want a overshooting region
+them to tell MESA that we also want an overshooting region
 on top of the helium-burning core?
 
 {{< details title="Show hint 1" closed="true" >}}
