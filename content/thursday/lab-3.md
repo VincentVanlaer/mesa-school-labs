@@ -318,7 +318,7 @@ The run should take around 10 minutes on 2 threads, since the star needs to evol
 Meanwhile, make sure you’re ready to upload your history files once your run is complete so we can create a live plot using the files you upload [to this folder](https://tauex-my.sharepoint.com/:f:/g/personal/noyshitrit_tauex_tau_ac_il/Eh7ABs_UnNFAmwRLzIIZNaUBg48dgmIeCfP5RmVarcPK-A?e=FfRMbG).  
 Additionally, we have prepared a Google Colab notebook. In this notebook, you'll upload your MESA `history.data` file and generate basic plots of $\Delta \Pi$ versus age and central helium abundance.
 
-## Instructions:
+## Google Colab Instructions:
 1. [Click here](https://colab.research.google.com/drive/1g9lz20FU9IVrg3CJTF9y5jZ80SYJghbE?usp=sharing) to open the notebook and connect to your Google account.  
 2. You can review the Python script if you'd like. You don’t need to install anything manually—just run the notebook cells, and it will automatically install any required packages. It uses the `mesa-reader` package (more information [here](https://github.com/wmwolf/py_mesa_reader)) to read the history file easily.  
 3. During the run (which will take 1–2 minutes), Colab will prompt you to upload a file. Please upload your `history.data` file when asked.  
