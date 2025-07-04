@@ -2,16 +2,16 @@
 
 ## Overview
 
-### A. Setting up the MESA model
+### A. Preparation
 * ~10 Minutes
 * Adjusting the MESA inlist files to run until core helium depletion
 * Creating a new file called inlist_extra, where we can vary our physics quickly
 
-### B. Running a star until core helium depletion with different physical assumptions
+### B. Running different models until Terminal Age Core Helium Burning (TACHeB)
 * ~30 Minutes
 * exploring how different physical assumptions change the evolution of a star and the structure of the convective core
 
-### C. BONUS: Adding new plots to pgstar
+### C. Bonus Task: Including additional plots
 * ~20 Minutes
 * Getting familiar with pgstar and modifying it to show an additional plotting window
 * Intestivate when convection zones in a star are formed
@@ -25,26 +25,26 @@ As a first step, we copy the folder from Lab1 and name it Lab2.
 You can do this by hand or run in your terminal:
 
 ```
-	cp -r lab1 lab2
+cp -r lab1 lab2
 ```
 
 Before we start modifying the inlists such that we can model the 
-further evolution of our 5 Msun star, let us clean up the directory
+further evolution of our 5 $M_\odot$ star, let us clean up the directory
 and delete not needed files from our previous runs, such as the 
 directories LOGS, photos, and png:
 
 ```
-	./clean
-	rm -r LOGS photos png
+./clean
+rm -r LOGS photos png
 ```
 
 Alternatively, or if you want to be sure that everything is working properly,
 you can download a cleaned folder [here](https://github.com/Daniel-Pauli/mesa-school-labs/blob/patch-1/content/monday/lab2).
 
-In lab1 we have calculated a 5 Msun model with 
-step overshooting having f=0.030 and f0=0.005 until core-hydrogen
+In lab1 we have calculated a 5 $M_\odot$ model with 
+step overshooting having $f=0.030$ and $f_0=0.005$ until core-hydrogen
 depletion. The model should be saved as ``M5_Z0014_fov030_f0ov0005_TAMS.mod``
-and should be still in your lab2 folder. To save computation time, 
+and should still be in your lab2 folder. To save computation time, 
 and to avoid calculating the evolution to the TAMS several times,
 we will be loading this saved model every time to explore 
 different physical settings. 
@@ -57,7 +57,7 @@ You can download the TAMS model [here](https://github.com/Daniel-Pauli/mesa-scho
 To load a saved model, we need to modify our *inlist_project* 
 in the *star_job* section. Since we do not need to start with
 a pre-main-sequence model anymore, we need to delete or comment
-out (by putting an "!" infront of the text) the following lines:
+out (by putting an "!" in front of the text) the following lines:
 
 ```
   ! begin with a pre-main sequence model
@@ -66,7 +66,7 @@ out (by putting an "!" infront of the text) the following lines:
     pre_ms_relax_num_steps = 100
 ```
 
-We also do no longer need to save the model at the end of the run, 
+We also no longer need to save the model at the end of the run, 
 meaning that we can also delete or comment out the following lines:
 
 ```
@@ -108,7 +108,7 @@ Can you find on the website any content that is related to **load** something?
 
 Add to your *star_job* section in the *inlist_project* the following lines:
 ```
-! loading the pre-saved 5Msun model
+! loading the pre-saved 5$M_\odot$ model
     load_saved_model = .true.
     load_model_filename = 'M5_Z0014_fov030_f0ov0005_TAMS.mod'
 ```
@@ -128,7 +128,7 @@ the initial conditions at the beginning of the evolution:
 ```
   ! starting specifications
 
-    initial_mass = 5 ! in Msun units
+    initial_mass = 5 ! in $M_\odot$ units
 
     initial_z = 0.014 ! initial metal mass fraction
 
@@ -176,8 +176,8 @@ you can quickly compile and run your model. If the pgstar window opens up,
 everything is fine and you can stop the model. 
 
 ```
-	./clean && ./mk
-	./rn
+./clean && ./mk
+./rn
 ```
 To stop your model, you can press in the terminal ctrl+c for a linux or cmd+c for a mac.
     
@@ -238,7 +238,7 @@ Just for safety, let us see if everything worked, the model starts, and the
 pgstar window opens again:
 
 ```
-	./rn
+./rn
 ```
 To stop your model, you can press in the terminal ctrl+c for a linux or cmd+c for a mac.
 
@@ -246,7 +246,7 @@ To stop your model, you can press in the terminal ctrl+c for a linux or cmd+c fo
 
 ### Core helium burning without core overshooting
 	
-As a first run, we want to calculate the 5 Msun model until
+As a first run, we want to calculate the 5 $M_\odot$ model until
 core helium depletion without including core overshoot. To 
 be able to compare the output between the different models,
 let us create for each run a separate output folder for the 
@@ -275,8 +275,8 @@ Finally it is time to run the model! Go to your terminal,
 load and run MESA:
 
 ```
-	./clean && ./mk
-	./rn
+./clean && ./mk
+./rn
 ```
 	
 Look at your pgstar output. Especially at the upper right
@@ -358,7 +358,7 @@ the same level, or receed?
 Okay we are ready to go. Let us run the model:
 
 ```
-	./rn
+./rn
 ```
 	
 Look again at how the convective core grows in mass. Does it
@@ -447,7 +447,7 @@ and:
 Let us have a look, what MESA will tell us:
 
 ```
-	./rn
+./rn
 ```
 	
 Look again at the plot showing the growth of the convective
@@ -522,7 +522,7 @@ To test if your changes yield the correct result, start your model and see if th
  pgstar window looks as expected.
 
 ```
-	./rn
+./rn
 ```
 
 To investigate how the adiabatic and radiative temperature gradients change in the
@@ -598,7 +598,7 @@ This is the 6th plot we add, so make sure that you also use it as (6).
 
 You can now start your model and check if the plot shows up.
 ```
-	./rn
+./rn
 ```
 As you might see, the history panels and the profile panels are overlapping. For a better representation, you can adjust their paddings at the to,p lef,t right,t and bottom via 
 ```
