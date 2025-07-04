@@ -39,7 +39,7 @@ rm -r LOGS photos png
 ```
 
 Alternatively, or if you want to be sure that everything is working properly,
-you can download a cleaned folder [here](https://github.com/Daniel-Pauli/mesa-school-labs/blob/patch-1/content/monday/lab2).
+you can download a cleaned folder [here](https://github.com/Daniel-Pauli/mesa-school-labs/blob/patch-1/content/monday/lab2.zip).
 
 In lab1 we have calculated a 5 $M_\odot$ model with 
 step overshooting having $f=0.030$ and $f_0=0.005$ until core-hydrogen
@@ -50,7 +50,7 @@ we will be loading this saved model every time to explore
 different physical settings. 
 
 If you did not finish lab1 or by accident overwrote your model during lab1. 
-You can download the TAMS model [here](https://github.com/Daniel-Pauli/mesa-school-labs/blob/patch-1/content/monday/lab2/M5_Z0014_fov030_f0ov0005_TAMS.mod).
+You can download the TAMS model [here](https://github.com/Daniel-Pauli/mesa-school-labs/blob/patch-1/content/monday/lab2/M5_Z0014_fov030_f0ov0005_TAMS.zip).
 
 ### inlist_project: star_job
 
