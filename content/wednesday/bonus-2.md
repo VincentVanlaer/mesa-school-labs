@@ -18,7 +18,7 @@ Upsilon Sagittarii is a binary system with a hydrogen depleted primary star. It 
 | $logg_{1}[cm s^{-2}]$       | $1.2\pm0.2$|
 | $P_{orb}[days]$            |$138\pm1$ |
 
-**Table 1**: The HR diagram of the best fitting model from the paper along with the data points from the observations.
+**Table 1**: The observational data from the paper
 
 Like in Task 1.1 of Lab 2, the aim of this mini-lab is to capture the simulations as determined from the observations of the binary system by using the `src/run_binary_extras.f90`. We will also inspect how adding more terms to the $\chi^2$-formula will impact its value. Because the track is rather complicated, as can be seen in the figure below, we will slowly build up to finding the right combination of stopping criteria to match the models with the system. Remember to recompile the code every time you change something in the `src/run_binary_extras.f90` with (`./clean && ./mk`) and run your new model! (`./rn`).
 
