@@ -2,21 +2,21 @@
 
 ## Overview
 
-### A. Preparation
+**A. Preparation**
 * ~10 Minutes
 * Adjusting the MESA inlist files to run until core helium depletion
-* Creating a new file called inlist_extra, where we can vary our physics quickly
+* Creating a new file called *inlist_extra*, where we can vary our physics quickly
 
-### B. Running different models until Terminal Age Core Helium Burning (TACHeB)
+**B. Running different models until Terminal Age Core Helium Burning (TACHeB)**
 * ~30 Minutes
 * exploring how different physical assumptions change the evolution of a star and the structure of the convective core
 
-### C. Bonus Task: Including additional plots
+**C. Bonus Task: Including additional plots**
 * ~20 Minutes
 * Getting familiar with pgstar and modifying it to show an additional plotting window
 * Intestivate when convection zones in a star are formed
 
-## Preparation
+## A. Preparation
 
 Now we are interested in studying how stars with and without core 
 overshooting evolve during the CHeB and which impact it has. 
@@ -66,6 +66,8 @@ out (by putting an "!" in front of the text) the following lines:
     pre_ms_relax_num_steps = 100
 ```
 
+Note that you should not copy these code blocks. They are already in your *inlist_project*. 
+Instead, you need to comment out these lines by yourself!
 We also no longer need to save the model at the end of the run, 
 meaning that we can also delete or comment out the following lines:
 
@@ -87,8 +89,8 @@ remove or comment out the lines:
 ```
     
 Now, we need to add lines that tell MESA to load a saved model.
-Can you go to the MESA website and search for commands that allow
-us to load a saved model?
+Go to the MESA website and search for commands that allow us to load a saved model. 
+In your inlist, load the model "M5_Z0014_fov030_f0ov0005_TAMS.mod".
 
 {{< details title="Show hint 1" closed="true" >}}
 
@@ -179,7 +181,7 @@ everything is fine and you can stop the model.
 ./clean && ./mk
 ./rn
 ```
-To stop your model, you can press in the terminal ctrl+c for a linux or cmd+c for a mac.
+To stop your model, you can press in the terminal ctrl+c. In case that does not work on your mac, try cmd+c.
     
 ### adding a new inlist file: inlist_extra
 
@@ -198,7 +200,7 @@ the *controls* section, add the following lines:
     extra_controls_inlist_name(2) = 'inlist_extra'
 ```
 
-This allows MESA to read *inlist_project* first, and then *inlist_extra*. 
+This allows MESA to read *inlist_project* first, and then *inlist_extra*. Note that if the same item appears in both inlists, MESA adopts the last value it reads. 
     
 Similarly, in the *pgstar* section in *inlist*, add:
 
@@ -240,9 +242,9 @@ pgstar window opens again:
 ```
 ./rn
 ```
-To stop your model, you can press in the terminal ctrl+c for a linux or cmd+c for a mac.
+To stop your model, you can press in the terminal ctrl+c. In case that does not work on your mac, try cmd+c.
 
-## Running different models until Terminal Age Core Helium Burning (TACHeB)
+## B. Running different models until Terminal Age Core Helium Burning (TACHeB)
 
 ### Core helium burning without core overshooting
 	
@@ -268,7 +270,7 @@ and in the *pgstar* section in the *inlist_extra*:
     
 Before we start running the model without core overshooting
 during core helium burning. Think about what you would expect.
-Should the core grow, stay at the same size, or even receed 
+Should the core grow, stay at the same size, or even recede 
 and why do you think so?
     
 Finally it is time to run the model! Go to your terminal,
@@ -403,9 +405,13 @@ read more about helium breathing pulses, you can check out these papers: [Castel
 Now, let us consider the impact of a chemical gradient between the helium-burning core and the envelope as an additional stabilizing force.
 This will reduce the size of the overshooting region and maybe help to prevent the core from growing into the unstable region.
 In MESA while modeling overshooting, one can account for a stabilizing 
-composition gradient in the calculations using the Brunt-Vaisala frequency (or buoyancy frequency), 
-which is a measure of the stability of a fluid to vertical displacement as present in overshooting regions.
-To turned on the frequency in MESA use the following lines in your *controls* section of you *inlist_extra*:
+composition gradient in the calculations using different parameters. For instance, one could use the Ledoux criterion and semi-convective mixing or the Brunt-Väisälä  frequency (or buoyancy frequency), 
+which is a measure of the stability of a fluid to vertical displacement as present in overshooting regions. For more information on different physical processes that can impact mixing regions, you can check out the MESA documentation. In this section, we will consider limiting the overshooting to regions where the Brunt-Väisälä frequency is low.
+
+The Brunt is the frequency of buoyant oscillations. In convective regions, formally the Brunt is 0/negative (perturbations cause motion or growth rather than oscillation). One can think of this as analogous to a taut guitar string. in some sense higher Brunt means a more rigid (less convective) structure. Another way to think about this is to compare the buoyant frequency to the convective overturn frequency. The longer the buoyant frequency, the more likely that activity from the convective region can penetrate and mix with material just outside the convective boundary. The faster the buoyant frequency, the quicker the fluid can respond and stay stably stratified. 
+By limiting the Brunt, one imposes that overshooting shouldn’t be present in regions where a perturbation will vibrate quickly rather than churn.
+
+To turn on the frequency in MESA use the following lines in your *controls* section of your *inlist_extra*:
 
 ```
    calculate_Brunt_B = .true.
@@ -457,9 +463,9 @@ to that of the model without overshooting.
 {{< /details >}}
 
 
-The problem of breathing pulses is an ongoing issue with no real solution. By limiting the Brunt–Vaisala frequency (or Brunt factor), we are effectively suppressing overshooting in regions with strong chemical gradients, where even small instabilities are more likely to trigger pulsations than induce mixing. An alternative way to treat these pulses could be to use another criterion for determining convective boundaries. However, resolving the location of the convective boundary is beyond the scope of our lab, but we encourage you to explore other mixing options.
+The problem of breathing pulses is an ongoing issue with no real solution. By limiting the Brunt-Väisälä frequency (or Brunt factor), we are effectively suppressing overshooting in regions with strong chemical gradients, where even small instabilities are more likely to trigger pulsations than induce mixing. An alternative way to treat these pulses could be to use another criterion for determining convective boundaries. However, resolving the location of the convective boundary is beyond the scope of our lab, but we encourage you to explore other mixing options.
 
-## Bonus Task: Including additional plots
+## C. Bonus Task: Including additional plots
 
 In the previous exercises, we have encountered that if we use overshooting during 
 core helium burning, the helium breathing pulses are triggered. Here, we would 
