@@ -1,4 +1,4 @@
-# Monday MaxiLab 2: Overshooting during core helium burning (CHeB)
+# Monday MiniLab 2: Overshooting during core helium burning (CHeB)
 
 ## Overview
 
