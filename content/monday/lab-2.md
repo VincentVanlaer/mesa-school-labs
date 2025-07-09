@@ -386,8 +386,8 @@ In the Kippenhahn diagram, shown in the lower left corner of the pgstar windows,
 that a convective region forms directly on top of the overshooting region. 
 Alternatively, you can also in the mixing plot, shown in the lower right corner of the pgstar window,
 that a convective region is forming every now and then on top of the overshooting region.
-This phenomenon is called helium breathing pulses and occurs mostly in low and intermediate-mass stars,
-occurring during core helium burning. The reason that this happens is due to the
+This phenomenon is called helium breathing pulses and occurs mostly in low and intermediate-mass stars
+during core helium burning. The reason that this happens is due to the
 convective core reaching into layers with a strong chemical gradient. When this happens, a
 convective region forms on top of the core that is stable against overshooting, pushing down
 the overshooting and the core mass. Numerically, the modeling of the convective boundaries in these regions
@@ -396,21 +396,12 @@ the formation of a convective region when reaching a local minimum.
 It is not clear if the helium breathing pulses are of physical or numerical nature. If you want to
 read more about helium breathing pulses, you can check out these papers: [Castellani et al. 1985](https://ui.adsabs.harvard.edu/abs/1985ApJ...296..204C/abstract), [Constantino et al. 2016](https://ui.adsabs.harvard.edu/abs/2016MNRAS.456.3866C/abstract), [Salaris & Cassisi 2017](https://ui.adsabs.harvard.edu/abs/2017RSOS....470192S/abstract), [Paxton et al. 2018](https://ui.adsabs.harvard.edu/abs/2018ApJS..234...34P/abstract), and [Córsico & Althaus 2024](https://ui.adsabs.harvard.edu/abs/2024ApJ...964...30C/abstract) (their figure 1 nicely illustrates the impact of the breathing pules on the core helium burning time).
 
-
-One thing that we have been ignoring sofar
-in our treatment of overshooting is the impact of a chemical gradient as the one between the helium 
-burning core and the envelope as an additional stabilizing force, reducing the size of the overshooting region.
-Resolving where the convective boundary lies is way beyond the scope of our lab, but we encourage 
-you to explore other mixing options. 
-
-
 {{< /details >}}
 
 ### Limiting core overshooting in regions with strong chemical gradients
 
-One thing that we have been ignoring so far in our treatment of overshooting is 
-the role of a chemical gradient as the one between the helium-burning core and
-the envelope as an additional stabilizing force, reducing the size of the overshooting region. 
+Now, let us consider the impact of a chemical gradient between the helium-burning core and the envelope as an additional stabilizing force.
+This will reduce the size of the overshooting region and maybe help to prevent the core from growing into the unstable region.
 In MESA while modeling overshooting, one can account for a stabilizing 
 composition gradient in the calculations using the Brunt-Vaisala frequency (or buoyancy frequency), 
 which is a measure of the stability of a fluid to vertical displacement as present in overshooting regions.
@@ -464,6 +455,9 @@ Therefore, the final convective mass of the helium core of this star is quite si
 to that of the model without overshooting.
 
 {{< /details >}}
+
+
+The problem of breathing pulses is an ongoing issue with no real solution. By limiting the Brunt–Vaisala frequency (or Brunt factor), we are effectively suppressing overshooting in regions with strong chemical gradients, where even small instabilities are more likely to trigger pulsations than induce mixing. An alternative way to treat these pulses could be to use another criterion for determining convective boundaries. However, resolving the location of the convective boundary is beyond the scope of our lab, but we encourage you to explore other mixing options.
 
 ## Bonus Task: Including additional plots
 
@@ -600,7 +594,7 @@ You can now start your model and check if the plot shows up.
 ```
 ./rn
 ```
-As you might see, the history panels and the profile panels are overlapping. For a better representation, you can adjust their paddings at the to,p lef,t right,t and bottom via 
+As you might see, the history panels and the profile panels are overlapping. For a better representation, you can adjust their paddings at the top, left, right, and bottom via 
 ```
 	Grid1_plot_pad_top(6) = x     
 	Grid1_plot_pad_bot(6) = x     
