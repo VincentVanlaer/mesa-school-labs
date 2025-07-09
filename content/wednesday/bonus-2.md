@@ -103,7 +103,7 @@ Because we are working with a binary system, it is not only important to match t
 
 The values needed are given in Table 1. You can reuse the formula from Task 1.1 of the main lab. 
 
-Use the following additional parameter in the `extras_binary_finish_step` hook in `run_binary_extras.f90`:   
+Use the following additional parameter in the `extras_binary_after_evolve` hook in `run_binary_extras.f90`:   
 `b% s2% teff` ! Effective temperature of the primary star of the binary system in Kelvin  
 `b% s2% l_surf` ! The luminosity of the primary star of the binary system in solar luminosities  
 `b%  period` ! Period of the binary system in seconds  
@@ -116,52 +116,17 @@ where $O_i$ is the observed value, $E_i$ is the theoretical value (in our case r
 > > [!IMPORTANT]
 > > The units of the MESA output and those of the observations are not the same, make sure you have the same units in the calculation.
 
-The best fit model presented in [Gilkis & Shenar 2022](https://ui.adsabs.harvard.edu/abs/2023MNRAS.518.3541G/abstract) thus does not match the exact observational values. So, instead of working with the observational values for the secondary, the model values will be used with the error-bars as presented in the literature, which is represented by the cyan cross in the HRD. The new values for the effective temperature and the luminosity are in the table below and were taken from Table 3 of the previously mentioned paper.
+**Question** What values do you get for the fit? What parameters do you think are most important to get correct?
+
+The best fit model presented in [Gilkis & Shenar 2022](https://ui.adsabs.harvard.edu/abs/2023MNRAS.518.3541G/abstract) does not match the exact observational values, as can be seen in the HRD below. This is also what the $\chi^2$ values are telling us. Especially the period of the system modelled here is off by quite a bit. However, the model presented in the paper is undergoing the second mass-transfer phase, which changes the period. 
 
 ![image](/wednesday/UpsSagHRD2.png)
 
 *The HRD of the best fitting model from the paper along with the data points from the observations and the location of the best fits.*
 
-| Parameter       | Value       |
-| -----------     | ----------- |
-| $T_{eff,1}[kK]$      | $10\pm1$       |
-| $T_{eff,2}[kK]$      | $21.2\pm2$        |
-| $logL_{1}[L_{\odot}]$    | $3.67\pm0.15$       |
-| $logL_{2}[L_{\odot}]$    | $3.5\pm0.2$        |
-
-In the previous task, you have matched the simulations and the observations for the primary star. In this task, you will add a stopping criterion for the secondary star and try to match both stars with the models. Before you start your new run, enable the evolution of the secondary by setting the `evolve_both_stars` in `inlist_project` command to `.true.`
-Use the following additional parameter in the `extras_binary_finish_step` hook in `run_binary_extras.f90`:
-
-`b% s2% teff` ! Effective temperature of the primary star of the binary system in Kelvin
-
-`b% s2% l_surf` ! The luminosity of the primary star of the binary system in solar luminosities
-
-As in the previous tasks, write out the final luminosity and surface temperature of the simulation to the terminal.
-
-{{< details title="Solution" closed="true" >}}
-
-```fortran
-if (((b% s1% teff) .lt. 9000) .and. (log10(b% s1% l_surf) .gt. 3.57) .and. ((b% s2% teff) .lt. 21200))   then
-   extras_binary_finish_step = terminate
-   write(*,*) "terminating at requested effective temperature and luminosity:", b% s1% teff, log10(b% s1% l_surf)
-   write(*,*) "terminating at requested effective temperature and luminosity:", b% s2% teff, log10(b% s2% l_surf)
-   return
-end if  
-```
-    
-{{< /details >}}
-
-
 #### Extra Bonus Task 4
-If you have managed to get the double stopping criterion to work, you can experiment with other observables as can be found in Table 1 and 3 of the paper, and see which combinations work. For this you can use the following commands:
+(Put the TULIPS stuff here!)
 
-`b% s1% surface_()` ! The surface abundance of the following isotopes: h1, he4, c12, n14, o16.
-
-`b% s1% photosphere_r` ! The radius of the star in solar radii
-
-`b% s1% photosphere_logg` !The surface gravity 
-
-As in the previous parts, there are multiple combinations possible to reach the observed values for the stellar parameters or the modelled parameters. Not all combinations might work.
 
 <br><br><br>
 ### Acknowledgement
