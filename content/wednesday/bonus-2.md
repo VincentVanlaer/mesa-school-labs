@@ -102,6 +102,10 @@ Because we are working with a binary system, it is not only important to match t
 - The effective temperature and luminosity of both components as well as the period of the binary system
 
 The values needed are given in Table 1. You can reuse the formula from Task 1.1 of the main lab. 
+
+Use the following additional parameter in the `extras_binary_finish_step` hook in `run_binary_extras.f90`:   
+`b% s2% teff` ! Effective temperature of the primary star of the binary system in Kelvin  
+`b% s2% l_surf` ! The luminosity of the primary star of the binary system in solar luminosities  
 `b%  period` ! Period of the binary system in seconds  
 
 > > [!TIP]
