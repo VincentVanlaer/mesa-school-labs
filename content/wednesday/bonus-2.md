@@ -101,7 +101,8 @@ Because we are working with a binary system, it is not only important to match t
 - The effective temperature and luminosity of both components
 - The effective temperature and luminosity of both components as well as the period of the binary system
 
-The values needed are given in Table 1. You can reuse the formula from Task 1.1 of the main lab.
+The values needed are given in Table 1. You can reuse the formula from Task 1.1 of the main lab. 
+`b%  period` ! Period of the binary system in seconds  
 
 > > [!TIP]
 > > Just as a reminder, here is the formula:
