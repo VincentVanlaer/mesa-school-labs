@@ -56,6 +56,8 @@ This tutorial assumes you
 - can open, edit, and save files in a text editor
 - know basic MESA operations like editing inlists, looking up documentation, compiling, and running MESA projects
 
+Before starting this tutorial, students had a short presentation. You can find the slides for that presentation [here](../Customizing-MESA-with-run_star_extras.f90.pdf) or the interactive Google Slides version which has more context in the presenter notes [here](https://docs.google.com/presentation/d/1d7E1lgK4zW_xxCUbd4lgPkWA4UtUMAQhug6JaWQPTYY/edit?usp=sharing). However, one can complete this tutorial without having seen that presentation.
+
 ### Learning Objectives
 
 In this tutorial you'll learn how to…
