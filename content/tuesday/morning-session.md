@@ -273,6 +273,12 @@ Are you in the correct directory? Execute `ls` to make sure you see the normal c
 
 Is your MESA environment set up correctly? Ensure that executing `mesasdk_version` prints out the version of the MESA SDK you have installed, and similarly ensure that `echo $MESA_DIR` prints out the path to your MESA installation.
 
+It's also possible that the executables (like `./mk` and `./rn`) are not executable as a side effect of downloading these files from the web. You can make them executable with the following command:
+
+```bash
+chmod +x mk rn clean re
+```
+
 </div>
 </details>
 
@@ -1226,6 +1232,8 @@ The comments I'm talking about are these:
 ```
 
 If you then read the `README` file in `$MESA_DIR/star/other`, you'll see that there are some instructions similar to these. Right now, we're dealing with step 2 in that file, which happens to use `other_energy` as an example!
+
+Note: the standard procedure pointers are already set up in `extras_controls`, so you can use them as a guide for the appropriate syntax.
 
 </div>
 </details>
