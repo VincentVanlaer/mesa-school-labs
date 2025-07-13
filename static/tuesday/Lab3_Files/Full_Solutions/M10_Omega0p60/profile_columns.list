@@ -558,7 +558,7 @@
    !log_abs_shear ! log10(abs(dlnomega/dlnR))
    !richardson_number
    !i_rot ! specific moment of inertia at cell boundary
-   !j_rot ! specific angular momentum at cell boundary
+   j_rot ! specific angular momentum at cell boundary
    !v_rot ! rotation velocity at cell boundary (km/sec)
    !w_div_w_crit_roche !ratio of rotational velocity to keplerian at the equator
                        !without the contribution from the Eddington factor

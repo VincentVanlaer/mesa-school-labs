@@ -56,13 +56,13 @@ The Google Colab script to make the bonus plots can be found [here](https://cola
 | 📋 TASK 1 |
 |:--------|
 | **Claim** a mass and initial rotation from the table above. Coordinate with others at your table to ensure that no two people choose the same test case. 
-**Download** the starting point from the Google Drive to a local working directory |
+**Download** the starting point from the [Google Drive](https://drive.google.com/drive/folders/13a2fdxeXzITIJgJWkmvUShg0fPrFs9UX?usp=sharing) to a local working directory |
 
 This starting point should be a fairly familiar set of files. Each of these files has been -mostly- pre-prepared with the structure we will need to get going. Additionally, throughout each of these starting point files, variables that need to be changed are explicitly marked with "`!!!! !!!!`". This is also true if there is some particular section that needs your input. If you have trouble finding a value, feel free to ctrl+f your way around. 
 
 | 📋 TASK 2 |
 |:--------|
-| Given the star value you selected, **Download** the relevant ZAMS model from the Google Drive and place it into your working directory |
+| Given the star value you selected, **Download** the relevant ZAMS model from the [Google Drive](https://drive.google.com/drive/folders/13a2fdxeXzITIJgJWkmvUShg0fPrFs9UX?usp=sharing) and place it into your working directory |
 
 The working directory should now be:
 
@@ -146,7 +146,7 @@ The provided `inlist_pgstar` is the same as the earlier labs for the day with tw
 
 Now, we need to add some more information to the history and profile outputs of our model. Most of the values have already been added. 
 
-`Surf_avg_omega`, `surf_avg_omega_div_omega_crit`, `surf_avg_v_rot`, and `center_omega` have already been uncommented in `history_columns.list`. `Radius`, `omega`, `r_polar`, and `omega_crit` have already been uncommented in `profile_columns.list`. 
+`Surf_avg_omega`, `surf_avg_omega_div_omega_crit`, `surf_avg_v_rot`, and `center_omega` have already been uncommented in `history_columns.list`. `Radius`, `omega`, `r_polar`, `j_rot`, and `omega_crit` have already been uncommented in `profile_columns.list`. 
 
 | 📋 TASK 5 |
 |:--------|
@@ -290,6 +290,9 @@ mer_comp = s% rho * pow4(s% r) * (s% omega) * U_r
 ```
 {{< /details >}}
 
+> [!NOTE]
+> No further changes are necessary for the `meridional_circulation` subroutine. The following text is a description of how this subroutine works and where copies of data are stored for Step 4.3. Feel free to skip to Task 9 to save time and use this section as reference for Tasks in Step 4.3. 
+ 
 We also want to store a copy of `dmer_comp_dr` with the star object in memory. This can be done by passing this value over to an `xtraN_array`, where `N` is an integer 1 through 6. These six of these arrays are declared within `star_info` to hold double precision values and are guaranteed to have a length equal to `s% nz`. With this array, we then call a weighted smoothing subroutine to decrease the amount of noise and increase how pretty our end plots are. We will not be exploring how the weighted smoothing subroutine works in this lab, but feel free to explore it at a later time after the school, if interested. 
 
 {{< details title="Fun fact" closed="true" >}}
@@ -441,7 +444,7 @@ You were also provided completed output logs & pgstar plots for each of the mass
 
 | 📋 TASK 14 |
 |:--------|
-| **Download** the directory for the `no_extra_jdot` case corresponding to your model from the Google Drive. 
+| **Download** the directory for the `no_extra_jdot` case corresponding to your model from the [Google Drive](https://drive.google.com/drive/folders/13a2fdxeXzITIJgJWkmvUShg0fPrFs9UX?usp=sharing). 
 **Compare** the values of `center_omega`, `surf_avg_omega`, and `star_age` between the cases *with* and *without* meridional circulation. 
 **Compare** the pgstar plots between the cases *with* and *without* meridional circulation. 
 **Compare and discuss** your run with others at your table.|
@@ -463,7 +466,7 @@ Congratulations, you have completed Lab 3! Feel free to pursue the following two
 
 | 📋 BONUS TASK 1|
 |:--------|
-| **Open** the provided Google Colab script. 
+| **Open** the provided [Google Colab](https://colab.research.google.com/drive/1fB8YwH5e_XjZFDh-UGDrcjZefHOBE4Rq?usp=sharing) script. 
  **Upload** the output log directory for your run and the associated `no_extra_jdot` directory into the provided Google Colab notebook. Follow the steps listed there to create plots similar to those in [Mombarg et al., 2024](https://www.aanda.org/articles/aa/pdf/2024/03/aa48466-23.pdf)[^2].  
  How do the plots compare? Share the plots with others at your table. Do you notice any trends?|
 
