@@ -1,11 +1,34 @@
-Authors: Saskia Hekker, Susmita Das, Zhao Guo, Arthur Le Saux and Noi Shitrit for MESA School Leuven 2025
+---
+weight: 1
+author: Saskia Hekker, Susmita Das, Zhao Guo, Arthur Le Saux and Noi Shitrit for MESA School Leuven 2025
+---
+
+# Nuclear Reactions Rates and Core Boundary Mixing on the Seismology of Red Clump Stars
+
+## Introduction
+
+As a low-mass star continues to evolve beyond the Red Giant Branch (RGB), it passes through the helium flash, which results in the ignition helium nuclear burning in its core. This phase is called the *Red Clump*. This the third phase of nuclear burning, after core and shell hydrogen burning. RC stars are located in a narrow region of the Hertzsprung–Russell (HR) diagram. This is illustrated on Fig. 1, which presents the HR diagram for stars of the GALAH DR2 sample. The blue dashed rectangle identifies the RGB), the black rectangle the RC stars region and the red rectangle the RGB bump. The color scale is linear, where darker shades indicates higher stellar densities. We thus see that the density of stars in the RC is high, in comparison to the rest of the RGB. The Figure is taken from [Deepak & Reddy (2019)](https://academic.oup.com/mnras/article/484/2/2000/5288641?login=true).
+![HR diagram RC](/thursday/RC_HR_daiagram.png "Figure 1: HR diagram for 188 679 low mass stars of the  GALAH DR2 sample. Figure from Deepak & Reddy (2019)")
+
+Several physical processes in RC stars remain uncertain. In this lab we will focus on tow major uncertainties: the mixing happening just above the convective core, called **core boundary mixing (CBM)**, and the **nuclar reactions rates** during helium burning. We will also compare the results for stars with different metallicity.
+
+In this lab we will investigate the impact of CBM, nuclear reaction rates and metallicity on the structure of the near core region of RC stars.
+The objective is to reproduce the work of [Noll et al. (2024)](https://ui.adsabs.harvard.edu/abs/2024A%26A...683A.189N/abstract).
+
+This maxilab is divided in two parts:
+- **Maxilab1** focuses on CBM and compare different mixing schemes.
+- **Maxilab2** tests different nuclear reaction rates.
+
+>[!WARNING]
+>This maxilab have been built in low time and spatial resolution (including some missing physics, like using the most basic nuclear network net and no mass loss) so one can run the MESA models within a few minutes.
+>Therefore, you should expect your results to only match qualitatively the results of the paper.
 
 # Maxilab Part 1: Impact of convective boundary mixing on period spacing of red clump stars
 
 ## Section 1: Overview
-### Science Goal
+### Convective Boundary Mixing
 
-As a low-mass star continues to evolve beyond the Red Giant Branch, it passes through the helium flash, which results in the ignition helium nuclear burning in its core. This phase is called the *Red Clump*. This the third phase of nuclear burning, after core and shell hydrogen burning. During this evolutionary stage, the burning of helium enriches the core in carbon and oxygen (via the triple-$\alpha$ and 12C($\alpha$,$\gamma$)16O reactions respectively), which increases the opacity and therefore the radiative temperature gradient $\nabla_{\rm rad}$, and cause the convective core to grow. The modified radiative temperature gradient $\nabla_{\rm rad}$ now presents a local minimum, as illustrated on Fig. 1. This results in a Partially Mixed (PM) region between the convective core and the radiative zone, which is marginally stable, i.e. $\nabla_{\rm rad} \simeq \nabla_{\rm ad}$. To date, the physics of the PM region remains uncertain.
+During this evolutionary stage, the burning of helium enriches the core in carbon and oxygen (via the triple-$\alpha$ and 12C($\alpha$,$\gamma$)16O reactions respectively), which increases the opacity and therefore the radiative temperature gradient $\nabla_{\rm rad}$, and cause the convective core to grow. The modified radiative temperature gradient $\nabla_{\rm rad}$ now presents a local minimum, as illustrated on Fig. 1. This results in a Partially Mixed (PM) region between the convective core and the radiative zone, which is marginally stable, i.e. $\nabla_{\rm rad} \simeq \nabla_{\rm ad}$. To date, the physics of the PM region remains uncertain.
 
 ![mesa output](/thursday/gradT_RCstar_Noll2024.png "Fig. 1: Central structure of a 1 M⊙ core helium burning star in terms of radiative and adiabatic temperature gradients vs. the fractional mass. The radiative and adiabatic gradients are shown in solid blue and dashed black lines, respectively.We also show the convective core and partially mixed regions in pale pink and green. Figure from Noll et al. (2024)")
 
@@ -24,8 +47,6 @@ Measured values of $\Delta \Pi_{\ell}$ for stars observed by the *Kepler* telesc
 These different mixing mechanisms will impact the structure of near core region as it is illustrated in Fig. 2. The value of the period spacing infered for these differents models will then be different as we will see in this lab.
 
 ![mesa output](/thursday/Fig3_Noll2024.png "Fig. 2: Properties around the core of 1 M, solar-metallicity models computed with the Maximal overshoot (blue, solid), overmixing (pink, dashed), penetrative convection (green, dotted) and semiconvection (yellow, dash-dotted) core boundary mixing schemes. Panel a: Radiative and adiabatic gradients. Panel b: Actual temperature gradients. Panel c: Brunt-Väisälä frequency profile. Panel d: Helium composition profile. Figure from Noll et al. (2024)")
-
-In this maxilab the objective is to reproduce (in a much more basic way for a purpose of saving time) the work of [Noll et al. (2024)](https://ui.adsabs.harvard.edu/abs/2024A%26A...683A.189N/abstract). Therefore, you should expect your results to only match qualitatively the results of the paper.
 
 ### What you'll learn
 
