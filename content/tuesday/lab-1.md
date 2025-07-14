@@ -28,7 +28,6 @@ Throughout the minilab 1 you will find the specific tasks you need to execute in
 | 📋 TASK|
 |:--------|
 |1. Download the starting point working directory for minilab 1 and the solutions for each exercise [here](https://www.dropbox.com/scl/fi/0o8k6fhku28l6s97hq4pi/minilab1.zip?rlkey=fqr5daq0zf558miuf7ght49vl&st=9nwwnj8p&dl=0).
-
 |2. Unpack the zip files using `unzip minilab1.zip` and move to the working directory `cd minilab1/starting_point`.|
 
 
@@ -45,7 +44,7 @@ Let's start by modifying the `&star_job` section of the `inlist_project`. First,
 
 | 📋 TASK |
 |:--------|
-|1. Look for the **three parameters** you need to add to the `inlist_project` in the MESA `&star_job` documentation [here](https://docs.mesastar.org/en/24.08.1/reference/star_job.html#starting-model).|
+|1. Look for the **three parameters** you need to add to the `inlist_project` in the MESA `&star_job` documentation [here](https://docs.mesastar.org/en/24.08.1/reference/star_job.html#starting-model) in order to load the precomputed `model_ZAMS`.|
 
 {{< details title="Hint." closed="true" >}}
 Look in the tab `starting model`
@@ -102,6 +101,7 @@ For the purpose of this lab we will **include an arbitrary viscosity coefficient
 | 📋 TASK |
 |:--------|
 |1. Look for the **two parameters** you need to add to the `inlist_project` in the MESA `&controls` documentation [here](https://docs.mesastar.org/en/24.08.1/reference/controls.html#rotation-controls). The MESA parameter for the viscosity $\nu_{\mathrm{AM}}$ is `am_nu`.|
+|2. In this case, set $\nu_{\mathrm{AM}}$ to a value of 1d5.|
 
 {{< details title="Hint." closed="true" >}}
 Look in the rotation controls tab and search for the key-word `uniform_am_nu`. Since we are adding an ad-hoc value for the viscosity (not a viscosity value derived from hydrodynamic rotational instabilities) the parameters you are looking for contain `*_non_rot` in the name.
@@ -119,9 +119,9 @@ Lastly, modify the output LOGS directory name to specify the physics you include
 | 📋 TASK |
 |:--------|
 |1. Add the following lines to the `&controls` portion of the `inlist_project` to modify the LOGS directory name.|
-|2. Replace the `<VALUE>` according to the physics included in your model.|
+|2. Replace the `<>` according to the physics included in your model.|
 ```
-log_directory = 'LOGS_<VALUE>_nuvisc_<VALUE>'
+log_directory = 'LOGS_<omega/omega_crit>_nuvisc_<am_nu_value>'
 ```
 
 ### history_columns.list
@@ -163,7 +163,7 @@ Do not forget to always clean the executable files, compile the code and, run th
 
 
 > [!TIP]
-> If you get permission denied when trying to `./mk` or `./rn`, run `chmod u+x rn` in the terminal.
+> If you get permission denied when trying to `./mk` or `./rn`, run `chmod u+x clean mk rn` in the terminal.
 
 > [!NOTE]
 > A pgplot window should appear when you start the MESA run. Spend some time looking at the pgplot to understand each individual plot.
