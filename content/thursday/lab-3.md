@@ -590,21 +590,19 @@ cd 1M_Z002_maximal_overshooting
 
 Make sure that you manage to compile and start the run without any issues and break the run after you see pgplot.
 
-{{< admonition type="info" title="Task 1" >}}
+{{< details title="Task 1" closed="false" >}}
 Go over the inlist_project file. Make sure that maximal overshooting is indeed the mixing scheme that is set.
-{{< /admonition >}}
+{{< /details >}}
 
 {{< details title="Hint 1" closed="true" >}}
 There are different mixing scheme inside the solution to Maxilab1 that you downloaded. there are comments explaining each, and there is one for the maximal overshooting scheme.
 Make sure that the rest of the mixing schemes are all commented out besides the maximal overshooting one.
 {{< /details >}}
 
-{{< admonition type="info" title="Task 2" >}}
-
+{{< details title="Task 2" closed="false" >}}
 - If not changing the nuclear reaction net, then MESA will run with the default one. Find the name of this net.
 - Find the file of this nuclear reaction net and find the names of the reaction rate files matches the He burning processes.
-
-{{< /admonition >}}
+{{< /details >}}
 
 {{< details title="Hint 2" closed="true" >}}
 - You can find the nuclear reaction net options under &star_job variables.
@@ -614,12 +612,10 @@ Make sure that the rest of the mixing schemes are all commented out besides the 
 
 The names of the reaction rate files you found are leading to files describing the reaction rate of each process as a function of temperature. In the bonus exercise we will direct you where to find these files. If you want to use another file, computed, for example, by a recent study that MESA does not include yet, you can add this files and direct MESA to read them.
 
-{{< admonition type="info" title="Task 3" >}}
-
+{{< details title="Task 3" closed="false" >}}
 - Find the variables that need to be changed in order to change the reaction rates for the two He burning processes (also use the names of the files you found in Task 2)
-- The reaction rates values we need to change and compute are the default rates times 0.25, 0.5, 1, 2, 5 for the $3\alpha$ process where the reaction rate of ${}^{12}\mathrm{C}(\alpha, \gamma){}^{16}\mathrm{O}$ is set on 1 and the opposite. Each table will get a different value to compute.
-
-{{< /admonition >}}
+- The reaction rates values we need to to change and compute are the default rates times 0.25, 0.5, 1, 2, 5 for the $3\alpha$ process where the reaction rate of ${}^{12}\mathrm{C}(\alpha, \gamma){}^{16}\mathrm{O}$ is set on 1 and the opposite. Each table will get a different value to compute.
+{{< /details >}}
 
 {{< details title="Hint 3" closed="true" >}}
 You can find the variable names under &star_job.
@@ -640,14 +636,11 @@ In this example the $3\alpha$ reaction rate (r_he4_he4_he4_to_c12) is set to 1 a
 Before we turn to run our models, lets make sure what we have in our pgstar plot.
 We can add two plots that can give us information about the reaction rates and the temperature change during the run.
 
-{{< admonition type="info" title="Task 4" >}}
-
-Replace the kippenhahn diagram and the mixing profile plot you added in Maxilab1, so we will have more space to add our two new plots, with the following plots:
-
-- The abundance plot of all the elements in the nuclear reaction net we are using, displayed as mass fraction in log scale as a function of the mass profile of the star.
-- The central temperature ($\log_{10}(T_c)$) as a function of the central density ($\log_{10}(\rho_c)$) in log-log scale.
-
-{{< /admonition >}}
+{{< details title="Task 4" closed="false" >}}
+Replace the kippenhahn diagram and the mixing profile plot you added in Maxilab1, so we will have a more space to add our two new plots, with the following plots:
+- The abundance plot of all the elements the nuclear reaction net we are using displayed as mass fraction in log scale as a function of the mass profile of the star.
+- The central temperature ($log_{10}(T_c)$) as a function of the central density ($log_{10}(\rho_c)$) in log-log scale.
+{{< /details >}}
 
 {{< details title="Hint 4" closed="true" >}}
 Look for the correct plot names under the "single panel profile plots" and the "single panel history plots" options.
