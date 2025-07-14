@@ -5,7 +5,7 @@ author: Saskia Hekker, Susmita Das, Zhao Guo, Arthur Le Saux and Noi Shitrit for
 
 # Nuclear Reactions Rates and Core Boundary Mixing on the Seismology of Red Clump Stars
 
-For a proper introduction about this Lab and about red clump stars go to the begining of `Lab 2`
+For a proper introduction to this lab and to red clump stars, see the beginning of `Lab 2`.
 
 ## Maxilab2: Different Reaction Rates
 ### Background:
