@@ -590,9 +590,11 @@ cd 1M_Z002_maximal_overshooting
 
 Make sure that you manage to compile and start the run without any issues and break the run after you see pgplot.
 
-{{< details title="Task 1" closed="false" >}}
+:::info
+**Task 1**
+
 Go over the inlist_project file. Make sure that maximal overshooting is indeed the mixing scheme that is set.
-{{< /details >}}
+:::
 
 {{< details title="Hint 1" closed="true" >}}
 There are different mixing scheme inside the solution to Maxilab1 that you downloaded. there are comments explaining each, and there is one for the maximal overshooting scheme.
