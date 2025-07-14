@@ -582,7 +582,8 @@ cd maxilab2
 
 Make sure that you are able to compile and start the run without any issues, and stop the run after you see the pgplot window.
 
-**Task 1**
+*Task 1*
+
 Go over the `inlist_project` file. Make sure that maximal overshooting is indeed the mixing scheme that is set.
 
 
@@ -591,7 +592,7 @@ There are different mixing schemes inside the solution to Maxilab1 that you down
 Make sure that all the other mixing schemes are commented out, leaving only the maximal overshooting one active.
 {{< /details >}}
 
-**Task 2**
+*Task 2*
 - Look for the nuclear reaction network name that is used by default if you do not specify another one in your inlist.  
 - Locate the corresponding network file, open it, and find the reaction rate entries related to the He-burning processes.
 
@@ -613,7 +614,7 @@ Make sure that all the other mixing schemes are commented out, leaving only the 
 
 The names of the reaction rate entries you found refer to files that describe the reaction rate of each process as a function of temperature. If you want to use another file for a specific process, for example one computed in a recent study that MESA does not include yet, you can add these files and direct MESA to read them. These files can be found under: `ls $MESA_DIR/data/rates_data/rate_tables`.
 
-**Task 3**
+*Task 3*
 - Find the `inlist` variables that need to be changed in order to modify the reaction rates for the two He-burning processes (use the names of the reaction rate entries you found in Task 2) and edit your `inlist` accordingly.  
 - The reaction rate values to test are the default rates multiplied by 0.25, 0.5, 1, 2, and 5 for the $3\alpha$ process while keeping the ${}^{12}\mathrm{C}(\alpha, \gamma){}^{16}\mathrm{O}$ reaction rate at 1, and vice versa. Each table will be assigned a different value to compute.
 
@@ -636,7 +637,8 @@ special_rate_factor(2) = 5   ! 0.25, 0.5, 1.00, 2.00, 5.00
 In this example, the $3\alpha$ reaction rate (`r_he4_he4_he4_to_c12`) is set to 1, and the ${}^{12}\mathrm{C}(\alpha, \gamma){}^{16}\mathrm{O}$ reaction rate (`r_c12_ag_o16`) is scaled by a factor of 5.
 {{< /details >}}
 
-**Task 4**
+*Task 4*
+
 Finally, find the two `&star_job` variables that will print to the terminal during the run: one that lists the reactions in the current network, and one that provides detailed information about those reactions.
 
 
@@ -651,7 +653,8 @@ list_net_reactions = .true.
 Before we start running our models, let’s make sure we understand what we have in our `pgstar` plot.  
 We can add two plots that will give us information about the reaction rates and the temperature changes during the run.
 
-**Task 5**
+*Task 5*
+
 Replace the Kippenhahn diagram and the mixing profile plot you added in Maxilab1 to make more space for our two new plots, with the following:  
 - An abundance plot of all the elements in the nuclear reaction network we are using, displayed as mass fraction (in log scale) as a function of the mass profile of the star.  
 - The central temperature ($\log_{10}(T_c)$) as a function of the central density ($\log_{10}(\rho_c)$) in log-log scale.
