@@ -29,7 +29,7 @@ The following exercises will focus on reconstructing the evolutionary history of
 
 ## Task 1. Simulating the Evolution of Cygnus X-1
 
-To simulate the evolution of Cygnus X-1, we would ideally start off with creating a fresh copy of the `work/` directory (`cp -r $MESA_DIR/binary/work .`) and modify the `inlist` files to capture all relevant physical efects leading the initial system to the current form. However, to save time we will use an already prepared *MESA work directory* that can be downloaded from here: **[⬇ Download](/mesa-school-labs-2025/wednesday/BinaryEvolution_Lab2_part1_working_copy.zip)**
+To simulate the evolution of Cygnus X-1, we would ideally start off with creating a fresh copy of the `work/` directory (`cp -r $MESA_DIR/binary/work .`) and modify the `inlist` files to capture all relevant physical effects leading the initial system to the current form. However, to save time we will use an already prepared *MESA work directory* that can be downloaded from here: **[⬇ Download](/mesa-school-labs-2025/wednesday/BinaryEvolution_Lab2_part1_working_copy.zip)**
 
 Following [Ramachandran et al. (2025)](https://arxiv.org/pdf/2504.05885), lets start off with setting the initial masses of the components, $M_\mathrm{1}~=~34 \rm\ M_\odot,\ M_\mathrm{2}~=~17.4 \rm\ M_\odot$ and orbital period $P~=~5.5 \rm\ d$ in the `inlist_project` file, designed to contain all information about the system-related quantities. To find the controls used by MESA, look into the MESA docs, under the [specifications for starting model](https://docs.mesastar.org/en/latest/reference/binary_controls.html#specifications-for-starting-model) section.
 
@@ -54,6 +54,16 @@ As the secondary component is a black hole, we assume it to be a point mass and 
 
 <!-- - -----------????? limit accretion using the Eddington limit, ?????----------- -->
 - the `Kolb` mass transfer scheme,
+
+> [!TIP]
+> Look under the `mdot_scheme` control in MESA docs
+
+{{< details title="Solution" closed="true" >}}
+
+```fortran
+   mdot_scheme = "Kolb"  
+```
+
 - do the wind mass accretion from the donor to the BH 
 
 <!-- {{< details title="Hint" closed="true" >}}
@@ -63,6 +73,13 @@ Look under the `do_wind_mass_transfer_1` control in MESA docs
 > [!TIP]
 > Look under the `do_wind_mass_transfer_1` control in MESA docs
 
+{{< details title="Solution" closed="true" >}}
+
+```fortran
+   do_wind_mass_transfer_1 = .true.  
+```
+
+{{< /details >}}
 
 - assume conservation of the total angular momentum of the system, include loss of angular momentum via mass loss and via gravitational wave radiation 
 
@@ -114,7 +131,7 @@ To force MESA to stop after finding a fitting model to the observations we need 
 
 As we want to capture not only $T_{\rm eff}$ but also other stellar quantities, we need to expand the above example a bit.
 
-Go ahead and add a stopping criterion `extras_binary_finish_step = terminate` in the `extras_binary_finish_step` function once a model reached a desired surface properties. Focus only on the *TASK 1.1* part in `run_binary_extras.f90` this time.
+Go ahead and add a stopping criterion `extras_binary_finish_step = terminate` in the `extras_binary_finish_step` function once a model reaches all of the desired surface properties ($T_{\rm eff}$, $\log L$, and $\log g$). Focus only on the *TASK 1.1* part in `run_binary_extras.f90` this time.
 
 <!-- {{< details title="Hint" closed="true" >}}
 
@@ -357,8 +374,10 @@ where $M_{\mathrm{chirp}}$ is the chirp mass:
 
 $$M_{\mathrm{chirp}} = \frac{(m_1 m_2)^{3/5}}{(m_1 + m_2)^{1/5}}$$
 
-We need to do this once MESA has updated all the system parameters, thus in the `extras_binary_finish_step` fuction. We have two choices: we can force MESA to compute the merge time on a fly at every step, to be able to see how the merge time depends on the orbital period and the distribution of masses between the components, or we can implement this chunk of code inside the `if` statement of the previously implememnted stopping criterion. As we are primarily interested to know the merge time at the current phase of the evolution, we can chose the second option.
+> [!NOTE]
+> The choice between $a$ and $P$ is immaterial, as both quantities are equivalent and directly related through Kepler’s law; specifying one uniquely determines the other for a given system. Here, we propose to implement the equation using $P$.
 
+We need to do this once MESA has updated all the system parameters, thus in the `extras_binary_finish_step` fuction. We have two choices: we can force MESA to compute the merge time on a fly at every step, to be able to see how the merge time depends on the orbital period and the distribution of masses between the components, or we can implement this chunk of code inside the `if` statement of the previously implemented stopping criterion. As we are primarily interested to know the merge time at the current phase of the evolution, we can chose the second option. 
 
 > [!NOTE]
 > MESA computes all we need under the hood. All we need to do is to capture all required quantities from MESA and to compute $t_{\mathrm{merge}}$. 
@@ -558,7 +577,7 @@ To apply all the changes you have made in your `run_binary_extras.f90` you need 
 
 
 
-## Task 2. The efficiency of mass transfer and it's impact on the evolution of Cyg X-1
+## Task 2. The efficiency of mass transfer and its impact on the evolution of Cyg X-1
 
 Mass transfer in close binary systems is a highly complex, multidimensional process shaped by hydrodynamic interactions, angular momentum exchange, and geometry-dependent flow patterns. Rather than a smooth and complete handover of mass from one star to the other, the gas is channeled through the inner Lagrangian point, forming a stream that enters the Roche lobe of the companion. Depending on the relative size and position of the stars, this stream may directly impact the accretor or settle into an accretion disk before any material is finally incorporated. A significant portion of the transferred matter might never reach the companion at all, being expelled from the system via outflows, disk winds, or loss through the outer Lagrangian points.
 
@@ -592,9 +611,9 @@ In this minilab, we will investigate how the choice of these parameters — part
 
 ### Task 2.1. Varying the Mass Transfer Efficiency
 
-To explore the effect of mass trasnfer efficiency on future evolution of Cyg X-1, we will vary the efficiency of mass transfer by changing the `mass_transfer_beta` parameter while keeping the initial primary masses and orbital period fixed, as were before. As each run may take a while, we will crowd-source this!
+To explore the effect of mass transfer efficiency on future evolution of Cyg X-1, we will vary the efficiency of mass transfer by changing the `mass_transfer_beta` parameter while keeping the initial primary masses and orbital period fixed, as were before. As each run may take a while, we will crowd-source this!
 
-The participants should split into gropus that will be assigned different values of `mass_transfer_beta` and `limit_retention_by_mdot_edd`, which is a control for the Eddington limited mass-accretion rate. To do so, please write your name in the following [**Google Spreadsheet**](https://docs.google.com/spreadsheets/d/1HLwsGPu6w3t2NMUcdVYvkHFvqgIOUDkigfrZruN6Uo8/edit?gid=1375531873#gid=1375531873) (navigate to *Lab2 Mass Transfer Efficiency* tab in the lower-left corner if needed) to select a $\beta$ value, from **0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9**, corresponding to accretion efficiencies from 100% up to 10%, respectively. These values come either without Eddington limit (by default) or with Eddington limited mass-accretion rate. If you choose the latter, remember to include `limit_retention_by_mdot_edd = .true.` in your `binary_controls` section!
+The participants should split into groups that will be assigned different values of `mass_transfer_beta` and `limit_retention_by_mdot_edd`, which is a control for the Eddington limited mass-accretion rate. To do so, please write your name in the following [**Google Spreadsheet**](https://docs.google.com/spreadsheets/d/1HLwsGPu6w3t2NMUcdVYvkHFvqgIOUDkigfrZruN6Uo8/edit?gid=1375531873#gid=1375531873) (navigate to *Lab2 Mass Transfer Efficiency* tab in the lower-left corner if needed) to select a $\beta$ value, from **0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9**, corresponding to accretion efficiencies from 100% up to 10%, respectively. These values come either without Eddington limit (by default) or with Eddington limited mass-accretion rate. If you choose the latter, remember to include `limit_retention_by_mdot_edd = .true.` in your `binary_controls` section!
 
 > [!NOTE]
 >Do not change the initial masses or period. Focus only on the effect of beta. If you have a slower machine (with lower number of cores), choose lower $\beta$ as these runs tend to be faster. Faster machines can attempt higher beta values, which lead to more computationally demanding models. The $\beta=0.0$ run should take approximately 5 minutes on 2-core machines, while the $\beta~=~0.9$ run needs around 10 minutes.
@@ -625,7 +644,7 @@ To make the runs a bit faster, reduce the resolution to
 > [!NOTE]
 > In a proper research, you want to have your models resolved as accurately as possible. The trick described above is intended for training purposes only!
 
-As the last thing we would like to do is to compare the merge time with the one we got in the previous step. Modify slightly the `run_binary_extras` file, as we no longer need to calculate the merge time only fot the specific model - let it be calculated for every model to see whether this value changes. Add the resulting merge time of the last computed model, when the donor reaches the minimum mass which terminates the run, to the [**Google Spreadsheet**](https://docs.google.com/spreadsheets/d/1HLwsGPu6w3t2NMUcdVYvkHFvqgIOUDkigfrZruN6Uo8/edit?gid=1375531873#gid=1375531873) in the column next to your name under the selected case.
+As the last thing we would like to do is to compare the merge time with the one we got in the previous step. Modify slightly the `run_binary_extras` file, as we no longer need to calculate the merge time only for the specific model - let it be calculated for every model to see whether this value changes. Add the resulting merge time of the last computed model, when the donor reaches the minimum mass which terminates the run, to the [**Google Spreadsheet**](https://docs.google.com/spreadsheets/d/1HLwsGPu6w3t2NMUcdVYvkHFvqgIOUDkigfrZruN6Uo8/edit?gid=1375531873#gid=1375531873) in the column next to your name under the selected case.
 
 Next, compile (`./clean && ./mk`) and run the models (`./rn`) with a fixed set of initial parameters (donor and black hole masses, and orbital period), while exploring different values of mass_transfer_beta. This isolates the role of accretion efficiency in shaping the orbital evolution, mass growth, and observable properties of the system.
 
