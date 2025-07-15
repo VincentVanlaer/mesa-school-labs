@@ -909,7 +909,7 @@ The file includes two functions: `add_isos()` and `add_reactions()`. For more in
 We will comment out all the helium-burning reactions except for: `r_he4_he4_he4_to_c12` and `r_c12_ag_o16`.
 
 {{< details title="This is what your basic.net file should look like" closed="true" >}}
-
+```fortran
       ! the basic net is for "no frills" hydrogen and helium burning.
       ! assumes T is low enough so can ignore advanced burning and hot cno issues.
 
@@ -977,6 +977,7 @@ We will comment out all the helium-burning reactions except for: `r_he4_he4_he4_
          rn15pa_aux               !        n15(pa)c12
 
          )
+```
 {{< /details >}}
 
 Edit your `inlist_project` to include the new network - you can find the relevant inlist parameters in the [MESA documentation](https://docs.mesastar.org/en/latest/net/nets.html) we referred you to before.
