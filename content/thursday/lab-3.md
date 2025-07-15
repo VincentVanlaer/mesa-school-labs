@@ -874,7 +874,7 @@ now, run your models:
 ./rn
 ```
 
-A reminder from yesterday’s labs: if you want to save your terminal output to a text file, run:
+A reminder from yesterday’s labs - if you want to save your terminal output to a text file, run:
 
 ```linux
 ./rn | tee out.txt
