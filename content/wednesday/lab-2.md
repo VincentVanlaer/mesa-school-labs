@@ -64,6 +64,8 @@ As the secondary component is a black hole, we assume it to be a point mass and 
    mdot_scheme = "Kolb"  
 ```
 
+{{< /details >}}
+
 - do the wind mass accretion from the donor to the BH 
 
 <!-- {{< details title="Hint" closed="true" >}}
