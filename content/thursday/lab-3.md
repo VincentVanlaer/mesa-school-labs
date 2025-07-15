@@ -880,7 +880,7 @@ A reminder from yesterday’s labs - if you want to save your terminal output to
 ./rn | tee out.txt
 ```
 
-Then, you can look for the last print of the `peak_delta_Pg` parameter in the terminal output and its corresponding stellar age. When you finish, don’t forget to fill in the values in the [Google Sheet] (https://docs.google.com/spreadsheets/d/1QUoyvf2j1lxO6Xx6rt2X7E__INuxMzOsBBB2VsTnGiM/edit?usp=sharing).
+Then, you can look for the last print of the `peak_delta_Pg` parameter in the terminal output and its corresponding stellar age. When you finish, don’t forget to fill in the values in the [Google Sheet](https://docs.google.com/spreadsheets/d/1QUoyvf2j1lxO6Xx6rt2X7E__INuxMzOsBBB2VsTnGiM/edit?usp=sharing).
 
 >[!NOTE]
 > As in Lab 2, you might see a warning message from MESA saying something like
