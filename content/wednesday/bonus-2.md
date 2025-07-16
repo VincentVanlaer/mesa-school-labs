@@ -7,7 +7,7 @@ Upsilon Sagittarii is a binary system with a hydrogen depleted primary star. It 
 
 ![image](/wednesday/UpsSagHRD1.png)
 
-**Fig. 1**: The HR diagram of the best fitting model from the paper along with the data points from the observations.
+**Fig. 1**: The Hertzsprung-Russell diagram of the best fitting model from the paper along with the data points from the observations.
 
 | Parameter       | Value       |
 | -----------     | ----------- |
@@ -29,10 +29,10 @@ When working with many different settings within MESA, it is often beneficial to
 1. Open the first file, `inlist`, with your favourite text editor. Like in most cases, this file only refers to other inlists which contain the parameters of the run.  
 2. Next, open the file that `inlist` refers to, the `inlist_project`. In previous labs, the `inlist_project` contained all paramters. In this case, it refers to two other inlists for the settings of the primary star (`inlist1`) and the settings of the secondary star (`inlist2`). The other information in `inlist_project` is related to the binary physics, and it refers to the file `inlist_extra`.  
 3. The file `inlist_extra` contains basic settings for the binary run; the masses of the two stars and the initial period. Because these are the parameters changed in a grid-search as performed in the paper, it is easier to have them in a separate file.  
-`inlist1` and `inlist2` are as good as identical. The only difference between the two files is that different models are loaded and a few timestep controls. Both these inlists refer to `inlist_star` for star_job and control-settings and to `inlist_pgstar`.  
-`inlist_star` contains all the settings that are the same for the primary and the secondary, rather than putting them all in `inlist1` and `inlist2`.  
-`inlist_pgstar` is not often used for science-runs, and therefore often a separate file so its contents are easily ignored.  
-The last inlist, `inlist_other_wind` is called via the `run_star_extras.f90`, and contains the values used for the alternative wind-scheme that is used for this model.  
+4. `inlist1` and `inlist2` are as good as identical. The only difference between the two files is that different models are loaded and a few timestep controls. Both these inlists refer to `inlist_star` for star_job and control-settings and to `inlist_pgstar`.  
+5. `inlist_star` contains all the settings that are the same for the primary and the secondary, rather than putting them all in `inlist1` and `inlist2`.  
+6. `inlist_pgstar` is not often used for science-runs, and therefore often a separate file so its contents are easily ignored.  
+7. The last inlist, `inlist_other_wind` is called via the `run_star_extras.f90`, and contains the values used for the alternative wind-scheme that is used for this model.  
 
 #### Extra Bonus Task 1
 In this task, the aim is to capture the point where the simulation agrees with the observational data with only one stopping criterion, the effective temperature. Because the Roche-lobe overflow phase is computationally heavy for this particular system, the run will start shortly after the mass-transfer phase, which is indicated by the red dot in Figure 1 on the track of the primary star. The saved model files are available in 'Load'.  
@@ -120,11 +120,11 @@ where $O_i$ is the observed value, $E_i$ is the theoretical value (in our case r
 
 **Question** What values do you get for the fit? What parameters do you think are most important to get correct?
 
-The best fit model presented in [Gilkis & Shenar 2022](https://ui.adsabs.harvard.edu/abs/2023MNRAS.518.3541G/abstract) does not match the exact observational values, as can be seen in the HRD below. This is also what the $\chi^2$ values are telling us. Especially the period of the system modelled here is off by quite a bit. However, the model presented in the paper is undergoing the second mass-transfer phase, which changes the period. 
+The best fit model presented in [Gilkis & Shenar 2022](https://ui.adsabs.harvard.edu/abs/2023MNRAS.518.3541G/abstract) does not match the exact observational values, as can be seen in the Hertzsprung-Russell diagram below. This is also what the $\chi^2$ values are telling us. Especially the period of the system modelled here is off by quite a bit. However, the model presented in the paper is undergoing the second mass-transfer phase, which changes the period. 
 
 ![image](/wednesday/UpsSagHRD2.png)
 
-*The HRD of the best fitting model from the paper along with the data points from the observations and the location of the best fits.*
+**Fig. 2**: The Hertzsprung-Russell diagram of the best fitting model from the paper along with the data points from the observations and the location of the best fits.
 
 #### Extra Bonus Task 4
 (Put the TULIPS stuff here!)
