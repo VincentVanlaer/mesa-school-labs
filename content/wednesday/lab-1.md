@@ -271,7 +271,7 @@ You can instruct MESA to stop computations by using `extras_binary_finish_step =
 
 ## Task 3. Run a model with random initial binary parameters
 Now, we will explore different mass transfer cases and their stability across the initial binary parameter space. We will fix an initial primary mass to 20 Msun. Choose a random pair of initial mass ratio and an initial orbital period from the "P-q diagram" sheet in the following Google Spreadsheet, and put your name in the corresponding column of [this Google spreadsheet](
-https://docs.google.com/spreadsheets/d/1HLwsGPu6w3t2NMUcdVYvkHFvqgIOUDkigfrZruN6Uo8/edit?usp=sharing), **and perform MESA run with the corresponding initial parameters.** If you have many cores (more than approx. 6), you can choose the ones with high initial orbital periods (>2000 days). You need to modify "inlist_extra" to use new initial binary parameters.
+https://docs.google.com/spreadsheets/d/1HLwsGPu6w3t2NMUcdVYvkHFvqgIOUDkigfrZruN6Uo8/edit?usp=sharing), **and perform MESA run with the corresponding initial parameters.** If you have many cores on your laptop (more than approx. 6), you can choose the ones with high initial orbital periods (>2000 days). You need to modify "inlist_extra" to use new initial binary parameters.
 
 > [!TIP]
 > You can check the number of cores via:
