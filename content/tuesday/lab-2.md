@@ -145,6 +145,24 @@ subroutine data_for_extra_profile_columns(id, n, nz, names, vals, ierr)
 |:----------|
 | **Implement** the calculation of the Eddington-Sweet velocity inside the `data_for_extra_profile_columns` function now, using the guide below. |
 
+Again, the equation is:
+
+$$
+v_e \equiv \frac{\nabla_{\mathrm{ad}}}{\delta\left(\nabla_{\mathrm{ad}}-\nabla\right)} \frac{\Omega^2 r^3 l}{(G m)^2}\left[\frac{2\left(\varepsilon_n+\varepsilon_v\right) r^2}{l}-\frac{2 r^2}{m}-\frac{3}{4 \pi \rho r}\right]
+$$
+
+where
+
+$$
+v_\mu \equiv \frac{H_P}{\tau_{\mathrm{KH}}^*} \frac{\varphi \nabla_\mu}{\delta\left(\nabla-\nabla_{\mathrm{ad}}\right)}
+$$
+
+and
+
+$$
+\tau_{\mathrm{KH}}^* \equiv \frac{G m^2}{r\left(l-m \varepsilon_v\right)}
+$$
+
 You will have to specify the name of the new profile column,
 e.g. `names(1) = 'v_ES'`, and its values `vals(i,1)`, where `i` is the `i`-th zone in the star. There are `nz` zones in total. The index 1 refers to the fact that this is the 1st extra column we are filling out.
 
