@@ -43,7 +43,7 @@ Initial orbital period: 100 days
 >- `b% s1% center_he4`: Helium mass fraction at the center of the primary  
 >- `b% mtransfer_rate`: Mass transfer rate in g/s (negative)
 > 
-> We will use these parameters in the `extras_binary_finish_step` hook in `run_binary_extras.f90`
+> We will use these parameters in the `extras_binary_finish_step` hook in `run_binary_extras.f90`. You can find the implementation of the MESA binary module in `$MESA_DIR/binary/...`. For example, you can find the default setting for `binary_controls` in `$MESA_DIR/binary/defaults/binary_controls.defaults`.
 
 ### Task 1.1. Is the primary undergoing mass transfer?
 **As a first step, within the !!! TASK 1 block !!! of `run_binary_extras.f90`, add an if condition to check whether the primary star is undergoing mass transfer. A good threshold to determine this is a mass transfer rate greater than $10^{-10}$ Msun/yr. If this condition is met, make MESA print "Undergoing mass transfer".**
@@ -95,7 +95,14 @@ abs(b% mtransfer_rate)/Msun*secyer
 > ```
 > This command will help you find whether XXX appears anywhere in `out.txt`.
 
-Please make sure that your implementation is working correctly by running a model and verifying that it produces the desired output when the mass-transfer rate exceeds the threshold. In the PGSTAR plot, you can find the mass-transfer rate in the upper right corner (`lg_mtransfer_rate`: mass transfer rate in Msun/yr in logarithmic scale). This run should end with the following terminal output:
+Please make sure that your implementation is working correctly by running a model and verifying that it produces the desired output when the mass-transfer rate exceeds the threshold. In the PGSTAR plot, you can find the mass-transfer rate in the upper right corner (`lg_mtransfer_rate`: mass transfer rate in Msun/yr in logarithmic scale). 
+
+
+![Binary_MT](/wednesday/Terminal_Lab1.png)
+
+**Fig. 2**: The terminal output would look like this. 
+
+This run should end with the following terminal output:
 ```
  *********************************************
  **** Terminated at core carbon depletion ****
@@ -137,7 +144,7 @@ Use the mass fractions of hydrogen (```b% s1% center_h1```) and helium (```b% s1
 {{< /details >}}
 
 ### Task 1.3. Print out Case A / B / C
-As a last step, we want to print out in the terminal which mass transfer case is occurring whenever mass transfer takes place. **Comment out the previous code in the !!! TASK 1 block !!! and implement new if-else statements that print “Case A,” “Case B,” or “Case C” depending on the evolutionary phase of the primary.** After making changes, run your model. Can you determine which mass transfer case your model undergoes? If you miss the terminal output during the run, you can review the `out.txt` file to see the printed messages.
+As a last step, we want to print out in the terminal which mass transfer case is occurring whenever mass transfer takes place. **Comment out the previous code in the !!! TASK 1 block !!! and implement new if-else statements that print “Case A,” “Case B,” or “Case C” depending on the evolutionary phase of the primary (according to the definitions listed at the start of Task 1).** After making changes, run your model. Can you determine which mass transfer case your model undergoes? If you miss the terminal output during the run, you can review the `out.txt` file to see the printed messages.
 
 > [!WARNING]
 > Don't forget to do `./clean` and `./mk` after modifying the `run_star_extras.f90` file.
