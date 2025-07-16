@@ -13,9 +13,9 @@ Upsilon Sagittarii is a binary system with a hydrogen depleted primary star. It 
 | -----------     | ----------- |
 | $T_{eff,1}[kK]$      | $9\pm1$       |
 | $T_{eff,2}[kK]$      | $23\pm2$        |
-| $logL_{1}[L_{\odot}]$    | $3.67\pm0.15$       |
-| $logL_{2}[L_{\odot}]$    | $3.1\pm0.2$        |
-| $logg_{1}[cm s^{-2}]$       | $1.2\pm0.2$|
+| $log(L_{1}[L_{\odot}])$    | $3.67\pm0.15$       |
+| $log(L_{2}[L_{\odot}])$    | $3.1\pm0.2$        |
+| $log(g_{1}[cm s^{-2}])$       | $1.2\pm0.2$|
 | $P_{orb}[days]$            |$138\pm1$ |
 
 **Table 1**: The observational data from the paper
@@ -26,9 +26,9 @@ We are starting from a prepared work-directory which contains an adapted version
 
 In this lab, the focus is on working with the `run_binary_extras.f90` and at the end some visualisation in TULIPS. However, because this work-directory is adapted from a scientific run, we'll have a quick look a the set-up of this directory.   
 When working with many different settings within MESA, it is often beneficial to split out the settings in the inlists into separate files. It might look confusing at first, so lets have a look at the inlists in this work-directory. There are nine different files; `inlist`, `inlist1`, `inlist2`, `inlist_extra`, `inlist_other_winds`, `inlist_pgstar`, `inlist_project`, and `inlist_star`.  
-Open the first file, `inlist`, with your favourite text editor. Like in most cases, this file only refers to other inlists which contain the parameters of the run.  
-Next, open the file that `inlist` refers to, the `inlist_project`. In previous labs, the `inlist_project` contained all paramters. In this case, it refers to two other inlists for the settings of the primary star (`inlist1`) and the settings of the secondary star (`inlist2`). The other information in `inlist_project` is related to the binary physics, and it refers to the file `inlist_extra`.  
-The file `inlist_extra` contains basic settings for the binary run; the masses of the two stars and the initial period. Because these are the parameters changed in a grid-search as performed in the paper, it is easier to have them in a separate file.  
+1. Open the first file, `inlist`, with your favourite text editor. Like in most cases, this file only refers to other inlists which contain the parameters of the run.  
+2. Next, open the file that `inlist` refers to, the `inlist_project`. In previous labs, the `inlist_project` contained all paramters. In this case, it refers to two other inlists for the settings of the primary star (`inlist1`) and the settings of the secondary star (`inlist2`). The other information in `inlist_project` is related to the binary physics, and it refers to the file `inlist_extra`.  
+3. The file `inlist_extra` contains basic settings for the binary run; the masses of the two stars and the initial period. Because these are the parameters changed in a grid-search as performed in the paper, it is easier to have them in a separate file.  
 `inlist1` and `inlist2` are as good as identical. The only difference between the two files is that different models are loaded and a few timestep controls. Both these inlists refer to `inlist_star` for star_job and control-settings and to `inlist_pgstar`.  
 `inlist_star` contains all the settings that are the same for the primary and the secondary, rather than putting them all in `inlist1` and `inlist2`.  
 `inlist_pgstar` is not often used for science-runs, and therefore often a separate file so its contents are easily ignored.  
@@ -38,7 +38,8 @@ The last inlist, `inlist_other_wind` is called via the `run_star_extras.f90`, an
 In this task, the aim is to capture the point where the simulation agrees with the observational data with only one stopping criterion, the effective temperature. Because the Roche-lobe overflow phase is computationally heavy for this particular system, the run will start shortly after the mass-transfer phase, which is indicated by the red dot in Figure 1 on the track of the primary star. The saved model files are available in 'Load'.  
 To make sure the models do not run too long, there is a maximum amount of models implemented in the `inlist_star`. To see if all runs well, compile (`./clean && ./mk`) and run your new model (`./rn`)! This is only to check if we set all the controls correctly, so kill the run after a few timesteps using `Ctrl+C`.  
 To find the stopping point, use the following parameter in the `extras_binary_finish_step` hook in `run_binary_extras.f90`:  
-`b% s1% teff` ! Effective temperature of the primary star of the binary system in Kelvin  
+`b% s1% Teff` ! Effective temperature of the primary star of the binary system in Kelvin  
+
 Then, to compare with the observational data, add a write statement to your stopping criterion to print the effective temperature and the luminosity of the stopping point.  
 
 {{< details title="Hint 1" closed="true" >}}
@@ -58,9 +59,9 @@ is used to print text to the terminal by calling the appropriate values.
 There are multiple possible solutions. This is one example so you can continue to the next task.  
 
 ```fortran
-if ((b% s1% teff) .gt. 9000) then
+if ((b% s1% Teff) .gt. 9000) then
    extras_binary_finish_step = terminate
-   write(*,*) "terminating at requested effective temperature and luminosity:", b% s1% teff, log10(b% s1% l_surf)
+   write(*,*) "terminating at requested effective temperature and luminosity:", b% s1% Teff, log10(b% s1% photosphere_L)
    return
 end if
 ```
@@ -73,7 +74,7 @@ end if
 In Extra Bonus Task 1 we have determined that working with just the effective temperature will not lead to a match between the simulation and the observations, as the luminosity is too low compared to the observations. In this next task, we will combine the luminosity and the effective temperature of the primary star to match the observations.  
 Use the following additional parameter in the `extras_binary_finish_step` hook in `run_binary_extras.f90`: 
 
-`b% s1% l_surf` ! The luminosity of the primary star of the binary system in solar luminosities
+`b% s1% photosphere_L` ! The luminosity of the primary star of the binary system in solar luminosities
 
 {{< details title="Hint 1" closed="true" >}}
     
@@ -86,9 +87,9 @@ As can be seen in Figure 1, the stellar evolution track does not go through cent
 There are multiple possible solutions, depending on how you combine the two parameters. This is one example so you can continue to the next task.
     
 ```fortran
-if (((b% s1% teff) .lt. 9000) .and. (log10(b% s1% l_surf) .gt. 3.57))   then
+if (((b% s1% Teff) .lt. 9000) .and. (log10(b% s1% photosphere_L) .gt. 3.57))   then
     extras_binary_finish_step = terminate
-    write(*,*) "terminating at requested effective temperature and luminosity:", b% s1% teff, log10(b% s1% l_surf)
+    write(*,*) "terminating at requested effective temperature and luminosity:", b% s1% Teff, log10(b% s1% photosphere_L)
     return
 end if  
 ```
@@ -105,9 +106,9 @@ Because we are working with a binary system, it is not only important to match t
 The values needed are given in Table 1. You can reuse the formula from Task 1.1 of the main lab. 
 
 Use the following additional parameter in the `extras_binary_after_evolve` hook in `run_binary_extras.f90`:   
-`b% s2% teff` ! Effective temperature of the primary star of the binary system in Kelvin  
-`b% s2% l_surf` ! The luminosity of the primary star of the binary system in solar luminosities  
-`b%  period` ! Period of the binary system in seconds  
+`b% s2% Teff` ! Effective temperature of the primary star of the binary system in Kelvin  
+`b% s2% photosphere_L` ! The luminosity of the primary star of the binary system in solar luminosities  
+`b%  Period` ! Period of the binary system in seconds  
 
 > > [!TIP]
 > > Just as a reminder, here is the formula:
