@@ -246,9 +246,9 @@ To be able to compare the value of the $\chi^2$ between the models we need to st
 
 This approach requires us to compute two values of $\chi^2$ at every step: the value for the previous step and for the current one. Here, the structure of the `run_binary_extras.f90` comes extremely helpful, as it contains two functions, `extras_binary_start_step` and `extras_binary_finish_step`. The latter updates the parameters of the system evolution after the calculations are done, while the former allows us to access the parameters before them being updated, thus from the previous step. This is the place to call the `chi2` function for the first time! -->
 
-#### The $\chi^2$ statiscics formula
+#### The $\chi^2$ statistics formula
 
-The formula for the $\chi^2$ statiscics is as follows:
+The formula for the $\chi^2$ statistics is as follows:
 $$\chi^2 = \sum_{i=1}^n \left( \frac{O_i-E_i}{\sigma_i} \right)^2, $$
 where $O_i$ is the observed value, $E_i$ is the theoretical value (in our case returned by MESA) and $\sigma_i$ is the observed error.
 
