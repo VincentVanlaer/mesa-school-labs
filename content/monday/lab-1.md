@@ -729,7 +729,7 @@ TA for assistance with that.
 and making some custom plots.
 
 For an itroduction into utilising python as an analysis tool, see 
-[bonus_tasks/python_analysis](bonus_tasks/python_analysis)
+[bonus_tasks/python_analysis](lab1/bonus_tasks/python_analysis)
 [`python_analysis/README.md`](https://github.com/nialljmiller/mesa-school-labs/tree/main/content/monday/lab1/bonus_tasks/python_analysis/README.md).
 
 
