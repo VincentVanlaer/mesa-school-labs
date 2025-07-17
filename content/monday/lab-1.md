@@ -247,7 +247,7 @@ again by entering `./rn` in your terminal to test whether
 your changes to the inlist did what they are supposed to. 
 
 > [!TIP]
-> You don't have to run your model all the way to the TAMS. You can interupt it using ctrl+C if you're on Linux and Cmd+C if you're on Mac.
+> You don't have to run your model all the way to the TAMS. You can interrupt it using ctrl+C if you're on Linux and Cmd+C if you're on Mac.
 
 If you got stuck and cannot get your inlist to run, you can find
 [a functional inlist with all the changes described above here](https://github.com/Mathijs-Vanrespaille/mesa-school-labs/blob/main/content/monday/lab1/completed_inlists/inlist_project1)

@@ -10,7 +10,7 @@ So far in our exploration of rotating stellar models, we have seen how instabili
 
 So what does this mean? Of course a 1D model and a 2D model are going to be different, right?
 
-The good news is that we are not consigned to spend hours on HPC clusters for every test case. Instead, given a selective set of more expensive 2D models, we can *tune* our MESA models. Luckily, we have various levers we can turn to accomplish this. If we can establish an idea of what the velocity field inside the star *should* be, then we can implement it into MESA with hooks in `run_star_extras.f90`. In this lab, we will be doing just that. Beginning from a scaffolded starting point, you will implement a custom torque and angular momentum mixing routine in MESA, outputing data that can be compared against the tracks in [Mombarg et al., 2023](https://www.aanda.org/articles/aa/pdf/2023/09/aa47454-23.pdf)[^1] and [Mombarg et al., 2024](https://www.aanda.org/articles/aa/pdf/2024/03/aa48466-23.pdf)[^2]. By tuning the torque, you can mimic the effect of meridional circulation on the behavior and evolution of the star, as given by these 2D ESTER models. 
+The good news is that we are not consigned to spend hours on HPC clusters for every test case. Instead, given a selective set of more expensive 2D models, we can *tune* our MESA models. Luckily, we have various levers we can turn to accomplish this. If we can establish an idea of what the velocity field inside the star *should* be, then we can implement it into MESA with hooks in `run_star_extras.f90`. In this lab, we will be doing just that. Beginning from a scaffolded starting point, you will implement a custom torque and angular momentum mixing routine in MESA, outputting data that can be compared against the tracks in [Mombarg et al., 2023](https://www.aanda.org/articles/aa/pdf/2023/09/aa47454-23.pdf)[^1] and [Mombarg et al., 2024](https://www.aanda.org/articles/aa/pdf/2024/03/aa48466-23.pdf)[^2]. By tuning the torque, you can mimic the effect of meridional circulation on the behavior and evolution of the star, as given by these 2D ESTER models. 
 
 For a discussion on meridional circulation, click the hint below. This information was all covered in more detail during the lecture, so students are encouraged to only visit this discussion as needed, or while waiting for model runs to complete. 
 
@@ -191,7 +191,7 @@ s% <star procedure> => <local subroutine>
 
 {{< details title="Solution" closed="true" >}}
 ```fortran
-s% other_torque => meridional_circulaton
+s% other_torque => meridional_circulation
 s% other_am_mixing => additional_nu
 ```
 {{< /details >}}
@@ -201,9 +201,9 @@ s% other_am_mixing => additional_nu
 
 Now that MESA knows where to look, what exactly is going on in these new subroutines? In `run_star_extras`, scroll down to our custom other torque subroutine, `meridional_circulation`.  
 
-`meridional_circulation` is declared with the `subroutine` keyword, meaning we do not expact any output. Instead, this routine will grab the object containing all the star's information, identified with the pointer `s%`, and modify values directly. You will also see that this subroutine takes in two values, `id` and `ierr`. `id` is the unique identifier that is tied to each instance of `star_info`, the object which holds everything about the star. `ierr` is an integer passed across MESA to keep tabs on the status of each operation. If this value becomes non-zero, it means that an error has occured. 
+`meridional_circulation` is declared with the `subroutine` keyword, meaning we do not expact any output. Instead, this routine will grab the object containing all the star's information, identified with the pointer `s%`, and modify values directly. You will also see that this subroutine takes in two values, `id` and `ierr`. `id` is the unique identifier that is tied to each instance of `star_info`, the object which holds everything about the star. `ierr` is an integer passed across MESA to keep tabs on the status of each operation. If this value becomes non-zero, it means that an error has occurred. 
 
-Next, we have variable declarations. In Fortran, ALL variables must be declared before they are used. This includes arrays, which have the added complication of needing to be allocated as well! The types of these variables should be explicitly provided as well. In fact, because `run_star_extras.f90` contains the `implicit none` statement at the beginning of the file, this explicit declaration is not optional. We will need three additional intergers for this subroutine: `k`, `k0`, and `nz`. `k` will be used as a counter value for the index within the model, `k0` will be the index where the radiative envelope starts, and `nz` will hold onto the total number of zones in the model. These values will be described in more detail later.
+Next, we have variable declarations. In Fortran, ALL variables must be declared before they are used. This includes arrays, which have the added complication of needing to be allocated as well! The types of these variables should be explicitly provided as well. In fact, because `run_star_extras.f90` contains the `implicit none` statement at the beginning of the file, this explicit declaration is not optional. We will need three additional integers for this subroutine: `k`, `k0`, and `nz`. `k` will be used as a counter value for the index within the model, `k0` will be the index where the radiative envelope starts, and `nz` will hold onto the total number of zones in the model. These values will be described in more detail later.
 
 | 📋 TASK 7 |
 |:--------|
@@ -262,7 +262,7 @@ $$\frac{\partial mer _\ comp}{\partial r}(k) = \frac{mer _\ comp(k) - mer _\ com
 
 | 📋 TASK 8 |
 |:--------|
-| **Add** the equation for `U_r` and `mer_comp`, assuming `C = 1e-3`. A reference for variable correspondance is below.|
+| **Add** the equation for `U_r` and `mer_comp`, assuming `C = 1e-3`. A reference for variable correspondence is below.|
 
 | Variable                      | in MESA                   |
 |-------------------------------|---------------------------|
@@ -315,7 +315,7 @@ Before we continue, we need to check that all the updates made thus far are work
 | **Clean, compile, and run your model**. Once you see timestep outputs in the terminal, stop the run. You will likely see a few initial retry messages (`retry: max residual jumped -- give up in solver`). These are expected as the model tries to add the new rotation rate to the ZAMS model. |
 
 > [!Note]
-> If you recieve permission errors when trying to clean/make/run, you can update the file permissions with the chmod command, ie. `chmod +x clean mk rn re`
+> If you receive permission errors when trying to clean/make/run, you can update the file permissions with the chmod command, ie. `chmod +x clean mk rn re`
 
 
 #### Step 4.3: Return of the Profile Columns (from Lab 2)
@@ -355,7 +355,7 @@ We saved the total torque on the envelope into the star pointer at `s% xtra(1)`
 
 {{< /details >}}
 
-{{< details title="Soluton" closed="true" >}}
+{{< details title="Solution" closed="true" >}}
 
 ```fortran
 names(1) = "total_torque_envelope"

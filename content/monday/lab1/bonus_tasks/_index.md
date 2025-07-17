@@ -77,7 +77,7 @@ https://docs.google.com/spreadsheets/d/1qSNR-dV28Tr_RWv3bDu8OYsq7jTVcTQxmqzWqLM5
 
 
 Now would be the best time to prune what you do and dont want to run. All of our batch runs are going to be based on the csv we download from this file. 
-#### We suggest selecting ~10 entrys from the google spreadsheet and downloading a csv subset containing just those. 
+#### We suggest selecting ~10 entries from the google spreadsheet and downloading a csv subset containing just those. 
 For the sake of demonstration, these instructions will show outputs having had downloaded the *whole* csv file. 
 
 Move the spreadsheet to the bonus tasks dir
@@ -139,8 +139,8 @@ BATCH DIRECTORY STRUCTURE
 
 ```
 
-You MESA enviroment should not have any issues if you have already completed lab1. 
-Missing python modules can be insalled with the pip package installer for Python, e.g.
+You MESA environment should not have any issues if you have already completed lab1. 
+Missing python modules can be installed with the pip package installer for Python, e.g.
 ```bash
 pip install numpy
 ```
@@ -189,7 +189,7 @@ Usage: 2_verify_inlists.py <csv_file> [inlist_dir]
      - Inlists with issues: 0
   ```
 
-   This checks the inlist files for any weird things that may have happened. If there are missing inlists, try running step (1) again, preferably the method you didnt try first time.
+   This checks the inlist files for any weird things that may have happened. If there are missing inlists, try running step (1) again, preferably the method you didn't try first time.
 
 
 ### 3. **Run the models** (this may take a while depending on the size of your input csv)
@@ -605,7 +605,7 @@ You are free to use these scripts however you like in the future. Some ideas:
 
 - Edit plotting styles in the Python files
 - Add new parameters to the CSV file and plot those
-- Modify inlist generation in `make_batch.py` -- grids need not be linear, continious or square
+- Modify inlist generation in `make_batch.py` -- grids need not be linear, continuous or square
 - Create your own analysis scripts based on the provided examples
 
 ---

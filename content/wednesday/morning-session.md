@@ -10,7 +10,7 @@ This lecture is focused on gaining a basic understanding of how the `binary` mod
 Stellar evolution is fun; with it, we can investigate a lot of aspects about stellar physics.
 However, a lot of stars in the universe come with companions, so it is important to have some tools to simulate a star and its companion, simultaneously.
 To this end, `mesa/binary` was conceived.
-In short, `mesa/binary`'s responsability is to make up to two stellar models communicate, by tracking the orbital angular momentum, the masses, and hence the period and separation.
+In short, `mesa/binary`'s responsibility is to make up to two stellar models communicate, by tracking the orbital angular momentum, the masses, and hence the period and separation.
 Routines are implemented to simulate the transfer of mass between the components, as well as processes that affect the angular momentum budget, such as the emission of gravitational radiation.
 The evolution of the stars themselves is still done within `mesa/star`, with its own set of settings that one is used from doing single star evolution.
 
@@ -353,7 +353,7 @@ A `pgbinary` window should spawn that looks somewhat like this:
 
 Depending on your screen size, you might want to change the window sizes in `Grid1_win_width` and `Grid1_win_aspect_ratio`, and also the text scalings to see things better (`Grid1_txt_scale_factor(1)` and others for different panels).
 
-As this run progresses, you should see the system evolving from detached to semi-detached, as the star 1 will start transfering mass to star 2.
+As this run progresses, you should see the system evolving from detached to semi-detached, as the star 1 will start transferring mass to star 2.
 The simulation should stop at around 86 steps with the system entering a contact phase!
 
 ## Recap
