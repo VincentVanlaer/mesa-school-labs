@@ -12,6 +12,9 @@ path = 'logo.png'
 width = 50
 height = 50
 
+[params.highlight.copy]
+display = 'always'
+
 [[menu.main]]
 name = 'Monday'
 pageRef = '/monday/'
@@ -42,4 +45,7 @@ enable = true
 
 [markup.goldmark.extensions.passthrough.delimiters]
 block = [['\[', '\]'], ['$$', '$$']]
-inline = [['$', '$']]
+inline = [['$', '$'], ['\(', '\)']]
+
+[markup.goldmark.renderer]
+unsafe = true
