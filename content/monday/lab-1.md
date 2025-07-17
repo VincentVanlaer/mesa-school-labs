@@ -68,9 +68,11 @@ You'll see a number of executables, namely _clean_, _mk_, _re_ and
 _rn_. The subdirectories _make_ and _src_ contain the
 Makefile and extra code to include, but you don't have to look into that
 today. For now, let's take a look at the inlists *inlist*,
-*inlist_pgstar* and *inlist_project*. These files describe what you want
-MESA to do. In particular MESA will always look for *inlist*. **Using your
-favorite text editor, take a look at what is in *inlist*.**
+*inlist_pgstar* and *inlist_project*.
+The term inlist refers to MESA’s standard Fortran namelist file that launches a simulation. 
+It’s a plain text file where you group configuration variables into sections (namelists) 
+These files describe what you want MESA to do. In particular MESA will always look for *inlist*. 
+**Using your favorite text editor, take a look at what is in *inlist*.**
 
 What this *inlist* essentially does is redirect MESA to the other two
 inlist files for all the real content, with *inlist_project* containing
@@ -97,7 +99,7 @@ so this ``&starjob`` does not work on photo restarts.
 
 
 > [!NOTE]
-> Have you spotted those `d0` at the end of these lines? The `d` therein indicates that the numbers we provide are double precision floating point numbers in fortran. The number afterwards, `0` in this case, indicates the order of magnitude in a scientific notation. For example, `2.2d3 = 2200.0` or we could have written `initial_z = 1.4d-2`. Even when the order is zero, it is good practice to always add `d0` after your floats.
+> Have you spotted those `d0` at the end of these lines? The `d` therein indicates that the numbers we provide are double precision floating point numbers in fortran (which is 15 digits). The number afterwards, `0` in this case, indicates the order of magnitude in a scientific notation. For example, `2.2d3 = 2200.0` or we could have written `initial_z = 1.4d-2`. Even when the order is zero, it is good practice to always add `d0` after your floats.
 
 
 The opacity table MESA uses depends on the reference metallicity,
@@ -529,7 +531,9 @@ These settings tell MESA to track up to 20 distinct mixing and nuclear burning r
 **Run your model briefly to confirm your pgstar window now displays the updated plot configuration.**
 
 
-15. Profile Data (optional)
+---
+
+**Bonus Question**:  Profile Data (optional)
 
 While history files track global properties over time, profile files capture the star's internal structure at specific moments. These are essential for examining how variables change with radius inside the star. **Copy over the default profile column list.** 
 
@@ -547,9 +551,7 @@ After modifying this file, **tell MESA to use your custom profile columns by add
 profile_columns_file = 'my_profile_columns.list'
 ```
 
----
-
-**Bonus Question**: By default, MESA only saves a profile every 50 model steps. This might miss important evolutionary phases. How could you increase this frequency?
+By default, MESA only saves a profile every 50 model steps. This might miss important evolutionary phases. How could you increase this frequency?
 
 {{< details title="Click here to show the answer" closed="true" >}}
 
@@ -597,10 +599,10 @@ Move to the directory
 ```bash
 cd png
 ```
-and then we can use one of the following to create a video:
+
+MESA includes a script that is able to create movies. [More instructions.](http://user.astro.wisc.edu/~townsend/static.php?ref=mesasdk#Making_Movies)
 ```bash
-ffmpeg -r 10 -i %06d.png -c:v libx264 evolution.mp4
-convert *.png evolution.gif
+images_to_movie “*.png” evolution.mp4
 ```
 {{< /details >}}
 
@@ -671,11 +673,13 @@ We'll make two adjustments to keep our work organized. After selecting your para
 save_model_filename = 'M{mass}_Z{metallicity}_{scheme}_fov{fov}_f0ov{f0}.mod'
 ```
 
-For example, if you selected a 15 $M_\odot$ star with $Z=0.014$, exponential overshooting with $f_\text{ov}=0.01$ and $f_0=0.001$, your filename would be:
+For example, if you selected a 15 $M_\odot$ star with $Z=0.014$, exponential overshooting with $f_\text{ov}=0.01$ and $f_0=0.001$, your filename would be (Note the lack of squiggly brackets {} - be sure to remove these):
 
 ```fortran
 save_model_filename = 'M15_Z0014_exponential_fov001_f0ov0001.mod'
 ```
+
+
 
 MESA normally writes all history and profile data to a directory called `LOGS/`. To keep these outputs separate from your previous run, we'll direct MESA to use a different output directory. **Add the following to your `inlist_project` under the `&controls` section:**
 
