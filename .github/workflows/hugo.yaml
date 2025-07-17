@@ -74,12 +74,13 @@ jobs:
 
   # Deployment job
   deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     needs: build
+    environment: main-website
     steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+      - run: 'echo "$SSH_KEY" > key && chmod 600 key'
+        shell: bash
+        env:
+          SSH_KEY: ${{secrets.MAIN_WEBSITE_KEY}}
+      - run: 'mkdir -p ~/.ssh/ && echo "4d-star.org ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAID8XAj3myqtRiGt/MwBFWvwCeBWEXMqDAwS+lLo+Km0R" > ~/.ssh/known_hosts'
+      - run: 'ssh -i key mesa-school-leuven@4d-star.org'

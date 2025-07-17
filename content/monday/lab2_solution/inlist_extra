@@ -1,0 +1,28 @@
+&controls
+  ! Here we can add our controls
+   
+  ! change the LOGS directory
+    log_directory = 'output_overshoot/LOGS'
+
+  ! mixing
+    overshoot_scheme(2) = 'step'
+    overshoot_zone_type(2) = 'burn_He'
+    overshoot_zone_loc(2) = 'core'
+    overshoot_bdy_loc(2) = 'top'
+    overshoot_f(2) = 0.1
+    overshoot_f0(2) = 0.005
+    
+  !  calculate_Brunt_B = .true.
+  !  calculate_Brunt_N2 = .true.
+  !  overshoot_brunt_B_max = 1d-1
+    
+/ ! end of controls namelist
+
+
+&pgstar
+  ! Here we can edit stuff related to pgstar
+  
+  ! change the png directory
+    Grid1_file_dir = 'output_overshoot/png'
+  
+/ ! end of star_job namelist
