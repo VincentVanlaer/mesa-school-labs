@@ -105,50 +105,40 @@ Save the summary and detail files in human-readable format. For example:
 
 ## 5. Echelle Diagram and Rotational Splitting
 
-Once your GYRE run is complete:
-
-- Use the output to plot an **echelle diagram** (you can use the same google colab from Lab 2)
-- You should see that the `l = 1` ridge is now split into **three distinct components**, corresponding to `m = -1, 0, +1`
-- This is **direct evidence** of rotational splitting
-
-**Now compare the observed splitting in the diagram with the Δω<sub>g</sub> you measured in Lab 1**
-
-For instance:
-- Estimate the frequency difference between `m = ±1` and `m = 0`
-- Check if this roughly matches the rotation rate implied by Δω<sub>g</sub> from the g-mode period spacing
-
-### Echelle Diagram: Non-Rotating vs Rotating
-
 The animation below compares the echelle diagrams from **Lab 2 (no rotation)** and **Lab 3 (with rotation)**.  
-Notice how the `l = 1` ridge clearly splits in the rotating case:
+Notice how the $l = 1$ ridge clearly splits in the rotating case:
 
 ![Echelle comparison](img/echelle_comparison.gif)
-
 
 Once your GYRE run is complete:
 
 - Use the output to plot an **echelle diagram**
-- You should see that the `l = 1` ridge is now split into **three distinct components**, corresponding to `m = -1, 0, +1`
+- You should see that the $\ell = 1$ ridge is now split into **three distinct components**, corresponding to $m = -1, 0, +1$
 - This is **direct evidence** of rotational splitting
 
-**Now compare the observed splitting in the diagram with the Δω<sub>g</sub> you measured in Lab 1**
+**Now compare the observed splitting in the diagram with the $\delta\Omega_g$ you measured in Lab 1**
 
 For instance:
-- Estimate the frequency difference between `m = ±1` and `m = 0`
-- Check if this roughly matches the rotation rate implied by Δω<sub>g</sub> from the g-mode period spacing
+- For each value of $n_pg$, we may estimate the rotational splitting by either computing the difference between the $m =\pm1$ and $m = -1$ mode frequencies, or from half the difference between the $m = +1$ and $m=-1$ frequencies. Do these agree? How does this change as a function of the $m=0$ mode frequency?
+- Check if this roughly matches the rotation rate implied by $\delta\Omega_g$ from the g-mode period spacing, using values computed from Lab 1.
 
-### Note on *m* = 0 Mode Shifts
+### Note on $m = 0$ Mode Shifts
 
 When using the Traditional Approximation of Rotation (TAR) along with the Cowling approximation, the *m* = 0 modes may show a slight frequency shift compared to the non-rotating case. This is not a splitting but rather a systematic offset introduced by the TAR treatment, particularly noticeable in high-order *g*-modes.
-
 
 ---
 
 ## 6. Deliverables
 
-- Your `gyre.in` input file with rotation and m ≠ 0 modes
+- Your `gyre.in` input file with rotation and $m \ne 0$ modes
 - A plot of your echelle diagram, showing rotational splitting
-- A short note comparing the observed splitting to your Δω<sub>g</sub> measurement from Lab 1
+- A short note comparing the observed splitting to your $\delta\Omega_g$ measurement from Lab 1
+
+---
+
+## The Big Picture
+
+The JWKB estimators that we computed in Lab 1 are limiting values for pure p- and pure g-mode rotationa splittings. On the other hand, the mixed modes in red giants can be interpreted naturally as possessing some combination of g-like character (with g-modes confined to the core of the star), and p-like character (with p-modes propagating in the envelope of the star). Thus, we would anticipate the rotational splittings of a mixed mode to take some intermediate value between one and the other. Red giants also tend to have cores that rotate much more quickly than the envelopes. Thus, considered as a function of frequency, we would expect to see the rotational splittings to be *small* at frequencies similar to those of pure p-modes, and *large* for frequencies close to pure g-modes.
 
 ---
 
@@ -173,7 +163,7 @@ This will enforce a constant rotation rate. How does this affect the splitting p
 
 Let us know if you run into any trouble — and have fun seeing rotation in action!
 
-# Lab 3 BONUS: Rotation Kernels
+## Lab 3 BONUS: Rotation Kernels
 
 ## Rotation Kernels and Rotational Splitting
 
@@ -237,6 +227,9 @@ In this example, lower-order \( g \)-modes (e.g., \( n = -30 \)) exhibit smaller
 - Write a clean `main.py` to iterate over selected modes, compute quantities, and print results.
 - You can optionally plot \( K(r) \) to visualize where a mode is sensitive to rotation.
 
+### Full Solutions
+
+A sample implementation of the integration to obtain rotational kernels and splittings can be found [here](lab3_solutions.zip).
 
 ```python
 # main.py

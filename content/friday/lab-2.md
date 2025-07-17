@@ -245,7 +245,7 @@ But if we calculate rotation we need to assume some approximations. In Lab 3 we 
 alpha_grv = 0 
 reduce_order = .false.
 ```
-Be aware that this is only done to better compare the rotating to non-rotating results. For other science cases it is not necessary to use these approximations 
+Be aware that this is only done to better compare the rotating to non-rotating results. For other science cases it is not necessary to use these approximations.
 
 ## Running GYRE
 
@@ -259,6 +259,10 @@ $ $GYRE_DIR/bin/gyre gyre.in
 
 
 GYRE will output a bunch of numbers describing the grids it generates and the modes it found. When it finishes you can open the summary file and inspect its contents.
+
+|⚠️ CHECKPOINT |
+|:--|
+|Before we proceed further, let's take some time for you to check that your outputs are well-formed. If you should need it, you can compare your namelist file with a sample one that we have provided [here.](sample_gyre.in)|
 
 Tables are nice but we also want to plot these outputs. Gyre doesn't come with something like pgstar for MESA and we have to make the plots ourself. We prepared a google colab link for you with various plotting functions. You can open it [here](https://colab.research.google.com/drive/1zFC6y4FgZdMdoMUHLFN3mfF1xO2heOwa?usp=sharing). You may need to save it into your google drive folder to be able to edit it.
 

@@ -29,20 +29,19 @@ We will not need to extract the GYRE source code from a tar file, as it is alrea
 
 ### Set Environment Variables
 Secondly, we will set the environment variable `$GYRE_DIR` equal to the following:
-
-``export GYRE_DIR=$MESA_DIR/gyre/gyre``
+```export GYRE_DIR=$MESA_DIR/gyre/gyre```
 
 Remember that this is best placed inside your shell's RC file in your home directory (usually `.bashrc` or equivalent), similarly to when you first installed MESA. **Don't forget to `source` this file to apply the changes to your terminal window!**
 
 ### Compile
 Now, we can follow the GYRE installation guide from this point. Go ahead and compile:
 
-``$ make -j -C $GYRE_DIR install``
+```make -j -C $GYRE_DIR install```
 
 ### Test
 Once that's complete, it's good practice to run the test suite to ensure nothing has gone wrong during the installation process:
 
-``$ make -C $GYRE_DIR test``
+```make -C $GYRE_DIR test```
 
 |ℹ️ INFO |
 |:--|
@@ -56,7 +55,7 @@ In today's labs, we will be studying the oscillation frequencies of red giant st
 
 ### 1: Download our template from Github
 
-First, create a new working directory for your rotating star model. Call it whatever you like. Then copy in all of the files from [the template](lab1_template.zip). Place these files into your working directory. Your directory should have the following files in it.
+First, extract all of the files from [the template](lab1_template.zip) into a new working directory for your rotating star model. Call it whatever you like. Your working directory should have the following files in it.
 
 ```
 >> tree .
@@ -85,9 +84,9 @@ First, create a new working directory for your rotating star model. Call it what
 
 The files you've downloaded will be a template version of the files you need to run this lab. First we will need to add a few lines to the inlist that runs the star (`inlist_1M_star`). 
 
-#### star_job
+#### `&star_job`
 
-Notice that we are starting from a 1Msun TAMS model called `tams.mod`. That TAMS model is non-rotating, but this isn't an issue for our rotating model. We initialize the rotation at TAMS in order to save time in the simulation. In your science, you should initialize rotation in a place that makes sense for the problem you are working on. For our purposes, this will be fine as we only care about rotation on the RGB phase.
+Notice that we are starting from a $M_\odot$ TAMS model called `tams.mod`. That TAMS model is non-rotating, but this isn't an issue for our rotating model. We initialize the rotation at TAMS in order to save time in the simulation. In your science, you should initialize rotation in a place that makes sense for the problem you are working on. For our purposes, this will be fine as we only care about rotation on the RGB phase.
 
 We will initialize rotation in the `&star_job` portion of the inlist. There are many options in MESA for this ([see docs here for an example](https://docs.mesastar.org/en/latest/reference/star_job.html#new-rotation-flag)). We will initialize our rotation as a solid body by setting an initial $\Omega/\Omega_{crit}$ which will be constant across the star.
 
@@ -135,12 +134,9 @@ While you don't need to change these, you should notice that we are running this
 Since our star is rotating, we can calculate analytically the effect of rotation on the different types of oscillation modes (p-modes and g-modes) in the red giant star. These will be discussed further in Lab 3, but for now we should implement the calculation of them.
 
 In the JWKB approximation, we have the following estimators for p-modes and g-modes, respectively:
-
 $$\delta \Omega_p = \frac{\int_0^R \Omega(r){\mathrm d r \over c_s}}{\int_0^R \mathrm 1/c_s \mathrm d r}$$
-
 $$\delta \Omega_g = 0.5 \frac{\int_{N^2>0} \Omega(r){N \over r}\mathrm d r}{\int_{N^2>0}\frac{N}{r} {\mathrm d r}}$$
-
-Where $\Omega(r)$ indicates the rotation rate (`s% omega`), $N$ indicates the Brunt-Väisälä frequency (`s% brunt_N`) and $c_s$ indicates the sound speed (`s% csound`)
+Where $\Omega(r)$ indicates the rotation rate (`s% omega`), $N$ indicates the Brunt-Väisälä frequency (`s% brunt_N`) and $c_s$ indicates the sound speed (`s% csound`). These are, effectively, average values of of the rotation rate as sensed by p- and g-modes in a star.
 
 We can easily add these estimators to the MESA output as a history file. We will outline the process below, since there are some fortran specifics you may not know, but feel free to go ahead and code up these equations now if you are confident in your fortran coding.
 
@@ -183,17 +179,23 @@ You can call the function `integrate_r_` from within any subroutine without need
 |:--|
 | 2. Edit your `src/run_star_extras.f90` file to add the above JWKB estimator for $\delta\Omega_p$ as a history column. Call this column `delta_omega_p`. |
 
-|ℹ️ HINT 1 |
-|:--|
-| Remember you will need to allocate memory to any variables (i.e. declare your variables and their type) at the top of the `data_for_extra_history_columns` subroutine. |
+{{ <details title="ℹ️ HINT 1" closed="true"> }}
 
-|ℹ️ HINT 2 |
-|:--|
-| Remember you can call these terms from the star pointer with `s% r` for the radius, `s% omega` for omega, and `s% csound` for the sound speed. |
+Remember you will need to allocate memory to any variables (i.e. declare your variables and their type) at the top of the `data_for_extra_history_columns` subroutine.
 
-|ℹ️ HINT 3 |
-|:--|
-| When you pass arrays to the `integrate_r_` fortran function, you will need to specify the entire array should be passed. This can be done by first declaring an integer variable (`integer :: nz`) for the number of zones, then defining it from the star pointer (`nz = s% nz`), and then passing it to the integration function as e.g. `integrate_r_(s% r(1:nz), ...` |
+{{ </details> }}
+
+{{ <details title="ℹ️ HINT 2" closed="true"> }}
+
+Remember you can call these terms from the star pointer with `s% r` for the radius, `s% omega` for omega, and `s% csound` for the sound speed.
+
+{{ </details> }}
+
+{{ <details title="ℹ️ HINT 3" closed="true"> }}
+
+When you pass arrays to the `integrate_r_` fortran function, you will need to specify the entire array should be passed. This can be done by first declaring an integer variable (`integer :: nz`) for the number of zones, then defining it from the star pointer (`nz = s% nz`), and then passing it to the integration function as e.g. `integrate_r_(s% r(1:nz), ...`
+
+{{ </details> }}
 
 <details>
 <summary>ℹ️ SOLUTION</summary>
@@ -287,9 +289,11 @@ The short answer is yes, but that's only because we've already masked out the $N
 |:--|
 | 2. Edit your `src/run_star_extras.f90` file to add the above JWKB estimator for $\delta\Omega_g$ as a history column. Call this column `delta_omega_g`. |
 
-|ℹ️ HINT |
-|:--|
-| Is your mask allocation and deallocation in the proper order around using the variables? Allocation should occur before defining the mask and deallocation should occur after the history column has been saved. |
+{{ <details title="ℹ️ HINT" closed="true"> }}
+
+Is your mask allocation and deallocation in the proper order around using the variables? Allocation should occur before defining the mask and deallocation should occur after the history column has been saved.
+
+{{ </details> }}
 
 |ℹ️ SOLUTION BELOW |
 |:--|
@@ -413,17 +417,23 @@ For Lab 2, you will be asked to calculate rotation frequencies at specific $\nu_
 |:--|
 | 1. Edit your `src/run_star_extras.f90` file to only output profiles (and GYRE files) whenever $\nu_{\rm max}$ is at a specific, user input value. |
 
-|ℹ️ HINT 1 |
-|:--|
-| You will need to edit both the `&controls` section of `inlist_1M_star` and `extras_finish_step` in  `src/run_star_extras.f90`. |
+{{ <details title="ℹ️ HINT 1" closed="true"> }}
 
-|ℹ️ HINT 2 |
-|:--|
-| Some controls parameters that might be helpful to you are `write_profiles_flag` (and its corresponding value in `star_info`), as well as `s% need_to_save_profiles_now`. |
+You will need to edit both the `&controls` section of `inlist_1M_star` and `extras_finish_step` in  `src/run_star_extras.f90`.
 
-|ℹ️ HINT 3 |
-|:--|
-| Counterintuitively, you will need to change your profile_interval to 1. |
+{{ </details> }}
+
+{{ <details title="ℹ️ HINT 2" closed="true"> }}
+
+Some controls parameters that might be helpful to you are `write_profiles_flag` (and its corresponding value in `star_info`), as well as `s% need_to_save_profiles_now`.
+
+{{ </details> }}
+
+{{ <details title="ℹ️ HINT 3" closed="true"> }}
+
+Counterintuitively, you will need to change your profile_interval to 1.
+
+{{ </details> }}
 | This is because the `profile_interval` will still matter even if you tell MESA to output a file in run_star_extras. So, for example if the profile closest to your $\nu_\text{max}$ is model number 21, and your `profile_interval` is 5, then MESA will still skip the output of model number 21 regardless of what you tell it in `run_star_extras`. |
 
 <details>
