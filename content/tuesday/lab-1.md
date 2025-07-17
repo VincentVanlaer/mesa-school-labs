@@ -320,7 +320,7 @@ Finally let's run MESA! The run will stop automatically after it reaches the sto
 > **Look at the mixing panel** (large panel on the upper right-hand side) to confirm that the instability you included in the `inlist_project` was activated.
 > See how the rotation profile evolves with time.
 
-After your run is finished, open the `history.data` file in your favourite text editor and look in the last line (which corresponds to the last computed model) for the data required to fill in the google spreasheet. 
+After your run is finished, open the `history.data` file in your favourite text editor and look in the last line (which corresponds to the last computed model) for the data required to fill in the google spreadsheet. 
 | 📋 TASK |
 |:--------|
 |1. Insert the values of `omega_core` `omega_surf` and `surf_avg_omega_div_omega_crit` of your last model in the [google spreadsheet](https://docs.google.com/spreadsheets/d/1Rc_gstPrDX4eZfTN4dc20j9K_ddqjsyR0gEtQT2xd2s/edit?usp=sharing).|

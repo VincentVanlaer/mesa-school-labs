@@ -396,7 +396,7 @@ the overshooting and the core mass. Numerically, the modeling of the convective 
 is challenging and has to do with the $\nabla_\text{rad}$ profile changing during the evolution, leading to
 the formation of a convective region when reaching a local minimum. 
 It is not clear if the helium breathing pulses are of physical or numerical nature. If you want to
-read more about helium breathing pulses, you can check out these papers: [Castellani et al. 1985](https://ui.adsabs.harvard.edu/abs/1985ApJ...296..204C/abstract), [Constantino et al. 2016](https://ui.adsabs.harvard.edu/abs/2016MNRAS.456.3866C/abstract), [Salaris & Cassisi 2017](https://ui.adsabs.harvard.edu/abs/2017RSOS....470192S/abstract), [Paxton et al. 2018](https://ui.adsabs.harvard.edu/abs/2018ApJS..234...34P/abstract), and [Córsico & Althaus 2024](https://ui.adsabs.harvard.edu/abs/2024ApJ...964...30C/abstract) (their figure 1 nicely illustrates the impact of the breathing pules on the core helium burning time).
+read more about helium breathing pulses, you can check out these papers: [Castellani et al. 1985](https://ui.adsabs.harvard.edu/abs/1985ApJ...296..204C/abstract), [Constantino et al. 2016](https://ui.adsabs.harvard.edu/abs/2016MNRAS.456.3866C/abstract), [Salaries & Cassisi 2017](https://ui.adsabs.harvard.edu/abs/2017RSOS....470192S/abstract), [Paxton et al. 2018](https://ui.adsabs.harvard.edu/abs/2018ApJS..234...34P/abstract), and [Córsico & Althaus 2024](https://ui.adsabs.harvard.edu/abs/2024ApJ...964...30C/abstract) (their figure 1 nicely illustrates the impact of the breathing pules on the core helium burning time).
 
 {{< /details >}}
 
@@ -544,7 +544,7 @@ in the upper part of your *inlist_pgstar*:
 	Profile_Panels1_yaxis_name(1) = ''
 	Profile_Panels1_other_yaxis_name(1) = ''
 ```
-as you can see the "Profile_Panels1_yaxis_name" and "Profile_Panels1_yaxis_name" are left blank so far. This is where we want to add the individual gradients. Unfortunately, we do not have an output yet for them. The Profile_Panels access the parameters that are used in the profile_cloumns.list. Open *my_profile_columns.list* and search for the adiabatic and radiative temperature gradients and comment them out.
+as you can see the "Profile_Panels1_yaxis_name" and "Profile_Panels1_yaxis_name" are left blank so far. This is where we want to add the individual gradients. Unfortunately, we do not have an output yet for them. The Profile_Panels access the parameters that are used in the profile_columns.list. Open *my_profile_columns.list* and search for the adiabatic and radiative temperature gradients and comment them out.
 
 {{< details title="Show answer" closed="true" >}}
 

@@ -305,7 +305,7 @@ end function extras_finish_step
 
          ! if you want to check multiple conditions, it can be useful
          ! to set a different termination code depending on which
-         ! condition was triggered.  MESA provides 9 customizeable
+         ! condition was triggered.  MESA provides 9 customizable
          ! termination codes, named t_xtra1 .. t_xtra9.  You can
          ! customize the messages that will be printed upon exit by
          ! setting the corresponding termination_code_str value.
@@ -1073,7 +1073,7 @@ Your complete `inlist_pgstar` should look like this:
   Grid1_plot_pad_bot(2) = 0.07
   Grid1_txt_scale_factor(2) = 0.5
 
-  ! Add abudance profile plot
+  ! Add abundance profile plot
 
   Grid1_plot_name(3) = 'Power'
 

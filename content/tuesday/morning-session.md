@@ -76,7 +76,7 @@ Hi, I'm [Bill Wolf](https://billwolf.space). I'm an associate professor of physi
 
 ### Acknowledgements
 
-This material is strongly influenced by similar material from past MESA schools by [Josiah Schwab](http://yoshiyahu.org), a former MESA developer. Specifically, this material is a light updating and reformating of the later material in his [introductory materials for the 2021 MESA summer school](https://jschwab.github.io/mesa-2021/).
+This material is strongly influenced by similar material from past MESA schools by [Josiah Schwab](http://yoshiyahu.org), a former MESA developer. Specifically, this material is a light updating and reformatting of the later material in his [introductory materials for the 2021 MESA summer school](https://jschwab.github.io/mesa-2021/).
 
 ## Part 0: Fortran Basics
 
@@ -483,7 +483,7 @@ Below is the complete contents of what your edited `run_star_extras.f90` file sh
 
          ! if you want to check multiple conditions, it can be useful
          ! to set a different termination code depending on which
-         ! condition was triggered.  MESA provides 9 customizeable
+         ! condition was triggered.  MESA provides 9 customizable
          ! termination codes, named t_xtra1 .. t_xtra9.  You can
          ! customize the messages that will be printed upon exit by
          ! setting the corresponding termination_code_str value.
@@ -727,7 +727,7 @@ integer function extras_check_model(id)
 
     ! if you want to check multiple conditions, it can be useful
     ! to set a different termination code depending on which
-    ! condition was triggered.  MESA provides 9 customizeable
+    ! condition was triggered.  MESA provides 9 customizable
     ! termination codes, named t_xtra1 .. t_xtra9.  You can
     ! customize the messages that will be printed upon exit by
     ! setting the corresponding termination_code_str value.
@@ -861,7 +861,7 @@ if (ierr /= 0) return
 The `star_ptr` subroutine takes the `id` of the star model (which is passed to the function) and sets the pointer `s` to point to the star info structure for that model. If there is an error, it sets `ierr` to a non-zero value, which we check for immediately after calling `star_ptr`. If there is an error, we return from the function early.
 This is a common pattern in MESA code, and you'll see it in many of the functions in `run_star_extras.f90`. The star info structure is a powerful tool that allows you to access all the data about your star model, and it's essential to understand how to use it.
 
-So what are all the "members" of the star info structure? Unfortunately, they're not as well documented as they could be, but here are a few guidlines for learning about different types of memebers.
+So what are all the "members" of the star info structure? Unfortunately, they're not as well documented as they could be, but here are a few guidelines for learning about different types of members.
 
 - **Stellar Structure:** For quantities of interest for stellar structure, check `$MESA_DIR/star_data/public/star_data_step_work.inc` and `$MESA_DIR/star_data/public/star_data_step_input.inc`, though other files in the same folder may also contain useful members. **Unless otherwise specified in the comments, all members are in cgs units.** This is not usually the case for *inlist* values, which often use solar values.
 
