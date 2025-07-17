@@ -179,23 +179,23 @@ You can call the function `integrate_r_` from within any subroutine without need
 |:--|
 | 2. Edit your `src/run_star_extras.f90` file to add the above JWKB estimator for $\delta\Omega_p$ as a history column. Call this column `delta_omega_p`. |
 
-{{ <details title="ℹ️ HINT 1" closed="true"> }}
+{{ < details title="ℹ️ HINT 1" closed="true" > }}
 
 Remember you will need to allocate memory to any variables (i.e. declare your variables and their type) at the top of the `data_for_extra_history_columns` subroutine.
 
-{{ </details> }}
+{{ < /details > }}
 
-{{ <details title="ℹ️ HINT 2" closed="true"> }}
+{{ < details title="ℹ️ HINT 2" closed="true" > }}
 
 Remember you can call these terms from the star pointer with `s% r` for the radius, `s% omega` for omega, and `s% csound` for the sound speed.
 
-{{ </details> }}
+{{ < /details > }}
 
-{{ <details title="ℹ️ HINT 3" closed="true"> }}
+{{ < details title="ℹ️ HINT 3" closed="true" > }}
 
 When you pass arrays to the `integrate_r_` fortran function, you will need to specify the entire array should be passed. This can be done by first declaring an integer variable (`integer :: nz`) for the number of zones, then defining it from the star pointer (`nz = s% nz`), and then passing it to the integration function as e.g. `integrate_r_(s% r(1:nz), ...`
 
-{{ </details> }}
+{{ < /details > }}
 
 <details>
 <summary>ℹ️ SOLUTION</summary>
@@ -289,11 +289,11 @@ The short answer is yes, but that's only because we've already masked out the $N
 |:--|
 | 2. Edit your `src/run_star_extras.f90` file to add the above JWKB estimator for $\delta\Omega_g$ as a history column. Call this column `delta_omega_g`. |
 
-{{ <details title="ℹ️ HINT" closed="true"> }}
+{{ < details title="ℹ️ HINT" closed="true" > }}
 
 Is your mask allocation and deallocation in the proper order around using the variables? Allocation should occur before defining the mask and deallocation should occur after the history column has been saved.
 
-{{ </details> }}
+{{ < /details > }}
 
 |ℹ️ SOLUTION BELOW |
 |:--|
@@ -417,23 +417,23 @@ For Lab 2, you will be asked to calculate rotation frequencies at specific $\nu_
 |:--|
 | 1. Edit your `src/run_star_extras.f90` file to only output profiles (and GYRE files) whenever $\nu_{\rm max}$ is at a specific, user input value. |
 
-{{ <details title="ℹ️ HINT 1" closed="true"> }}
+{{ < details title="ℹ️ HINT 1" closed="true" > }}
 
 You will need to edit both the `&controls` section of `inlist_1M_star` and `extras_finish_step` in  `src/run_star_extras.f90`.
 
-{{ </details> }}
+{{ < /details > }}
 
-{{ <details title="ℹ️ HINT 2" closed="true"> }}
+{{ < details title="ℹ️ HINT 2" closed="true" > }}
 
 Some controls parameters that might be helpful to you are `write_profiles_flag` (and its corresponding value in `star_info`), as well as `s% need_to_save_profiles_now`.
 
-{{ </details> }}
+{{ < /details > }}
 
-{{ <details title="ℹ️ HINT 3" closed="true"> }}
+{{ < details title="ℹ️ HINT 3" closed="true" > }}
 
 Counterintuitively, you will need to change your profile_interval to 1.
 
-{{ </details> }}
+{{ < /details > }}
 | This is because the `profile_interval` will still matter even if you tell MESA to output a file in run_star_extras. So, for example if the profile closest to your $\nu_\text{max}$ is model number 21, and your `profile_interval` is 5, then MESA will still skip the output of model number 21 regardless of what you tell it in `run_star_extras`. |
 
 <details>
