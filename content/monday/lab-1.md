@@ -734,4 +734,4 @@ For an itroduction into utilising python as an analysis tool, see [bonus_tasks/p
 
 If you've completed the main lab activities and have time remaining, explore the automated parameter study framework in the [`bonus_tasks/`](lab1/bonus_tasks) directory. This framework enables systematic exploration of overshooting effects across a grid of stellar model parameters.
 
-For complete documentation and additional analysis tools, see [`bonus_tasks/README.md`](lab1/bonus_tasks).
+For complete documentation and additional analysis tools, see [`bonus_tasks/`](lab1/bonus_tasks).
