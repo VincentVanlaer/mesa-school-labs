@@ -142,6 +142,10 @@ $$
 {{< /details >}}
 
 
+{{< details title="Hint 5" closed="true" >}}
+Make sure that you use the pressure scale height at the correct radius coordinate. This could be done, for example, by defining a new variable `Hp_r` at the beginning of the `extras_finish_step` function. Then, in the first `DO`-loop, you can assign this variable the pressure scale height of the desired zone (`Hp_r = s% scale_height(k)`).
+{{< /details >}}
+
 {{< details title="Solution" closed="true" >}}
 Now, the drag force in the supersonic regime is a bit weaker. Therefore, the plunge-in takes longer. The orbital separation after 2 years of CE is $\sim 74.1~\mathrm{R}_\odot$.
 For the full implementation, see **[⬇ here](/mesa-school-labs-2025/wednesday/lab3_task5_solution.zip)**.
@@ -152,7 +156,7 @@ For the full implementation, see **[⬇ here](/mesa-school-labs-2025/wednesday/l
 Now, we want to explore the effect of CE evolution on the gravitational wave (GW) inpiral time. The formula for the GW merger time was already introduced in the previous lab:
 $$t_{\mathrm{merge}} = \frac{5}{256} \cdot \frac{c^5 a^4}{G^3 M_1 M_2 (M_1 + M_2)}.$$
 
-Write a `subroutine` in `run_star_extras.f90` that computes the merger time (in Gyr) and prints this to the terminal. Reuse as much code as possible from the previous lab. Call this subroutine at the beginning and at the end of the simulation and compare the difference. What are the implications for observed GW mergers and a possible CE history of the system?
+Write a `subroutine` in `run_star_extras.f90` that computes the merger time (in Gyr) and prints this to the terminal. Reuse as much code as possible from the previous lab. Call this subroutine at the beginning and at the end of the simulation and compare the difference. What are the implications for observed GW mergers and a possible CE history of the system? How do the results differ from the GW merger times in Lab 2? What consequences does this have on binary star evolution leading to GW mergers?
 
 > [!TIP]
 > Use this structure for the new subroutine. Add it to the end of the `run_star_extras.f90` file (in between `end subroutine extras_after_evolve` and `end module run_star_extras`).
@@ -269,7 +273,7 @@ The modified `extras_startup` and `extras_after_evolve` could look like this:
       end subroutine extras_after_evolve
 ```
 
-For the fiducial model ($M_2=1.4\,\mathrm{M}_\odot$ and $C_\mathrm{drag} = 1.0$), the initial merger time is $2\times 10^8$ Gyr, and the final merger time is $2\times 10^{3}$ Gyr. The merger time is reduced by a factor of $10^5$ during CE, increasing the strength of GWs and speeding up the merger. However, even the final merger time is much longer than the age of the Universe ($~14$ Gyr). But further mass transfer episodes may bring the binary even closer and reduce the GW merger time.
+For the fiducial model ($M_2=1.4\,\mathrm{M}_\odot$ and $C_\mathrm{drag} = 1.0$), the initial merger time is $2\times 10^8$ Gyr, and the final merger time is $2\times 10^{3}$ Gyr. The merger time is reduced by a factor of $10^5$ during CE, increasing the strength of GWs and speeding up the merger. However, even the final merger time is much longer than the age of the Universe ($~14$ Gyr). But further mass transfer episodes may bring the binary even closer and reduce the GW merger time. Compared to lab 2, we see hat CE is much more efficient in reducing the merger time compared to mass transfer, making CE evolution a likely formation channel for the observed GW mergers.
 For the full implementation, see **[⬇ here](/mesa-school-labs-2025/wednesday/lab3_bonus_solution.zip)**.
 
 {{< /details >}}
