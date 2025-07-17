@@ -235,7 +235,7 @@ Can you print out which mass transfer cases a binary system undergoes throughout
 
 
 ## Task 2. Determine mass transfer stability
-In some cases, mass transfer becomes unstable, leading the binary to enter a common-envelope phase. Run a binary model with an initial primary mass of 20 Msun, an initial secondary mass of 6 Msun, and an initial orbital period of 5 days by modifying `inlist_extra`. What do you see in the screen output and in the PGSTAR plot? Can you identify which parameter is changing significantly?  
+In some cases, mass transfer becomes unstable, leading the binary to enter a common-envelope phase. Run a binary model with an initial primary mass of 20 Msun, an initial secondary mass of 6 Msun, and an initial orbital period of 5 days by modifying `inlist_extra`. **What do you see in the screen output and in the PGSTAR plot? Can you identify which parameter is changing significantly?**  
 Stop the run manually by `Ctrl+C` when the model number reaches ~150.
 
 One way to detect this instability is to check the mass transfer rate and the timestep. If the mass transfer rate is high (greater than $10^{-3}$ Msun/yr) and the timestep becomes very small (less than 0.1 years), it is an indication that unstable mass transfer has started.
