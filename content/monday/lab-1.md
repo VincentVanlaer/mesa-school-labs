@@ -728,13 +728,10 @@ TA for assistance with that.
 20. Now let's wrap up this lab by reading your MESA output in using Python
 and making some custom plots.
 
-For an itroduction into utilising python as an analysis tool, see 
-[bonus_tasks/python_analysis](lab1/bonus_tasks/python_analysis)
-[`python_analysis/README.md`](https://github.com/nialljmiller/mesa-school-labs/tree/main/content/monday/lab1/bonus_tasks/python_analysis/README.md).
-
+For an itroduction into utilising python as an analysis tool, see [bonus_tasks/python_analysis](lab1/bonus_tasks/python_analysis).
 
 ### F :  BONUS: Batch Parameter Studies with MESA
 
-If you've completed the main lab activities and have time remaining, explore the automated parameter study framework in the [`bonus_tasks/`](https://github.com/nialljmiller/mesa-school-labs/tree/main/content/monday/lab1/bonus_tasks) directory. This framework enables systematic exploration of overshooting effects across a grid of stellar model parameters.
+If you've completed the main lab activities and have time remaining, explore the automated parameter study framework in the [`bonus_tasks/`](lab1/bonus_tasks) directory. This framework enables systematic exploration of overshooting effects across a grid of stellar model parameters.
 
-For complete documentation and additional analysis tools, see [`bonus_tasks/README.md`](https://github.com/nialljmiller/mesa-school-labs/tree/main/content/monday/lab1/bonus_tasks/README.md).
+For complete documentation and additional analysis tools, see [`bonus_tasks/README.md`](lab1/bonus_tasks).
