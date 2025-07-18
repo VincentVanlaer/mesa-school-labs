@@ -334,6 +334,9 @@ Here is the solution to the bonus task.
 
 ```
 
+{{< /details >}}
+
+
 > [!Important]
 > **Extra bonus task!:**
 > We have an extra bonus task for you that explores stopping criteria and fitting a model for yet another observed system! You can find it **[here](/mesa-school-labs-2025/wednesday/bonus-2/)** .
