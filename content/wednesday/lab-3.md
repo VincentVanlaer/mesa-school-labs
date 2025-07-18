@@ -1,5 +1,5 @@
 ---
-authors: Vincent Bronner (lead TA), Hannah Brinkman, Harim Jin, Eva Laplace, Amadeusz Miszuda
+author: Vincent Bronner (lead TA), Hannah Brinkman, Harim Jin, Eva Laplace, Amadeusz Miszuda
 ---
 
 # Common Envelope evolution with MESA

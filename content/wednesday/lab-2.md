@@ -1,5 +1,5 @@
 ---
-authors: Amadeusz Miszuda (lead TA), Hannah Brinkman, Vincent Bronner, Harim Jin, Eva Laplace
+author: Amadeusz Miszuda (lead TA), Hannah Brinkman, Vincent Bronner, Harim Jin, Eva Laplace
 ---
 # X-ray binaries - exploring Cyg X-1
 

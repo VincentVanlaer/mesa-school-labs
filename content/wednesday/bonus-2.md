@@ -1,5 +1,5 @@
 ---
-authors: Hannah Brinkman (lead TA), Eva Laplace, Vincent Bronner, Harim Jin, Amadeusz Miszuda
+author: Hannah Brinkman (lead TA), Eva Laplace, Vincent Bronner, Harim Jin, Amadeusz Miszuda
 ---
 
 ## Wednesday Extra Bonus Task Lab 2: Upsilon Sagittarii

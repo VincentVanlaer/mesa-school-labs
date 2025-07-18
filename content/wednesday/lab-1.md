@@ -1,5 +1,5 @@
 ---
-authors: Harim Jin (lead TA), Eva Laplace, Hannah Brinkman, Vincent Bronner, Amadeusz Miszuda
+author: Harim Jin (lead TA), Eva Laplace, Hannah Brinkman, Vincent Bronner, Amadeusz Miszuda
 ---
 
 ## Introduction
