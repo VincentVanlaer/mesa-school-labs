@@ -489,17 +489,17 @@ On some systems (including HPC systems, but more generally on networked file sys
 ```tex
 HDF5-DIAG: Error detected in HDF5 (1.10.2) thread 0:
 ##000: ../../src/H5F.c line 445 in H5Fcreate(): unable to create file
-major: File accessibility
+major: File accessibilty
 minor: Unable to open file
 ##001: ../../src/H5Fint.c line 1519 in H5F_open(): unable to lock the file
-major: File accessibility
+major: File accessibilty
 minor: Unable to open file
 ##002: ../../src/H5FD.c line 1650 in H5FD_lock(): driver lock request failed
 major: Virtual File Layer
 minor: Can’t update object
 ##003: ../../src/H5FDsec2.c line 941 in H5FD_sec2_lock(): unable to lock file,
 errno = 524, error message = 'Unknown error 524'
-major: File accessibility
+major: File accessibilty
 minor: Bad file ID accessed
 ```
 
