@@ -616,12 +616,12 @@ In this minilab, we will investigate how the choice of these parameters — part
 
 ### Task 2.1. Varying the Mass Transfer Efficiency
 
-To explore the effect of mass transfer efficiency on future evolution of Cyg X-1, we will vary the efficiency of mass transfer by changing the `mass_transfer_beta` parameter while keeping the initial primary masses and orbital period fixed, as were before. As each run may take a while, we will crowd-source this!
+To explore the effect of mass transfer efficiency on the future evolution of Cyg X-1, we will vary the efficiency of mass transfer by changing the `mass_transfer_beta` parameter while keeping the initial primary masses and orbital period fixed, as we did before. As each run may take a while, we will crowd-source this!
 
-The participants should split into groups that will be assigned different values of `mass_transfer_beta` and `limit_retention_by_mdot_edd`, which is a control for the Eddington limited mass-accretion rate. To do so, please write your name in the following [**Google Spreadsheet**](https://docs.google.com/spreadsheets/d/1HLwsGPu6w3t2NMUcdVYvkHFvqgIOUDkigfrZruN6Uo8/edit?gid=1375531873#gid=1375531873) (navigate to *Lab2 Mass Transfer Efficiency* tab in the lower-left corner if needed) to select a $\beta$ value, from **0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9**, corresponding to accretion efficiencies from 100% up to 10%, respectively. These values come either without Eddington limit (by default) or with Eddington limited mass-accretion rate. If you choose the latter, remember to include `limit_retention_by_mdot_edd = .true.` in your `binary_controls` section!
+The participants should split into groups that will be assigned different values of `mass_transfer_beta` and `limit_retention_by_mdot_edd`, which is a control for the Eddington limited mass-accretion rate. To do so, please write your name in the following [**Google Spreadsheet**](https://docs.google.com/spreadsheets/d/1HLwsGPu6w3t2NMUcdVYvkHFvqgIOUDkigfrZruN6Uo8/edit?gid=1375531873#gid=1375531873) (navigate to *Lab2 Mass Transfer Efficiency* tab in the lower-left corner if needed) to select a $\beta$ value, from **0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9**, corresponding to accretion efficiencies from 100% up to 10%, respectively. These values come either without the Eddington limit (by default) or with Eddington limited mass-accretion rate. If you choose the latter, remember to include `limit_retention_by_mdot_edd = .true.` in your `binary_controls` section!
 
 > [!NOTE]
->Do not change the initial masses or period. Focus only on the effect of beta. If you have a slower machine (with lower number of cores), choose lower $\beta$ as these runs tend to be faster. Faster machines can attempt higher beta values, which lead to more computationally demanding models. The $\beta=0.0$ run should take approximately 5 minutes on 2-core machines, while the $\beta~=~0.9$ run needs around 10 minutes.
+>Do not change the initial masses or period. Focus only on the effect of beta. If you have a slower machine (with a lower number of cores), choose a lower $\beta$ as these runs tend to be faster. Faster machines can attempt higher beta values, which lead to more computationally demanding models. The $\beta=0.0$ run should take approximately 5 minutes on 2-core machines, while the $\beta~=~0.9$ run needs around 10 minutes.
 
 As the model fitting within Cyg X-1 determined parameters is right on the onset of mass transfer, let us comment out the previously applied stopping criterion from the `run_binary_extras.f90` to let the system evolve a bit further. This time, let us choose the stopping criterion based on the minimum mass of the donor set to $23\,\mathrm{M_\odot}$. As MESA already has a command telling it to finish a run after such a condition is met, we do not need it to be implemented inside the `run_binary_extras.f90`. Instead, as the limit of mass applies only to one of the components, we need to include this condition in the `inlist1` file. Explore [stopping conditions](https://docs.mesastar.org/en/latest/reference/controls.html#when-to-stop) in the MESA docs to find the right command.
 
@@ -657,13 +657,24 @@ Next, compile (`./clean && ./mk`) and run the models (`./rn`) with a fixed set o
 > **As a group effort:**  
 >What can we say about the future evolution of Cyg X-1 system from varying the `mass_transfer_beta` alone? How does the orbit react and why? 
 >
->Should the merge time differ from the previous step, try to anwer why is that so? 
+>Should the merge time differ from the previous step, and why is that so? 
 >
 > **To think about:**  
-> Is `mass_transfer_beta` the only way to control the accretor mass outcome? Can we substitute this parameter with other parameter that MESA provides, e.g. lowering the initial mass of the donor component? Why?
+> Is `mass_transfer_beta` the only way to control the accretor mass outcome? Can we substitute this parameter with another parameter that MESA provides, e.g., lowering the initial mass of the donor component? Why?
 
+{{< /details >}}
 
 <br><br><br>
+<!-- {{< details title="**Extra bonus task**" closed="false" >}} -->
+
+<!-- **Extra bonus task!:**
+We have an extra bonus task for you that explores stopping criteria and fitting a model for yet another observed system! You can find it at the end of this lab. 
+
+**Disclaimer:** Take a look at this exercise **only** once you have finished all the parts below! -->
+<!-- {{< /details >}} -->
+
+<br><br><be>
+
 
 > [!CAUTION]
 > **Got stuck** during the lab? Do not worry! You can always download solution from here **[⬇ Download](/mesa-school-labs-2025/wednesday/BinaryEvolution_Lab2_solutions.zip)** to catch up!
