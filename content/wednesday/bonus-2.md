@@ -127,7 +127,8 @@ The best fit model presented in [Gilkis & Shenar 2022](https://ui.adsabs.harvard
 **Fig. 2**: The Hertzsprung-Russell diagram of the best fitting model from the paper along with the data points from the observations and the location of the best fits.
 
 #### Extra Bonus Task 4: Visualizing the stars with TULIPS
-As for Lab 1, we can look at the outcome of the binary evolution in more detail by visualizing our simulations with [TULIPS](https://astro-tulips.readthedocs.io/), a Python package for stellar evolution visualization. We will create a movies of the changes in the properties of the donor and the accretor of the binary system of this lab with pre-computed input. For the visualisation you will be using a full evolution of the system described in this Bonus Task, including the mass-transfer phases. The files necessary for this task will be downloaded via the Google Collab notebook [Google Collab notebook](https://colab.research.google.com/drive/1e3L3xV62mzDKlELFBX3NFpnRui5MRgvv?usp=sharing).
+As for Lab 1, we can look at the outcome of the binary evolution in more detail by visualizing our simulations with [TULIPS](https://astro-tulips.readthedocs.io/), a Python package for stellar evolution visualization. We will create a movies of the changes in the properties of the donor and the accretor of the binary system of this lab with pre-computed input. For the visualisation you will be using a full evolution of the system described in this Bonus Task, including the mass-transfer phases. The files necessary for this task will be downloaded via the Google Collab notebook [Google Collab notebook](https://colab.research.google.com/drive/1e3L3xV62mzDKlELFBX3NFpnRui5MRgvv?usp=sharing).  
+There are conceptual questions in the TULIPS Notebook, with the answers directly below. We encourage you to spend a little time thinking about the questions before going directly to the answers.
 
 <br><br><br>
 ### Acknowledgement
