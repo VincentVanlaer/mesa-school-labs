@@ -1,3 +1,7 @@
+---
+authors: Harim Jin (lead TA), Eva Laplace, Hannah Brinkman, Vincent Bronner, Amadeusz Miszuda
+---
+
 ## Introduction
 Over the past decade, it has become clear that most massive stars are born in binary or multiple-star systems that are close enough to one another to interact. One such interaction is **mass transfer**, where stars exchange mass and angular momentum. Mass transfer plays a crucial role in producing various stellar phenomena, such as different types of core-collapse supernovae, magnetic stars, X-ray sources, and gravitational wave sources. The nature of these phenomena depends on **when the mass transfer occurs** and whether it is **stable or unstable**. In this lab, we will explore mass transfer across the initial binary parameter space.
 
