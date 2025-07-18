@@ -1,3 +1,6 @@
+---
+authors: Amadeusz Miszuda (lead TA), Hannah Brinkman, Vincent Bronner, Harim Jin, Eva Laplace
+---
 # X-ray binaries - exploring Cyg X-1
 
 Cygnus X-1 is a well-known high-mass X-ray binary located at a distance of about 2.2 kpc, consisting of a black hole and an O-type supergiant companion. It was the first strong black hole candidate ever identified and remains one of the most extensively studied X-ray sources, exhibiting persistent emission powered by accretion from the stellar wind of the massive donor star. 
