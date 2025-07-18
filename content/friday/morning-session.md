@@ -34,7 +34,7 @@ In **Mini-mini lab 3**, we will explore changing physical approximations within 
 ### Lagrangian Mesh 
 In the equations MESA solves, the fundamental spatial coordinate is made up of concentric shells each with a given mass. This is often referred to as the "mesh", which is broken up into "zones" (sometimes referred to as "cells" or "shells" or "mesh points"). The mass per zone $dm$ can vary, under the constraint that the sum of the cell masses is the total mass in the simulation: $\sum_i(dm_i)=M_* - m_\mathrm{IB}$ where $M_*$ is the star mass and $m_\mathrm{IB}$ is the mass inside the model inner boundary, which is 0 for most uses of MESA. The indexing is such that zone `1` corresponds to the surface of the star, and zone `nz` corresponds to the center of the star (or inner boundary). 
 
-To help enforce that the zones are small enough that we are in fact "in the limit of small $h$", at each timestep, MESA can "adaptively" split and merge zones in order to achieve some tolerances in how various quantities vary from zone to zone. However, in choosing a mesh, MESA is guessing at what consitutes "small $h$". 
+To help enforce that the zones are small enough that we are in fact "in the limit of small $h$", at each timestep, MESA can "adaptively" split and merge zones in order to achieve some tolerances in how various quantities vary from zone to zone. However, in choosing a mesh, MESA is guessing at what constitutes "small $h$". 
 
 We can make MESA make better guesses, and we must always check it for errors. To change how MESA discretizes its mesh, we can do 3 things: 
 
@@ -53,7 +53,7 @@ S3) We can create our own custom mesh scheme in `src/run_star_extras.f90`. We ma
 
 MESA is an implicit code, meaning it chooses its timestep adaptively and iterates until it achieves a solution within specified tolerances (i.e. specified differences between the right-hand-side and left-hand-side of the equations it's solving, and other controls on how much one model can deviate from one timestep to another). If the errors are too large in a given timestep, then MESA will cut the timestep in an attempt to get closer to "the limit of small $h$" (where now $h$ represents an increment in time $dt$). 
 
-However, like choosing a mesh, MESA is guessing at what consitutes "small $h$". To change how MESA selects its timestep, we can likewise have a few options: 
+However, like choosing a mesh, MESA is guessing at what constitutes "small $h$". To change how MESA selects its timestep, we can likewise have a few options: 
 
 T1) We can tell MESA to multiply the timestep it originally selects by a `time_delta_coeff`, analogous to `mesh_delta_coeff` (`=1` by default). Like with mesh, a smaller value means finer sampling in time, with less delta (difference) between them. A larger value means coarser sampling in time, with larger allowed "delta" between them. 
    
@@ -81,7 +81,7 @@ cd work_res
 
 The default work directory takes a $15M_\odot$ star and evolves it until ZAMS. In the massive star community, a lot of attention recently has been given to stellar winds, binarity, and other physics which may impact the properties of the H-rich envelope (much of which we've discussed this week). Let's evolve that model until it's later along its core He burning phase. 
 
-First, so that everyone can easily share their last HR diagram with eachother at the table, add the following to the `&star_job` section of `inlist_project`: 
+First, so that everyone can easily share their last HR diagram with each other at the table, add the following to the `&star_job` section of `inlist_project`: 
 
 ```fortran
 pause_before_terminate = .true.
@@ -106,14 +106,14 @@ and replace with
 HB_limit = 0.95
 ```
 
-This control terminates the evolution when the central Helium fraction falls below `HB_limit`, but only if the central hydrogen fraction is below `1d-4` (see the [documentation](https://docs.mesastar.org/en/latest/reference/controls.html#hb-limit) or the relevent information in `controls.defaults`). This will ensure that we're somewhere towards the beginning of the core helium burning phase, along or after the Horizontal Branch. 
+This control terminates the evolution when the central Helium fraction falls below `HB_limit`, but only if the central hydrogen fraction is below `1d-4` (see the [documentation](https://docs.mesastar.org/en/latest/reference/controls.html#hb-limit) or the relevant information in `controls.defaults`). This will ensure that we're somewhere towards the beginning of the core helium burning phase, along or after the Horizontal Branch. 
 
 Though not strictly necessary, let's have the history be output every timestep. Add the following to the `&controls` section of your `inlist_project`: 
 ```fortran 
 history_interval = 1 
 ```
 
-Now we are ready for the resolution test. It is often good practice to change your time and mesh resoltion together, though in principle these can be varied independently. Today we will use methods S1/T1. We mention the other methods above in order to remind the user that there are lots of good ways to do things in MESA depending on your problem. 
+Now we are ready for the resolution test. It is often good practice to change your time and mesh resolution together, though in principle these can be varied independently. Today we will use methods S1/T1. We mention the other methods above in order to remind the user that there are lots of good ways to do things in MESA depending on your problem. 
 
 Have each member of your table select a unique `*_delta_coeff` from the set `[0.5, 0.75, 1, 2]`. Make sure everyone at your table chooses a different value. 
 
@@ -162,7 +162,7 @@ Watch the run evolve, **and** watch the runs of others at your table. Pay attent
 
 Compare the HR diagram that pops up with those produced by people at your table with a different mesh_delta_coeff / time_delta_coeff. Do your diagrams agree? Disagree? Which agree better? 
 
-For comparison to others at the table and to other runs you do in subsequent Mini-mini-labs, record the final **Mass**, **Radus**, **$T_\mathrm{eff}$**, **Luminosity**, and **star age**.  If you want to do other runs yourself, or if you are doing this lab asynchronously outside of the MESA@Leuven school, you can also save your LOGS folder to a safe location where it won't be overwritten ([See e.g. the `log_directory` option](https://docs.mesastar.org/en/24.08.1/reference/controls.html#log-directory)).
+For comparison to others at the table and to other runs you do in subsequent Mini-mini-labs, record the final **Mass**, **Radius**, **$T_\mathrm{eff}$**, **Luminosity**, and **star age**.  If you want to do other runs yourself, or if you are doing this lab asynchronously outside of the MESA@Leuven school, you can also save your LOGS folder to a safe location where it won't be overwritten ([See e.g. the `log_directory` option](https://docs.mesastar.org/en/24.08.1/reference/controls.html#log-directory)).
 
 If something looks funky, maybe inspect the Kippenhahn diagram... 
 
@@ -190,7 +190,7 @@ Run the model again, and watch the HR diagram and Kippenhahn diagram evolve this
 ./clean && ./mk && ./rn 
 ```
 
-Again, record the final **Mass**, **Radus**, **$T_\mathrm{eff}$**, **Luminosity**, and **star age**. Likewise, you can also save your LOGS folder to a safe location where it won't be overwritten ([See e.g. the `log_directory` option](https://docs.mesastar.org/en/24.08.1/reference/controls.html#log-directory)). 
+Again, record the final **Mass**, **Radius**, **$T_\mathrm{eff}$**, **Luminosity**, and **star age**. Likewise, you can also save your LOGS folder to a safe location where it won't be overwritten ([See e.g. the `log_directory` option](https://docs.mesastar.org/en/24.08.1/reference/controls.html#log-directory)). 
 
 What has changed? Do the results look better? Discuss briefly at your table why this might be. 
 
@@ -246,7 +246,7 @@ Run the model, and watch the HR diagram and Kippenhahn diagram evolve, comparing
 ./clean && ./mk && ./rn 
 ```
 
-Again record the final **Mass**, **Radus**, **$T_\mathrm{eff}$**, **Luminosity**, and **star age**. Compare to the others at your table. What has changed? Discuss briefly at your table what differences you see and why they might appear. 
+Again record the final **Mass**, **Radius**, **$T_\mathrm{eff}$**, **Luminosity**, and **star age**. Compare to the others at your table. What has changed? Discuss briefly at your table what differences you see and why they might appear. 
 
 You should notice that higher values of $\alpha$ correspond to (in this limited application) smaller radii and hotter effective temperatures. 
 
