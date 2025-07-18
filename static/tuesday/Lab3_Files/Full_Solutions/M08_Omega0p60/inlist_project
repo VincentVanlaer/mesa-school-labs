@@ -1,0 +1,182 @@
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! Inlist for MESA r24.08.1 to do rotating models.
+! Please fill in the <> fields before running.
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+&star_job
+      pgstar_flag = .true. 				!!!! !!!!
+
+      show_log_description_at_start = .false.
+
+      !PMS
+      create_pre_main_sequence_model = .false. 
+      load_saved_model = .true. 			!!!! !!!!
+      load_model_filename = 'ZAMS_z02_m08.mod' 		!!!! !!!!
+
+
+      !OPACITY, NETWORK, RATE, etc.
+      change_net = .true.
+      new_net_name = 'pp_cno_extras_o18_ne22.net'
+
+      new_omega_div_omega_crit = 0.60d0			!!!! !!!!
+      set_near_zams_omega_div_omega_crit_steps = 20
+      set_initial_omega_div_omega_crit = .true.	!!!! !!!!
+
+
+      !SOLAR ABUNDANCES
+      set_uniform_initial_composition = .true.
+
+      initial_h1  = 0.71d0
+      initial_h2  = 0d0
+      initial_he3 = 0d0
+      initial_he4 = 0.27d0
+
+      initial_zfracs = 2 ! GN93, used by 2D ESTER models.
+
+
+      !EXTRA INFO FOR DEBUGGING
+      report_retries = .true.
+
+      !!!! ADD IN PAUSE LINE BELOW !!!!
+      pause_before_terminate = .true.			!!!! !!!!
+      !!!! !!!!
+
+/ ! end of star_job namelist
+
+&eos
+
+/ ! end of eos namelist
+
+&kap
+
+      ! opacities with GN93 abundances
+      kap_file_prefix = 'gn93'
+      kap_lowT_prefix = 'lowT_fa05_gn93'
+      kap_CO_prefix = 'gn93_co'
+
+      ! CO enhanced opacities
+      use_Type2_opacities = .true.
+      kap_Type2_full_off_X = 1d-3
+      kap_Type2_full_on_X = 1d-6
+      Zbase = 0.02
+
+
+/ ! end of kap namelist
+
+&controls
+
+      Lnuc_div_L_zams_limit = 0.99 !1d99 ! Set to 0.9 in the run_star_extras to prevent problems right at the start.
+
+      set_uniform_am_nu_non_rot = .true. ! No ad-hoc viscosity added.
+      uniform_am_nu_non_rot = 1d7 ! cm^2/s
+      am_D_mix_factor = 0d0 !0.033d0 commonly used, 0d0 default
+      am_gradmu_factor = 0.05d0 !0.05d0 default
+      am_nu_factor = 1 ! 1 default
+      am_nu_non_rotation_factor = 1 ! 1 default
+      am_nu_omega_rot_factor = 1 ! 1 default
+      am_nu_omega_non_rot_factor = 1 ! 1 default
+      am_nu_j_rot_factor = 0 ! 0 default
+      am_nu_j_non_rot_factor = 0 ! 0 default
+      am_nu_visc_factor = 1 ! 1 default
+
+      !Set to the 6 controls below equal to 1 for AM transport by rotationally-induced processes (and uniform_am_nu_non_rot = 0).
+      D_DSI_factor = 0d0
+      D_SH_factor  = 0d0
+      D_SSI_factor = 0d0
+      D_ES_factor  = 0d0
+      D_GSF_factor = 0d0
+      D_ST_factor  = 0d0
+
+      am_nu_DSI_factor = 0d0
+      am_nu_SH_factor  = 0d0
+      am_nu_SSI_factor = 0d0
+      am_nu_ES_factor  = 0d0
+      am_nu_GSF_factor = 0d0
+      am_nu_ST_factor  = 0d0
+
+
+      log_directory = "M08_Omega0p60"			!!!! !!!!
+
+      initial_mass = 8d0 ! In M_sun			!!!! !!!!
+
+      set_min_D_mix = .true.
+      min_D_mix = 1d3
+
+      ! Enable other hooks for labs if needed.
+      use_other_D_mix     = .false.
+      use_other_torque    = .true. 			!!!! !!!! 
+      use_other_am_mixing = .true.			!!!! !!!! 
+
+
+      !OUTPUT OPTIONS
+
+      history_interval       = 1
+      terminal_interval      = 5
+      write_header_frequency = 10
+      photo_digits           = 5
+      profile_interval       = 99999 ! Profiles are written out at certain Xc values.
+
+
+      photo_interval = 500000
+      star_history_name = 'history.data'
+      write_controls_info_with_profile = .false.
+      write_profiles_flag = .true.
+      max_num_profile_models = 250
+
+      report_solver_progress = .false.
+
+      !WHEN TO STOP
+      xa_central_lower_limit_species(1) = 'h1'
+      xa_central_lower_limit(1) = 1d-3
+
+      !PHYSICS
+      atm_option = 'T_tau'
+      atm_T_tau_relation = 'Eddington'
+      atm_T_tau_opacity = 'varying'
+
+      max_number_retries = 1000
+      use_Ledoux_criterion = .false.
+
+      mixing_length_alpha = 1.713d0  ! Solar calibrated for Eddington_grey.
+      mlt_option = 'Cox'
+
+      !H core overshoot calibrated to typical g-mode pulsator
+      overshoot_scheme(1) = 'exponential'
+      overshoot_zone_type(1) = 'burn_H'
+      overshoot_zone_loc(1) = 'core'
+      overshoot_bdy_loc(1) = 'top'
+      overshoot_f(1) = 0.015
+      overshoot_f0(1) = 0.005
+
+      overshoot_scheme(2) = 'exponential'
+      overshoot_zone_type(2) = 'any'
+      overshoot_zone_loc(2) = 'shell'
+      overshoot_bdy_loc(2) = 'any'
+      overshoot_f(2) = 0.005
+      overshoot_f0(2) = 0.005
+
+
+      !MESH AND TIMESTEP PARAMETERS:
+
+      mesh_delta_coeff  = 1.0
+      varcontrol_target = 1d-3
+      max_allowed_nz    = 2500
+      time_delta_coeff = 0.5 ! Default (1.0) might be too high for the rotational evolution.
+
+      ! Solver Controls
+      max_tries1 = 10
+
+      ! OVERSHOOTING AND CONVECTION CONTROLS.
+      overshoot_D_min = 5d-2
+      do_conv_premix = .true.
+
+
+      !This line was added to solve the rel_err energy warning in MESA r11532.
+      energy_eqn_option = 'dedt'
+
+/ ! end of controls namelist
+
+&pgstar
+
+
+/ ! end of pgstar namelist
