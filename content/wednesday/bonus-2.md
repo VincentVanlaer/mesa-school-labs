@@ -1,3 +1,7 @@
+---
+authors: Hannah Brinkman (lead TA), Eva Laplace, Vincent Bronner, Harim Jin, Amadeusz Miszuda
+---
+
 ## Wednesday Extra Bonus Task Lab 2: Upsilon Sagittarii
 
 > > [!WARNING]
@@ -128,7 +132,7 @@ The best-fit model presented in [Gilkis & Shenar 2022](https://ui.adsabs.harvard
 
 #### Extra Bonus Task 4: Visualizing the stars with TULIPS
 As for Lab 1, we can look at the outcome of the binary evolution in more detail by visualizing our simulations with [TULIPS](https://astro-tulips.readthedocs.io/), a Python package for stellar evolution visualization. We will create movies of the changes in the properties of the donor and the accretor of the binary system of this lab with pre-computed input. For the visualisation, you will be using a full evolution of the system described in this Bonus Task, including the mass-transfer phases. The files necessary for this task will be downloaded through [this Google Collab notebook](https://colab.research.google.com/drive/1QpNFDvM91OKHhrE10iG3lH6FWW1FUWn6?usp=sharing).  
-There are conceptual questions in the TULIPS Notebook. The solutions can be found [here](https://colab.research.google.com/drive/1e3L3xV62mzDKlELFBX3NFpnRui5MRgvv?usp=sharing)
+There are conceptual questions in the TULIPS Notebook. The solutions can be found [here](https://colab.research.google.com/drive/1e3L3xV62mzDKlELFBX3NFpnRui5MRgvv?usp=sharing).
 
 <br><br><br>
 ### Acknowledgement
