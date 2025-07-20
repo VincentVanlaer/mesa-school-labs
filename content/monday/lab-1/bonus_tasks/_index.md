@@ -50,6 +50,16 @@ The MESA batch run framework allows you to efficiently run multiple stellar mode
 If you are particularly interested in the topic, you can run larger batches outside of lab hours using the same framework.
 
 
+
+---
+
+{{< cards >}}
+  {{< card link="https://zenodo.org/records/16205180/files/lab1.zip" title="Download Lab Files" subtitle="Download all MESA simulation files, inlists, and Python scripts needed for this lab." >}}
+{{< /cards >}}
+
+---
+
+
 ### File structure 
 
 ```
