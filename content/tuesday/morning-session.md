@@ -1553,7 +1553,7 @@ subroutine data_for_extra_profile_columns(id, n, nz, names, vals, ierr)
    
 end subroutine data_for_extra_profile_columns
 ```
-Note that most of this was boilerplate. We needed to set to integers (in the `how_many_extra_*` functions) to 1 instead of 0, and then we needed to set the names and values in the `data_for_extra_*` subroutines. For the profile case, we had to do a loop to set the value of the ratio for each zone, and since `extra_heat` is of type `auto_diff_real_star_order1`, we had to use the `val` member to get the actual value of the extra heating at each zone.
+Note that most of this was boilerplate. We needed to set two integers (in the `how_many_extra_*` functions) to 1 instead of 0, and then we needed to set the names and values in the `data_for_extra_*` subroutines. For the profile case, we had to do a loop to set the value of the ratio for each zone, and since `extra_heat` is of type `auto_diff_real_star_order1`, we had to use the `val` member to get the actual value of the extra heating at each zone.
 
 After re-running the model and uploading the output to MESA Explorer, here's what we get. First, the history plot of the ratio of total extra heating to total nuclear heating:
 ![History Plot of L_ratio](../ratio_history.svg)
