@@ -213,7 +213,7 @@ Since <span style="color:purple">``run_star_extras.f90``</span> was already intr
 
 One of our primary goals is to study the evolution of (i) the location of the base of the convection zone, (ii) the peak of the burning, and (iii) the mean molecular weight discontinuity around the RGB bump. Plotting these with mass coordinate and radius coordinate will reproduce Fig. 4 of [Hekker et al. (2020)](https://ui.adsabs.harvard.edu/abs/2020MNRAS.492.5940H/abstract) as shown below:
 
-![Fig.2](https://github.com/drsusmitadas/mesalabs-day4-lab1/blob/main/static/thursday/staa176fig4.jpeg)
+![Fig.2](/thursday/staa176fig4.jpeg)
 
 *Fig.2: Top: the evolution around the bump of the location of the base of the convection zone, the peak of the burning, and the mean molecular weight discontinuity as a function of mass coordinate (left), and radius coordinate (right). Bottom: effective temperature (left) and luminosity (right) as a function of age. The vertical grey-dashed and dash–dotted lines indicate the age of the maximum luminosity and minimum luminosity of the bump feature, respectively. Figure from Hekker et al. (2020).*
 
@@ -582,7 +582,7 @@ Great work! You have now included most of the parameters that are required to re
 
 As mentioned earlier, this lab aims to probe the importance of entropy in RGB evolution. In stars, the rate of change of specific entropy is proportional to $\epsilon_g$, the ‘gravothermal’ energy generation rate. Therefore, we also want to study the variation of $\epsilon_g$ at the base of the convection zone as a function of age around the evolution of the RGB bump and thereby reproduce Fig. 6 of [Hekker et al. (2020)](https://ui.adsabs.harvard.edu/abs/2020MNRAS.492.5940H/abstract) as shown below:
 
-![Fig.3](https://github.com/drsusmitadas/mesalabs-day4-lab1/blob/main/static/thursday/staa176fig6.jpeg)
+![Fig.3](/thursday/staa176fig6.jpeg)
 
 *Fig.3: The value of $`\epsilon_g`$ at the base of the convection zone as a function of age. The vertical dashed and dash–dotted lines indicate the stellar ages of the luminosity maximum and luminosity minimum of the bump, respectively. The horizontal dotted line indicates zero. Figure from Hekker et al. (2020).*
 
@@ -911,7 +911,7 @@ You're now finally ready to start the run!
 
 The customised PGPLOT window should look something like this:
 
-![Fig.4](https://github.com/drsusmitadas/mesalabs-day4-lab1/blob/main/static/thursday/rgbb_001048.png)
+![Fig.4](/thursday/rgbb_001048.png)
 
 *Fig.4: The PGPLOT dashboard exhibiting the HR diagram, temperature-density plot and additional profile panels for a $`1M_{\odot}`$ track with solar composition.*
 
@@ -933,7 +933,7 @@ After the run terminates, you're ready to plot and reproduce the figures of [Hek
 <details>
 <summary>Answer 5.2</summary>
 
-![Fig.5](https://github.com/drsusmitadas/mesalabs-day4-lab1/blob/main/static/thursday/output1.png)
+![Fig.5](/thursday/output1.png)
 
 *Fig.5: The evolution around the bump of the location of the base of the convection zone, the peak of burning and the mean molecular weight discontinuity as a function of mass and radius coordinate.*
 </details>
@@ -943,7 +943,7 @@ After the run terminates, you're ready to plot and reproduce the figures of [Hek
 <details>
 <summary>Answer 5.3</summary>
 
-![Fig.6](https://github.com/drsusmitadas/mesalabs-day4-lab1/blob/main/static/thursday/output2.png)
+![Fig.6](/thursday/output2.png)
 
 *Fig.6: The variation of $`\epsilon_g`$ at the base of the convection zone as a function of age.*
 </details>
@@ -953,7 +953,7 @@ After the run terminates, you're ready to plot and reproduce the figures of [Hek
 <details>
 <summary>Answer 5.4</summary>
 
-![Fig.7](https://github.com/drsusmitadas/mesalabs-day4-lab1/blob/main/static/thursday/Computed_History_Files/HRD_RGBB.png)
+![Fig.7](/thursday/Computed_History_Files/HRD_RGBB.png)
 
 *Fig.7: The evolution of the RGB bumps for different stellar masses.*
 </details>
