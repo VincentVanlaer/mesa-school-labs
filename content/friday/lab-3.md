@@ -1,3 +1,7 @@
+---
+author: Meng Sun (Lead TA), Joel Ong, Courtney Crawford, Lea Schimak
+---
+
 # Lab 3: Rotational Splitting of Stellar Oscillation Modes
 
 In this lab, you will explore how **rotation** affects the frequencies of stellar oscillation modes. You will compute mode frequencies for **rotating stellar models** using GYRE, visualize the results with **echelle diagrams**, and compare your findings to the rotational splitting you estimated in **Lab 1**.

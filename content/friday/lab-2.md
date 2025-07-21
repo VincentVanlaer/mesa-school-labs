@@ -1,3 +1,7 @@
+---
+author: Lea Schimak (Lead TA), Courtney Crawford, Joel Ong, Meng Sun
+---
+
 # Lab 2: Calculating Mode Frequencies
 
 ## Learning Goals
@@ -286,7 +290,6 @@ In the new figure we chose two $\ell=1$ modes close to $\nu_{\rm max}$ to look a
 The p-dominated mode has a higher amplitude ($\xi_r$) at the surface of the star. The plot under the propagation diagram shows the p-dominant mode and the bottom plot shows the g-dominated mode.
 {{< /details >}}
 
-\
 We generated a small movie to show how the oscillations change over the evolution of the star. 
 
 <video controls>

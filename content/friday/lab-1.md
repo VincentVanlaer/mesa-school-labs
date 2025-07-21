@@ -1,3 +1,7 @@
+---
+author: Courtney Crawford (Lead TA), Joel Ong, Lea Schimak, Meng Sun
+---
+
 # Lab 1: Installing and using GYRE
 
 ## Learning Goals
