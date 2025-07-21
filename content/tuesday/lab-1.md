@@ -2,13 +2,13 @@
 author: Beatriz Bordadágua (Lead TA), Joey Mombarg, Philip Mocz, Tryston Raecke
 ---
 
-# Minilab 1: 1D rotating stellar models
+# Lab 1: 1D rotating stellar models
 ## Introduction
 
 In the most simple case of a non-rotating single star, the only forces acting on a mass element are pressure and gravity. The resulting spherical symmetry implies that the stellar structure equations depend only on one spatial coordinate (mass or radius) and time.
 However, **rotation breaks the spherical symmetry** consequently affecting stellar surface parameters, abundances and even its course of evolution (see e.g. [Palacios 2013](https://doi.org/10.1051/eas/1362007)). To properly account for all the effects associated with rotation we need a multidimensional approach to solve the stellar structure equations. Today, **we will compute 1D MESA rotating models and compare them with 2D ESTER models** ([Mombarg et al, 2023;](https://doi.org/10.1051/0004-6361/202347454)[ 2024](https://doi.org/10.1051/0004-6361/202348466)).
 
-MESA includes rotational effects by applying corrections to the equilibrium stellar structure equations to account for the effect of the centrifugal force and by solving two additional equations: the mixing of chemical elements and the angular momentum (AM) transport. **The latter determines the evolution of the angular velocity $(\Omega)$ with time which is what we will focus on this minilab 1.** 
+MESA includes rotational effects by applying corrections to the equilibrium stellar structure equations to account for the effect of the centrifugal force and by solving two additional equations: the mixing of chemical elements and the angular momentum (AM) transport. **The latter determines the evolution of the angular velocity $(\Omega)$ with time which is what we will focus on this lab 1.** 
 
 The AM transport is mediated through diffusive and advective processes. In MESA, the AM transport is only included by diffusion using the following equation,
 $$
@@ -16,27 +16,27 @@ $$
 $$
 where $i$ is a shell specific moment of inertia, and **$\nu_{\mathrm{AM}}$ is the turbulent viscosity which determines the efficiency of the AM transport**. The first term on the right-hand side accounts for the diffusion transport and the second term accounts for contraction and expansion of the shells at constant mass.
 
-In this minilab 1 we will incorporate rotation in a 10 solar mass model using MESA. We will look at the effect of rotation in the global surface parameters and on the internal rotation profile by including different AM transport mechanisms.
+In this lab 1 we will incorporate rotation in a 10 solar mass model using MESA. We will look at the effect of rotation in the global surface parameters and on the internal rotation profile by including different AM transport mechanisms.
 
 | 📋 TASK example|
 |:--------|
-Throughout the minilab 1 you will find the specific tasks you need to execute inside boxes like this one.|
+Throughout the lab 1 you will find the specific tasks you need to execute inside boxes like this one.|
 
 ### Download our template
 
 | 📋 TASK|
 |:--------|
-|1. Download the starting point working directory for minilab 1 and the solutions for each exercise [here](https://www.dropbox.com/scl/fi/0o8k6fhku28l6s97hq4pi/minilab1.zip?rlkey=fqr5daq0zf558miuf7ght49vl&st=9nwwnj8p&dl=0).
-|2. Unpack the zip files using `unzip minilab1.zip` and move to the working directory `cd minilab1/starting_point`.|
+|1. Download the starting point working directory for lab 1 and the solutions for each exercise [here](https://www.dropbox.com/scl/fi/v3c24ks4ihqjuwzcfpzx1/lab1.zip?rlkey=obb42xz07rwknk5xjv58iwuio&st=14kdwhgl&dl=0).
+|2. Unpack the zip files using `unzip lab1.zip` and move to the working directory `cd lab1/starting_point`.|
 
 
-## 1: Create a 10 M$$_{\odot}$$ rotating main-sequence model
+## 1: Create a 10 solar mass rotating main-sequence model
 
-We will start by creating a rotating main-sequence model for a 10 solar masses star. To save some computation time we already computed the pre-main sequence (PMS) track beforehand and saved the model once it reached the zero-age-main-sequence (ZAMS). You will use this ZAMS model as the starting point of all your runs. The particular ZAMS model we provide matches the 2D ESTER models composition, which we will use later.
+We will start by creating a rotating main-sequence model for a 10 solar mass star. To save some computation time we already computed the pre-main sequence (PMS) track beforehand and saved the model once it reached the zero-age-main-sequence (ZAMS). You will use this ZAMS model as the starting point of all your runs. The particular ZAMS model we provide matches the 2D ESTER models composition, which we will use later.
 
 ### inlist_project
 
-In this minilab we only need to modify the `&star_job` and `&controls` sections of the `inlist_project`. You can find all the commands available in MESA for the `&star_job` section [here](https://docs.mesastar.org/en/24.08.1/reference/star_job.html) and for the `&controls` section [here](https://docs.mesastar.org/en/24.08.1/reference/controls.html). 
+In this lab we only need to modify the `&star_job` and `&controls` sections of the `inlist_project`. You can find all the commands available in MESA for the `&star_job` section [here](https://docs.mesastar.org/en/24.08.1/reference/star_job.html) and for the `&controls` section [here](https://docs.mesastar.org/en/24.08.1/reference/controls.html). 
 
 #### star_job
 Let's start by modifying the `&star_job` section of the `inlist_project`. First, you need to indicate that you do not want to create a PMS model. Then, you need to load the precomputed `model_ZAMS` in your work directory to start the computation from that point.
@@ -92,7 +92,7 @@ xa_central_lower_limit(1) = 1d-3
 {{< /details >}}
 
 
-As we introduced in the beginning of this minilab, the turbulent viscosity coefficient $\nu_{\mathrm{AM}}$ determines the efficiency of the transport of AM by diffusion. 
+As we introduced in the beginning of this lab, the turbulent viscosity coefficient $\nu_{\mathrm{AM}}$ determines the efficiency of the transport of AM by diffusion. 
 A very high value of $\nu_{\mathrm{AM}}$ induces very efficient AM transport and results in near solid body rotation rate as it is the case in convective regions. 
 
 For the purpose of this lab we will **include an arbitrary viscosity coefficient $\nu_{\mathrm{AM}}=10^5 \;\mathrm{cm}^2\mathrm{/s}$ that is uniform throughout the star.**
@@ -150,7 +150,7 @@ Let's also add the rotation profile information to the `profile.data` files by m
 > Do not forget to save all the changes you made in the `inlist_project`, `history_columns.list` and `profile_columns.list`.
 
 > [!NOTE]
-> We remind you that you can consult the solutions of the tasks [here](https://www.dropbox.com/scl/fi/0o8k6fhku28l6s97hq4pi/minilab1.zip?rlkey=fqr5daq0zf558miuf7ght49vl&st=9nwwnj8p&dl=0).
+> We remind you that you can consult the solutions of the tasks [here](https://www.dropbox.com/scl/fi/v3c24ks4ihqjuwzcfpzx1/lab1.zip?rlkey=obb42xz07rwknk5xjv58iwuio&st=14kdwhgl&dl=0).
 
 ### MESA run
 Now that we have included the relevant physics in our inlist let's start the computation.
@@ -329,7 +329,7 @@ After your run is finished, open the `history.data` file in your favourite text 
 ## 4: Comparison with 2D Ester models
 
 
-The last task in this minilab1 is to compare your MESA tracks with 2D Ester models. In this lab we mainly focus on the evolution of the rotation rate and the HR diagram. In the next labs you will be able to explore and test other important physical quantities.
+The last task in this lab1 is to compare your MESA tracks with 2D Ester models. In this lab we mainly focus on the evolution of the rotation rate and the HR diagram. In the next labs you will be able to explore and test other important physical quantities.
 | 📋 TASK |
 |:--------|
 |1. Plot your MESA models against the 2D models using this [jupyter notebook](https://colab.research.google.com/drive/1HY_7Y59D4JFJG4tiY3q5TUmdJsz4wGIT#scrollTo=dIL6HmKwXFfK). The instructions to make the comparison plots are in the jupyter notebook itself.|
