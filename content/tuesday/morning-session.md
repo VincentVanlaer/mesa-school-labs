@@ -1420,7 +1420,7 @@ The "mass coordinate" is the mass of the star enclosed within a zone. So at the 
 
 The final routine should look something like this
 
-```fortran {hl_lines=[14, 15, 17, 18, 19]}
+```fortran {hl_lines=[9, 14, 15, 17, 18, 19]}
 subroutine day2_other_energy(id, ierr)
     use star_def
     use auto_diff
