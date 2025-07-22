@@ -53,10 +53,10 @@ Initial orbital period: 100 days
 **As a first step, within the !!! TASK 1 block !!! of `run_binary_extras.f90`, add an if condition to check whether the primary star is undergoing mass transfer. A good threshold to determine this is a mass transfer rate greater than $10^{-10}$ Msun/yr. If this condition is met, make MESA print "Undergoing mass transfer".**
 
 > [!WARNING]
-> Don't forget to do `./clean` and `./mk` after modifying the `run_star_extras.f90` file.
+> Don't forget to do `./clean` and `./mk` after modifying the `run_binary_extras.f90` file.
 
 {{< details title="Hint 1.1 (1)" closed="true" >}}
-Check how to make MESA print a message in the terminal in the `!!! HINT block !!!` in `run_star_extras.f90`. It is: 
+Check how to make MESA print a message in the terminal in the `!!! HINT block !!!` in `run_binary_extras.f90`. It is: 
 ```
 write(*,*) ' ... '
 ```
@@ -99,7 +99,7 @@ abs(b% mtransfer_rate)/Msun*secyer
 > ```
 > This command will help you find whether XXX appears anywhere in `out.txt`.
 
-Please make sure that your implementation is working correctly by running a model and verifying that it produces the desired output when the mass-transfer rate exceeds the threshold. In the PGSTAR plot, you can find the mass-transfer rate in the upper right corner (`lg_mtransfer_rate`: mass transfer rate in Msun/yr in logarithmic scale). 
+Please make sure that your implementation is working correctly by running a model and verifying that it produces the desired output when the mass-transfer rate exceeds the threshold. In two PGSTAR plots, you can find the current orbital configuration in window1 and the mass-transfer rate in the upper right corner of window2 (`lg_mtransfer_rate`: mass transfer rate in Msun/yr in logarithmic scale). (You might see weird features in the orbital configuration if the mass transfer rate becomes very high, and this is an artifact of the plotting scheme.) 
 
 
 ![Binary_MT](/wednesday/Terminal_Lab1.png)
@@ -122,10 +122,10 @@ As a next step, we want to determine the current evolutionary phase of the prima
 Run the model and verify that the terminal output aligns with the results shown in the PGSTAR plot (abundance profiles in the upper middle panel)
 
 > [!WARNING]
-> Don't forget to do `./clean` and `./mk` after modifying the `run_star_extras.f90` file.
+> Don't forget to do `./clean` and `./mk` after modifying the `run_binary_extras.f90` file.
 
 {{< details title="Hint 1.2" closed="true" >}}
-Use the mass fractions of hydrogen (```b% s1% center_h1```) and helium (```b% s1% center_he4```) to determine the current evolutionary phase. The conditions should involve checking whether the hydrogen/helium mass fractions are above or below 1e-6. Check how core carbon depletion is captured in the `!!! HINT block !!!` in `run_star_extras.f90`. 
+Use the mass fractions of hydrogen (```b% s1% center_h1```) and helium (```b% s1% center_he4```) to determine the current evolutionary phase. The conditions should involve checking whether the hydrogen/helium mass fractions are above or below 1e-6. Check how core carbon depletion is captured in the `!!! HINT block !!!` in `run_binary_extras.f90`. 
 {{< /details >}}
 
 
@@ -151,7 +151,7 @@ Use the mass fractions of hydrogen (```b% s1% center_h1```) and helium (```b% s1
 As a last step, we want to print out in the terminal which mass transfer case is occurring whenever mass transfer takes place. **Comment out the previous code in the !!! TASK 1 block !!! and implement new if-else statements that print “Case A,” “Case B,” or “Case C” depending on the evolutionary phase of the primary (according to the definitions listed at the start of Task 1).** After making changes, run your model. Can you determine which mass transfer case your model undergoes? If you miss the terminal output during the run, you can review the `out.txt` file to see the printed messages.
 
 > [!WARNING]
-> Don't forget to do `./clean` and `./mk` after modifying the `run_star_extras.f90` file.
+> Don't forget to do `./clean` and `./mk` after modifying the `run_binary_extras.f90` file.
 
 If-else statements to print out Case A/B/C?
 {{< details title="Hint 1.3 (1)" closed="true" >}}
@@ -239,7 +239,7 @@ Can you print out which mass transfer cases a binary system undergoes throughout
 
 
 ## Task 2. Determine mass transfer stability
-In some cases, mass transfer becomes unstable, leading the binary to enter a common-envelope phase. Run a binary model with an initial primary mass of 20 Msun, an initial secondary mass of 6 Msun, and an initial orbital period of 5 days by modifying `inlist_extra`. **What do you see in the screen output and in the PGSTAR plot? Can you identify which parameter is changing significantly? What is happening to the timesteps, and can you explain why?**  
+In some cases, mass transfer becomes unstable, leading the binary to enter a common-envelope phase. Run a binary model with an initial primary mass of 20 Msun, an initial secondary mass of 6 Msun, and an initial orbital period of 5 days by modifying `inlist_extra`. **What do you see in the screen output and in the PGSTAR plot? Can you identify which parameter is changing significantly (hint: focus on the right-hand panel of the grid PGPLOT)? What is happening to the timesteps, and can you explain why?**  
 Stop the run manually by `Ctrl+C` when the model number reaches ~150.
 
 One way to detect this instability is to check the mass transfer rate and the timestep. If the mass transfer rate is high (greater than $10^{-3}$ Msun/yr) and the timestep becomes very small (less than 0.1 years), it is an indication that unstable mass transfer has started.
@@ -249,10 +249,10 @@ One way to detect this instability is to check the mass transfer rate and the ti
 If it took too long to reach this point (over ~20 mins), you can get the solution and proceed to Task 3.
 
 > [!WARNING]
-> Don't forget to do `./clean` and `./mk` after modifying the `run_star_extras.f90` file.
+> Don't forget to do `./clean` and `./mk` after modifying the `run_binary_extras.f90` file.
 
 {{< details title="Hint 2" closed="true" >}}
-You can instruct MESA to stop computations by using `extras_binary_finish_step = terminate` at the right place. Check how to terminate the MESA run in the `!!! HINT block !!!` in `run_star_extras.f90`.
+You can instruct MESA to stop computations by using `extras_binary_finish_step = terminate` at the right place. Check how to terminate the MESA run in the `!!! HINT block !!!` in `run_binary_extras.f90`.
 {{< /details >}}
 
 {{< details title="Solution 2" closed="true" >}}

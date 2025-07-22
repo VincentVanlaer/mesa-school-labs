@@ -59,12 +59,12 @@ The primary purpose of the first part of the maxilab is to get you more familiar
 
 ### Using this Guide
 
-Every task comes with a hint. However, if you have prior experience with MESA, do attempt to complete the task on your own. The complete solution is available [here](https://github.com/arthurlesaux/mesasummerschool2025-day4-maxilab1/blob/4f4b270e68c881bd1b7c50cf3559de5efbc091e1/maxilab1_solution.zip).
+Every task comes with a hint. However, if you have prior experience with MESA, do attempt to complete the task on your own. The complete solution is available [here](maxilab1_solution.zip).
 
 If you're new to Fortran, here is a short document with [some examples](https://jschwab.github.io/mesa-2016/fortran.html). Don't let yourself get hung up by the Fortran; quickly ask your classmates and the TAs for help!
 
 ## Section 2: Getting Started
-Start by downloading the online repository [here](https://github.com/arthurlesaux/mesasummerschool2025-day4-maxilab1/blob/eb99f57cbbc218aab5646e5c4cec46e6be7398a4/maxilab1.zip) and uncompress it.
+Start by downloading the online repository [here](maxilab1.zip) and uncompress it.
 If you want to unzip the folder using the terminal, you can use:
 ```linux
 unzip maxilab1.zip
@@ -417,7 +417,7 @@ and the ones below in `inlist_pgstar`
 In addition, we can also change the name of the output file `history.data` that we will use to compare the model, by adding this in the `&controls` section of `inlist_project`
 
 ```linux
-! change the LOGS directory
+! change the history file name
 star_history_name = 'history_1M_OV.data'
 ```
 
@@ -491,7 +491,7 @@ The period spacing measures the inverse of the stratification in radiative regio
 ### Penetrative convection
 Penetrative convection is the same as overshooting except that the temperature gradient in the overshooting region is modified and set to the adiabatic one (see the difference in temperature gradient in Fig. 2). Modifying the temperature gradient in the overshooting region is currently not implemented in MESA and thus it should be done in a new subroutine ``penetrative_convection`` in ``run_star_extras.f90`` using ``s% other_adjust_mlt_gradT_fraction``.
 
-To help you with this task, there are already two extra subroutines that have been implemented in ``run_star_extras.f90``. The first one ``eval_conv_bdy_Hp_perso``is used to evaluate the pressure scale height at a convective boundary. The second one ``eval_over_bdy_params_perso`` is for evaluating other parameters such as cell index ``k``, radius ``r`` and diffusion coefficients ``D`` at a convective boundary. You can have a look at these two subroutines in ``run_star_extras.f90`` but you do not have anything to modify.
+To help you with this task, there are already two extra subroutines that have been implemented in ``run_star_extras.f90``. The first one ``eval_conv_bdy_Hp_perso``is used to evaluate the pressure scale height at a convective boundary. The second one ``eval_over_bdy_params_perso`` is for evaluating other parameters such as cell index ``k``, radius ``r`` and diffusion coefficients ``D`` at a convective boundary. You can have a look at these two subroutines in ``run_star_extras.f90`` but you do not have to edit them.
 
 >[!IMPORTANT]
 > As penetrative is an extension of the overshooting scheme, you have to keep the parameters from the previous section active.
@@ -556,6 +556,9 @@ In ``run_star_extras.f90``:
 
        end subroutine penetrative_convection
 ```
+>[!TIP]
+>Notice that we have also add `s% other_adjust_mlt_gradT_fraction => penetrative_convection` in the `extra_controls` section of ``run_star_extras.f90``.
+
 </details>
 
 Now, rename the ``LOGS`` and ``pgplot`` folders to save the outputs in a different location than for the overshooting case. The method to do that is exactly the same as in the previous section, so try to do it yourself first! If you need help, have a look at the answer below.
@@ -581,7 +584,7 @@ and the ones below in `inlist_pgstar`
 In addition, we can also change the name of the output file `history.data` that we will use to compare the model, by adding this in the `&controls` section of `inlist_project`
 
 ```linux
-! change the LOGS directory
+! change the history file name
 star_history_name = 'history_1M_PC.data'
 ```
 
@@ -672,7 +675,7 @@ and the ones below in `inlist_pgstar`
 In addition, we can also change the name of the output file `history.data` that we will use to compare the model, by adding this in the `&controls` section of `inlist_project`
 
 ```linux
-! change the LOGS directory
+! change the history file name
 star_history_name = 'history_1M_SC.data'
 ```
 
@@ -750,7 +753,7 @@ and the ones below in `inlist_pgstar`
 In addition, we can also change the name of the output file `history.data` that we will use to compare the model, by adding this in the `&controls` section of `inlist_project`
 
 ```linux
-! change the LOGS directory
+! change the history file name
 star_history_name = 'history_1M_MAXOV.data'
 ```
 
@@ -765,9 +768,9 @@ Then, run the model with
 As for the semiconvection case, there is no overshooting so the only mixing type appearing on the mixing panel will be convection (the blue one). And similarly the star runs out faster of helium to burn.
 
 ## Section 5: Plotting the results
-In the end, the aim is to compare the period spacing evolution for each model using different convective boundary mixing prescription. You can of course do it yourself, but the TAs will also do it using a Python script. For this, you can upload your `history.data` on this google file here.
+Finally, the aim is to compare the period spacing evolution for each model using different convective boundary mixing prescription. To do so, we will reproduce Figure 4 of Noll et al (2024). You can of course write a script to plot it yourself. The quantities to plot are in the `history.data` files.
 
-The quantities to plot are in the `history.data` files.
+You can also find a Google colab script [here](https://colab.research.google.com/drive/1IlC062z42tlly8GxSsas6vT5RxFoALzC?usp=sharing) that will do the plot for you. For this, you will just to upload your `history_XXX.data` files for each CBM case when executing the first code cell.
 
 <details class="hx-border hx-border-blue-200 dark:hx-border-blue-200 hx-rounded-md hx-my-2">
 <summary class="hx-bg-blue-100 dark:hx-bg-neutral-800 hx-text-blue-900 dark:hx-text-blue-200 hx-p-2 hx-m-0 hx-cursor-pointer">
@@ -778,107 +781,6 @@ The quantities to plots are `delta_Pg` and `he_core_radius` as a function of `st
 
 </details>
 
-<details class="hx-border hx-border-green-200 dark:hx-border-green-200 hx-rounded-md hx-my-2">
-<summary class="hx-bg-green-100 dark:hx-bg-neutral-800 hx-text-green-900 dark:hx-text-green-200 hx-p-2 hx-m-0 hx-cursor-pointer">
-<em>Show answer </em>
-</summary>
-
-Here is an example of a Python script to generate the plots:
-
-```python
-import matplotlib.pyplot as plt
-import numpy as np
-
-from tomso import fgong, mesa
-
-project_dir = "/Users/alesaux/MESA_summerschool_2025/"
-
-fgong_filename1 = project_dir+"RC_nuclear_CBM/LOGS/profile41.data.fgong"
-profile_fgong1 = fgong.load_fgong(fgong_filename1)
-
-print(profile_fgong1)
-
-profile_file1 = project_dir+"RC_nuclear_CBM/LOGS/profile40.data"
-profile_data1 = mesa.load_profile(profile_file1)
-
-print(profile_data1)
-
-history_file1 = project_dir+"RC_nuclear_CBM/LOGS_OVf1_Ledoux/history.data"
-history_data1 = mesa.load_history(history_file1)
-
-history_file2 = project_dir+"RC_nuclear_CBM/LOGS_PCf1_Ledoux/history.data"
-history_data2 = mesa.load_history(history_file2)
-
-history_file3 = project_dir+"RC_nuclear_CBM/LOGS_maxOV_Ledoux/history.data"
-history_data3 = mesa.load_history(history_file3)
-
-history_file4 = project_dir+"RC_nuclear_CBM/LOGS_SC_Ledoux/history.data"
-history_data4 = mesa.load_history(history_file4)
-
-print(history_data1)
-
-delta_Pg1 = history_data1["delta_Pg"]
-he_core_radius1 = history_data1["he_core_radius"]
-Yc1 = history_data1["center_he4"]
-star_age1 = history_data1["star_age"]
-
-delta_Pg2 = history_data2["delta_Pg"]
-he_core_radius2 = history_data2["he_core_radius"]
-Yc2 = history_data2["center_he4"]
-star_age2 = history_data2["star_age"]
-
-delta_Pg3 = history_data3["delta_Pg"]
-he_core_radius3 = history_data3["he_core_radius"]
-Yc3 = history_data3["center_he4"]
-star_age3 = history_data3["star_age"]
-
-delta_Pg4 = history_data4["delta_Pg"]
-he_core_radius4 = history_data4["he_core_radius"]
-Yc4 = history_data4["center_he4"]
-star_age4 = history_data4["star_age"]
-
-fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2,2, sharey= True)
-ax1.set_title(r'Period spacing')
-ax1.plot(star_age1/1e9,delta_Pg1, color='navy',label='OV')
-ax1.plot(star_age2/1e9,delta_Pg2, color='red',label='PC')
-ax1.plot(star_age3/1e9,delta_Pg3, color='green',label='MaxOV')
-ax1.plot(star_age4/1e9,delta_Pg4, color='goldenrod',label='SC')
-ax1.set_xlabel('Age (Gyr)')
-ax1.set_ylabel(r'$\Delta \Pi$ (s)')
-ax1.legend()
-
-ax2.plot(Yc1,delta_Pg1, color='navy')
-ax2.plot(Yc2,delta_Pg2, color='red')
-ax2.plot(Yc3,delta_Pg3, color='green')
-ax2.plot(Yc4,delta_Pg4, color='goldenrod')
-ax2.set_xlabel(r'$Y_c$')
-ax2.set_ylabel(r'$\Delta \Pi$ (s)')
-ax2.invert_xaxis()
-
-ax3.set_title(r'He core radius')
-ax3.plot(star_age1/1e9,he_core_radius1, color='navy',label='OV')
-ax3.plot(star_age2/1e9,he_core_radius2, color='red',label='PC')
-ax3.plot(star_age3/1e9,he_core_radius3, color='green',label='MaxOV')
-ax3.plot(star_age4/1e9,he_core_radius4, color='goldenrod',label='SC')
-ax3.set_xlabel('Age (Gyr)')
-ax3.set_ylabel(r'$\Delta \Pi$ (s)')
-ax3.legend()
-
-ax4.plot(Yc1,he_core_radius1, color='navy')
-ax4.plot(Yc2,he_core_radius2, color='red')
-ax4.plot(Yc3,he_core_radius3, color='green')
-ax4.plot(Yc4,he_core_radius4, color='goldenrod')
-ax4.set_xlabel(r'$Y_c$')
-ax4.set_ylabel(r'$\Delta \Pi$ (s)')
-ax4.invert_xaxis()
-
-plt.subplots_adjust(hspace = 0.4)
-
-plt.show()
-```
-
-</details>
 
 How does your results compare to the Fig. 4 of Noll et al. (2024)? Which model presents the highest values of period spacing? Any idea why?
-To compare the maximal values of period spacing, and therefore of core radius, you can have a look a the saved png files from the `pgstar` window.
 
