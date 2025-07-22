@@ -262,7 +262,7 @@ $$\frac{\partial mer _\ comp}{\partial r}(k) = \frac{mer _\ comp(k) - mer _\ com
 
 | 📋 TASK 8 |
 |:--------|
-| **Add** the equation for `U_r` and `mer_comp`, assuming `C = 1e-3`. A reference for variable correspondence is below.|
+| **Add** the equation for `U_r` and `mer_comp`, assuming `C = 1e-4`. A reference for variable correspondence is below.|
 
 | Variable                      | in MESA                   |
 |-------------------------------|---------------------------|
@@ -284,7 +284,7 @@ Remember that these variable arrays are indexed by zone. So, the value of `s% r(
 {{< details title="Solution:" closed="true" >}}
 
 ```fortran
-U_r = (s% r) / (s% r(1)) * 0.001 ! cm/s
+U_r = (s% r) / (s% r(1)) * 0.0001 ! cm/s
 mer_comp = s% rho * pow4(s% r) * (s% omega) * U_r
 ```
 {{< /details >}}
@@ -474,12 +474,12 @@ Congratulations, you have completed Lab 3! Feel free to pursue the following two
 
 ## BONUS: Exploring other velocity field scale factors
 
-So far we have been working through the models with an ad-hoc approximation of $U_{r}$ with `C = 1e-3`. 
+So far we have been working through the models with an ad-hoc approximation of $U_{r}$ with `C = 1e-4`. 
 
 | 📋 BONUS TASK 2|
 |:--------|
 | **Explore** other ranges for the constant, `C`, in $U_{r}$. 
-**Compare** against your original run. How does modifying `C` change the evolution of the star and the convergence of the model? Is this expected? Why? |
+**Compare** against your original run. How does modifying `C` change the evolution of the star? Is this expected? Why? |
 
 
 ## Primary References

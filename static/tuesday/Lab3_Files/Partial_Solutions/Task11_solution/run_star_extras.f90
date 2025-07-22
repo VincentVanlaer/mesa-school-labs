@@ -109,7 +109,7 @@
 
          ! Calculate
          !!!! ADD IN THE EQUATION FOR U_r AND mer_comp !!!!
-         U_r = (s% r) / (s% r(1)) * 0.001 ! cm s-1
+         U_r = (s% r) / (s% r(1)) * 0.0001 ! cm s-1
          mer_comp = s% rho * pow4(s% r) * (s% omega) * U_r ! g cm2 s-2
          !!!! !!!!
          dmer_comp_dr = (mer_comp(1:nz-1)-mer_comp(2:nz)) / (s% r(1:nz-1) - s% r(2:nz)) ! g cm s-2
