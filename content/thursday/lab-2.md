@@ -59,12 +59,12 @@ The primary purpose of the first part of the maxilab is to get you more familiar
 
 ### Using this Guide
 
-Every task comes with a hint. However, if you have prior experience with MESA, do attempt to complete the task on your own. The complete solution is available [here](maxilab1_solution.zip).
+Every task comes with a hint. However, if you have prior experience with MESA, do attempt to complete the task on your own. The complete solution is available [here](../maxilab1_solution.zip).
 
 If you're new to Fortran, here is a short document with [some examples](https://jschwab.github.io/mesa-2016/fortran.html). Don't let yourself get hung up by the Fortran; quickly ask your classmates and the TAs for help!
 
 ## Section 2: Getting Started
-Start by downloading the online repository [here](maxilab1.zip) and uncompress it.
+Start by downloading the online repository [here](../maxilab1.zip) and uncompress it.
 If you want to unzip the folder using the terminal, you can use:
 ```linux
 unzip maxilab1.zip
