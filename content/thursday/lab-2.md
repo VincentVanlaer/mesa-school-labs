@@ -881,4 +881,4 @@ plt.show()
 
 How does your results compare to the Fig. 4 of Noll et al. (2024)? Which model presents the highest values of period spacing? Any idea why?
 To compare the maximal values of period spacing, and therefore of core radius, you can have a look a the saved png files from the `pgstar` window.
-=======
+
