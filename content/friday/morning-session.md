@@ -7,7 +7,8 @@ weight: 1
 
 In this brief morning lab session, we will go over best practices for solving partial differential equations numerically, specifically in the context of the MESA Stellar Evolution Code.
 
-The lecture slides are [here](Resources/MorningConvergence/Goldberg_Slides_MESA_Leuven_Fri_ResTesting.pdf). 
+**The lecture slides are [here](Resources/MorningConvergence/Goldberg_Slides_MESA_Leuven_Fri_ResTesting.pdf).**
+
 Full solutions for mini-minilabs are available as zip files: [part 1](Resources/MorningConvergence/solutions_minimini1.zip), [part 2](Resources/MorningConvergence/solutions_minimini2.zip), and [part 3](Resources/MorningConvergence/solutions_minimini3.zip). 
 
 All materials can additionally be found at [this repository](https://github.com/aurimontem/Mesa_Leuven_Convergence/). 
