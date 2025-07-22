@@ -7,9 +7,10 @@ weight: 1
 
 In this brief morning lab session, we will go over best practices for solving partial differential equations numerically, specifically in the context of the MESA Stellar Evolution Code.
 
-The lecture slides are [here](Resources/Goldberg_Slides_MESA_Leuven_Fri_ResTesting.pdf), and can additionally be found at [this repository](https://github.com/aurimontem/Mesa_Leuven_Convergence/). 
+The lecture slides are [here](Resources/MorningConvergence/Goldberg_Slides_MESA_Leuven_Fri_ResTesting.pdf). 
+Full solutions for mini-minilabs are available as zip files: [part 1](Resources/MorningConvergence/solutions_minimini1.zip), [part 2](Resources/MorningConvergence/solutions_minimini2.zip), and [part 3](Resources/MorningConvergence/solutions_minimini3.zip). 
 
-Solutions can also be found at [this repository](https://github.com/aurimontem/Mesa_Leuven_Convergence/). 
+All materials can additionally be found at [this repository](https://github.com/aurimontem/Mesa_Leuven_Convergence/). 
 
 ## Lab Overview: 
 When solving a (partial) differential equation numerically, you are essentially approximating a _derivative_ as a _difference_. 
@@ -73,6 +74,7 @@ A summary of individual timestep control options may also be found [on the MESA 
 T3) We can also tell MESA to cut or increase the timestep in `src/run_star_extras.f90` via user-defined criteria, especially in the `extras_check_model` routine, by directly manipulating the `s% dt` in the star info structure. 
 
 # Mini-mini Lab 1: Spatial and Temporal Resolution testing
+**Solutions zip available [here](Resources/MorningConvergence/solutions_minimini1.zip)**
 
 Let's set up an example that illustrates (1) the importance of testing resolution and (2) how _bad_ the default resolution in MESA is for certain regimes. 
 In general, we cannot emphasize enough that these labs, the `test_suite`, and the basic `$MESA_DIR/star/work` directory are NOT converged numerically. 
@@ -173,7 +175,8 @@ If something looks funky, maybe inspect the Kippenhahn diagram...
 
 ==KEY TAKEAWAY: DO NOT USE DEFAULTS AS A STARTING POINT FOR SCIENCE RUNS UNLESS YOU HAVE DONE ROBUST RESOLUTION TESTING!==
 
-# Mini-mini lab 2: Resolution test failed! What do we do?  
+# Mini-mini lab 2: Resolution test failed! What do we do? 
+**Solutions zip available [here](Resources/MorningConvergence/solutions_minimini2.zip)**
 
 There is no generalized procedure for a failed resolution test, but it is a sign that you need to change your setup. In the most extreme cases, you may need an entirely new set of inlist parameters that modify the MESA defaults quite heavily. It may be a good idea to post to the MESA-users mailing list, in case someone else has dealt with this before.  
 
@@ -203,6 +206,7 @@ You may notice that the star makes it much farther across the Hertzsprung gap an
 
 
 # Mini-mini lab 3: Varying 1D 'physics' prescriptions
+**Solutions zip available [here](Resources/MorningConvergence/solutions_minimini3.zip)**
 
 It is also important to remember that discretizing differential equations onto a finite grid in space and time is not the only approximation or engineering technique that we employ in 1D stellar evolution modeling (e.g. with MESA). If you have a science result, you want to be sure that it's robust to your inputs, numerical choices, _and_ modeling assumptions within physical reason. 
 
