@@ -3,7 +3,7 @@
 Led by: Philip Mocz
 
 * [Download the Lab](https://ssgithub.com/VincentVanlaer/mesa-school-labs/tree/main/static/tuesday/lab-2)
-* [Download the ESTER 2D models](https://ssgithub.com/VincentVanlaer/mesa-school-labs/tree/main/content/tuesday/ester_models)
+* [Download the ESTER 2D models](https://ssgithub.com/VincentVanlaer/mesa-school-labs/tree/main/static/tuesday/ester_models)
 * [Download solution](https://ssgithub.com/VincentVanlaer/mesa-school-labs/tree/main/static/tuesday/lab-2-solution)
 
 **Goal:** Compute the Eddington-Sweet circulation velocity, `v_ES`, for a star evolved with MESA,

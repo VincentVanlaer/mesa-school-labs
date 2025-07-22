@@ -27,7 +27,7 @@ def main():
     ester_R = ester["star"].attrs["R"]
     ester_Xc = ester["star"]["X"][0, 0]
     ester_r = ester["star"]["r"][-1] * ester_R
-    ester_vr = ester["star"]["vr"][-1] * ester_R / MYR
+    ester_vr = abs(ester["star"]["vr"][-1] * ester_R / MYR)
 
     print("ESTER Xc:", ester_Xc)
 
