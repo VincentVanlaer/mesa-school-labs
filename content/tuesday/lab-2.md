@@ -181,8 +181,7 @@ To calculate the Eddington-Sweet velocity, we will need to know the variable nam
 | $G$                           | s% cgrav(i)               | gravitational constant (note: MESA let's you modify the graviational strength, hence a zone-wise value) |
 | $\Omega$                      | s% omega(i)               | rotation frequency     |
 | $H_P$                         | s% scale_height(i)        | scale height           |
-| $\nabla_\mu$                  | s% am_gradmu_factor       | $d\ln{\mu}/d\ln{P}$    |
-| $\varphi$                     | s% smoothed_brunt_B(i)    | $\left(\frac{\partial \ln\rho}{\partial\ln\mu}\right)_{P,T}$ |
+| $B$                     | s% smoothed_brunt_B(i)    | $\frac{\varphi}{\delta} \nabla_\mu $ |
 
 For our purposes, we can ignore $\varepsilon_{\nu}$ (neutrinos) in our calculations.
 
