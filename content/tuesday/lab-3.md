@@ -104,22 +104,20 @@ The parameters that should be updated/added are:
 - `load_saved_model`
 - `load_model_filename`
 - `new_omega_div_omega_crit`
-- `set_initial_omega_div_omega_crit`
 - `pause_before_terminate` <= Recommended
 
 {{< /details >}}
 
-Next, in `&controls`, set the output directory for the logs, set the initial mass, turn on the other angular momentum flag, and turn on the other torque flag. For the log directory, use a standard naming convention. It is recommended that this be something like `M<mass>_Omega<initial rotation>` (ie. `M05_Omega0p60`), but generally this is up to you. The `use_other_torque` and `use_other_am_mixing` flags are used to provide MESA with a custom subroutine that steps into the execution process and changes key behavior about how the torque and angular momentum mixing are calculated. You can explore all the available `use_other_<hook>` in the MESA docs [here](https://docs.mesastar.org/en/latest/reference/controls.html#use-other-hook).
+Next, in `&controls`, set the output directory for the logs, turn on the other angular momentum flag, and turn on the other torque flag. For the log directory, use a standard naming convention. It is recommended that this be something like `M<mass>_Omega<initial rotation>` (ie. `M05_Omega0p60`), but generally this is up to you. The `use_other_torque` and `use_other_am_mixing` flags are used to provide MESA with a custom subroutine that steps into the execution process and changes key behavior about how the torque and angular momentum mixing are calculated. You can explore all the available `use_other_<hook>` in the MESA docs [here](https://docs.mesastar.org/en/latest/reference/controls.html#use-other-hook).
 
 | 📋 TASK 4 |
 |:--------|
-| In `&controls`, **update `inlist_project`** to set the output directory for the logs, set the initial mass, turn on other angular momentum and turn on other torque. |
+| In `&controls`, **update `inlist_project`** to set the output directory for the logs, turn on other angular momentum and turn on other torque. |
 
 {{< details title="Hint: What parameters need to be changed?" closed="true" >}}
 
 The parameters that should be updated are:
 - `log_directory`
-- `initial_mass`
 - `use_other_torque`
 - `use_other_am_mixing`
 

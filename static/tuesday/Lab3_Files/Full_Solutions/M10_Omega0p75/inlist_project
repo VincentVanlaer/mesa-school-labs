@@ -20,7 +20,6 @@
 
       new_omega_div_omega_crit = 0.75d0			!!!! !!!!
       set_near_zams_omega_div_omega_crit_steps = 20
-      set_initial_omega_div_omega_crit = .true.	!!!! !!!!
 
 
       !SOLAR ABUNDANCES
@@ -96,8 +95,6 @@
 
 
       log_directory = "M10_Omega0p75"			!!!! !!!!
-
-      initial_mass = 10d0 ! In M_sun			!!!! !!!!
 
       set_min_D_mix = .true.
       min_D_mix = 1d3
