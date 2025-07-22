@@ -132,7 +132,7 @@ There are two (equivalent) forms of comparison operators in Fortran
 | `.ge.` | `>=` | greater than or equal to |
 | `.le.` | `<=` | less than or equal to |
 | `.eq.` | `==` | equal to |
-| `.ne.` | `!=` | not equal to |
+| `.ne.` | `/=` | not equal to |
 
 ```fortran
 ! these are the same
@@ -875,7 +875,7 @@ To access a member of the star info structure, you use the `%` operator. For exa
 
 #### Aside: Solar vs. cgs Units
 
-Internally, MESA is all in cgs units, but many inlist values (and some members of the star info structure) are in solar units out of convenience. Additionally, many user-specified values will be in solar units. So being able to convert between solar and cgs units is very useful. For calculations like these, use the `const` module. The file `$MESA_DIR/const/public/const_def.inc` defines many useful constants. So long as `const_def` module is included in your `run_star_extras.f90` file, you can access them from anywhere. **They are not part of the star info structure**, so you don't need to use the `s%` prefix to access them. For example, to get the solar luminosity in erg/s, you would use `Lsun`, which is defined in `const_def.inc`.
+Internally, MESA is all in cgs units, but many inlist values (and some members of the star info structure) are in solar units out of convenience. Additionally, many user-specified values will be in solar units. So being able to convert between solar and cgs units is very useful. For calculations like these, use the `const` module. The file `$MESA_DIR/const/public/const_def.f90` defines many useful constants. So long as `const_def` module is included in your `run_star_extras.f90` file, you can access them from anywhere. **They are not part of the star info structure**, so you don't need to use the `s%` prefix to access them. For example, to get the solar luminosity in erg/s, you would use `Lsun`, which is defined in `const_def.f90`.
 
 ### Assembling the Pieces
 
