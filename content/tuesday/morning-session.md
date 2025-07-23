@@ -689,9 +689,9 @@ Perhaps you've seen the flowchart below (courtesy of Josiah Schwab) before. It s
   <embed src="../flowchart.pdf" type="application/pdf" width="100%" height="600px" />
 </div>
 
-Each of the `extras_*` functions and subroutines in `run_star_extras.f90` is called at a different point in the evolution process. Need to set a variable at the beginning of a run? Use `extras_startup`. Need to check a condition at the end of each step? Use `extras_check_model`. We won't see examples of all of these today, but I encourage you to look at the `run_star_extras.f90` files in many of the MESA test cases to learn more about how they can be used.
+Each of the `extras_*` functions and subroutines in `run_star_extras.f90` is called at a different point in the evolution process. Need to set a variable at the beginning of a run? Use `extras_startup`. Need to check a condition at the end of each step? Use `extras_finish_step`. We won't see examples of all of these today, but I encourage you to look at the `run_star_extras.f90` files in many of the MESA test cases to learn more about how they can be used.
 
-`extras_check_model` is one of the more commonly used functions, as it is called at the end of each solver iteration. Let's use it to do the simplest thing we can: print a message to the terminal. This is a good first step to make sure we can compile and run our code without errors.
+`extras_check_model` is one of the more commonly used functions, as it is called at the end of the series of solver iterations that actually evolve the model. It's main job is to tell MESA to redo a timestep, retry it with a smaller timestep (if convergence is tough or it overshot some stopping condition), move on to the next step, or to terminate the run. Let's use it to do the simplest thing we can: print a message to the terminal. This is a good first step to make sure we can compile and run our code without errors.
 
 |📋 **Task 2.4**|
 |:---|
@@ -879,7 +879,7 @@ Internally, MESA is all in cgs units, but many inlist values (and some members o
 
 ### Assembling the Pieces
 
-Now that we know how to access the star info structure, we can add a custom stopping condition based on the temperature at Earth. The first question you should ask is: where should this condition go in `run_star_extras.f90`? Given what we saw in `extras_check_model`, it seems like a reasonable place to put it. Indeed, this is how many stopping conditions are implemented. However, if you look at the flowchart above, you'll see that there is another function that gets the final say after a timestep is completed: `extras_finish_step`. This is actually a more appropriate place to put this condition, as it is called after a timestep is completed *and* the model is considered good enough to continue evolving (rather than being retried).
+Now that we know how to access the star info structure, we can add a custom stopping condition based on the temperature at Earth. The first question you should ask is: where should this condition go in `run_star_extras.f90`? Given what we saw in `extras_check_model`, it seems like a reasonable place to put it. Indeed, this is how many stopping conditions are implemented. However, if you look at the flowchart above, you'll see that there is another function that gets the final say after a timestep is completed: `extras_finish_step`. This is actually a more appropriate place to put this condition, as it is called after a timestep is completed *and* the model is considered good enough to continue evolving (rather than being redone/retried).
 
 Once you know *where* you'll put the code, you need to know *how* to calculate the temperature at Earth. The equilibrium temperature of the Earth is given by:
 
