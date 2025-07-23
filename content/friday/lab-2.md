@@ -254,7 +254,7 @@ Be aware that this is only done to better compare the rotating to non-rotating r
 | Now that the inlist is ready all that's left is to run GYRE using the following in your terminal:
 
 ```bash
-$ $GYRE_DIR/bin/gyre gyre.in
+$GYRE_DIR/bin/gyre gyre.in
 ```
 
 
