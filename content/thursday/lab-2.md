@@ -489,9 +489,9 @@ The period spacing measures the inverse of the stratification in radiative regio
 </details>
 
 ### Penetrative convection
-Penetrative convection is the same as overshooting except that the temperature gradient in the overshooting region is modified and set to the adiabatic one (see the difference in temperature gradient in Fig. 2). Modifying the temperature gradient in the overshooting region is currently not implemented in MESA and thus it should be done in a new subroutine ``penetrative_convection`` in ``run_star_extras.f90`` using ``s% other_adjust_mlt_gradT_fraction``.
+Penetrative convection is the same as overshooting except that the temperature gradient in the overshooting region is modified and set to the adiabatic one (see the difference in temperature gradient in Fig. 2). Modifying the temperature gradient in the overshooting region is currently not implemented in MESA and thus it should be done in a new subroutine ``penetrative_convection`` in ``run_star_extras.f90`` using ``s% other_adjust_mlt_gradT_fraction``. Therefore, we will manually modify the temperature in the overshooting region.
 
-To help you with this task, there are already two extra subroutines that have been implemented in ``run_star_extras.f90``. The first one ``eval_conv_bdy_Hp_perso``is used to evaluate the pressure scale height at a convective boundary. The second one ``eval_over_bdy_params_perso`` is for evaluating other parameters such as cell index ``k``, radius ``r`` and diffusion coefficients ``D`` at a convective boundary. You can have a look at these two subroutines in ``run_star_extras.f90`` but you do not have to edit them.
+To help you with this task, there are already two extra subroutines that have been implemented in ``run_star_extras.f90``. The first one ``eval_conv_bdy_Hp_perso``is used to evaluate the pressure scale height at a convective boundary. The second one ``eval_over_bdy_params_perso`` is for evaluating other parameters such as cell index ``k``, radius ``r``, diffusion coefficients ``D`` and convective velocity at a convective boundary. You can have a look at these two subroutines in ``run_star_extras.f90`` but you do not have to edit them. Here we just need to use the first two, the cell and index ``k`` and radius ``r`` of the convective boundary.
 
 >[!IMPORTANT]
 > As penetrative is an extension of the overshooting scheme, you have to keep the parameters from the previous section active.
@@ -524,32 +524,43 @@ In ``run_star_extras.f90``:
           integer :: i, k, k_ob, first_model_number
           real(dp) :: Hp_cb, f0, r_ob, huh, f, r, dr, factor
 
-
           ierr = 0
           call star_ptr(id, s, ierr)
           if (ierr /= 0) return
 
+          ! The three if statement below are here to activate the penetrative
+          ! convection only when and where it is needed:
+          ! only activate when set to .true. in inlist project
           if (.not. s% x_logical_ctrl(1)) return
+          ! don't activate when there are no convective region
           if (s% num_conv_boundaries == 0) return
+          ! only activate the scheme for convective (not for envelopes).
           if (.not. s% top_conv_bdy(1)) return ! no core
 
-
+          ! reads the values of the overshooting parameters f and f0
           f = s%overshoot_f(1)
           f0 = s%overshoot_f0(1)
 
+          ! the call statement is used to execute a subroutine inside another subroutine
+
+          ! this subroutine evaluate pressure scale height Hp at convective boundary
           call eval_conv_bdy_Hp_perso(s, 1, Hp_cb, ierr)
-          call eval_over_bdy_params_perso(s, 1, f0, k_ob, r_ob, huh, huh, ierr)
+
+          ! this subroutine evaluate different variables at convective boundary
+          ! dummy are just two variables that we do not need for the present case.
+          ! k_ob and r_ob are the index and radius of the overshoot boundary,
+          ! which the overshooting distance above the core.
+          call eval_over_bdy_params_perso(s, 1, f0, k_ob, r_ob, dummy, dummy, ierr)
 
           do k = k_ob, 1, -1
             r = s%r(k)
 
             dr = r - r_ob
 
-            if (dr < f*Hp_cb) then
-               factor = 1._dp
-               !write(*,*) 'factor = ', factor
-            else
-               factor = -1d0
+            if (dr < f*Hp_cb) then     !if radius in the overshoot region
+               factor = 1._dp          ! factor = 1 for adiabatic gradT
+            else                       ! radius in the envelope, beyond r_ob
+               factor = -1d0           ! factor = -1 for radiative gradT
             endif
             s% adjust_mlt_gradT_fraction(k) = factor
           end do
@@ -644,7 +655,9 @@ totally eliminating them.
 <em>Show answer </em>
 </summary>
 
-Add this command in the `&controls` section of `inlist_project`
+Delete (or comment) all the commands related to overshooting and penetrative convection in `inlist_project`.
+
+Add the following command in the `&controls` section of `inlist_project`
 
 ```linux
     do_conv_premix = .true.
@@ -717,7 +730,9 @@ The maximal overshoot scheme is not implemented in MESA, but we can use the ``pr
 <em>Show answer </em>
 </summary>
 
-Add this command in the `&controls` section of `inlist_project`
+Delete all the commands related to semiconvection, overshooting and penetrative convection the in `inlist_project` (if not already done).
+
+Add the following commands in the `&controls` section of `inlist_project`
 
 ```linux
     predictive_mix(1) = .true.
