@@ -950,7 +950,7 @@ After the run terminates, you're ready to plot and reproduce the figures of [Hek
 *Fig.6: The variation of $\epsilon_g$ at the base of the convection zone as a function of age.*
 </details>
 
-**Task 5.4**: Using the same Google Colab notebook, obtain the $\log(L)$ and $\log(T)$ columns of your `history.data` in a new output file called `HR.dat`, upload the two columns in the excel sheet [here](https://docs.google.com/spreadsheets/d/1upyIGVzw4kU3YUe4aU03ZZqMWvgblQHmp2gIhZKgEJ8/edit?gid=1458172644#gid=1458172644) and we will compare the difference in the evolution of the RGB bumps for different stellar masses across the room!
+**Task 5.4**: For this task, each team will upload one `history.data`. Rename your `history.data` as `history_1pxx.data`, reflecting the stellar mass you've been working with and post it on the Day 4 channel of Mattermost. A TA will plot the evolutionary tracks of all stellar masses computed to compare the difference in the evolution of the RGB bumps across the room using this Google Colab [notebook](https://colab.research.google.com/drive/13gPADNVBS44nze7Ej83YtE4VKILG3PeR?usp=sharing).
 
 <details>
 <summary>Answer 5.4</summary>
