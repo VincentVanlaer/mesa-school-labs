@@ -991,7 +991,7 @@ new_net_name = 'basic_custom.net'
 
 MESA will look for `basic_custom.net` both in your working directory and in `$MESA_DIR/data/net_data/nets`.
 
-Run and re-plot $\Delta \Pi$ versus age and central helium abundance using the Google Colab notebook again (you will need to upload your new `history.data` file).  
+Run and re-plot $\Delta \Pi$ versus age and central helium abundance using the Google Colab notebook again (you will need to upload your new `history.data` file). You can open a new window of the Google Colab [Click here](https://colab.research.google.com/drive/1g9lz20FU9IVrg3CJTF9y5jZ80SYJghbE?usp=sharing), or save the previous plot for comparison.
 
 Not much has changed, right?  
 This shows us that the helium-burning reaction processes that most influence the period spacing—and therefore the interior structure of the star—are: `r_he4_he4_he4_to_c12` and `r_c12_ag_o16`.
