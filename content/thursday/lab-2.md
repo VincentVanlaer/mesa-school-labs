@@ -507,7 +507,7 @@ To help you with this task, there are already two extra subroutines that have be
 
 <details class="hx-border hx-border-blue-200 dark:hx-border-blue-200 hx-rounded-md hx-my-2">
 <summary class="hx-bg-blue-100 dark:hx-bg-neutral-800 hx-text-blue-900 dark:hx-text-blue-200 hx-p-2 hx-m-0 hx-cursor-pointer">
-<em>Show hint</em>
+<em>Show hint 2</em>
 </summary>
 
   The call statement is used to execute a subroutine inside another subroutine.
@@ -516,7 +516,7 @@ To help you with this task, there are already two extra subroutines that have be
 
 <details class="hx-border hx-border-blue-200 dark:hx-border-blue-200 hx-rounded-md hx-my-2">
 <summary class="hx-bg-blue-100 dark:hx-bg-neutral-800 hx-text-blue-900 dark:hx-text-blue-200 hx-p-2 hx-m-0 hx-cursor-pointer">
-<em>Show hint</em>
+<em>Show hint 3</em>
 </summary>
 
   If a subroutine argument is not needed by your code after the call, and you're only calling the subroutine to get other outputs, you can safely   pass a dummy variable — as long as it has the correct type. Do not forget to declare it.
@@ -526,7 +526,7 @@ To help you with this task, there are already two extra subroutines that have be
 
 <details class="hx-border hx-border-blue-200 dark:hx-border-blue-200 hx-rounded-md hx-my-2">
 <summary class="hx-bg-blue-100 dark:hx-bg-neutral-800 hx-text-blue-900 dark:hx-text-blue-200 hx-p-2 hx-m-0 hx-cursor-pointer">
-<em>Show hint</em>
+<em>Show hint 4</em>
 </summary>
 
 For modifying the temperature gradient in the overshooting region, you can use this code block (comments are added foe extra explanation):
