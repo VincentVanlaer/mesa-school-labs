@@ -498,12 +498,56 @@ To help you with this task, there are already two extra subroutines that have be
 
 <details class="hx-border hx-border-blue-200 dark:hx-border-blue-200 hx-rounded-md hx-my-2">
 <summary class="hx-bg-blue-100 dark:hx-bg-neutral-800 hx-text-blue-900 dark:hx-text-blue-200 hx-p-2 hx-m-0 hx-cursor-pointer">
-<em>Show hint</em>
+<em>Show hint 1</em>
 </summary>
 
   You need to add a logical parameter in ``inlist_project`` to activate or deactivate the penetrative convection scheme.
 
 </details>
+
+<details class="hx-border hx-border-blue-200 dark:hx-border-blue-200 hx-rounded-md hx-my-2">
+<summary class="hx-bg-blue-100 dark:hx-bg-neutral-800 hx-text-blue-900 dark:hx-text-blue-200 hx-p-2 hx-m-0 hx-cursor-pointer">
+<em>Show hint</em>
+</summary>
+
+  The call statement is used to execute a subroutine inside another subroutine.
+
+</details>
+
+<details class="hx-border hx-border-blue-200 dark:hx-border-blue-200 hx-rounded-md hx-my-2">
+<summary class="hx-bg-blue-100 dark:hx-bg-neutral-800 hx-text-blue-900 dark:hx-text-blue-200 hx-p-2 hx-m-0 hx-cursor-pointer">
+<em>Show hint</em>
+</summary>
+
+  If a subroutine argument is not needed by your code after the call, and you're only calling the subroutine to get other outputs, you can safely   pass a dummy variable — as long as it has the correct type. Do not forget to declare it.
+
+</details>
+
+
+<details class="hx-border hx-border-blue-200 dark:hx-border-blue-200 hx-rounded-md hx-my-2">
+<summary class="hx-bg-blue-100 dark:hx-bg-neutral-800 hx-text-blue-900 dark:hx-text-blue-200 hx-p-2 hx-m-0 hx-cursor-pointer">
+<em>Show hint</em>
+</summary>
+
+For modifying the temperature gradient in the overshooting region, you can use this code block (comments are added foe extra explanation):
+
+```fortran
+          do k = k_ob, 1, -1
+            r = s%r(k)
+
+            dr = r - r_ob
+
+            if (dr < f*Hp_cb) then     !if radius in the overshoot region
+               factor = 1._dp          ! factor = 1 for adiabatic gradT
+            else                       ! radius in the envelope, beyond r_ob
+               factor = -1d0           ! factor = -1 for radiative gradT
+            endif
+            s% adjust_mlt_gradT_fraction(k) = factor
+          end do
+```
+
+</details>
+
 
 <details class="hx-border hx-border-green-200 dark:hx-border-green-200 hx-rounded-md hx-my-2">
 <summary class="hx-bg-green-100 dark:hx-bg-neutral-800 hx-text-green-900 dark:hx-text-green-200 hx-p-2 hx-m-0 hx-cursor-pointer">
@@ -522,7 +566,7 @@ In ``run_star_extras.f90``:
           integer, intent(out) :: ierr
           type(star_info), pointer :: s
           integer :: i, k, k_ob, first_model_number
-          real(dp) :: Hp_cb, f0, r_ob, huh, f, r, dr, factor
+          real(dp) :: Hp_cb, f0, r_ob, dummy, f, r, dr, factor
 
           ierr = 0
           call star_ptr(id, s, ierr)
