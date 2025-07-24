@@ -79,7 +79,7 @@ This was a test run to ensure everything works fine for you; you do not need to 
 
 ### Using inlists
 
-You're now familiar that MESA/star currently has five inlist sections: `star_job', `eos', `kap', `controls' and `pgstar', each containing the options for a different aspect of MESA.
+You're now familiar that MESA/star currently has five inlist sections: ``star_job``, ``eos``, ``kap``, ``controls`` and ``pgstar``, each containing the options for a different aspect of MESA.
 
 **Task 2.4**: List the contents of your working directory and identity the number of inlists you see.
 <details>
