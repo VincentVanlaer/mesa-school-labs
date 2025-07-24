@@ -1,5 +1,5 @@
 ---
-Authors: Saskia Hekker, Susmita Das, Zhao Guo, Arthur Le Saux and Noi Shitrit for MESA School Leuven 2025
+author: Saskia Hekker, Susmita Das, Zhao Guo, Arthur Le Saux and Noi Shitrit for MESA School Leuven 2025
 ---
 
 # Minilab 1: The red-giant bump in low-mass stars
