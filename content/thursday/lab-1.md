@@ -79,29 +79,7 @@ This was a test run to ensure everything works fine for you; you do not need to 
 
 ### Using inlists
 
- MESA/star currently has five inlist sections. Each section contains the options for a different aspect of MESA.
-
-**star_job**
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;options for the program that evolves the star
-
-**eos**
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;options for the MESA eos (equation of state) module
-
-**kap**
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;options for the MESA kap (opacity) module
-
-**controls**
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;options for the MESA star module
-
-**pgstar**
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;options for on-screen plotting 
-
----
+You're now familiar that MESA/star currently has five inlist sections: `star_job', `eos', `kap', `controls' and `pgstar', each containing the options for a different aspect of MESA.
 
 **Task 2.4**: List the contents of your working directory and identity the number of inlists you see.
 <details>
@@ -109,7 +87,7 @@ This was a test run to ensure everything works fine for you; you do not need to 
 There are three inlists- inlist, inlist_project and inlist_pgstar. The main inlist points to the inlist_project for the inlist sections: star_job, eos, kap and controls while it points to the inlist_pgstar for plotting options only.
 </details>
 
-**Task 2.5**: Open the prepared ``inlist_project`` and answer the following questions: (i) where does the model start its run from? (ii) what is the terminating condition used? (iii) what is the metallicity of the model computed? 
+**Task 2.5**: Open the prepared ``inlist_project`` and answer the following questions: (i) where does the model start its run from? (ii) what is the terminating condition used? (iii) what is the metallicity of the model computed? This example is for the case of $1M_{\odot}$, check how the numbers vary for your particular case.
 ``` fortran 
 &star_job
 	! begin with saved model
