@@ -60,10 +60,6 @@ In your `gyre_rot.in`, include the following blocks to enable rotation and compu
   coriolis_method = 'TAR'
 /
 
-&osc
-  alpha_grv = 0  ! Cowling approximation (required for TAR)
-/
-
 &mode
   l = 1
   m = -1
@@ -81,9 +77,9 @@ In your `gyre_rot.in`, include the following blocks to enable rotation and compu
 /
 ```
 
-You can include additional `l` and `m` values as needed.
+The $l=2$ modes will also be split, however this will add a bit of computing time to your model. You can choose to calculate these modes as well if you like. The $l=2$ modes have m values $m=-2,-1,0,1,2$.
 
-Make sure you also include a `&scan` block that pairs with `tag_list = 'non-radial'` and covers a suitable frequency range (e.g., 100–300 μHz).
+Make sure you still have a `&scan` block that pairs with `tag_list = 'non-radial'` and covers a suitable frequency range (e.g., 100–300 μHz).
 
 ---
 
@@ -95,7 +91,7 @@ Save the summary and detail files in human-readable format. For example:
 
 ```fortran
 &ad_output
-  summary_file = 'lab3_details/summary.txt'
+  summary_file = 'lab3_details/summary_rot.txt'
   summary_file_format = 'TXT'
   freq_units = 'UHZ'
   summary_item_list = 'l,m,n_pg,n_p,n_g,freq,freq_units,E_norm,E_p,E_g'
@@ -103,6 +99,16 @@ Save the summary and detail files in human-readable format. For example:
   detail_item_list = 'l,n_pg,omega,rho,x,xi_r,xi_h,c_1,As,V_2,Gamma_1'
   detail_file_format = 'TXT'
 /
+```
+
+|⚠️ CHECKPOINT |
+|:--|
+| If you should need it, you can compare your namelist file with a sample one that we have provided [here.](sample_gyre_rot.in)|
+
+Once you've added all the above lines, go ahead and calculate the frequencies using 
+
+```bash
+$GYRE_DIR/bin/gyre gyre_rot.in
 ```
 
 ---
@@ -116,9 +122,9 @@ Notice how the $l = 1$ ridge clearly splits in the rotating case:
 
 Once your GYRE run is complete:
 
-- Use the output to plot an **echelle diagram**
+- Use the output to plot an **echelle diagram**. (You can use the same Google Colab from Lab 1 [here](https://colab.research.google.com/drive/1zFC6y4FgZdMdoMUHLFN3mfF1xO2heOwa?usp=sharing))
 - You should see that the $\ell = 1$ ridge is now split into **three distinct components**, corresponding to $m = -1, 0, +1$
-- This is **direct evidence** of rotational splitting
+- This is called rotational splitting
 
 **Now compare the observed splitting in the diagram with the $\delta\Omega_g$ you measured in Lab 1**
 
@@ -131,14 +137,14 @@ For instance:
 When using the Traditional Approximation of Rotation (TAR) along with the Cowling approximation, the *m* = 0 modes may show a slight frequency shift compared to the non-rotating case. This is not a splitting but rather a systematic offset introduced by the TAR treatment, particularly noticeable in high-order *g*-modes.
 
 ---
-
+<!--
 ## 6. Deliverables
 
 - Your `gyre.in` input file with rotation and $m \ne 0$ modes
 - A plot of your echelle diagram, showing rotational splitting
 - A short note comparing the observed splitting to your $\delta\Omega_g$ measurement from Lab 1
 
----
+--->
 
 ## The Big Picture
 
@@ -161,13 +167,13 @@ This will enforce a constant rotation rate. How does this affect the splitting p
 ## Tips
 
 - Use the same frequency scan range as in Lab 2 for easier comparison (e.g., 100–300 μHz)
-- Don’t forget to use enough frequency resolution (`n_freq = 1000`) in the `&scan` block
+- Don’t forget to use enough frequency resolution (`n_freq = 2000`) in the `&scan` block for non-radial modes
 
 ---
 
 Let us know if you run into any trouble — and have fun seeing rotation in action!
 
-## Lab 3 BONUS: Rotation Kernels
+## Lab 3 BONUS: Rotation Kernels (Python Exercise)
 
 ## Rotation Kernels and Rotational Splitting
 

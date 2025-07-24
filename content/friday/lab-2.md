@@ -72,20 +72,20 @@ As described by the docs, this will tell GYRE that we are using an external evol
 
 |📋 TASK |
 |:--|
-| Choose a model from the [google sheet](https://docs.google.com/spreadsheets/d/1pAcvlfqOga0JNZo3cjJeZaErVd4youLYHyAmAu3NmSE/edit?usp=sharing) with the rotation rate you used in Lab 1 . Check the history.data file to find the appropriate profile number for the corresponding $\nu_{\rm max}$. It doesn't have to be the exact  $\nu_{\rm max}$ value. Discuss in you group who will run which model so you will have results for all of them. (The lower $\nu_{max}$ the longer the runtime)
+| Remember the model $\nu_{\rm max}$ you chose from the [google sheet](https://docs.google.com/spreadsheets/d/1pAcvlfqOga0JNZo3cjJeZaErVd4youLYHyAmAu3NmSE/edit?usp=sharing) in Lab 1? Check the history.data file to find the appropriate profile number for the corresponding $\nu_{\rm max}$. It doesn't have to be the exact $\nu_{\rm max}$ value. (The lower $\nu_{max}$ the longer the runtime) |
 
 #### Constants
 
- Here we can define various constants found [here](https://gyre.readthedocs.io/en/v7.2.1/ref-guide/input-files/constants.html). It is good practice to use identical values as used in the code generating your model. This group can be left empty for this lab as we are going to use the default values.
+Here we can define various constants found [here](https://gyre.readthedocs.io/en/v7.2.1/ref-guide/input-files/constants.html). It is good practice to use identical values as used in the code generating your model. This group can be left empty for this lab as we are going to use the default values.
 
- <!-- #### Bonus
- Check how MESA defines its constants and how do they compare to gyres default values
+<!-- #### Bonus
+Check how MESA defines its constants and how do they compare to gyres default values
 ```
- $GYRE_DIR/src/common/gyre_constants.fpp.
+$GYRE_DIR/src/common/gyre_constants.fpp.
 ``` -->
 
- ### Mode
-This namegroup defines which modes you want to calculate. You can state the angular degree ($l$) and the azimuthal order ($m$). For each type of mode we will need one extra `&mode` namegroup. For now we will leave the azimuthal order at its default value ($m=0$); it will come up later when we include rotation. We will also assign the modes with a tag to differentiate between them in other namegroups. For this lab using `'radial'` for the  $\ell=0$ modes and `'non-radial'` for all others is enough. 
+### Mode
+This namegroup defines which modes you want to calculate. You can state the angular degree ($\ell$) and the azimuthal order ($m$). For each type of mode we will need one extra `&mode` namegroup. For now we will leave the azimuthal order at its default value ($m=0$); it will come up later when we include rotation. We will also assign the modes with a tag to differentiate between them in other namegroups. For this lab using `'radial'` for the  $\ell=0$ modes and `'non-radial'` for all others is enough. 
 
 |📋 TASK |
 |:--|
@@ -117,7 +117,7 @@ In this namegroup we can set various options on how to calculate the oscillation
 
 |📋 TASK |
 |:--|
-| As per default GYRE assumes that at the outer boundary of the model, the stellar surface, the density vanishes. Instead we want to follow a more accurate description from Christensen-Dalsgaard (2008). Find and set the corresponding variable. To be consistent, you should also adjust `variables_set`.  |
+| As per default, GYRE assumes that at the outer boundary of the model, the stellar surface, the density vanishes. Instead we want to follow a more accurate description from Christensen-Dalsgaard (2008). Find and set the corresponding variable. To be consistent, you should also adjust `variables_set`.  |
 
 {{< details title="ℹ️ HINT " closed="true" >}}
 
@@ -146,7 +146,7 @@ Here goes everything to do with numerical parameters. Again, we leave nearly eve
 
 #### Frequency Scan Parameters
 
-This section tells GYRE in which frequency range it will scan for the oscillation eigenfunctions. The modes that are of interest to us are those closest to $\nu_{\rm max}$. We suggest to set `freq_min` and `freq_max` to $\nu_{\rm max} \pm 3 \Delta\nu$. Look into your `history.data` file to find the values of $\nu_{\rm max}$ and $\Delta\nu$ for your model with the profile you choose in the "Model" section. (We discussed those parameters in Lab1, if you need a refresher). We also set the units of our chosen range to μHz (`freq_units = 'UHZ'`) 
+This section tells GYRE in which frequency range it will scan for the oscillation eigenfunctions. The modes that are of interest to us are those closest to $\nu_{\rm max}$. We suggest to set `freq_min` and `freq_max` to $\nu_{\rm max} \pm 3 \Delta\nu$. Look into your `history.data` file to find the values of $\nu_{\rm max}$ and $\Delta\nu$ for your model with the profile you choose in the "Model" section. (You wrote this down in [our google sheet](https://docs.google.com/spreadsheets/d/1pAcvlfqOga0JNZo3cjJeZaErVd4youLYHyAmAu3NmSE/edit?usp=sharing) from Lab1, if you need a refresher). We also set the units of our chosen range to μHz (`freq_units = 'UHZ'`) 
 
 Next, we define the resolution, the number of points of our scan.  Generally, we need the grid spacing to be smaller than the eigenfrequency separation of adjacent modes, across the full range of the grid. There is no absolute rule as how to determine this value beforehand, but a too low value could miss some modes and a high value means a longer runtime. For our radial p-modes `n_freq = 200` is enough but because we calculate the oscillations also for red giants we do not only have p-modes but also mixed-modes (for the non-radial modes). These will need a higher value. To be more efficient we therefore define two different `&scan` namegroups. To define which modes correspond to which scan we set `tag_list = 'radial'` (the tag we defined in `&mode`):
 
@@ -230,7 +230,7 @@ We put everything in the namegroup `&ad_output`. It tells gyre that we will assu
 
 |📋 TASK |
 |:--|
-| Put the above lines to define your output into your `gyre.in` file. Adjust the location of your output as you see fit. |
+| Put the above lines to define your output into the `&ad_output` of your `gyre.in` file. Adjust the location of your output file as you see fit. |
 
 ## Rotation 
 For now we will ignore rotation and leave `&rot` empty. We will come back to it in Lab3.

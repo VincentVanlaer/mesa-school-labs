@@ -47,9 +47,8 @@ Once that's complete, it's good practice to run the test suite to ensure nothing
 
 ```make -C $GYRE_DIR test```
 
-|ℹ️ INFO |
-|:--|
-| If all the tests read "...succeeded" then you are good to move on to the next step. If that's not the case, ask your TA or a developer for help. |
+> [!NOTE]
+> If all the tests read "...succeeded" then you are good to move on to the next step. If that's not the case, ask your TA or a developer for help. 
 
 ---
 
@@ -110,18 +109,25 @@ For today's set of labs, you will be assigned a rotation rate based on your tabl
     set_omega_div_omega_crit = .true.
 ```
 
-|ℹ️ INFO |
-|:--|
-| In this lab, we have turned on rotation, but we have **NOT** turned on the flags corresponding to rotationally induced mixing or angular momentum transport. In your own science cases, you will need to make a choice about how you implement these two things. |
+> [!NOTE]
+> In this lab, we have turned on rotation, but we have **NOT** turned on the flags corresponding to rotationally induced mixing or angular momentum transport. In your own science cases, you will need to make a choice about how you implement these two things. 
 
 
 #### controls
 
-The only thing we'll need to update in `&controls` is to ensure that MESA outputs the type of files needed for GYRE. These are usually referred to as `pulse_data` in the MESA docs.
+The only thing we'll need to update in `&controls` is to ensure that MESA outputs the type of files needed for GYRE, and includes the correct parts of the star. These files are usually referred to as `pulse_data` in the MESA docs.
 
 |📋 TASK |
 |:--|
-| 1. Add the following lines to the `&controls` portion of `inlist_1M_star` |
+| 1. Add the relevant lines to the `&controls` portion of your inlist that will output GYRE files with each profile. These files should be in the `GYRE` format. Also make sure they include the atmosphere, the surface point, and should be in double point precision. |
+
+{{< details title="ℹ️ HINT 1" closed="true" >}}
+
+You can find the correct inlist options by searching through [the controls defaults](https://docs.mesastar.org/en/latest/reference/controls.html). You should end up adding 5 lines to controls.
+
+{{< /details >}}
+
+{{< details title="ℹ️ SOLUTION" closed="true" >}}
 
 ```fortran
    write_pulse_data_with_profile = .true.
@@ -130,6 +136,8 @@ The only thing we'll need to update in `&controls` is to ensure that MESA output
    add_double_points_to_pulse_data = .true. 
    pulse_data_format = 'GYRE'
 ```
+
+{{< /details >}}
 
 While you don't need to change these, you should notice that we are running this model at low resolution (large `mesh_delta_coeff` and `time_delta_coeff`). Once again, you should choose this value to reflect your science question and convergence studies. We have chosen this value to prioritize running speed.
 
@@ -140,7 +148,7 @@ Since our star is rotating, we can calculate analytically the effect of rotation
 In the JWKB approximation, we have the following estimators for p-modes and g-modes, respectively:
 $$\delta \Omega_p = \frac{\int_0^R \Omega(r){\mathrm d r \over c_s}}{\int_0^R \mathrm 1/c_s \mathrm d r}$$
 $$\delta \Omega_g = 0.5 \frac{\int_{N^2>0} \Omega(r){N \over r}\mathrm d r}{\int_{N^2>0}\frac{N}{r} {\mathrm d r}}$$
-Where $\Omega(r)$ indicates the rotation rate (`s% omega`), $N$ indicates the Brunt-Väisälä frequency (`s% brunt_N`) and $c_s$ indicates the sound speed (`s% csound`). These are, effectively, average values of of the rotation rate as sensed by p- and g-modes in a star.
+Where $\Omega(r)$ indicates the rotation rate (`s% omega`), $N$ indicates the Brunt-Väisälä frequency (`s% brunt_N`) and $c_s$ indicates the sound speed (`s% csound`). These estimators are, effectively, average values of of the rotation rate as sensed by p- and g-modes in a star.
 
 We can easily add these estimators to the MESA output as a history file. We will outline the process below, since there are some fortran specifics you may not know, but feel free to go ahead and code up these equations now if you are confident in your fortran coding.
 
@@ -331,10 +339,9 @@ Within `data_for_extra_history_columns`:
 
 {{< /details >}}
 
-|ℹ️ INFO |
-|:--|
-| A quick `./clean` and `./mk` after editing your `src/run_star_extras.f90` file will tell you if your fortran code has any obvious bugs or not. |
-| Also its required!! So always `./clean` and `./mk`!!!! |
+> [!NOTE]
+> A quick `./clean` and `./mk` after editing your `src/run_star_extras.f90` file will tell you if your fortran code has any obvious bugs or not. 
+> Also its required!! So always `./clean` and `./mk`!!!! 
 
 ## Run the star
 
@@ -391,6 +398,12 @@ After your run is completed, open up your history file and find the model closes
 |📋 TASK |
 |:--|
 | Fill out the first five columns of [the google sheet](https://docs.google.com/spreadsheets/d/1pAcvlfqOga0JNZo3cjJeZaErVd4youLYHyAmAu3NmSE/edit?usp=sharing) for your chosen model. |
+
+{{< details title="ℹ️ HINT" closed="true" >}}
+
+The most straightforward (but also most tedious) way to do this is to simply open the history file, find the row where `nu_max` is closest to your chosen value, and then scroll across to find the other values at that same time step. Feel free to use whatever method you like (i.e. python, etc) if you are familiar or if you prefer.
+
+{{< /details >}}
 
 |❓ QUESTION |
 |:--|
@@ -482,7 +495,7 @@ As always there are many methods to doing this, so your code may not look exactl
 
 ## Full Solutions
 
-If you need them, a full lab 1 solution directory (including bonus task) can be found on our GitHub, [here](lab1_soln_dir.zip). You will still need to edit the rotation rate and the nu_max for output.
+If you need them, a full lab 1 solution directory (including bonus task) can be downloaded [here](lab1_soln_dir.zip). You will still need to edit the rotation rate and the nu_max for output.
 
 ## Troubleshooting
 
