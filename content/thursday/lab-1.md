@@ -584,7 +584,7 @@ As mentioned earlier, this lab aims to probe the importance of entropy in RGB ev
 
 ![Fig.3](/thursday/staa176fig6.jpeg)
 
-*Fig.3: The value of $`\epsilon_g`$ at the base of the convection zone as a function of age. The vertical dashed and dash–dotted lines indicate the stellar ages of the luminosity maximum and luminosity minimum of the bump, respectively. The horizontal dotted line indicates zero. Figure from Hekker et al. (2020).*
+*Fig.3: The value of $\epsilon_g$ at the base of the convection zone as a function of age. The vertical dashed and dash–dotted lines indicate the stellar ages of the luminosity maximum and luminosity minimum of the bump, respectively. The horizontal dotted line indicates zero. Figure from Hekker et al. (2020).*
 
 In Section 3.1, we had already seen how to include the mass and the radius coordinates at the base of the convection zone. We only had to uncomment the history column names in the <span style="color:purple">``history_columns.list``</span> since they are computed as default history columns. However, this holds clue to how one may compute new additional parameters at the base of the convection zone. To look at how the mass and the radius ordinates were computed at the base of the convection zone, open the file:
 ```fortran
@@ -913,7 +913,7 @@ The customised PGPLOT window should look something like this:
 
 ![Fig.4](/thursday/rgbb_001048.png)
 
-*Fig.4: The PGPLOT dashboard exhibiting the HR diagram, temperature-density plot and additional profile panels for a $`1M_{\odot}`$ track with solar composition.*
+*Fig.4: The PGPLOT dashboard exhibiting the HR diagram, temperature-density plot and additional profile panels for a $1M_{\odot}$ track with solar composition.*
 
 
 
@@ -945,7 +945,7 @@ After the run terminates, you're ready to plot and reproduce the figures of [Hek
 
 ![Fig.6](/thursday/output2.png)
 
-*Fig.6: The variation of $`\epsilon_g`$ at the base of the convection zone as a function of age.*
+*Fig.6: The variation of $\epsilon_g$ at the base of the convection zone as a function of age.*
 </details>
 
 **Task 5.4**: Using the same Google Colab notebook, obtain the $\log(L)$ and $\log(T)$ columns of your `history.data` in a new output file called `HR.dat`, upload the two columns in the excel sheet [here](https://docs.google.com/spreadsheets/d/1upyIGVzw4kU3YUe4aU03ZZqMWvgblQHmp2gIhZKgEJ8/edit?gid=1458172644#gid=1458172644) and we will compare the difference in the evolution of the RGB bumps for different stellar masses across the room!
