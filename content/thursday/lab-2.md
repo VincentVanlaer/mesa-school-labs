@@ -2,7 +2,7 @@
 author: Saskia Hekker, Susmita Das, Zhao Guo, Arthur Le Saux and Noi Shitrit for MESA School Leuven 2025
 ---
 
-# Nuclear Reactions Rates and Core Boundary Mixing on the Seismology of Red Clump Stars
+# Effect of nuclear Reactions Rates and Core Boundary Mixing on the Seismology of Red Clump Stars
 
 ## Introduction
 
@@ -39,9 +39,10 @@ where the integral is over the region with $N^2 > 0$, i.e. the radiative region.
 To illustrate more intuitively the physics probed by the period spacing, we will show that its variations are linked to the size of the radiative region in a star. As such, the period spacing can also be used as a proxy size of the helium core in some cases ([Montalbán et al. 2013](https://ui.adsabs.harvard.edu/abs/2013ApJ...766..118M/abstract)).
 
 Measured values of $\Delta \Pi_{\ell}$ for stars observed by the *Kepler* telescope range between 250 and 340 s ([Mosser et al. 2012](https://ui.adsabs.harvard.edu/abs/2012A%26A...540A.143M/abstract), [2014](https://ui.adsabs.harvard.edu/abs/2014A%26A...572L...5M/abstract), [Vrard et al. 2016](https://ui.adsabs.harvard.edu/abs/2016A%26A...588A..87V/abstract)), which is on average larger than the values inferred from standard stellar models ([Constantino et al. 2015](https://ui.adsabs.harvard.edu/abs/2015MNRAS.452..123C/abstract)). In order to explain measured values of the period spacing, several mechanisms have been proposed over the last decades:
-1. Overshooting and penetrative convection.
-2. Semiconvection (Schwarzschild & Härm 1969, [Castelani et al. 1971b](https://link.springer.com/article/10.1007/BF00649680)).
-3. Maximal overshoot ([Constantino et al. 2015](https://ui.adsabs.harvard.edu/abs/2015MNRAS.452..123C/abstract)).
+1. Overshooting.
+2. Penetrative convection.
+3. Semiconvection (Schwarzschild & Härm 1969, [Castelani et al. 1971b](https://link.springer.com/article/10.1007/BF00649680)).
+4. Maximal overshoot ([Constantino et al. 2015](https://ui.adsabs.harvard.edu/abs/2015MNRAS.452..123C/abstract)).
 
 These different mixing mechanisms will impact the structure of near core region as it is illustrated in Fig. 2. The value of the period spacing inferred for these different models will then be different as we will see in this lab.
 
@@ -51,11 +52,11 @@ These different mixing mechanisms will impact the structure of near core region 
 
 The primary purpose of the first part of the maxilab is to get you more familiar with the physics of convective boundary mixing (CBM) and how it can be modelled in MESA. You will see how to use the simplest already implemented prescription as well as how to implement more complex cases. In terms of MESA usage, you will:
 
-1. Start a project from a test case
+1. Start a project from a test suite
 2. Change inlists controls
 3. Add variables to output files (`history.data`)
 3. Customize the `pgstar` window.
-4. Implement a new prescription for CBM and add new history columns using `run_star_extras.f90`
+4. Implement a new prescription for CBM using `run_star_extras.f90`
 
 ### Using this Guide
 
@@ -72,7 +73,7 @@ unzip maxilab1.zip
  It contains a starting model `RC_start_noMloss.mod`, some inlists to control the run (`inlist`, `inlist_project`and `inlist_pgstar`) and everything you need to run a MESA model.
 
 The starting model is a based on the MESA [1M_pre_ms_to_wd](https://docs.mesastar.org/en/latest/test_suite/1M_pre_ms_to_wd.html#m-pre-ms-to-wd) test suite, which is located in `$MESA_DIR/star/test_suite/1M_pre_ms_to_wd`.
-In order to save computing time, it as already been evolved from pre-main-sequence to after the helium flash. We thus start this lab just before the ignition of helium in the core of the star, i.e. the Red Clump. We have also deactivated a few of the features of the test suite such as rotation and mass loss at the surface, as these can be neglected for the purpose of this lab.
+In order to save computing time, it as already been evolved from pre-main-sequence to after the helium flash. We thus start this lab just before the ignition of helium in the core of the star, i.e. the Red Clump. In order to reduce computing time, we have also deactivated a few of the features of the test suite such as rotation and mass loss at the surface, as these can be neglected for the purpose of this lab.
 
 Before starting the lab, check that you can clean and compile the code:
 ```linux
@@ -491,7 +492,10 @@ The period spacing measures the inverse of the stratification in radiative regio
 ### Penetrative convection
 Penetrative convection is the same as overshooting except that the temperature gradient in the overshooting region is modified and set to the adiabatic one (see the difference in temperature gradient in Fig. 2). Modifying the temperature gradient in the overshooting region is currently not implemented in MESA and thus it should be done in a new subroutine ``penetrative_convection`` in ``run_star_extras.f90`` using ``s% other_adjust_mlt_gradT_fraction``. Therefore, we will manually modify the temperature in the overshooting region.
 
-To help you with this task, there are already two extra subroutines that have been implemented in ``run_star_extras.f90``. The first one ``eval_conv_bdy_Hp_perso``is used to evaluate the pressure scale height at a convective boundary. The second one ``eval_over_bdy_params_perso`` is for evaluating other parameters such as cell index ``k``, radius ``r``, diffusion coefficients ``D`` and convective velocity at a convective boundary. You can have a look at these two subroutines in ``run_star_extras.f90`` but you do not have to edit them. Here we just need to use the first two, the cell and index ``k`` and radius ``r`` of the convective boundary.
+To help you with this task, there are already two extra subroutines that have been implemented in ``run_star_extras.f90``. The first one ``eval_conv_bdy_Hp_perso``is used to evaluate the pressure scale height at a convective boundary. The second one ``eval_over_bdy_params_perso`` is for evaluating other parameters such as cell index ``k``, radius ``r``, diffusion coefficients ``D`` and convective velocity at a convective boundary. For the purpose of this lab, we just need to use the first two, the cell and index ``k`` and radius ``r`` of the convective boundary.
+You can have a look at these two subroutines in ``run_star_extras.f90`` but you do not have to edit them. 
+
+The subroutine ``penetrative_convection`` as already been declared at line 278 of ``run_star_extras.f90``. This is where you should add the code to modify the temperature gradient.
 
 >[!IMPORTANT]
 > As penetrative is an extension of the overshooting scheme, you have to keep the parameters from the previous section active.
@@ -532,6 +536,8 @@ To help you with this task, there are already two extra subroutines that have be
 For modifying the temperature gradient in the overshooting region, you can use this code block (comments are added foe extra explanation):
 
 ```fortran
+          ! k_ob and r_ob are the index and radius of the overshoot boundary,
+          ! which corresponds to the overshooting distance above the core.
           do k = k_ob, 1, -1
             r = s%r(k)
 
