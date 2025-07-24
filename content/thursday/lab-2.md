@@ -533,7 +533,7 @@ The subroutine ``penetrative_convection`` as already been declared at line 278 o
 <em>Show hint 4</em>
 </summary>
 
-For modifying the temperature gradient in the overshooting region, you can use this code block (comments are added foe extra explanation):
+For modifying the temperature gradient in the overshooting region, you can use this code block (comments are added for extra explanation):
 
 ```fortran
           ! k_ob and r_ob are the index and radius of the overshoot boundary,
