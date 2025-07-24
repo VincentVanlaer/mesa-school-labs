@@ -40,6 +40,8 @@ will execute the second command only if the first exits successfully):
 ```bash
 git clone git@github.com:mathren/mesa25_best_practices.git && cd mesa25_best_practices/15Msun_problem
 ```
+
+Or download a [zip file](https://github.com/mathren/mesa25_best_practices/archive/refs/heads/main.zip).
 {{< /details >}}
 
 We will use a simple model of a 15M<sub>☉</sub> star (see [the work directory](https://github.com/mathren/mesa25_best_practices/tree/596343a24ed598044e52e2aed763364fd2635e41/15Msun_problem)) to
