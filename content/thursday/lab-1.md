@@ -893,7 +893,7 @@ The customised PGPLOT window should look something like this:
 
 *Fig.4: The PGPLOT dashboard exhibiting the HR diagram, temperature-density plot and additional profile panels for a $1M_{\odot}$ track with solar composition.*
 
-While the model evolves, here’s what to look out for on your PGPLOT window. 
+The complete run should take around 6 minutes on 6 threads. While the model evolves, here’s what to look out for on your PGPLOT window. 
 Locate the profile panel (top right) that shows the variation of $\epsilon_g$ as a function of the stellar structure- the $m/M$ zone that exhibits the peak is where we have the H-shell burning. The layers interior to this zone represent the core while those outside represent the stellar envelope. This reference point now makes it easy to study how all the other stellar parameters vary in the stellar structure (core vs envelope) as the model evolves.
 Note that for the profile panels, while the profile shape itself doesn’t seem to change, the values definitely do- keep an eye out for the $y$-axes values as the model evolves.
 
