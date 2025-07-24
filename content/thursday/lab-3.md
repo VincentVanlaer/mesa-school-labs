@@ -58,7 +58,7 @@ Make sure that you are able to compile and start the run without any issues. Sto
 - Locate the corresponding network file, open it, and find the reaction rate entries related to the He-burning processes.
 
 {{< details title="Hint 1" closed="true" >}}
-- Look for the `&star_job` controls in the MESA documentation ([available here](https://github.com/noi26/MESA_summer_school-maxilab2-Day4/blob/main/maxilab2.zip), under `Reference and Defaults -> star_job`). Find the default nuclear reaction network name there.  
+- Look for the `&star_job` controls in the MESA documentation ([available here](https://docs.mesastar.org/en/latest/reference/star_job.html#nuclear-reactions), under `Reference and Defaults -> star_job`). Find the default nuclear reaction network name there.  
 - Check your `inlist` for the `&star_job` controls that set the reaction network. If none is specified, MESA will use its default.  
 - Look in `$MESA_DIR/data/net_data/nets/` to see which file corresponds to that default network.  
 - Open the network file in a text editor and examine the listed reaction entries.  
