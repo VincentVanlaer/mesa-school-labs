@@ -9,7 +9,7 @@ As low-mass stars evolve into red-giant stars, there comes a brief phase during 
 
 ![Fig.1](/thursday/staa176fig1.jpeg)
 
-*Fig.1: Herzsprung–Russell (H–R) diagram of a $`1M_{\odot}`$ track with solar composition computed with MESA. The inset shows a zoom of the red giant branch bump (RGB bump). Figure from Hekker et al. (2020).*
+*Fig.1: Herzsprung–Russell (H–R) diagram of a $1M_{\odot}$ track with solar composition computed with MESA. The inset shows a zoom of the red giant branch bump (RGB bump). Figure from Hekker et al. (2020).*
 
 As summarised by [Hekker et al. (2020)](https://ui.adsabs.harvard.edu/abs/2020MNRAS.492.5940H/abstract), the RGB bump is believed to appear when the hydrogen shell burns through the mean molecular weight discontinuity left behind by the deepest extent of the convection zone. At this discontinuity, the amount of hydrogen available for burning increases and consequently there is a re-adjustment of the internal structure. This re-adjustment phase could explain the bump. However, [Christensen-Dalsgaard (2015)](https://ui.adsabs.harvard.edu/abs/2015MNRAS.453..666C/abstract) showed that the burning shell only reaches the mean molecular weight discontinuity at the minimum luminosity. Hence, this picture cannot explain the luminosity maximum of the bump completely. Furthermore, it is known that the exact shape of the bump depends on the constituents of the models such as the hydrogen profile, as shown by, e.g. [Cassisi,Salaris & Bono (2002)](https://ui.adsabs.harvard.edu/abs/2002ApJ...565.1231C/abstract).
 
