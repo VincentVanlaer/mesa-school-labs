@@ -986,6 +986,7 @@ Edit your `inlist_project` to include the new network - you can find the relevan
 {{< details title="Solution 5" closed="true" >}}
 ```fortran
 ! new net
+change_net = .true.
 change_initial_net = .true.
 new_net_name = 'basic_custom.net'
 ```
