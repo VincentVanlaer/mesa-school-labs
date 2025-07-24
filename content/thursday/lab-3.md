@@ -895,7 +895,7 @@ Additionally, we have prepared a Google Colab notebook. In this notebook, you ca
 
 ## Instructions for the Google Colab notebook:
 1. [Click here](https://colab.research.google.com/drive/1g9lz20FU9IVrg3CJTF9y5jZ80SYJghbE?usp=sharing) to open the notebook and connect to your Google account.
-2.Make a copy of this notebook using `File -> Save a copy in Drive`. 
+2. Make a copy of this notebook using `File -> Save a copy in Drive`. 
 3. You can review the Python script if you'd like. You don’t need to install anything manually—just run the notebook cells, and it will automatically install any required packages. It uses the `mesa-reader` package (more information [here](https://github.com/wmwolf/py_mesa_reader)) to read the history file easily.  
 4. During the run (which will take 1–2 minutes), Colab will prompt you to upload a file. Please upload your `history.data` file when asked.  
 5. You will see the generated plot displayed below in the notebook.
