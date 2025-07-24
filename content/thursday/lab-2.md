@@ -835,7 +835,7 @@ As for the semiconvection case, there is no overshooting so the only mixing type
 ## Section 5: Plotting the results
 Finally, the aim is to compare the period spacing evolution for each model using different convective boundary mixing prescription. To do so, we will reproduce Figure 4 of Noll et al (2024). You can of course write a script to plot it yourself. The quantities to plot are in the `history.data` files.
 
-You can also find a Google colab script [here](https://colab.research.google.com/drive/1IlC062z42tlly8GxSsas6vT5RxFoALzC?usp=sharing) that will do the plot for you. For this, you will just to upload your `history_XXX.data` files for each CBM case when executing the first code cell.
+You can also find a Google colab script [here](https://colab.research.google.com/drive/1g_rx1fyexXsp-r-3jODSBEMyxJKuo4oX?usp=sharing). Make a copy of this notebook using `File -> Save a copy in Drive`. That will do the plot for you. For this, you will just to upload your `history_XXX.data` files for each CBM case when executing the first code cell.
 
 <details class="hx-border hx-border-blue-200 dark:hx-border-blue-200 hx-rounded-md hx-my-2">
 <summary class="hx-bg-blue-100 dark:hx-bg-neutral-800 hx-text-blue-900 dark:hx-text-blue-200 hx-p-2 hx-m-0 hx-cursor-pointer">
