@@ -107,7 +107,7 @@ class="sc">mesa</span></h1>
   <p class="author">Joel Ong   Courtney Crawford   Lea Schimak   Meng
 Sun</p>
   <p class="date">MESA School 2025<br />
-July 24, 2025</p>
+July 25, 2025</p>
 </section>
 
 <section>
@@ -362,6 +362,33 @@ Angular Momentum Transport</span></h2>
 </section>
 <section id="section-11" class="slide level2">
 <h2></h2>
+<div class="r-stack">
+<video src="resources/spinup.webm" height="720px" style="margin:auto;margin-top:-20px;" id="spinup" ondblclick="document.getElementById(&#39;spinup&#39;).play()" class="fragment fade-out" data-fragment-index="2">
+</video>
+<p><img data-src="resources/spinup.svg" class="fragment"
+data-fragment-index="2" /></p>
+</div>
+<div class="annotate fragment fade-in-then-out center"
+data-fragment-index="1">
+<p><span class="math display">\[\left&lt;\Omega\right&gt;_g\]</span></p>
+</div>
+<div class="annotate fragment fade-in-then-out center"
+data-fragment-index="1" style="left: 30%">
+<p><span class="math display">\[\left&lt;\Omega\right&gt;_p\]</span></p>
+</div>
+<div class="annotate fragment" style="bottom:160px; left:550px"
+data-fragment-index="2">
+<p>(<span class="math inline">\(\leftarrow\)</span> proxy for age)</p>
+</div>
+<div class="annotate fragment" style="top: 100px; right:200px;"
+data-fragment-index="2">
+<p>Radiative core contracts dramatically off main sequence<br />
+<span class="math inline">\(\implies\)</span> core spins up (if
+conserving angular momentum)</p>
+</div>
+</section>
+<section id="section-12" class="slide level2">
+<h2></h2>
 <ol type="1">
 <li>Download our <span class="sc">mesa</span> <code>inlist</code> files
 and <code>run_star_extras.f</code> from the Lab 1 website —<br />
@@ -372,25 +399,6 @@ href="https://docs.google.com/spreadsheets/d/1pAcvlfqOga0JNZo3cjJeZaErVd4youLYHy
 Sheet</a></li>
 <li>Run until the asteroseismic stopping condition is triggered.</li>
 </ol>
-</section>
-<section id="section-12" class="slide level2">
-<h2></h2>
-<div class="r-stack">
-<video src="resources/spinup.webm" height="720px" style="margin:auto;margin-top:-20px;" id="spinup" ondblclick="document.getElementById(&#39;spinup&#39;).play()" class="fragment fade-out" data-fragment-index="1">
-</video>
-<p><img data-src="resources/spinup.svg" class="fragment"
-data-fragment-index="1" /></p>
-</div>
-<div class="annotate fragment" style="bottom:160px; left:550px"
-data-fragment-index="1">
-<p>(<span class="math inline">\(\leftarrow\)</span> proxy for age)</p>
-</div>
-<div class="annotate fragment" style="top: 100px; right:200px;"
-data-fragment-index="1">
-<p>Radiative core contracts dramatically off main sequence<br />
-<span class="math inline">\(\implies\)</span> core spins up (if
-conserving angular momentum)</p>
-</div>
 </section></section>
 <section>
 <section id="lab-1-wrap-up-interpreting-mode-frequencies"
@@ -479,7 +487,9 @@ class="math display">\[- \omega^2 \rho \boldsymbol \xi =
 k}^T\over |\mathbf{k}|^2}} \right)\rho \boldsymbol
 \xi\]</span></span></p>
 </div>
-<p><span class="small">(full derivation in <a href="https://mesa-leuven.4d-star.org/tutorials/friday/img/index.pdf">PDF notes</a>)</span></p>
+<p><span class="small">(full derivation in <a
+href="https://mesa-leuven.4d-star.org/tutorials/friday/img/index.pdf">PDF
+notes</a>)</span></p>
 </section>
 <section id="cowlings-approximation" class="slide level2">
 <h2>Cowling’s Approximation</h2>
@@ -605,9 +615,9 @@ class="math inline">\(\Delta\Pi_\ell\)</span></span></p>
 </div>
 </div>
 </section>
-<section id="eckart-scuflaire-osaki-classification-scheme"
+<section id="eckart-scuflaire-osaki-takata-classification-scheme"
 class="slide level2">
-<h2>Eckart-Scuflaire-Osaki Classification Scheme</h2>
+<h2>Eckart-Scuflaire-Osaki-Takata Classification Scheme</h2>
 <div class="columns">
 <div class="column" style="width:45%;">
 <p>p-modes:</p>
@@ -624,6 +634,11 @@ class="slide level2">
 \sqrt{\ell(\ell+1)}}\left(\int {N \over r} \mathrm d
 r\right)^{-1}\]</span></p>
 </div>
+</div>
+<div class="fragment">
+<p><span class="large"><span class="math display">\[\left(\text{f-modes:
+}\omega^2 = g k_h = \sqrt{\ell(\ell + 1)}\cdot{GM \over
+R^3}\right)\]</span></span></p>
 </div>
 </section></section>
 <section>
@@ -864,6 +879,38 @@ avoided crossings<br />
 between underlying <span style="color: rgb(230, 100, 0)">p-</span> and
 <span style="color: rgb(0,100,0)">g-</span>modes.</p>
 </div>
+</section>
+<section id="bonus-exercise-pure-p--and-g--modes" class="slide level2">
+<h2>Bonus Exercise: Pure p- and g- modes</h2>
+<p>For <span class="math inline">\(\pi\)</span> modes:</p>
+<div class="columns">
+<div class="column">
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode fortran"><code class="sourceCode fortranfixed"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&amp;</span>osc</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    alpha_pi <span class="kw">=</span> <span class="fl">0.</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    x_atm <span class="kw">=</span> <span class="fl">.9</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="kw">/</span></span></code></pre></div>
+</div><div class="column">
+<pre><code>&amp;scan
+    grid_type = &#39;LINEAR&#39;
+/</code></pre>
+</div>
+</div>
+<p>For <span class="math inline">\(\gamma\)</span> modes:</p>
+<div class="columns">
+<div class="column">
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode fortran"><code class="sourceCode fortranfixed"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&amp;</span>osc</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    alpha_gam <span class="kw">=</span> <span class="fl">0.</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    x_atm <span class="kw">=</span> <span class="fl">.9</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    outer_bound <span class="kw">=</span> <span class="st">&#39;GAMMA1&#39;</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="kw">/</span></span></code></pre></div>
+</div><div class="column">
+<pre><code>&amp;scan
+    grid_type = &#39;INVERSE&#39;
+/</code></pre>
+</div>
+</div>
 </section></section>
 <section>
 <section id="lab-3-mode-frequencies-and-rotation"
@@ -879,11 +926,11 @@ Rotation</span></h1>
 rotation rate in <code>&amp;rot</code>. However, if your stellar models
 are rotating, these rotation rates can be used instead:</li>
 </ul>
-<div class="sourceCode" id="cb5"><pre
-class="sourceCode fortran"><code class="sourceCode fortranfixed"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&amp;</span>rot</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  Omega_rot_source <span class="kw">=</span> <span class="st">&#39;MODEL&#39;</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  coriolis_method <span class="kw">=</span> <span class="st">&#39;TAR&#39;</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="kw">/</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode fortran"><code class="sourceCode fortranfixed"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&amp;</span>rot</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  Omega_rot_source <span class="kw">=</span> <span class="st">&#39;MODEL&#39;</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  coriolis_method <span class="kw">=</span> <span class="st">&#39;TAR&#39;</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="kw">/</span></span></code></pre></div>
 <ul>
 <li><span class="large">Today, we will be computing frequencies using
 the<br />
@@ -1026,17 +1073,22 @@ style="bottom: 90px; width: 1200px">
 <p>p-modes:</p>
 <p><span class="math display">\[\large\boxed{\nu = \Delta\nu\left(n +
 {\ell \over 2} + \epsilon_p\right)}\]</span></p>
-<p><span class="math display">\[\small\Delta\nu \sim \left(2 \int
-{\mathrm d r \over c_s}\right)^{-1}\]</span></p>
+<p><span class="math display">\[\nu \to \nu + m \left(1 - {1 \over 2
+\left(\ell + {1 \over 2}\right)}{\Delta\nu \over \nu}\right){\Omega
+\over 2\pi}\]</span></p>
 </div><div class="column" style="width:45%;">
 <p>g-modes:</p>
 <p><span class="math display">\[\large\boxed{{1 \over \nu} =
-\Delta\Pi_\ell \left(n + {\ell \over 2} + \epsilon_{g,
-\ell}\right)}\]</span></p>
-<p><span class="math display">\[\small\Delta\Pi_\ell \sim {2\pi^2 \over
-\sqrt{\ell(\ell+1)}}\left(\int {N \over r} \mathrm d
-r\right)^{-1}\]</span></p>
+{\Delta\Pi_0 \over \sqrt{\ell (\ell + 1)}} \left(n + {\ell \over 2} +
+\epsilon_{g, \ell}\right)}\]</span></p>
+<p><span class="math display">\[\nu \to \nu + m\left(1 - {1 \over \ell
+(\ell + 1)}\right){\Omega \over 2\pi}\]</span></p>
 </div>
+</div>
+<div class="fragment">
+<p>Inertial modes <span
+class="math inline">\(\left(\text{e.g.}~\text{Rossby}~\text{modes,
+}\omega = -{2 \Omega m \over \ell(\ell + 1)}\right)\ldots\)</span></p>
 </div>
 </section>
 <section id="what-about-mixed-modes" class="slide level2">
@@ -1081,11 +1133,9 @@ class="math inline">\(m\)</span></p>
 <p>(cf. Mosser+ 2012, Ouazzani+ 2013, Deheuvels+ 2017)</p>
 </div>
 </section>
-<section id="bonus-exercise" class="slide level2">
-<h2>Bonus Exercise</h2>
-</section>
-<section id="sensitivity-kernels" class="slide level2">
-<h2>Sensitivity Kernels</h2>
+<section id="bonus-exercise-rotational-sensitivity-kernels"
+class="slide level2">
+<h2>Bonus Exercise: Rotational Sensitivity Kernels</h2>
 <p>Mode inertia <span class="math inline">\(I = \int r^2 \rho_0
 \left(\xi_r^2 + \ell(\ell + 1) \xi_t^2\right) \mathrm  d r.\)</span></p>
 <div class="fragment">
