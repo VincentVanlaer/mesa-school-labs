@@ -123,7 +123,7 @@ Notice how the $l = 1$ ridge clearly splits in the rotating case:
 
 Once your GYRE run is complete:
 
-- Use the output to plot an **echelle diagram**. (You can use the same Google Colab from Lab 1 [here](https://colab.research.google.com/drive/1zFC6y4FgZdMdoMUHLFN3mfF1xO2heOwa?usp=sharing))
+- Use the output to plot an **echelle diagram**. (You can use the same Google Colab from Lab 1 [here](https://colab.research.google.com/drive/1zFC6y4FgZdMdoMUHLFN3mfF1xO2heOwa?usp=sharing). Make sure you update the path to the new summary_rot.txt file in the colab!)
 - You should see that the $\ell = 1$ ridge is now split into **three distinct components**, corresponding to $m = -1, 0, +1$
 - This is called rotational splitting
 
