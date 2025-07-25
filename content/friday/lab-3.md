@@ -76,6 +76,7 @@ In your `gyre_rot.in`, include the following blocks to enable rotation and compu
   tag = 'non-radial'
 /
 ```
+Note: do NOT delete the radial mode block! You still want to calculate those. There is only m=0 for these modes.
 
 The $l=2$ modes will also be split, however this will add a bit of computing time to your model. You can choose to calculate these modes as well if you like. The $l=2$ modes have m values $m=-2,-1,0,1,2$.
 
@@ -96,7 +97,8 @@ Save the summary and detail files in human-readable format. For example:
   freq_units = 'UHZ'
   summary_item_list = 'l,m,n_pg,n_p,n_g,freq,freq_units,E_norm,E_p,E_g'
   detail_template = 'lab3_details/detail.l%l.n%n.h5'
-  detail_item_list = 'l,n_pg,omega,rho,x,xi_r,xi_h,c_1,As,V_2,Gamma_1'
+  detail_item_list = 'l,n_pg,omega,x,xi_r,xi_h,c_1,As,
+                      V_2,Gamma_1,rho,P,R_star,M_star'
 /
 ```
 
@@ -157,6 +159,8 @@ Try changing the rotation source in GYRE:
 
 ```fortran
 Omega_rot_source = 'UNIFORM'
+Omega_rot = ## ! some number
+Omega_rot_units = 'CRITICAL' ! Fraction of critical rotation rate
 ```
 
 This will enforce a constant rotation rate. How does this affect the splitting pattern?
