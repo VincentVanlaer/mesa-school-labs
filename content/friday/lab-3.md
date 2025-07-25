@@ -95,9 +95,8 @@ Save the summary and detail files in human-readable format. For example:
   summary_file_format = 'TXT'
   freq_units = 'UHZ'
   summary_item_list = 'l,m,n_pg,n_p,n_g,freq,freq_units,E_norm,E_p,E_g'
-  detail_template = 'lab3_details/detail.l%l.n%n.txt'
+  detail_template = 'lab3_details/detail.l%l.n%n.h5'
   detail_item_list = 'l,n_pg,omega,rho,x,xi_r,xi_h,c_1,As,V_2,Gamma_1'
-  detail_file_format = 'TXT'
 /
 ```
 
