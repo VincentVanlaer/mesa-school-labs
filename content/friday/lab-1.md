@@ -505,7 +505,7 @@ As always there are many methods to doing this, so your code may not look exactl
 
 ## Full Solutions
 
-If you need them, a full lab 1 solution directory (including bonus task) can be downloaded [here](lab1_new_solns.zip). You will still need to edit the rotation rate. The bonus task is turned off by default, unless you turn it on in the solutions.
+If you need them, a full lab 1 solution directory (including bonus task) can be downloaded [here](lab1_new_solns.zip). You will still need to edit the rotation rate. The bonus task is turned off by default, unless you turn it on in the solutions. **You will also need to uncomment surface rotation rate surf_avg_omega_div_omega_crit and core rotation rate he_core_omega_div_omega_crit in the history_columns.list if you use these solutions.**
 
 ## Troubleshooting
 
