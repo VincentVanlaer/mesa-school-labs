@@ -129,7 +129,7 @@ Once your GYRE run is complete:
 **Now compare the observed splitting in the diagram with the $\delta\Omega_g$ you measured in Lab 1**
 
 For instance:
-- For each value of $n_pg$, we may estimate the rotational splitting by either computing the difference between the $m =\pm1$ and $m = -1$ mode frequencies, or from half the difference between the $m = +1$ and $m=-1$ frequencies. Do these agree? How does this change as a function of the $m=0$ mode frequency?
+- For each value of $n_pg$, we may estimate the rotational splitting by either computing the difference between the $m =\pm1$ and $m = 0$ mode frequencies, or from half the difference between the $m = +1$ and $m=-1$ frequencies. Do these agree? How does this change as a function of the $m=0$ mode frequency?
 - Check if this roughly matches the rotation rate implied by $\delta\Omega_g$ from the g-mode period spacing, using values computed from Lab 1.
 
 ### Note on $m = 0$ Mode Shifts
