@@ -9,6 +9,10 @@ author: Lea Schimak (Lead TA), Courtney Crawford, Joel Ong, Meng Sun
 - Learn how to set up and run Gyre
 - Visualize oscillations in an échelle diagram and study their eigenfunctions.
 
+## If you need a MESA Model
+
+If for some reason you did not complete lab 1, you can download a rotating model LOGS directory [here](LOGS_omega1d-4_numax100.zip). This model has an initial rotation rate of $\Omega/\Omega_{crit}$ = 1d-4 and has output profiles at $\nu_{\rm max}$ = 100.
+
 ## Gyre namelist
 Just like with MESA, GYRE takes an input file that we will call an "inlist". Again, just like MESA, these are plaintext files which are use the `namelist` format/functionality of Fortran. The GYRE inlist file is typically named something like `gyre.in`. For this lab we can and will start with an empty folder. 
 |📋 TASK |
