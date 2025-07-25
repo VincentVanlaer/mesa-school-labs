@@ -56,7 +56,7 @@ Once that's complete, it's good practice to run the test suite to ensure nothing
 
 In today's labs, we will be studying the oscillation frequencies of red giant stars and how those oscillations are affected by rotation. So, to start, we will need to generate a model of a red giant star that is rotating. 
 
-### 1: Download our template from Github
+### 1: Download our template
 
 First, extract all of the files from [the template](lab1_template.zip) into a new working directory for your rotating star model. Call it whatever you like. Your working directory should have the following files in it.
 
