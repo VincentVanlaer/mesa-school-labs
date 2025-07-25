@@ -445,8 +445,10 @@ This is because the `profile_interval` will still matter even if you tell MESA t
 In the `&controls` section of `inlist_1M_star`:
 
 ```fortran
-   x_ctrl(1) = 100 ! USER INPUT VALUE OF NUMAX FOR CALCULATING
-   write_profiles_flag = .false.
+   x_logical_ctrl(1) = .true. ! turn on for bonus task
+   x_ctrl(1) = 100 ! numax
+   x_ctrl(2) = 2.5 ! tolerance (change if no output)
+   write_profiles_flag = .true. ! turn on for bonus task
 ```
 
 Also in the `&controls` section of `inlist_1M_star`:
@@ -475,13 +477,21 @@ In `extras_finish_step` in  `src/run_star_extras.f90`:
         extras_finish_step = keep_going
                                                                                           
 
-        if ((s% nu_max < (s% x_ctrl(1) + 2.5)) .and. (s% nu_max > (s% x_ctrl(1) - 2.5))) then
-           s% write_profiles_flag = .true.
-           s% need_to_save_profiles_now = .true.
-           write(*,*) 'numax output now'
-        else
-           s% write_profiles_flag = .false.
-        endif
+
+	!!!!!!!!!!!!!!!!!!!!!!!!!! 
+        ! BONUS TASK: CAN ADD OUTPUT MANIPULATION HERE 
+	!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
+
+        if (s% x_logical_ctrl(1)) then
+           if ((s% nu_max < (s% x_ctrl(1) + s% x_ctrl(2))) .and. (s% nu_max > (s% x_ctrl(1) - s% x_ctrl(2)))) then
+              s% write_profiles_flag = .true.
+              s% need_to_save_profiles_now = .true.
+              write(*,*) 'numax output now'
+           else
+              s% write_profiles_flag = .false.
+           endif
+	  endif
+
 
         if (extras_finish_step == terminate) s% termination_code = t_extras_finish_step
       end function extras_finish_step
@@ -495,7 +505,7 @@ As always there are many methods to doing this, so your code may not look exactl
 
 ## Full Solutions
 
-If you need them, a full lab 1 solution directory (including bonus task) can be downloaded [here](lab1_soln_dir.zip). You will still need to edit the rotation rate and the nu_max for output.
+If you need them, a full lab 1 solution directory (including bonus task) can be downloaded [here](lab1_new_solns.zip). You will still need to edit the rotation rate. The bonus task is turned off by default, unless you turn it on in the solutions.
 
 ## Troubleshooting
 
