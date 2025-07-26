@@ -241,7 +241,7 @@ MESA starts by creating a pre-main-sequence model (before nuclear burning begins
 pre_ms_relax_num_steps = 100
 ```
 
-MESA also starts with very tiny time steps after reaching the main sequence. We can tell it to use larger initial steps, by **adding the following under `&star_job`**:
+MESA also starts with very tiny time steps after the pre-main sequence model has been created and relaxed. We can tell it to use larger initial steps, by **adding the following under `&star_job`**:
 
 ```fortran
 set_initial_dt = .true.
@@ -623,6 +623,9 @@ If this fails to find the .png files, try replacing the single quotation marks w
 ```bash
 images_to_movie "*.png" evolution.mp4
 ```
+
+> [!WARNING]
+> **If you're on a Mac**, this script to make movies may not work, depending on which MESA SDK you have installed. If you happen to have an older version of the MESA SDK, you can try initialising that and running the movies again. Otherwise, this bonus task will probably not work for you, so feel free to skip it or follow along with someone else.
 
 {{< /details >}}
 
