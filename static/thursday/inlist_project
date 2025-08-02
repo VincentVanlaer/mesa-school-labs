@@ -1,0 +1,113 @@
+
+&star_job
+      show_log_description_at_start = .false.
+
+      load_saved_model = .true.
+      load_model_filename = 'start_RC_noMloss.mod'
+
+      save_model_when_terminate = .true.
+      save_model_filename = 'end_core_he_burn_noMloss.mod'
+      required_termination_code_string = 'xa_central_lower_limit'
+
+      pgstar_flag = .true.
+
+/ ! end of star_job namelist
+
+&eos
+
+
+/ ! end of eos namelist
+
+&kap
+      Zbase = 0.02d0
+
+      kap_file_prefix = 'gs98'
+      use_Type2_opacities = .true.
+      kap_lowT_prefix = 'lowT_fa05_gs98'
+
+/ ! end of kap namelist
+
+&controls      
+
+      xa_central_lower_limit_species(1) = 'he4'
+      xa_central_lower_limit(1) = 0.01
+
+      energy_eqn_option = 'eps_grav'
+      use_gold2_tolerances = .true.
+
+    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    ! To stop the happening of the core breathing pulses, by neglecting the
+    ! eps_g term. It yields models that are less physically consistent (since the
+    ! luminosity caused by core contraction is ignored), but that do not exhibit
+    ! core breathing pulses. See the note in the Convective Premixing section.
+    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
+
+      eps_grav_factor = 0.05d0 ! if 0, the models do not converge
+
+    ! Ignore the energy residuals that are caused by neglecting eps_g
+    ! If not, the models do not converge
+      max_abs_rel_run_E_err = -10d0
+      limit_for_rel_error_in_energy_conservation = 1d-1
+      hard_limit_for_rel_error_in_energy_conservation = 1d-1
+      
+      convergence_ignore_equL_residuals = .true.
+
+      ! limit max_model_number as part of test_suite
+      max_model_number = 18000
+         
+      initial_mass = 1.0
+      initial_z = 0.02d0
+
+      use_Ledoux_criterion = .true. 
+
+      varcontrol_target = 1d-3
+      delta_lgL_He_limit = 0.01d0
+
+    ! Convective boundary mixing prescriptions:
+
+    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
+    ! 1. OVERSHOOTING
+    ! Required parameters define overshooting above the convective He burning core
+    ! (gradT = gradr in the overshoot region)
+    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
+
+
+    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
+    ! 2. PENETRATIVE CONVECTION
+    ! This scheme needs the overshooting parameters to stay active!
+    ! (gradT = grada in the overshoot region)
+    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    ! 3. CONVECTIVE PREMIXING
+    ! Convective premixing ensures that gradr = grada at the inner boundary of
+    ! the convective core. It leads to a semi-convective region (gradr = grada) at
+    ! the external boundary of the overshoot region in some cases. It may yields to
+    ! potential core breathing pulses (CBP). See the note in the Convective Premixing 
+    ! section.
+    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
+
+
+    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
+    ! 4. MAXIMAL OVERSHOOT (BONUS EXERCICE)
+    ! The scheme is not directly implemented in the MESA,
+    ! but the "maximal overshoot" structure is rather reached through the
+    ! use of the predictive mixing scheme. 
+    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
+
+  ! output    
+
+      photo_interval = 50
+      profile_interval = 10
+      history_interval = 5
+      terminal_interval = 10
+      write_header_frequency = 10
+
+
+/ ! end of controls namelist
+
+
+&pgstar
+   
+/ ! end of pgstar namelist

@@ -278,7 +278,7 @@ Grid1_txt_scale_factor(5) = 0.5
 ```
 </details>
 
-The text summary panel gives information about the current state of the model. You can chose what information you want to be displayed. Let's start with: age, current time step, luminosity, effective temperature, radius, mass, h1 and he4 abundances in the core, luminosity associated with h1 and he4 burning. Find the corresponding MESA variable names and add it to the `inlist_pgstar` file below the line `! Add text panel`.
+The text summary panel gives information about the current state of the model. You can choose what information you want to be displayed. Let's start with: age, current time step, luminosity, effective temperature, radius, mass, h1 and he4 abundances in the core, luminosity associated with h1 and he4 burning. Find the corresponding MESA variable names and add it to the `inlist_pgstar` file below the line `! Add text panel`.
 
 <details class="hx-border hx-border-blue-200 dark:hx-border-blue-200 hx-rounded-md hx-my-2">
 <summary class="hx-bg-blue-100 dark:hx-bg-neutral-800 hx-text-blue-900 dark:hx-text-blue-200 hx-p-2 hx-m-0 hx-cursor-pointer">
@@ -678,7 +678,7 @@ Convective Premixing has been proposed by Schwarzschild & Härm (1969) and [Cast
 >[!WARNING]
 > In the context of this work, Convective Premixing and overshooting should not be used at the same time! However, in other contexts nothing prevent to use both at the same time, here we want to isolate the two mechanisms to compare their impacts on the model.
 > Therefore, start by deleting (or comment) all the commands related to overshooting and penetrative convection in `inlist_project`.
->Alternatively, you can download a fresh `inlist_project` [here](https://github.com/arthurlesaux/mesasummerschool2025-day4-maxilab1/blob/62548211f3ca412d5da126f0adfca0bf06af93b9/inlist_project), that can be used for this section.
+>Alternatively, you can download a fresh `inlist_project` [here](../inlist_project), that can be used for this section.
 
 This mechanism is already implemented in MESA as Convective Premixing (see [Paxton et al. 2019](https://ui.adsabs.harvard.edu/abs/2019ApJS..243...10P/abstract) for details).
 
@@ -770,7 +770,7 @@ The maximal overshoot scheme is not implemented in MESA, but we can use the ``pr
 
 >[!WARNING]
 > As in the previous section, we want to isolate the impact of the Maximal overshoot scheme from other CBM prescriptions. Therefore, start be deleting all the commands related to , semiconvection, overshooting and penetrative convection the in `inlist_project`.
->Alternatively, you can download a fresh `inlist_project` [here](https://github.com/arthurlesaux/mesasummerschool2025-day4-maxilab1/blob/62548211f3ca412d5da126f0adfca0bf06af93b9/inlist_project), that can be used for this section.
+>Alternatively, you can download a fresh `inlist_project` [here](../inlist_project), that can be used for this section.
 
 >[!TIP]
 > Information on the predictive mixing scheme can be found on ([this page]( https://docs.mesastar.org/en/latest/reference/controls.html#predictive-mix))
@@ -835,7 +835,7 @@ As for the semiconvection case, there is no overshooting so the only mixing type
 ## Section 5: Plotting the results
 Finally, the aim is to compare the period spacing evolution for each model using different convective boundary mixing prescription. To do so, we will reproduce Figure 4 of Noll et al (2024). You can of course write a script to plot it yourself. The quantities to plot are in the `history.data` files.
 
-You can also find a Google colab script [here](https://colab.research.google.com/drive/1g_rx1fyexXsp-r-3jODSBEMyxJKuo4oX?usp=sharing). Make a copy of this notebook using `File -> Save a copy in Drive`. That will do the plot for you. For this, you will just to upload your `history_XXX.data` files for each CBM case when executing the first code cell.
+You can also find a Google colab script [here](https://colab.research.google.com/drive/1g_rx1fyexXsp-r-3jODSBEMyxJKuo4oX?usp=sharing) {{< download url="../maxilab1.ipynb" >}}(local copy){{< /download >}}. Make a copy of this notebook using `File -> Save a copy in Drive`. That will do the plot for you. For this, you will just to upload your `history_XXX.data` files for each CBM case when executing the first code cell.
 
 <details class="hx-border hx-border-blue-200 dark:hx-border-blue-200 hx-rounded-md hx-my-2">
 <summary class="hx-bg-blue-100 dark:hx-bg-neutral-800 hx-text-blue-900 dark:hx-text-blue-200 hx-p-2 hx-m-0 hx-cursor-pointer">

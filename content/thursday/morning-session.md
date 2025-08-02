@@ -38,13 +38,13 @@ with the following `bash` one-liner (**Note:** `&&` is a `bash` "and", which
 will execute the second command only if the first exits successfully):
 
 ```bash
-git clone git@github.com:mathren/mesa25_best_practices.git && cd mesa25_best_practices/15Msun_problem
+git clone https://github.com/mathren/mesa25_best_practices.git && cd mesa25_best_practices/15Msun_problem
 ```
 
-Or download a [zip file](https://github.com/mathren/mesa25_best_practices/archive/refs/heads/main.zip).
+Or download a [zip file](../mesa25_best_practices-main.zip).
 {{< /details >}}
 
-We will use a simple model of a 15M<sub>☉</sub> star (see [the work directory](https://github.com/mathren/mesa25_best_practices/tree/596343a24ed598044e52e2aed763364fd2635e41/15Msun_problem)) to
+We will use a simple model of a 15M<sub>☉</sub> star (see the work directory you downloaded) to
 illustrate these problems. In the interest of speed, we will use a
 22-isotope network and we have already evolved it beyond carbon core
 depletion (model number `1261`).
@@ -63,7 +63,7 @@ doesn't depend on the core structure, you may get away with small
 nuclear reaction networks.
 
 You can inspect the [pgstar
-movie](https://github.com/mathren/mesa25_best_practices/tree/596343a24ed598044e52e2aed763364fd2635e41/15Msun_problem/early_evolution.mp4) to see your initial
+movie](../early_evolution.mp4) to see your initial
 conditions, which can be reproduced re-running `inlist_early_evol`.
 
 Ideally, we want to be able to run this to the onset of core collapse,

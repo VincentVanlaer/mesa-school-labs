@@ -33,12 +33,12 @@ Same as Figure 5, but for different ${}^{12}\mathrm{C}(\alpha, \gamma){}^{16}\ma
 
 **Science aims**: You will learn how changing the reaction rate for a specific evolutionary phase in stellar evolution affects the composition and inner structure, and hence the period spacing pattern.
 
-**Solution**: In case you get stuck at any point during the exercises, you can find the solution for this Maxilab [here](https://github.com/Noi-Shitrit/MESA_summer_school-maxilab2-Day4/blob/main/maxilab2_solution.zip). At this link, you can download a zipped directory named `maxilab2_solution.zip`.
+**Solution**: In case you get stuck at any point during the exercises, you can find the solution for this Maxilab [here](../maxilab2_solution.zip).
 
 ### Setting up the MESA model
 In this Maxilab, we will fix the mixing scheme to maximal overshooting to test the effect of reaction rates on the period spacing.
 
-If you ran your MESA models in Maxilab1 using the maximal overshooting scheme, you can copy that work directory and continue this Maxilab with it. If you used another mixing scheme, or if you are not sure about your solution, please download the starting work directory from [here](https://github.com/Noi-Shitrit/MESA_summer_school-maxilab2-Day4/blob/main/maxilab2.zip). At this link, you can download a zipped directory named `maxilab2.zip`.
+If you ran your MESA models in Maxilab1 using the maximal overshooting scheme, you can copy that work directory and continue this Maxilab with it. If you used another mixing scheme, or if you are not sure about your solution, please download the starting work directory from [here](../maxilab2.zip). At this link, you can download a zipped directory named `maxilab2.zip`.
 
 If you want to unzip the folder using the terminal, you can use:
 ```linux
@@ -78,7 +78,7 @@ The names of the reaction rate entries you found refer to files that describe th
 - Find the `inlist` variables that need to be changed in order to modify the reaction rates for the two He-burning processes (use the names of the reaction rate entries you found in `Task 1`) and edit your `inlist` accordingly.  
 - The reaction rate values to test are the default rates multiplied by x - (for example, 0.25, 0.5, 1, 2, and 5) for the $3\alpha$ process while keeping the ${}^{12}\mathrm{C}(\alpha, \gamma){}^{16}\mathrm{O}$ reaction rate at 1, and vice versa. Each table will be assigned a different value to compute.
 
-To pick a value, go to this [Google Sheet](https://docs.google.com/spreadsheets/d/1QUoyvf2j1lxO6Xx6rt2X7E__INuxMzOsBBB2VsTnGiM/edit?usp=sharing) and write your name on one of the rows, where each row has a value for the $3\alpha$ and ${}^{12}\mathrm{C}(\alpha, \gamma){}^{16}\mathrm{O}$ reaction rates. Update your inlist accordingly. Later in this lab, we will print the maximum value of $\Delta \Pi$ and the stellar age at which it occurs, and we will plot it live for the different values in the table. After you finish your run, you can update the value in the sheet.
+To pick a value, go to this [Google Sheet](https://docs.google.com/spreadsheets/d/1QUoyvf2j1lxO6Xx6rt2X7E__INuxMzOsBBB2VsTnGiM/edit?usp=sharing) [(local copy)](../maxilab_spreadsheet.ods) and write your name on one of the rows, where each row has a value for the $3\alpha$ and ${}^{12}\mathrm{C}(\alpha, \gamma){}^{16}\mathrm{O}$ reaction rates. Update your inlist accordingly. Later in this lab, we will print the maximum value of $\Delta \Pi$ and the stellar age at which it occurs, and we will plot it live for the different values in the table. After you finish your run, you can update the value in the sheet.
 
 {{< details title="Hint 2" closed="true" >}}
 - Check the `&star_job` section in the MESA documentation for variables that let you specify special reaction rate factors for individual reactions. You can also look in the `$MESA_DIR/star/defaults/star_job.defaults` file.  
@@ -894,7 +894,7 @@ The run should take around 10 minutes on 2 threads, since the star needs to evol
 Additionally, we have prepared a Google Colab notebook. In this notebook, you can upload your MESA `history.data` file and generate plots of $\Delta \Pi$ versus age and central helium abundance. With these plots, you can see the evolution of $\Delta \Pi$ as a function of these parameters, not just their peak.
 
 ## Instructions for the Google Colab notebook:
-1. [Click here](https://colab.research.google.com/drive/1g9lz20FU9IVrg3CJTF9y5jZ80SYJghbE?usp=sharing) to open the notebook and connect to your Google account.
+1. [Click here](https://colab.research.google.com/drive/1g9lz20FU9IVrg3CJTF9y5jZ80SYJghbE?usp=sharing) {{< download url="../maxilab2.ipynb" >}}(local copy){{< /download >}} to open the notebook and connect to your Google account.
 2. Make a copy of this notebook using `File -> Save a copy in Drive`. 
 3. You can review the Python script if you'd like. You don’t need to install anything manually—just run the notebook cells, and it will automatically install any required packages. It uses the `mesa-reader` package (more information [here](https://github.com/wmwolf/py_mesa_reader)) to read the history file easily.  
 4. During the run (which will take 1–2 minutes), Colab will prompt you to upload a file. Please upload your `history.data` file when asked.  
@@ -994,7 +994,7 @@ new_net_name = 'basic_custom.net'
 
 MESA will look for `basic_custom.net` both in your working directory and in `$MESA_DIR/data/net_data/nets`.
 
-Run and re-plot $\Delta \Pi$ versus age and central helium abundance using the Google Colab notebook again (you will need to upload your new `history.data` file). You can open a new window of the Google Colab [Click here](https://colab.research.google.com/drive/1g9lz20FU9IVrg3CJTF9y5jZ80SYJghbE?usp=sharing), or save the previous plot for comparison.
+Run and re-plot $\Delta \Pi$ versus age and central helium abundance using the Google Colab notebook again (you will need to upload your new `history.data` file). You can open a new window of the Google Colab [Click here](https://colab.research.google.com/drive/1g9lz20FU9IVrg3CJTF9y5jZ80SYJghbE?usp=sharing) {{< download url="../maxilab2.ipynb" >}}(local copy){{< /download >}}, or save the previous plot for comparison.
 
 Not much has changed, right?  
 This shows us that the helium-burning reaction processes that most influence the period spacing—and therefore the interior structure of the star—are: `r_he4_he4_he4_to_c12` and `r_c12_ag_o16`.
