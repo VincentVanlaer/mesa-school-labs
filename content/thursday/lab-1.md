@@ -46,6 +46,29 @@ The mkdir -p command is used to create a directory, including any necessary pare
 
 **Task 2.2**: We have prepared and provided the test case for you. Discuss with your team members and choose a particular stellar mass to work with from [here](https://docs.google.com/spreadsheets/d/1upyIGVzw4kU3YUe4aU03ZZqMWvgblQHmp2gIhZKgEJ8/edit?usp=sharing) [(local copy)](/thursday/spreadsheet.ods), download the corresponding `Minilab1_xpxx.zip` into the <span style="color:purple">``~/MESASS2025/Day4``</span> directory, unpack, and enter this work directory. 
 
+{{< details title="Links to all start directories" closed="true" >}}
+- [Minilab1_1p00](../start_directories/Minilab1_1p00.zip)
+- [Minilab1_1p10](../start_directories/Minilab1_1p10.zip)
+- [Minilab1_1p20](../start_directories/Minilab1_1p20.zip)
+- [Minilab1_1p30](../start_directories/Minilab1_1p30.zip)
+- [Minilab1_1p40](../start_directories/Minilab1_1p40.zip)
+- [Minilab1_1p50](../start_directories/Minilab1_1p50.zip)
+- [Minilab1_1p60](../start_directories/Minilab1_1p60.zip)
+- [Minilab1_1p70](../start_directories/Minilab1_1p70.zip)
+- [Minilab1_1p80](../start_directories/Minilab1_1p80.zip)
+- [Minilab1_1p90](../start_directories/Minilab1_1p90.zip)
+- [Minilab1_1p05](../start_directories/Minilab1_1p05.zip)
+- [Minilab1_1p15](../start_directories/Minilab1_1p15.zip)
+- [Minilab1_1p25](../start_directories/Minilab1_1p25.zip)
+- [Minilab1_1p35](../start_directories/Minilab1_1p35.zip)
+- [Minilab1_1p45](../start_directories/Minilab1_1p45.zip)
+- [Minilab1_1p55](../start_directories/Minilab1_1p55.zip)
+- [Minilab1_1p65](../start_directories/Minilab1_1p65.zip)
+- [Minilab1_1p75](../start_directories/Minilab1_1p75.zip)
+- [Minilab1_1p85](../start_directories/Minilab1_1p85.zip)
+- [Minilab1_1p95](../start_directories/Minilab1_1p95.zip)
+{{< /details >}}
+
 {{< details title="Answer 2.2" closed="true" >}}
 ```sh
 unzip Minilab1_xpxx.zip
