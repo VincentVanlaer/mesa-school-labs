@@ -14,3 +14,5 @@ toc: false
  {{< card link="lab-2/" title="Lab 2: the Eddington-Sweet circulation velocity" >}}
  {{< card link="lab-3/" title="Lab 3: Meridional Circulation" >}}
 {{< /cards >}}
+
+The slides for these labs can be found [here](/tuesday/slides.pdf).

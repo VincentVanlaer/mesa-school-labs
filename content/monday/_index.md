@@ -4,6 +4,8 @@ cascade:
 toc: false
 ---
 
+Introduction to MESA slides can be found [here](intro-slides.pdf).
+
 # Overshooting in (massive) stars
 
 {{< cards >}}
