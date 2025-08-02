@@ -12,7 +12,7 @@ toc: false
 
 In this series of labs, we will familiarise ourselves with applying `GYRE` --- a tool for computing the normal-mode frequencies of spherical stars --- to stellar models produced with `MESA`. This series of labs is mainly intended to teach you how to do asteroseismology using `MESA` —  rather than asteroseismology itself — but we have also prepared a brief primer on asteroseismology proper [here](img/index.pdf).
 
-Slides for the Friday labs can be found [here](slides).
+Slides for the Friday labs can be found [here](slides/).
 
 {{< cards >}}
  {{< card link="lab-1/" title="Lab 1: Installing and using GYRE" >}}
