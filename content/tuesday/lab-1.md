@@ -26,11 +26,11 @@ Throughout the lab 1 you will find the specific tasks you need to execute inside
 
 | 📋 TASK|
 |:--------|
-|1. Download the starting point working directory for lab 1 and the solutions for each exercise [here](https://www.dropbox.com/scl/fi/v3c24ks4ihqjuwzcfpzx1/lab1.zip?rlkey=obb42xz07rwknk5xjv58iwuio&st=14kdwhgl&dl=0).
+|1. Download the starting point working directory for lab 1 and the solutions for each exercise [here](../lab-1.zip).
 |2. Unpack the zip files using `unzip lab1.zip` and move to the working directory `cd lab1/starting_point`.|
 
 
-## 1: Create a 10 solar mass rotating main-sequence model
+## Create a 10 solar mass rotating main-sequence model
 
 We will start by creating a rotating main-sequence model for a 10 solar mass star. To save some computation time we already computed the pre-main sequence (PMS) track beforehand and saved the model once it reached the zero-age-main-sequence (ZAMS). You will use this ZAMS model as the starting point of all your runs. The particular ZAMS model we provide matches the 2D ESTER models composition, which we will use later.
 
@@ -150,7 +150,7 @@ Let's also add the rotation profile information to the `profile.data` files by m
 > Do not forget to save all the changes you made in the `inlist_project`, `history_columns.list` and `profile_columns.list`.
 
 > [!NOTE]
-> We remind you that you can consult the solutions of the tasks [here](https://www.dropbox.com/scl/fi/v3c24ks4ihqjuwzcfpzx1/lab1.zip?rlkey=obb42xz07rwknk5xjv58iwuio&st=14kdwhgl&dl=0).
+> We remind you that you can consult the solutions of the tasks [here](../lab-1.zip).
 
 ### MESA run
 Now that we have included the relevant physics in our inlist let's start the computation.
@@ -183,7 +183,7 @@ At the end of your run your pgstar plot should look like this.
 ![pgplot](/tuesday/lab1_grid1000495.png)
 
 
-## 2: The effect of rotation on the surface parameters
+## The effect of rotation on the surface parameters
 We will now look at the effect of rotation in the global surface parameters. To do so we need to increase the rotational velocity in our models.
 
 ### inlist_project
@@ -232,7 +232,7 @@ One explanation for the difference you see between the HRDs is the so-called **g
 {{< /details >}}
 
 
-## 3: (Magneto)-hydrodynamic instabilities
+## (Magneto)-hydrodynamic instabilities
 In the previous task we took a very simple approach by including a constant ad-hoc viscosity in MESA models. Now, we will take a more physically motivated approach by including (magneto)-hydrodynamic instabilities in our stellar models.
 
 In addition to the effects of rotation on the surface parameters, **rotation also triggers several hydrodynamical instabilities that can transport AM and chemical elements in the radiative regions**. MESA includes several (magneto)-hydrodynamical (MHD) processes in its AM transport prescription: 
@@ -250,7 +250,7 @@ In this exercise we will compute models with different $(\Omega/\Omega_{\mathrm{
 
 | 📋 TASK |
 |:--------|
-|1. Choose a $(\Omega/\Omega_{\mathrm{crit}})_{\mathrm{initial}}$ and a combination of rotational-instabilities from this [google spreadsheet](https://docs.google.com/spreadsheets/d/1Rc_gstPrDX4eZfTN4dc20j9K_ddqjsyR0gEtQT2xd2s/edit?usp=sharing).|
+|1. Choose a $(\Omega/\Omega_{\mathrm{crit}})_{\mathrm{initial}}$ and a combination of rotational-instabilities from this [google spreadsheet](https://docs.google.com/spreadsheets/d/1Rc_gstPrDX4eZfTN4dc20j9K_ddqjsyR0gEtQT2xd2s/edit?usp=sharing) [(local copy)](../spreadsheet.ods).|
 |2. Fill the google spreadsheet with your name so that no one computes the same model.|
 
 
@@ -326,13 +326,13 @@ After your run is finished, open the `history.data` file in your favourite text 
 |1. Insert the values of `omega_core` `omega_surf` and `surf_avg_omega_div_omega_crit` of your last model in the [google spreadsheet](https://docs.google.com/spreadsheets/d/1Rc_gstPrDX4eZfTN4dc20j9K_ddqjsyR0gEtQT2xd2s/edit?usp=sharing).|
 
 
-## 4: Comparison with 2D Ester models
+## Comparison with 2D Ester models
 
 
 The last task in this lab1 is to compare your MESA tracks with 2D Ester models. In this lab we mainly focus on the evolution of the rotation rate and the HR diagram. In the next labs you will be able to explore and test other important physical quantities.
 | 📋 TASK |
 |:--------|
-|1. Plot your MESA models against the 2D models using this [jupyter notebook](https://colab.research.google.com/drive/1HY_7Y59D4JFJG4tiY3q5TUmdJsz4wGIT#scrollTo=dIL6HmKwXFfK). The instructions to make the comparison plots are in the jupyter notebook itself.|
+|1. Plot your MESA models against the 2D models using this [jupyter notebook](https://colab.research.google.com/drive/1HY_7Y59D4JFJG4tiY3q5TUmdJsz4wGIT#scrollTo=dIL6HmKwXFfK) {{< download url="../minilab1_plots.ipynb" >}}(local copy){{< /download >}}. The instructions to make the comparison plots are in the jupyter notebook itself.|
 |2. **Can your MESA models match the 2D Ester models?**   Compare your results with the rest of your table.|
 
 If you are running into problems with the jupyter notebook, you can send your tutor the `history.data` file of your runs (rename those files according to your initial rotation rate and instability).  

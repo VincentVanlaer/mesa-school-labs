@@ -2,9 +2,9 @@
 
 Led by: Philip Mocz
 
-* [Download the Lab](https://ssgithub.com/VincentVanlaer/mesa-school-labs/tree/main/static/tuesday/lab-2)
-* [Download the ESTER 2D models](https://ssgithub.com/VincentVanlaer/mesa-school-labs/tree/main/static/tuesday/ester_models)
-* [Download solution](https://ssgithub.com/VincentVanlaer/mesa-school-labs/tree/main/static/tuesday/lab-2-solution)
+* [Download the Lab](/tuesday/lab-2.zip)
+* [Download the ESTER 2D models](/tuesday/ester_models.zip)
+* [Download solution](/tuesday/lab-2-solution.zip)
 
 **Goal:** Compute the Eddington-Sweet circulation velocity, `v_ES`, for a star evolved with MESA,
 and save it in the profiles output. Compare it against 2D ESTER models.
@@ -372,7 +372,7 @@ python plot.py
 
 Otherwise you can visit the following Google Colab notebook and make the plot it in the cloud:
 
-[Google Colab MESA Day 2 Minilab 2 notebook](https://colab.research.google.com/drive/1RGBrGY_oHTjxuagSuYkgR7251CPplDug?usp=sharing)
+[Google Colab MESA Day 2 Minilab 2 notebook](https://colab.research.google.com/drive/1RGBrGY_oHTjxuagSuYkgR7251CPplDug?usp=sharing) {{< download url="../minilab2_plots.ipynb" >}}(local copy){{< /download >}}.
 
 You'll need to upload the MESA output (the files inside `M10_Z0p20_fov0p015_logD3_O20/`) and the ESTER mode (`ester_models/M10_O60_X071Z200_evol_viscv1e7_visc_h1e7_delta010_2_0025.h5`) into the `/content/` folder and press `Run` to create the plot.
 

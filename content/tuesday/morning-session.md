@@ -72,7 +72,7 @@ You'll do this by reading through the provided material and completing clearly o
 
 ### About the Author
 
-Hi, I'm [Bill Wolf](https://billwolf.space). I'm an associate professor of physics and astronomy at [the University of Wisconsin–Eau Claire](https://uwec.edu), where I study the physics of accreting white dwarf stars with a team of undergraduate researchers. I've been using MESA since 2012 and have been a TA, organizer, or lecturer in 11 MESA schools since. I've been on the MESA Developer team since 2017, where my primary responsibiltiy is our [distributed testing infrastructure](https://testhub.mesastar.org). I also wrote a few tools to work with MESA, including [MESA Explorer](https://billwolf.space/mesa-explorer), [MESA Reader](https://billwolf.space/py_mesa_reader), and [MesaScript](https://billwolf.space/MesaScript/).
+Hi, I'm [Bill Wolf](https://billwolf.space). I'm an associate professor of physics and astronomy at [the University of Wisconsin–Eau Claire](https://uwec.edu), where I study the physics of accreting white dwarf stars with a team of undergraduate researchers. I've been using MESA since 2012 and have been a TA, organizer, or lecturer in 11 MESA schools since. I've been on the MESA Developer team since 2017, where my primary responsibility is our [distributed testing infrastructure](https://testhub.mesastar.org). I also wrote a few tools to work with MESA, including [MESA Explorer](https://billwolf.space/mesa-explorer), [MESA Reader](https://billwolf.space/py_mesa_reader), and [MesaScript](https://billwolf.space/MesaScript/).
 
 ### Acknowledgements
 
@@ -231,7 +231,7 @@ Change into the directory:
 cd ~/Desktop/day2-dev
 ```
 
-If you're computer is too smart, it may have automatically unzipped the directory for you. In that case, you can just move the directory and change into it:
+If your computer is too smart, it may have automatically unzipped the directory for you. In that case, you can just move the directory and change into it:
 
 ```bash
 mv ~/Downloads/day2-dev ~/Desktop/

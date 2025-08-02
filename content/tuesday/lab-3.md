@@ -31,9 +31,9 @@ Of course, there is additional physics in both of these prior examples that I ha
 
 ### Helpful Links
 
-The general Lab 3 Google Drive can be found [here](https://drive.google.com/drive/folders/13a2fdxeXzITIJgJWkmvUShg0fPrFs9UX?usp=sharing).  This folder contains partial solutions (separated by task), full solutions for each test case, the starting point for the lab, pre-made ZAMS models, and a series of pre-computed runs with no meridional circulation (called `no_extra_jdot`). The specific portions that you need to download (aside from the solutions) will be explicitly stated in the tasks, so you **do not** need to download everything on this drive. 
+The lab setup can be found [here](../lab-3.zip) as a mirror of the Google Drive link found below.  This folder contains partial solutions (separated by task), full solutions for each test case, the starting point for the lab, pre-made ZAMS models, and a series of pre-computed runs with no meridional circulation (called `no_extra_jdot`). 
   
-The Google Colab script to make the bonus plots can be found [here](https://colab.research.google.com/drive/1fB8YwH5e_XjZFDh-UGDrcjZefHOBE4Rq?usp=sharing).  
+The Google Colab script to make the bonus plots can be found [here](https://colab.research.google.com/drive/1fB8YwH5e_XjZFDh-UGDrcjZefHOBE4Rq?usp=sharing)  {{< download url="../minilab3_plots.ipynb" >}}(local copy){{< /download >}}. 
   
   
 ## Instructions
