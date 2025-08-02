@@ -1,22 +1,6 @@
 # Monday MiniLab 2: Overshooting during core helium burning (CHeB)
 
-## Overview
-
-**A. Preparation**
-* ~10 Minutes
-* Adjusting the MESA inlist files to run until core helium depletion
-* Creating a new file called *inlist_extra*, where we can vary our physics quickly
-
-**B. Running different models until Terminal Age Core Helium Burning (TACHeB)**
-* ~30 Minutes
-* exploring how different physical assumptions change the evolution of a star and the structure of the convective core
-
-**C. Bonus Task: Including additional plots**
-* ~20 Minutes
-* Getting familiar with pgstar and modifying it to show an additional plotting window
-* Intestivate when convection zones in a star are formed
-
-## A. Preparation
+## Preparation [~10 min.]
 
 Now we are interested in studying how stars with and without core 
 overshooting evolve during the CHeB and which impact it has. 
@@ -39,7 +23,7 @@ rm -r LOGS photos png
 ```
 
 Alternatively, or if you want to be sure that everything is working properly,
-you can download a cleaned folder [here](../lab2.zip).
+you can download a cleaned folder [here](../lab-2.zip).
 
 In lab1 we have calculated a $5\,M_\odot$ model with 
 step overshooting having $f_\text{ov}=0.030$ and $f_{0\,\text{ov}}=0.005$ until core-hydrogen
@@ -244,7 +228,7 @@ pgstar window opens again:
 ```
 To stop your model, you can press in the terminal ctrl+c. In case that does not work on your mac, try cmd+c.
 
-## B. Running different models until Terminal Age Core Helium Burning (TACHeB)
+## Running different models until Terminal Age Core Helium Burning (TACHeB) [~30 min.]
 
 ### Core helium burning without core overshooting
 	
@@ -465,7 +449,9 @@ to that of the model without overshooting.
 
 The problem of breathing pulses is an ongoing issue with no real solution. By limiting the Brunt-Väisälä frequency (or Brunt factor), we are effectively suppressing overshooting in regions with strong chemical gradients, where even small instabilities are more likely to trigger pulsations than induce mixing. An alternative way to treat these pulses could be to use another criterion for determining convective boundaries. However, resolving the location of the convective boundary is beyond the scope of our lab, but we encourage you to explore other mixing options.
 
-## C. Bonus Task: Including additional plots
+A complete solution folder can be downloaded [here](../lab-2_solution.zip).
+
+## Bonus Task: Including additional plots [~20 min.]
 
 In the previous exercises, we have encountered that if we use overshooting during 
 core helium burning, the helium breathing pulses are triggered. Here, we would 

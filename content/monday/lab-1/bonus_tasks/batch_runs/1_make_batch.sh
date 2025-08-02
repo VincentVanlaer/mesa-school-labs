@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # make_batch.sh - Script to create batch inlists from a CSV file of parameters
 # Improved version with better handling of missing parameters
 

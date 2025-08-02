@@ -1,10 +1,4 @@
-# MESA Lab Bonus Tasks
-
-
-<p align="center">
-  <img src="python_analysis/plots/hr_diagram_3d_rotation.gif" alt="Animated HRD" height="300">
-</p>
-
+![](python_analysis/plots/hr_diagram_3d_rotation.gif)
 
 **This is advanced bonus content** - only attempt after completing the main lab successfully.
 
@@ -21,13 +15,10 @@ By completing these exercises, you will:
 
 ---
 
-
 This directory contains tools to analyze your MESA models and automate running multiple models with different parameters. These tools are organized into two main categories:
 
 - **Batch Runs** - Tools to automate running multiple MESA models with different parameters
 - **Python Analysis** - Python scripts to create plots and analyze a single MESA run
-
-
 
 ## Batch Running MESA (Sequentially)
 
@@ -50,14 +41,9 @@ The MESA batch run framework allows you to efficiently run multiple stellar mode
 If you are particularly interested in the topic, you can run larger batches outside of lab hours using the same framework.
 
 
-
----
-
 {{< cards >}}
   {{< card link="https://zenodo.org/records/16205180/files/lab1.zip" title="Download Lab Files" subtitle="Download all MESA simulation files, inlists, and Python scripts needed for this lab." >}}
 {{< /cards >}}
-
----
 
 
 ### File structure 
@@ -72,22 +58,14 @@ batch_runs/
 └── 5_construct_output.py       # Extract results into CSV
 ```
 
-
-
-
-
-
-
-
 ### Workflow for Batch Runs
 
 
-Download the spreadsheet as a .csv file:
-https://docs.google.com/spreadsheets/d/1qSNR-dV28Tr_RWv3bDu8OYsq7jTVcTQxmqzWqLM52es/edit?gid=0#gid=0
+Download the spreadsheet as a [CSV file](./Lab1.csv).
 
 
-Now would be the best time to prune what you do and dont want to run. All of our batch runs are going to be based on the csv we download from this file. 
-#### We suggest selecting ~10 entries from the google spreadsheet and downloading a csv subset containing just those. 
+Now would be the best time to prune what you do and don't want to run. All of our batch runs are going to be based on the csv we download from this file. 
+**We suggest selecting ~10 entries from the google spreadsheet and downloading a csv subset containing just those.**
 For the sake of demonstration, these instructions will show outputs having had downloaded the *whole* csv file. 
 
 Move the spreadsheet to the bonus tasks dir
@@ -100,7 +78,7 @@ Move to the bonus tasks dir:
    ```
 
 
-### 0. **Check dependencies** to ensure your environment is properly set up
+#### **Check dependencies** to ensure your environment is properly set up
    ```bash
    python 0_dependency_check.py
    ```
@@ -157,7 +135,7 @@ pip install numpy
 
 NOTE: batch_inlists is missing, this is fine. Once we run ```1_make_batch``` we will create that directory.
 
-### 1. **Generate inlists** using a CSV file of parameter combinations
+#### **Generate inlists** using a CSV file of parameter combinations
    ```bash
    python 1_make_batch.py ../Lab1.csv
    ```
@@ -175,7 +153,7 @@ NOTE: we can now return step 0 and check that ```../batch_inlists/``` turns from
 
 
 
-### 2. **Verify inlists** similar to before
+#### **Verify inlists** similar to before
    ```bash
    -> % python 2_verify_inlists.py 
 Usage: 2_verify_inlists.py <csv_file> [inlist_dir]
@@ -202,7 +180,7 @@ Usage: 2_verify_inlists.py <csv_file> [inlist_dir]
    This checks the inlist files for any weird things that may have happened. If there are missing inlists, try running step (1) again, preferably the method you didn't try first time.
 
 
-### 3. **Run the models** (this may take a while depending on the size of your input csv)
+#### **Run the models** (this may take a while depending on the size of your input csv)
 
 ```bash
 -> % python 3_run_batch.py    
@@ -235,7 +213,7 @@ Each model is run sequentially with results saved to `../runs/`
 
 
 
-### 4. **Verify output** 
+#### **Verify output** 
 
 
 We can let step (3) run for some time. After, we can check how those runs performed, below shows the output for running the batch runs for _some_ of the parameters found in the csv but stopping it early. 
@@ -280,7 +258,7 @@ We can see that we fully ran 33 iterations, 1 iteration was corrupted (likely wh
 
 
 
-### 5. **Analyze the results** collectively
+#### **Analyze the results** collectively
 
 To construct a csv file that is populated with the outputs of these model runs we can run step (5).
 This should automatically create a csv file with all that is needed for creating plots. 

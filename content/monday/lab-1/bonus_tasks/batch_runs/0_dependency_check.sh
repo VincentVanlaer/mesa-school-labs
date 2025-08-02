@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # dependency_checker.sh
 #
 # A shell script to check dependencies required for MESA batch_runs functionality.

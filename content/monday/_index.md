@@ -12,4 +12,4 @@ toc: false
  {{< card link="lab-2/" title="Lab 2: Overshooting during core helium burning (CHeB)" >}}
 {{< /cards >}}
 
-[Slides](./slides.pdf)
+The slides for these labs can be found [here](./slides.pdf).

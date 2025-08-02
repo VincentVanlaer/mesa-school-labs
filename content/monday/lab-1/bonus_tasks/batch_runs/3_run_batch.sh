@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # MESA Batch Runner
 # This script will run MESA for each inlist in batch_runs/batch_inlists
