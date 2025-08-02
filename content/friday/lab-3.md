@@ -12,16 +12,16 @@ In this lab, you will explore how **rotation** affects the frequencies of stella
 
 - Understand how rotation lifts the m-degeneracy of non-radial modes.
 - Visualize rotational mode splitting in an echelle diagram.
-- Compare GYRE-computed frequency splittings with the Δω<sub>g</sub> (rotational splitting of g-modes) you measured in Lab 1.
+- Compare GYRE-computed frequency splittings with the $\Delta\Omega_g$ (rotational splitting of g-modes) you measured in Lab 1.
 
 ---
 
 ## 1. Background: Why Rotation Splits Modes
 
-In a non-rotating star, modes with the same radial order `n` and angular degree `l`, but different azimuthal order `m`, have the **same frequency** — they are *degenerate*. When the star rotates, this degeneracy is **broken**:
+In a non-rotating star, modes with the same radial order $n$ and angular degree $\ell$, but different azimuthal order $m$, have the **same frequency** — they are *degenerate*. When the star rotates, this degeneracy is **broken**:
 
-- **Prograde modes** (m < 0) shift to **higher frequencies**
-- **Retrograde modes** (m > 0) shift to **lower frequencies**
+- **Prograde modes** ($m$ < 0) shift to **higher frequencies**
+- **Retrograde modes** ($m$ > 0) shift to **lower frequencies**
 - The splitting between adjacent m values is proportional to the star’s internal rotation rate
 
 ---
@@ -78,7 +78,7 @@ In your `gyre_rot.in`, include the following blocks to enable rotation and compu
 ```
 Note: do NOT delete the radial mode block! You still want to calculate those. There is only m=0 for these modes.
 
-The $l=2$ modes will also be split, however this will add a bit of computing time to your model. You can choose to calculate these modes as well if you like. The $l=2$ modes have m values $m=-2,-1,0,1,2$.
+The $\ell=2$ modes will also be split, however this will add a bit of computing time to your model. You can choose to calculate these modes as well if you like. The $\ell=2$ modes have m values $m=-2,-1,0,1,2$.
 
 Make sure you still have a `&scan` block that pairs with `tag_list = 'non-radial'` and covers a suitable frequency range (e.g., 100–300 μHz).
 

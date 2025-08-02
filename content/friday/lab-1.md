@@ -97,7 +97,7 @@ For today's set of labs, you will pick a rotation rate based on your table. Thes
 
 |📋 TASK |
 |:--|
-| 1. Pick a rotation rate and nu_max value from [the google sheet](https://docs.google.com/spreadsheets/d/1pAcvlfqOga0JNZo3cjJeZaErVd4youLYHyAmAu3NmSE/edit?usp=sharing) (nu_max will be used later on in the labs.) |
+| 1. Pick a rotation rate and nu_max value from [the google sheet](https://docs.google.com/spreadsheets/d/1pAcvlfqOga0JNZo3cjJeZaErVd4youLYHyAmAu3NmSE/edit?usp=sharing) ([local copy](../spreadsheet.ods); nu_max will be used later on in the labs.) |
 | 2. Add the following lines to the `star_job` portion of `inlist_1M_star` |
 
 ```fortran
