@@ -1,3 +1,3 @@
 #!/bin/sh
 
-hugo && rsync -avz --delete public/ vincentva@4d:/var/www/mesa/wordpress/tutorials/
+hugo --baseURL https://mesa-leuven.4d-star.org/tutorials/ && rsync -avz --delete public/ vincentva@4d:/var/www/mesa/wordpress/tutorials/
