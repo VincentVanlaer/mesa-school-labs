@@ -14,4 +14,4 @@ Introduction to MESA slides can be found [here](intro-slides.pdf).
  {{< card link="lab-2/" title="Lab 2: Overshooting during core helium burning (CHeB)" >}}
 {{< /cards >}}
 
-The slides for these labs can be found [here](./slides.pdf).
+The slides for these labs can be found [here](slides.pdf).

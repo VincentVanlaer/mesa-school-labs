@@ -15,4 +15,4 @@ toc: false
  {{< card link="lab-3/" title="Lab 3: Meridional Circulation" >}}
 {{< /cards >}}
 
-The slides for these labs can be found [here](/tuesday/slides.pdf).
+The slides for these labs can be found [here](slides.pdf).

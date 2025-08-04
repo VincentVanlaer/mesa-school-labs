@@ -8,7 +8,7 @@ toc: false
  {{< card link="morning-session/" title="Introducing the binary module" >}}
 {{< /cards >}}
 
-The slides for this lab can be found [here](/wednesday/morning-slides.pdf).
+The slides for this lab can be found [here](morning-slides.pdf).
 
 # Massive stars in binaries
 {{< cards >}}
@@ -18,4 +18,4 @@ The slides for this lab can be found [here](/wednesday/morning-slides.pdf).
 {{< card link="lab-3/" title="Lab 3: Common Envelope evolution with MESA" >}}
 {{< /cards >}}
 
-The slides for these labs can be found [here](/wednesday/slides.pdf).
+The slides for these labs can be found [here](slides.pdf).

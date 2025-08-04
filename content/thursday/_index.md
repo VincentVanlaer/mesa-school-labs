@@ -8,7 +8,7 @@ toc: false
  {{< card link="morning-session/" title="Best practices" >}}
 {{< /cards >}}
 
-The slides for this lab can be found [here](/thursday/morning-slides.pdf).
+The slides for this lab can be found [here](morning-slides.pdf).
 
 # Red giant evolution
 {{< cards >}}
@@ -17,4 +17,4 @@ The slides for this lab can be found [here](/thursday/morning-slides.pdf).
  {{< card link="lab-3/" title="Lab 3: Exploring Nuclear Reaction Rates and Networks in MESA" >}}
 {{< /cards >}}
 
-The slides for these lab can be found [here](/thursday/bump.pdf) and [here](/thursday/cheb.pdf).
+The slides for these lab can be found [here](bump.pdf) and [here](cheb.pdf).
