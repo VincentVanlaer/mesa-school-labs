@@ -9,7 +9,7 @@ author: Saskia Hekker, Susmita Das, Zhao Guo, Arthur Le Saux and Noi Shitrit for
 
 As low-mass stars evolve into red-giant stars, there comes a brief phase during their post-main-sequence evolution where two interesting phenomena are observed. First, there is the simultaneous contraction of the core and the expansion of the envelope (with the shell burning source in between the core and the envelope), known as the *mirror principle*. Next, there occurs a zig-zag in the evolutionary track called the *Red Giant Branch Bump (RGB bump)* where the trend for increasing luminosity is reversed, see inset of Fig.1: 
 
-![Fig.1](/thursday/staa176fig1.jpeg)
+![Fig.1](../staa176fig1.jpeg)
 
 *Fig.1: Herzsprung–Russell (H–R) diagram of a $1M_{\odot}$ track with solar composition computed with MESA. The inset shows a zoom of the red giant branch bump (RGB bump). Figure from Hekker et al. (2020).*
 
@@ -29,7 +29,7 @@ The primary purpose of this minilab is to get you more familiar with some topics
 
 If you're new to Fortran, here is a short document with [some examples](https://jschwab.github.io/mesa-2021/fortran.html). Don't let yourself get hung up by the Fortran; quickly ask your classmates and the TAs for help! 
 
-Every task comes with a hint and/or an answer. However, if you have prior experience with MESA, do attempt to complete the task on your own. The complete solution is available [here](/thursday/CompleteSolution.zip).
+Every task comes with a hint and/or an answer. However, if you have prior experience with MESA, do attempt to complete the task on your own. The complete solution is available [here](../CompleteSolution.zip).
 
 ## Section 2: Getting Started
 
@@ -44,7 +44,7 @@ cd ~/MESASS2025/Day4
 The mkdir -p command is used to create a directory, including any necessary parent directories. This means that if the parent directory does not exist, mkdir -p will create it automatically.
 {{< /details >}}
 
-**Task 2.2**: We have prepared and provided the test case for you. Discuss with your team members and choose a particular stellar mass to work with from [here](https://docs.google.com/spreadsheets/d/1upyIGVzw4kU3YUe4aU03ZZqMWvgblQHmp2gIhZKgEJ8/edit?usp=sharing) [(local copy)](/thursday/spreadsheet.ods), download the corresponding `Minilab1_xpxx.zip` into the <span style="color:purple">``~/MESASS2025/Day4``</span> directory, unpack, and enter this work directory. 
+**Task 2.2**: We have prepared and provided the test case for you. Discuss with your team members and choose a particular stellar mass to work with from [here](https://docs.google.com/spreadsheets/d/1upyIGVzw4kU3YUe4aU03ZZqMWvgblQHmp2gIhZKgEJ8/edit?usp=sharing) [(local copy)](../spreadsheet.ods), download the corresponding `Minilab1_xpxx.zip` into the <span style="color:purple">``~/MESASS2025/Day4``</span> directory, unpack, and enter this work directory. 
 
 {{< details title="Links to all start directories" closed="true" >}}
 - [Minilab1_1p00](../start_directories/Minilab1_1p00.zip)
@@ -184,7 +184,7 @@ in its entirety into <span style="color:purple">``run_star_extras.f90``</span>.
 The command to insert the contents of a file in emacs is C-x i <filename>, in vim is :r <filename>, or you can just copy and paste.
 {{< /details >}}
 
-Answer 3.1: The partial `run_star_extras.f90` solution is available [here](/thursday/PartialSolutions/run_star_extras_answer3p1.f90).
+Answer 3.1: The partial `run_star_extras.f90` solution is available [here](../PartialSolutions/run_star_extras_answer3p1.f90).
 
 **Task 3.2**: Check that the code compiles and execute a test run to ensure everything works fine for you. Once the plots appear, you may terminate the run using <span style="background-color:black"><span style="color:white">`Ctrl + C`</span></span>.
 
@@ -209,7 +209,7 @@ Since <span style="color:purple">``run_star_extras.f90``</span> was already intr
 
 One of our primary goals is to study the evolution of (i) the location of the base of the convection zone, (ii) the peak of the burning, and (iii) the mean molecular weight discontinuity around the RGB bump. Plotting these with mass coordinate and radius coordinate will reproduce Fig. 4 of [Hekker et al. (2020)](https://ui.adsabs.harvard.edu/abs/2020MNRAS.492.5940H/abstract) as shown below:
 
-![Fig.2](/thursday/staa176fig4.jpeg)
+![Fig.2](../staa176fig4.jpeg)
 
 *Fig.2: Top: the evolution around the bump of the location of the base of the convection zone, the peak of the burning, and the mean molecular weight discontinuity as a function of mass coordinate (left), and radius coordinate (right). Bottom: effective temperature (left) and luminosity (right) as a function of age. The vertical grey-dashed and dash–dotted lines indicate the age of the maximum luminosity and minimum luminosity of the bump feature, respectively. Figure from Hekker et al. (2020).*
 
@@ -231,7 +231,7 @@ Identify what is the right parameter (cz_bot_mass) and uncomment (that is, remov
 Identify what is the right parameter (cz_bot_radius) and uncomment to include it in the output file.
 {{< /details >}}
 
-Answer 3.3 and 3.4: At this point, your `history_columns.list` should look like [this](/thursday/PartialSolutions/history_columns_answer3p4.list).
+Answer 3.3 and 3.4: At this point, your `history_columns.list` should look like [this](../PartialSolutions/history_columns_answer3p4.list).
 
 **Task 3.5**: While you're at it, check if there exists default history columns for peak of the burning or the mean molecular weight in <span style="color:purple">``history_columns.list``</span>.
 
@@ -404,7 +404,7 @@ subroutine data_for_extra_history_columns(id, n, names, vals, ierr)
 ```
 {{< /details >}}
 
-Answer 3.6 and 3.8: The partial `run_star_extras.f90` solution is available [here](/thursday/PartialSolutions/run_star_extras_answer3p8.f90).
+Answer 3.6 and 3.8: The partial `run_star_extras.f90` solution is available [here](../PartialSolutions/run_star_extras_answer3p8.f90).
 
 **Task 3.9**: After making changes to the <span style="color:purple">``run_star_extras.f90``</span>, always check that the code compiles.
 
@@ -547,7 +547,7 @@ vals(4) = s% r(sdisc) / (Rsun)
 ```
 {{< /details >}}
 
-Answer 3.10: The partial `run_star_extras.f90` solution is available [here](/thursday/PartialSolutions/run_star_extras_answer3p10.f90).
+Answer 3.10: The partial `run_star_extras.f90` solution is available [here](../PartialSolutions/run_star_extras_answer3p10.f90).
 
 **Task 3.11**: Once again, after making changes to the <span style="color:purple">``run_star_extras.f90``</span>, check that the code compiles.
 
@@ -564,7 +564,7 @@ Great work! You have now included most of the parameters that are required to re
 
 As mentioned earlier, this lab aims to probe the importance of entropy in RGB evolution. In stars, the rate of change of specific entropy is proportional to $\epsilon_g$, the ‘gravothermal’ energy generation rate. Therefore, we also want to study the variation of $\epsilon_g$ at the base of the convection zone as a function of age around the evolution of the RGB bump and thereby reproduce Fig. 6 of [Hekker et al. (2020)](https://ui.adsabs.harvard.edu/abs/2020MNRAS.492.5940H/abstract) as shown below:
 
-![Fig.3](/thursday/staa176fig6.jpeg)
+![Fig.3](../staa176fig6.jpeg)
 
 *Fig.3: The value of $\epsilon_g$ at the base of the convection zone as a function of age. The vertical dashed and dash–dotted lines indicate the stellar ages of the luminosity maximum and luminosity minimum of the bump, respectively. The horizontal dotted line indicates zero. Figure from Hekker et al. (2020).*
 
@@ -650,7 +650,7 @@ subroutine data_for_extra_history_columns(id, n, names, vals, ierr)
     end subroutine data_for_extra_history_columns
 ...
 ```
-Answer 3.12: The final `run_star_extras.f90` solution is available [here](/thursday/CompleteSolution/run_star_extras.f90).
+Answer 3.12: The final `run_star_extras.f90` solution is available [here](../CompleteSolution/run_star_extras.f90).
 
 **Task 3.13**: As always, after making changes to the <span style="color:purple">``run_star_extras.f90``</span>, check that the code compiles.
 
@@ -661,7 +661,7 @@ Answer 3.12: The final `run_star_extras.f90` solution is available [here](/thurs
 ```
 {{< /details >}}
 
-Now that you have all the parameters, you are essentially ready to start the run! If you're short on time, you may grab the final <span style="color:purple">``inlist_pgstar``</span> [here](/thursday/CompleteSolution/inlist_pgstar) and jump straight to Section 5. However, if you're interested and have time, let's customise the <span style="color:purple">``inlist_pgstar``</span> in the next section for a better understanding of how the stellar structure/interiors change as the star evolves around the RGB bump.
+Now that you have all the parameters, you are essentially ready to start the run! If you're short on time, you may grab the final <span style="color:purple">``inlist_pgstar``</span> [here](../CompleteSolution/inlist_pgstar) and jump straight to Section 5. However, if you're interested and have time, let's customise the <span style="color:purple">``inlist_pgstar``</span> in the next section for a better understanding of how the stellar structure/interiors change as the star evolves around the RGB bump.
 
 ## Section 4: Customizing pgstar [BONUS EXERCISE] 
 
@@ -868,7 +868,7 @@ Most often, you'll deal with a grid or dashboard that contains many individual s
 ```
 {{< /details >}}
 
-Your final `inlist_pgstar` should look like [this](/thursday/CompleteSolution/inlist_pgstar).
+Your final `inlist_pgstar` should look like [this](../CompleteSolution/inlist_pgstar).
 
 ## Section 5: Putting it all together
 
@@ -884,7 +884,7 @@ You're now finally ready to start the run!
 
 The customised PGPLOT window should look something like this:
 
-![Fig.4](/thursday/rgbb_001048.png)
+![Fig.4](../rgbb_001048.png)
 
 *Fig.4: The PGPLOT dashboard exhibiting the HR diagram, temperature-density plot and additional profile panels for a $1M_{\odot}$ track with solar composition.*
 
@@ -907,7 +907,7 @@ After the run terminates, you're ready to plot and reproduce the figures of [Hek
 
 {{< details title="Answer 5.2" closed="true" >}}
 
-![Fig.5](/thursday/output1.png)
+![Fig.5](../output1.png)
 
 *Fig.5: The evolution around the bump of the location of the base of the convection zone, the peak of burning and the mean molecular weight discontinuity as a function of mass and radius coordinate.*
 {{< /details >}}
@@ -916,7 +916,7 @@ After the run terminates, you're ready to plot and reproduce the figures of [Hek
 
 {{< details title="Answer 5.3" closed="true" >}}
 
-![Fig.6](/thursday/output2.png)
+![Fig.6](../output2.png)
 
 *Fig.6: The variation of $\epsilon_g$ at the base of the convection zone as a function of age.*
 {{< /details >}}
@@ -925,7 +925,7 @@ After the run terminates, you're ready to plot and reproduce the figures of [Hek
 
 {{< details title="Answer 5.4" closed="true" >}}
 
-![Fig.7](/thursday/Computed_History_Files/HRD_RGBB.png)
+![Fig.7](../Computed_History_Files/HRD_RGBB.png)
 
 *Fig.7: The evolution of the RGB bumps for different stellar masses.*
 {{< /details >}}

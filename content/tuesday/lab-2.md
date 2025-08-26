@@ -2,9 +2,9 @@
 
 Led by: Philip Mocz
 
-* [Download the Lab](/tuesday/lab-2.zip)
-* [Download the ESTER 2D models](/tuesday/ester_models.zip)
-* [Download solution](/tuesday/lab-2-solution.zip)
+* [Download the Lab](../lab-2.zip)
+* [Download the ESTER 2D models](../ester_models.zip)
+* [Download solution](../lab-2-solution.zip)
 
 **Goal:** Compute the Eddington-Sweet circulation velocity, `v_ES`, for a star evolved with MESA,
 and save it in the profiles output. Compare it against 2D ESTER models.
@@ -378,6 +378,6 @@ You'll need to upload the MESA output (the files inside `M10_Z0p20_fov0p015_logD
 
 {{< details title="Solution. Click on it to check your solution." closed="true" >}}
 Plotting the comparison between your 1D MESA model and a 2D ESTER model will look like this:
-![landscape](/tuesday/eddington_sweet_velocity.png)
+![landscape](../eddington_sweet_velocity.png)
 As you can see, a simple 1D MESA model does not accurately capture all details of a detailed 2D rotating model, although it does capture many of its global properties as a function or rotation rate.
 {{< /details >}}

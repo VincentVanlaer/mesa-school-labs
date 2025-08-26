@@ -75,7 +75,7 @@ Zbase = 0.014d0
 
 #### Adding overshooting
 
-![overshoot](/monday/overshoot_explanation.png)
+![overshoot](../overshoot_explanation.png)
 
 Next, to add the core overshooting, we need to add in some new fields, shown below. **As you plug this into your inlist, have a look at the questions below.**
 
@@ -220,7 +220,7 @@ your changes to the inlist did what they are supposed to.
 > [!TIP]
 > You don't have to run your model all the way to the TAMS. You can interrupt it using ctrl+C.
 
-If you got stuck and cannot get your inlist to run, you can find a functional inlist with all the changes described above [here](/monday/lab-1/completed_inlists/inlist_project1)
+If you got stuck and cannot get your inlist to run, you can find a functional inlist with all the changes described above [here](completed_inlists/inlist_project1)
 , so you can continue with limited delay. Be sure to rename *inlist_project1* to *inlist_project*!
 
 
@@ -337,13 +337,13 @@ into your terminal.
 > [!IMPORTANT]
 > When the run is finished, double check if the new file 'M5_Z0014_fov030_f0ov0005_TAMS.mod' is in your work directory. You will need that model for the next lab! **If it's not there, ask your TA for help.**
 
-If you got stuck and cannot get your inlist to run, you can find a functional inlist with all the changes described above [here](/monday/lab-1/completed_inlists/inlist_project2)
+If you got stuck and cannot get your inlist to run, you can find a functional inlist with all the changes described above [here](completed_inlists/inlist_project2)
 , so you can continue with limited delay. Be sure to rename *inlist_project2* to *inlist_project*!
 
 
 ### Customising output  [~30 min.]
 
-![pgplot](/monday/pgstar_example.png)
+![pgplot](../pgstar_example.png)
 
 
 #### Upgrading the pgstar plots
@@ -360,7 +360,7 @@ these and how to edit your *inlist_pgstar* in
 
 For this lab, we have prepared a specialized
 *inlist_pgstar* for you. **Download that *inlist_pgstar* **
-[here](/monday/lab-1/completed_inlists/inlist_pgstar_initial)
+[here](completed_inlists/inlist_pgstar_initial)
 **and move it into your MESA work directory**. Make sure to name the file `inlist_pgstar`!
 
 Run your model again to see what the new pgstar plots look like.
@@ -548,11 +548,11 @@ While the history output only needs to write one row of values at each history o
 {{< /details >}}
 
 If you got stuck and cannot get your inlist to run, you can find
-a functional inlist with all the changes described above [here](/monday/lab-1/completed_inlists/inlist_project3)
+a functional inlist with all the changes described above [here](completed_inlists/inlist_project3)
 , so you can continue with limited delay. Be sure to rename *inlist_project3* to *inlist_project*! You can also find the
-[completed inlist pgstar here](/monday/lab-1/completed_inlists/inlist_pgstar),
-the [completed history columns list here](/monday/lab-1/completed_inlists/my_history_columns.list),
-and the [completed profile columns list here](/monday/lab-1/completed_inlists/my_profile_columns.list).
+[completed inlist pgstar here](completed_inlists/inlist_pgstar),
+the [completed history columns list here](completed_inlists/my_history_columns.list),
+and the [completed profile columns list here](completed_inlists/my_profile_columns.list).
 
 
 #### Bonus Task -- Movies
@@ -706,7 +706,7 @@ From this final line, **record the following values in the second page of**
 These values will allow us to analyze how different overshooting parameters affect stellar evolution.
 
 If you got stuck and cannot get your inlist to run, you can find
-a functional inlist with all the changes described above [here](/monday/lab-1/completed_inlists/inlist_project4)
+a functional inlist with all the changes described above [here](completed_inlists/inlist_project4)
 , so you can continue with limited delay. Be sure to rename *inlist_project4* to *inlist_project*! You will still have to update the parameters
 and output filenames and directory according to your parameter set though. Ask your
 TA for assistance with that.

@@ -180,7 +180,7 @@ Don't worry if your run has finished before you grasped the content of the plots
 |1. Modify the name of this file in order to not be rewritten in the next runs, for e.g. `grid1000200_0.2_nuvisc1d5.png`.|
 
 At the end of your run your pgstar plot should look like this.
-![pgplot](/tuesday/lab1_grid1000495.png)
+![pgplot](../lab1_grid1000495.png)
 
 
 ## The effect of rotation on the surface parameters
